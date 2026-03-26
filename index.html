@@ -13,7 +13,7 @@
             background: #1a1a1a;
             height: 70px;
             display: flex;
-            justify-content: space-between; /* Pour écarter le texte à gauche et le menu à droite */
+            justify-content: flex-end; /* Pour écarter le menu à droite */
             align-items: center;
             padding: 0 5%;
             position: relative;
@@ -21,14 +21,19 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.4);
         }
 
-        /* TEXTE BIENVENUE DANS LE BANDEAU NOIR */
-        .welcome-text {
+        /* TEXTE BIENVENUE TRÈS GROS, À DROITE DU LOGO */
+        .welcome-title {
+            position: absolute;
+            top: 10px; /* Aligné avec le haut du logo */
+            left: 310px; /* Placé juste après le logo de 300px */
             color: #f0f0f0; /* Blanc cassé très clair */
-            font-size: 1.4rem;
+            font-size: 4.5rem; /* TAILLE MAXIMALE POUR VISIBILITÉ */
             font-weight: 300;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-left: 20px; /* Espace par rapport au bord gauche */
+            margin: 0;
+            z-index: 200;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); /* Pour bien se détacher sur le paysage */
         }
 
         .nav-link {
@@ -43,11 +48,11 @@
         }
         .nav-link:hover { color: #8ec63f; }
 
-        /* LE BLASON (LOGO) - TAILLE 300PX */
+        /* LE BLASON (LOGO) - TAILLE 300PX, FLOTTE SANS FOND */
         .logo-box {
             position: absolute;
             top: 10px;
-            left: 280px; /* Placé juste après le texte de bienvenue */
+            left: 5px; /* Placé tout à gauche */
             z-index: 200;
             width: 300px;
             filter: drop-shadow(0 8px 25px rgba(0,0,0,0.5));
@@ -94,15 +99,19 @@
         /* ADAPTATION MOBILE (XIAOMI 14T PRO) */
         @media (max-width: 1024px) {
             .logo-box { left: 5%; width: 200px; top: 40px; }
-            .welcome-text { display: none; } /* On cache le texte sur mobile pour laisser place au logo */
+            .welcome-title { display: none; } /* On cache le texte sur mobile pour laisser place au logo */
         }
     </style>
 </head>
 <body>
 
+    <div class="logo-box">
+        <a href="/">
+            <img src="blason.png" alt="Blason de Boisset">
+        </a>
+    </div>
+
     <header class="top-header">
-        <div class="welcome-text">Bienvenue à Boisset</div>
-        
         <nav>
             <a href="#" class="nav-link">La Mairie</a>
             <a href="#" class="nav-link">Vie Locale</a>
@@ -111,11 +120,7 @@
         </nav>
     </header>
 
-    <div class="logo-box">
-        <a href="/">
-            <img src="blason.png" alt="Blason de Boisset">
-        </a>
-    </div>
+    <h1 class="welcome-title">Bienvenue à Boisset</h1>
 
     <section class="hero-section">
         <div class="skew-bar"></div>
