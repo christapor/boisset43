@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boisset (43) - Officiel</title>
+    <title>Boisset (43) - Site Officiel de la Commune</title>
     <style>
-        /* BASE & POLICE */
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fdfdfd; color: #333; overflow-x: hidden; }
+        /* CONFIGURATION GÉNÉRALE */
+        body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fdfdfd; color: #333; overflow-x: hidden; }
         
-        /* HEADER NOIR */
+        /* BARRE DE NAVIGATION NOIRE */
         .top-header {
             background: #1a1a1a;
             height: 70px;
@@ -18,7 +18,7 @@
             padding: 0 5%;
             position: relative;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.4);
         }
 
         .nav-link {
@@ -33,72 +33,70 @@
         }
         .nav-link:hover { color: #8ec63f; }
 
-        /* LE BLASON (LOGO) AVEC ANGLES ARRONDIS */
+        /* LE BLASON (LOGO) - FLOTTE SANS FOND */
         .logo-box {
             position: absolute;
-            top: 0; left: 8%;
-            background: white;
-            padding: 10px; /* Moins d'espace pour un look plus compact */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            top: 5px; /* Décalé un peu du haut */
+            left: 8%;
             z-index: 200;
-            width: 120px;
-            text-align: center;
-            border-bottom-left-radius: 10px; /* Angles bien arrondis */
-            border-bottom-right-radius: 10px;
-            border: 1px solid #eee; /* Un liseré très fin */
+            width: 150px; /* Taille idéale pour ton blason */
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); /* Ombre portée douce */
         }
         .logo-box img { 
             width: 100%; 
             height: auto; 
             display: block; 
-            mix-blend-mode: multiply; /* Tente de rendre le blanc transparent */
         }
 
-        /* SECTION HERO (IMAGE + OBLIQUE) */
+        /* SECTION IMAGE DE FOND (HERO) */
         .hero-section {
             position: relative;
-            height: 480px;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+            height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
                         url('https://www.ville-boisset.fr/wp-content/uploads/2021/01/fond-entete.jpg') center/cover no-repeat;
             border-bottom: 15px solid #8ec63f;
         }
 
+        /* BARRE VERTE OBLIQUE */
         .skew-bar {
             background: #8ec63f;
-            height: 60px;
+            height: 70px;
             width: 110%;
             position: absolute;
-            bottom: -35px;
+            bottom: -40px;
             left: -5%;
             transform: rotate(-2deg);
             z-index: 50;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        /* CONTENU PRINCIPAL */
+        /* ZONE DE TEXTE PRINCIPALE */
         .container {
             max-width: 1000px;
-            margin: 100px auto 60px;
+            margin: 120px auto 80px;
             padding: 0 20px;
             text-align: center;
         }
 
-        h1 { color: #214316; font-size: 2.8rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: -1px; }
-        .decoration { width: 80px; height: 5px; background: #8ec63f; margin: 25px auto; border-radius: 2px; }
-        .intro-text { font-size: 1.4rem; color: #555; line-height: 1.6; font-weight: 300; }
+        h1 { color: #214316; font-size: 3rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: -1px; }
+        .decoration { width: 80px; height: 6px; background: #8ec63f; margin: 30px auto; border-radius: 3px; }
+        .intro-text { font-size: 1.5rem; color: #555; line-height: 1.6; font-weight: 300; max-width: 700px; margin: 0 auto; }
 
-        /* RESPONSIVE */
+        /* ADAPTATION MOBILE (XIAOMI 14T PRO) */
         @media (max-width: 768px) {
-            .nav-link { display: none; }
-            h1 { font-size: 2rem; }
-            .logo-box { width: 100px; left: 5%; }
+            .nav-link { font-size: 11px; margin-left: 15px; }
+            h1 { font-size: 2.2rem; }
+            .logo-box { width: 110px; left: 5%; }
+            .hero-section { height: 350px; }
         }
     </style>
 </head>
 <body>
 
     <div class="logo-box">
-        <img src="blason-propre.png" alt="Blason de Boisset">
+        <a href="/">
+            <img src="blason.png" alt="Blason de Boisset">
+        </a>
     </div>
 
     <header class="top-header">
@@ -118,8 +116,8 @@
         <h1>Bienvenue à Boisset</h1>
         <div class="decoration"></div>
         <p class="intro-text">
-            Le nouveau portail officiel de la commune.<br>
-            <strong>Nature, Patrimoine et Proximité.</strong>
+            Découvrez le nouveau portail officiel de notre commune.<br>
+            <strong>Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
         </p>
     </main>
 
