@@ -33,14 +33,14 @@
         }
         .nav-link:hover { color: #8ec63f; }
 
-        /* LE BLASON (LOGO) - FLOTTE SANS FOND */
+        /* LE BLASON (LOGO) - TAILLE DOUBLE (100% plus grand) */
         .logo-box {
             position: absolute;
-            top: 5px; /* Décalé un peu du haut */
+            top: 10px; /* Un peu décalé pour un look pro */
             left: 8%;
             z-index: 200;
-            width: 150px; /* Taille idéale pour ton blason */
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); /* Ombre portée douce */
+            width: 300px; /* C'est 2x la taille précédente (150px x 2) */
+            filter: drop-shadow(0 8px 25px rgba(0,0,0,0.4)); /* Ombre portée plus marquée */
         }
         .logo-box img { 
             width: 100%; 
@@ -48,10 +48,10 @@
             display: block; 
         }
 
-        /* SECTION IMAGE DE FOND (HERO) */
+        /* SECTION IMAGE DE FOND (HERO) - AGRANDIE POUR LE LOGO */
         .hero-section {
             position: relative;
-            height: 500px;
+            height: 550px; /* Plus haute pour que le blason "respire" */
             background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
                         url('https://www.ville-boisset.fr/wp-content/uploads/2021/01/fond-entete.jpg') center/cover no-repeat;
             border-bottom: 15px solid #8ec63f;
@@ -73,21 +73,22 @@
         /* ZONE DE TEXTE PRINCIPALE */
         .container {
             max-width: 1000px;
-            margin: 120px auto 80px;
+            margin: 140px auto 100px; /* Plus d'espace en haut pour le gros logo */
             padding: 0 20px;
             text-align: center;
         }
 
-        h1 { color: #214316; font-size: 3rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: -1px; }
-        .decoration { width: 80px; height: 6px; background: #8ec63f; margin: 30px auto; border-radius: 3px; }
-        .intro-text { font-size: 1.5rem; color: #555; line-height: 1.6; font-weight: 300; max-width: 700px; margin: 0 auto; }
+        h1 { color: #214316; font-size: 3.2rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: -1px; }
+        .decoration { width: 100px; height: 6px; background: #8ec63f; margin: 35px auto; border-radius: 3px; }
+        .intro-text { font-size: 1.6rem; color: #555; line-height: 1.6; font-weight: 300; max-width: 750px; margin: 0 auto; }
 
         /* ADAPTATION MOBILE (XIAOMI 14T PRO) */
         @media (max-width: 768px) {
             .nav-link { font-size: 11px; margin-left: 15px; }
             h1 { font-size: 2.2rem; }
-            .logo-box { width: 110px; left: 5%; }
-            .hero-section { height: 350px; }
+            .logo-box { width: 200px; left: 5%; } /* Taille mobile aussi plus grande */
+            .hero-section { height: 400px; }
+            .container { margin: 100px auto 80px; }
         }
     </style>
 </head>
