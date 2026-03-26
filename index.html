@@ -8,17 +8,34 @@
         /* CONFIGURATION GÉNÉRALE */
         body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fdfdfd; color: #333; overflow-x: hidden; }
         
-        /* BARRE DE NAVIGATION NOIRE (REVENUE À 70PX) */
+        /* BARRE DE NAVIGATION NOIRE AGRANDIE (120px) */
         .top-header {
             background: #1a1a1a;
-            height: 70px;
+            height: 120px; /* Plus haut pour contenir le gros texte */
             display: flex;
             justify-content: flex-end; 
             align-items: center;
             padding: 0 5%;
             position: relative;
             z-index: 100;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* TEXTE BIENVENUE AJUSTÉ : JUSTE À DROITE DU BLASON, TRÈS GRAS */
+        .welcome-title {
+            position: absolute;
+            top: 50%; /* Centrage vertical dans le bandeau */
+            transform: translateY(-50%);
+            left: 330px; /* Juste après le blason (qui fait 300px) + un petit espace */
+            color: #f8f8f8; /* Blanc très pur */
+            font-size: 3.8rem; /* Un peu moins gros pour ne pas déborder */
+            font-weight: 900; /* CARACTÈRES TRÈS GRAS */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            z-index: 200;
+            white-space: nowrap; /* Empêche le texte de revenir à la ligne */
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
         }
 
         .nav-link {
@@ -33,14 +50,14 @@
         }
         .nav-link:hover { color: #8ec63f; }
 
-        /* LE BLASON (LOGO) - DÉCALÉ À DROITE POUR NE PLUS ÊTRE DANS LE VIDE */
+        /* LE BLASON (LOGO) - REPOSITIONNÉ POUR NE PAS ÊTRE COUPÉ */
         .logo-box {
             position: absolute;
             top: 10px;
-            left: 80px; /* Poussé à droite pour être stable sur la zone grise */
-            z-index: 200;
+            left: 20px; /* Décalé du bord gauche */
+            z-index: 210;
             width: 300px;
-            filter: drop-shadow(0 8px 25px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 8px 25px rgba(0,0,0,0.6));
         }
         .logo-box img { 
             width: 100%; 
@@ -70,7 +87,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        /* ZONE DE TEXTE PRINCIPALE (SOUS L'IMAGE) */
+        /* ZONE DE TEXTE PRINCIPALE */
         .container {
             max-width: 1000px;
             margin: 100px auto 100px;
@@ -78,30 +95,26 @@
             text-align: center;
         }
 
-        /* TITRE BIENVENUE EN NOIR, CENTRÉ SOUS LE BANDEAU */
-        h1 {
-            color: #1a1a1a; /* Noir comme le bandeau */
-            font-size: 3.5rem;
-            text-transform: uppercase;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 0;
-            margin-top: 0;
-        }
-
         .decoration { width: 100px; height: 6px; background: #8ec63f; margin: 35px auto; border-radius: 3px; }
         .intro-text { font-size: 1.8rem; color: #214316; line-height: 1.6; font-weight: 400; max-width: 850px; margin: 0 auto; }
 
-        /* ADAPTATION MOBILE */
-        @media (max-width: 1024px) {
-            .logo-box { left: 5%; width: 200px; top: 40px; }
-            h1 { font-size: 2.5rem; }
+        /* ADAPTATION MOBILE (XIAOMI 14T PRO) */
+        @media (max-width: 1200px) {
+            .welcome-title { font-size: 2.8rem; left: 240px; }
+            .logo-box { width: 200px; }
+        }
+        @media (max-width: 850px) {
+            .welcome-title { display: none; } /* Cache le texte sur mobile */
+            .top-header { height: 80px; }
+            .logo-box { width: 120px; top: 5px; }
         }
     </style>
 </head>
 <body>
 
     <header class="top-header">
+        <h1 class="welcome-title">Bienvenue à Boisset</h1>
+        
         <nav>
             <a href="#" class="nav-link">La Mairie</a>
             <a href="#" class="nav-link">Vie Locale</a>
@@ -121,8 +134,6 @@
     </section>
 
     <main class="container">
-        <h1>Bienvenue à Boisset</h1>
-        
         <div class="decoration"></div>
         <p class="intro-text">
             Découvrez le nouveau portail officiel de notre commune.<br>
