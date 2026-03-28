@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boisset (43) - Site Officiel de la Commune</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a1a">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alloboisset.fr/">
+    <meta property="og:title" content="AlloBoisset - Covoiturage et services à Boisset">
+    <meta property="og:description" content="Le site officiel pour faciliter vos déplacements et services dans la commune de Boisset (43).">
+    <meta property="og:image" content="https://alloboisset.fr/og-image.jpg">
+
     <style>
-        /* CONFIGURATION GÉNÉRALE */
+        /* TON STYLE RESTE ICI - INCHANGÉ */
         body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fdfdfd; color: #333; overflow-x: hidden; }
         
-        /* BARRE DE NAVIGATION NOIRE AGRANDIE (120px) */
         .top-header {
             background: #1a1a1a;
-            height: 120px; /* Plus haut pour contenir le gros texte */
+            height: 120px;
             display: flex;
             justify-content: flex-end; 
             align-items: center;
@@ -21,20 +32,19 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
-        /* TEXTE BIENVENUE AJUSTÉ : JUSTE À DROITE DU BLASON, TRÈS GRAS */
         .welcome-title {
             position: absolute;
-            top: 50%; /* Centrage vertical dans le bandeau */
+            top: 50%;
             transform: translateY(-50%);
-            left: 330px; /* Juste après le blason (qui fait 300px) + un petit espace */
-            color: #f8f8f8; /* Blanc très pur */
-            font-size: 3.8rem; /* Un peu moins gros pour ne pas déborder */
-            font-weight: 900; /* CARACTÈRES TRÈS GRAS */
+            left: 330px;
+            color: #f8f8f8;
+            font-size: 3.8rem;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin: 0;
             z-index: 200;
-            white-space: nowrap; /* Empêche le texte de revenir à la ligne */
+            white-space: nowrap;
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
         }
 
@@ -50,11 +60,10 @@
         }
         .nav-link:hover { color: #8ec63f; }
 
-        /* LE BLASON (LOGO) - REPOSITIONNÉ POUR NE PAS ÊTRE COUPÉ */
         .logo-box {
             position: absolute;
             top: 10px;
-            left: 20px; /* Décalé du bord gauche */
+            left: 20px;
             z-index: 210;
             width: 300px;
             filter: drop-shadow(0 8px 25px rgba(0,0,0,0.6));
@@ -65,7 +74,6 @@
             display: block; 
         }
 
-        /* SECTION IMAGE DE FOND (HERO) */
         .hero-section {
             position: relative;
             height: 500px;
@@ -74,7 +82,6 @@
             border-bottom: 15px solid #8ec63f;
         }
 
-        /* BARRE VERTE OBLIQUE */
         .skew-bar {
             background: #8ec63f;
             height: 70px;
@@ -87,7 +94,6 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        /* ZONE DE TEXTE PRINCIPALE */
         .container {
             max-width: 1000px;
             margin: 100px auto 100px;
@@ -98,13 +104,12 @@
         .decoration { width: 100px; height: 6px; background: #8ec63f; margin: 35px auto; border-radius: 3px; }
         .intro-text { font-size: 1.8rem; color: #214316; line-height: 1.6; font-weight: 400; max-width: 850px; margin: 0 auto; }
 
-        /* ADAPTATION MOBILE (XIAOMI 14T PRO) */
         @media (max-width: 1200px) {
             .welcome-title { font-size: 2.8rem; left: 240px; }
             .logo-box { width: 200px; }
         }
         @media (max-width: 850px) {
-            .welcome-title { display: none; } /* Cache le texte sur mobile */
+            .welcome-title { display: none; }
             .top-header { height: 80px; }
             .logo-box { width: 120px; top: 5px; }
         }
