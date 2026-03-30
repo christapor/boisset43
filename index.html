@@ -11,15 +11,23 @@
     <meta name="theme-color" content="#1a1a1a">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alloboisset.fr/">
-    <meta property="og:title" content="AlloBoisset - Covoiturage et services à Boisset">
-    <meta property="og:description" content="Le site officiel pour faciliter vos déplacements et services dans la commune de Boisset (43).">
-    <meta property="og:image" content="https://alloboisset.fr/og-image.jpg">
+    <meta property="og:url" content="https://boisset43.fr/">
+    <meta property="og:title" content="Mairie de Boisset - Site Officiel">
+    <meta property="og:description" content="Le portail officiel de la commune de Boisset (43). Retrouvez les actualités, services et démarches en ligne.">
+    <meta property="og:image" content="https://boisset43.fr/og-image.jpg">
 
     <style>
-        /* TON STYLE RESTE ICI - INCHANGÉ */
-        body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fdfdfd; color: #333; overflow-x: hidden; }
+        /* BASE & TYPO */
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background: #fdfdfd; 
+            color: #333; 
+            overflow-x: hidden; 
+            line-height: 1.6;
+        }
         
+        /* HEADER */
         .top-header {
             background: #1a1a1a;
             height: 120px;
@@ -74,6 +82,7 @@
             display: block; 
         }
 
+        /* HERO SECTION */
         .hero-section {
             position: relative;
             height: 500px;
@@ -94,16 +103,153 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
+        /* QUICK LINKS (Cartes flottantes) */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: -60px auto 80px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 60;
+        }
+
+        .link-card {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            border-bottom: 5px solid #8ec63f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .link-card span { font-size: 2.5rem; }
+
+        .link-card:hover {
+            transform: translateY(-10px);
+            background: #f9f9f9;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+        }
+
+        /* MAIN CONTENT */
         .container {
-            max-width: 1000px;
-            margin: 100px auto 100px;
+            max-width: 1100px;
+            margin: 0 auto 100px;
             padding: 0 20px;
             text-align: center;
         }
 
         .decoration { width: 100px; height: 6px; background: #8ec63f; margin: 35px auto; border-radius: 3px; }
-        .intro-text { font-size: 1.8rem; color: #214316; line-height: 1.6; font-weight: 400; max-width: 850px; margin: 0 auto; }
+        
+        .intro-text { 
+            font-size: 1.8rem; 
+            color: #214316; 
+            line-height: 1.4; 
+            font-weight: 400; 
+            max-width: 850px; 
+            margin: 0 auto 80px; 
+        }
 
+        .section-title {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 900;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: "";
+            width: 50%;
+            height: 4px;
+            background: #8ec63f;
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+        }
+
+        /* NEWS GRID */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .news-item {
+            background: white;
+            text-align: left;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .news-item:hover { transform: scale(1.02); }
+
+        .news-img {
+            width: 100%;
+            height: 220px;
+            background: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-content { padding: 25px; }
+        .news-content h3 { margin: 0 0 12px 0; color: #1a1a1a; font-size: 1.4rem; }
+        .news-content p { color: #666; font-size: 0.95rem; margin-bottom: 20px; }
+        
+        .read-more {
+            color: #8ec63f;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 80px 0 40px;
+            margin-top: 100px;
+            border-top: 10px solid #8ec63f;
+        }
+        
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .footer-content h3 { color: white; margin-bottom: 25px; text-transform: uppercase; font-size: 1.1rem; }
+        .footer-content p { margin: 8px 0; font-size: 0.95rem; }
+        .footer-link { color: #8ec63f; text-decoration: none; display: block; margin-bottom: 10px; }
+
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            font-size: 0.8rem;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 1200px) {
             .welcome-title { font-size: 2.8rem; left: 240px; }
             .logo-box { width: 200px; }
@@ -112,6 +258,9 @@
             .welcome-title { display: none; }
             .top-header { height: 80px; }
             .logo-box { width: 120px; top: 5px; }
+            .hero-section { height: 350px; }
+            .quick-links { margin-top: -30px; }
+            .intro-text { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -138,13 +287,81 @@
         <div class="skew-bar"></div>
     </section>
 
+    <section class="quick-links">
+        <a href="#" class="link-card"><span>🏛️</span>Mairie & Démarches</a>
+        <a href="#" class="link-card"><span>♻️</span>Déchets & Environnement</a>
+        <a href="#" class="link-card"><span>🏡</span>Urbanisme & Travaux</a>
+        <a href="#" class="link-card"><span>📅</span>Agenda Municipal</a>
+    </section>
+
     <main class="container">
         <div class="decoration"></div>
         <p class="intro-text">
-            Découvrez le nouveau portail officiel de notre commune.<br>
+            Le portail officiel de notre commune.<br>
             <strong>Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
         </p>
+
+        <section id="news-section">
+            <h2 class="section-title">Actualités Récentes</h2>
+            <div class="news-grid">
+                
+                <article class="news-item">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="news-content">
+                        <h3>Vœux du Maire 2026</h3>
+                        <p>Monsieur le Maire et l'ensemble du conseil municipal vous invitent à la traditionnelle cérémonie des vœux...</p>
+                        <a href="#" class="read-more">En savoir plus →</a>
+                    </div>
+                </article>
+
+                <article class="news-item">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1516216628859-9bccecab13ca?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="news-content">
+                        <h3>Plan Local d'Urbanisme</h3>
+                        <p>La concertation publique concernant la révision du PLU est ouverte. Venez consulter les documents en mairie.</p>
+                        <a href="#" class="read-more">Consulter le dossier →</a>
+                    </div>
+                </article>
+
+                <article class="news-item">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1503437311481-584b9328e0c3?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="news-content">
+                        <h3>Collecte des déchets</h3>
+                        <p>Suite aux jours fériés, le calendrier de ramassage des bacs jaunes est décalé pour la semaine prochaine.</p>
+                        <a href="#" class="read-more">Voir le calendrier →</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
     </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>📍 Mairie de Boisset</h3>
+                <p>Le Bourg<br>43500 Boisset, France</p>
+                <p>📞 04 71 XX XX XX</p>
+                <p>✉️ mairie@boisset43.fr</p>
+            </div>
+            <div>
+                <h3>⏰ Horaires d'accueil</h3>
+                <p>Lundi : 14h00 - 17h00</p>
+                <p>Jeudi : 09h00 - 12h00</p>
+                <p>Permanence des élus sur RDV.</p>
+            </div>
+            <div>
+                <h3>🔗 Liens Rapides</h3>
+                <a href="#" class="footer-link">Mentions Légales</a>
+                <a href="#" class="footer-link">Accessibilité</a>
+                <a href="#" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">Allô Boisset (Covoiturage)</a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 Commune de Boisset (Haute-Loire) - Réalisé avec soin.
+        </div>
+    </footer>
 
 </body>
 </html>
