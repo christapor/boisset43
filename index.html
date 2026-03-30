@@ -10,6 +10,8 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a1a1a">
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
         /* BASE & TYPO */
         body { 
@@ -127,7 +129,7 @@
         .link-card span { font-size: 2.5rem; }
         .link-card:hover { transform: translateY(-10px); background: #f9f9f9; }
 
-        /* SECTIONS & CONTAINERS */
+        /* CONTAINERS */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; text-align: center; }
         .decoration { width: 100px; height: 6px; background: #8ec63f; margin: 35px auto; border-radius: 3px; }
         .section-padding { padding: 80px 0; border-bottom: 1px solid #eee; }
@@ -146,7 +148,7 @@
             position: absolute; bottom: -10px; left: 25%;
         }
 
-        /* VIE LOCALE GRID */
+        /* DIRECTORY GRID (DYNAMIC) */
         .directory-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -162,7 +164,6 @@
             border-left: 5px solid #8ec63f;
             transition: 0.3s;
         }
-        .directory-card:hover { transform: translateX(10px); }
         .category-tag {
             display: inline-block;
             background: #214316;
@@ -174,16 +175,33 @@
             font-weight: 700;
             margin-bottom: 10px;
         }
-        .directory-card h3 { margin: 0 0 10px 0; color: #1a1a1a; }
-        .directory-card p { font-size: 0.9rem; color: #666; margin-bottom: 15px; }
-        .directory-contact { font-weight: 700; font-size: 0.85rem; color: #333; }
+
+        /* TABLE STYLE (HORAIRES) */
+        .schedule-table {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: left;
+        }
+        .schedule-table td {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .schedule-table tr:last-child td { border-bottom: none; }
+        .schedule-table td:first-child { font-weight: 700; color: #1a1a1a; width: 40%; }
+        .schedule-table td:last-child { color: #214316; font-weight: 600; text-align: right; }
+        .closed-day { color: #999 !important; font-style: italic; font-weight: 400 !important; }
 
         /* FOOTER */
         footer {
             background: #1a1a1a;
             color: #ccc;
             padding: 80px 0 40px;
-            margin-top: 0;
             border-top: 10px solid #8ec63f;
         }
         .footer-content {
@@ -224,9 +242,9 @@
 
     <section class="quick-links">
         <a href="#mairie" class="link-card"><span>🏛️</span>Mairie & Démarches</a>
-        <a href="#vie-locale" class="link-card"><span>🤝</span>Associations & Commerces</a>
-        <a href="#" class="link-card"><span>🏡</span>Urbanisme & Travaux</a>
-        <a href="#" class="link-card"><span>📅</span>Agenda Municipal</a>
+        <a href="#vie-locale" class="link-card"><span>🤝</span>Vie Locale</a>
+        <a href="#" class="link-card"><span>🏡</span>Urbanisme</a>
+        <a href="#" class="link-card"><span>📅</span>Agenda</a>
     </section>
 
     <main class="container">
@@ -236,74 +254,38 @@
             <strong>Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
         </p>
 
+        <section id="mairie" class="section-padding">
+            <h2 class="section-title">La Mairie</h2>
+            <div style="max-width: 800px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; text-align: left;">
+                
+                <div style="flex: 1; min-width: 300px;">
+                    <h3>Horaires du Secrétariat</h3>
+                    <p>Le secrétariat vous accueille pour toutes vos démarches administratives aux horaires suivants :</p>
+                    <table class="schedule-table">
+                        <tr><td>Lundi</td><td>09h - 12h</td></tr>
+                        <tr><td>Mardi</td><td>14h - 18h</td></tr>
+                        <tr><td>Mercredi</td><td class="closed-day">Fermé</td></tr>
+                        <tr><td>Jeudi</td><td>09h - 12h</td></tr>
+                        <tr><td>Vendredi</td><td class="closed-day">Fermé</td></tr>
+                        <tr><td>Samedi</td><td>14h - 16h</td></tr>
+                    </table>
+                </div>
+
+                <div style="flex: 1; min-width: 300px;">
+                    <h3>Coordonnées</h3>
+                    <p>📍 <strong>Adresse :</strong> Le Bourg, 43500 Boisset</p>
+                    <p>📞 <strong>Téléphone :</strong> 04.71.61.32.66</p>
+                    <p>✉️ <strong>Email :</strong> <a href="mailto:mairie.boisset@wanadoo.fr" style="color: #214316; font-weight: 700;">mairie.boisset@wanadoo.fr</a></p>
+                    <br>
+                    <a href="https://www.service-public.fr" target="_blank" style="display: inline-block; background: #8ec63f; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 700;">Portail Service-Public.fr →</a>
+                </div>
+            </div>
+        </section>
+
         <section id="vie-locale" class="section-padding">
             <h2 class="section-title">Vie Locale & Annuaire</h2>
-            <p style="max-width: 700px; margin: -20px auto 50px;">Retrouvez ici les acteurs qui font bouger notre village : associations, commerces et services de proximité.</p>
-            
-            <div class="directory-grid">
-                <div class="directory-card">
-                    <span class="category-tag">Association</span>
-                    <h3>Comité des Fêtes</h3>
-                    <p>Organisation des événements annuels, de la fête patronale et des animations du village.</p>
-                    <div class="directory-contact">📞 Contact : Mairie de Boisset</div>
-                </div>
-
-                <div class="directory-card">
-                    <span class="category-tag">Association</span>
-                    <h3>Club des Aînés</h3>
-                    <p>Rencontres, sorties et activités conviviales pour nos seniors.</p>
-                    <div class="directory-contact">📅 Réunion tous les mardis</div>
-                </div>
-
-                <div class="directory-card">
-                    <span class="category-tag">Commerce</span>
-                    <h3>Commerces de Proximité</h3>
-                    <p>Découvrez les producteurs locaux et commerces itinérants qui desservent la commune.</p>
-                    <div class="directory-contact">📍 Voir affichage en Mairie</div>
-                </div>
-
-                <div class="directory-card" style="border-left-color: #214316;">
-                    <span class="category-tag" style="background: #8ec63f; color: #1a1a1a;">Éducation</span>
-                    <h3>École de Boisset</h3>
-                    <p>Le groupe scolaire accueille les enfants de la commune. Cantine et garderie disponibles.</p>
-                    <div class="directory-contact">📞 04.71.XX.XX.XX</div>
-                </div>
-
-                <div class="directory-card" style="border-left-color: #214316;">
-                    <span class="category-tag" style="background: #8ec63f; color: #1a1a1a;">Services</span>
-                    <h3>Bibliothèque Municipale</h3>
-                    <p>Un large choix d'ouvrages pour petits et grands. Accès gratuit pour les résidents.</p>
-                    <div class="directory-contact">⏰ Mercredi : 14h - 16h</div>
-                </div>
-
-                <div class="directory-card" style="border-left-color: #214316;">
-                    <span class="category-tag" style="background: #8ec63f; color: #1a1a1a;">Services</span>
-                    <h3>Agence Postale</h3>
-                    <p>Pour vos envois de courriers, colis et opérations financières de base.</p>
-                    <div class="directory-contact">📍 Située à la Mairie</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="mairie" class="section-padding">
-            <h2 class="section-title">La Mairie & Vos Démarches</h2>
-            <div style="text-align: left; max-width: 800px; margin: 0 auto; background: #f1f1f1; padding: 40px; border-radius: 15px;">
-                <p><strong>Secrétariat ouvert :</strong> Lun 9-12h, Mar 14-18h, Jeu 9-12h, Sam 14-16h.</p>
-                <a href="https://www.service-public.fr" target="_blank" style="color:#214316; font-weight: 700;">Accéder au portail Service-Public.fr →</a>
-            </div>
-        </section>
-
-        <section id="news-section" class="section-padding" style="border-bottom: none;">
-            <h2 class="section-title">Actualités</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; text-align: left;">
-                <article style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
-                    <div style="height: 200px; background: #eee; background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80'); background-size: cover;"></div>
-                    <div style="padding: 25px;">
-                        <h3>Vœux du Maire 2026</h3>
-                        <p style="color: #666; font-size: 0.9rem;">Rejoignez-nous pour la cérémonie annuelle...</p>
-                        <a href="#" style="color:#8ec63f; font-weight:700; text-decoration:none;">Lire la suite →</a>
-                    </div>
-                </article>
+            <div id="directory-container" class="directory-grid">
+                <p>Chargement des informations...</p>
             </div>
         </section>
     </main>
@@ -318,19 +300,63 @@
             </div>
             <div>
                 <h3>⏰ Horaires</h3>
-                <p>Lun : 9h-12h | Mar : 14h-18h</p>
-                <p>Jeu : 9h-12h | Sam : 14h-16h</p>
+                <table class="schedule-table" style="max-width: 250px; margin: 0; background: transparent; color: #ccc; box-shadow: none;">
+                    <tr style="border-bottom: 1px solid #333;"><td style="color: white; padding: 5px 0;">Lun / Jeu</td><td style="color: white; padding: 5px 0;">09h - 12h</td></tr>
+                    <tr style="border-bottom: 1px solid #333;"><td style="color: white; padding: 5px 0;">Mardi</td><td style="color: white; padding: 5px 0;">14h - 18h</td></tr>
+                    <tr style="border-bottom: none;"><td style="color: white; padding: 5px 0;">Samedi</td><td style="color: white; padding: 5px 0;">14h - 16h</td></tr>
+                </table>
             </div>
             <div>
-                <h3>🔗 Liens</h3>
-                <a href="https://alloboisset.fr" target="_blank" style="color:#8ec63f; text-decoration:none;">AlloBoisset (Covoiturage)</a><br>
+                <h3>🔗 Liens utiles</h3>
+                <a href="https://alloboisset.fr" target="_blank" style="color:#8ec63f; text-decoration:none;">AlloBoisset (Covoiturage)</a><br><br>
                 <a href="#" style="color:#8ec63f; text-decoration:none;">Mentions Légales</a>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 60px; border-top: 1px solid #333; padding-top: 30px; font-size: 0.8rem;">
+        <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid #333; font-size: 0.8rem;">
             &copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.
         </div>
     </footer>
+
+    <script>
+        const SUPABASE_URL = 'TON_URL_SUPABASE';
+        const SUPABASE_KEY = 'TA_CLE_ANON_SUPABASE';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function loadDirectory() {
+            const container = document.getElementById('directory-container');
+            try {
+                const { data, error } = await supabaseClient
+                    .from('local_directory')
+                    .select('*')
+                    .order('name', { ascending: true });
+
+                if (error) throw error;
+                container.innerHTML = '';
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p>Aucune information répertoriée pour le moment.</p>';
+                    return;
+                }
+
+                data.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'directory-card';
+                    card.innerHTML = `
+                        <span class="category-tag">${item.category}</span>
+                        <h3>${item.name}</h3>
+                        <p>${item.description || ''}</p>
+                        <div style="font-weight:700; font-size:0.85rem; margin-top:10px;">📞 ${item.contact_info || 'Contact en Mairie'}</div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                console.error("Erreur:", err.message);
+                container.innerHTML = `<p style="color:red">Erreur de chargement des données.</p>`;
+            }
+        }
+
+        loadDirectory();
+    </script>
 
 </body>
 </html>
