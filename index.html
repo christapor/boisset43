@@ -130,7 +130,7 @@
         /* SECTIONS & CONTAINERS */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; text-align: center; }
         .decoration { width: 100px; height: 6px; background: #8ec63f; margin: 35px auto; border-radius: 3px; }
-        .section-padding { padding: 100px 0; }
+        .section-padding { padding: 80px 0; border-bottom: 1px solid #eee; }
         
         .section-title {
             font-size: 2.5rem;
@@ -146,56 +146,44 @@
             position: absolute; bottom: -10px; left: 25%;
         }
 
-        /* ÉQUIPE MUNICIPALE */
-        .council-grid {
+        /* VIE LOCALE GRID */
+        .directory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 40px;
-        }
-        .member-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-        }
-        .member-card h4 { margin: 10px 0 5px 0; color: #214316; }
-        .member-card p { font-size: 0.85rem; color: #666; margin: 0; font-weight: 700; }
-
-        /* DÉMARCHES LIST */
-        .steps-list {
             text-align: left;
-            max-width: 800px;
-            margin: 0 auto;
-            background: #f1f1f1;
-            padding: 40px;
+        }
+        .directory-card {
+            background: white;
             border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-left: 5px solid #8ec63f;
+            transition: 0.3s;
         }
-        .step-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .step-item:last-child { border-bottom: none; }
-        .btn-external {
-            background: #8ec63f;
+        .directory-card:hover { transform: translateX(10px); }
+        .category-tag {
+            display: inline-block;
+            background: #214316;
             color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
             font-weight: 700;
-            font-size: 0.8rem;
+            margin-bottom: 10px;
         }
+        .directory-card h3 { margin: 0 0 10px 0; color: #1a1a1a; }
+        .directory-card p { font-size: 0.9rem; color: #666; margin-bottom: 15px; }
+        .directory-contact { font-weight: 700; font-size: 0.85rem; color: #333; }
 
         /* FOOTER */
         footer {
             background: #1a1a1a;
             color: #ccc;
             padding: 80px 0 40px;
-            margin-top: 100px;
+            margin-top: 0;
             border-top: 10px solid #8ec63f;
         }
         .footer-content {
@@ -206,11 +194,10 @@
             gap: 50px;
             padding: 0 20px;
         }
-        .footer-contact { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
 
         /* RESPONSIVE */
         @media (max-width: 1200px) { .welcome-title { font-size: 2.8rem; left: 240px; } .logo-box { width: 200px; } }
-        @media (max-width: 850px) { .welcome-title { display: none; } .top-header { height: 80px; } .logo-box { width: 120px; } .hero-section { height: 350px; } }
+        @media (max-width: 850px) { .welcome-title { display: none; } .top-header { height: 80px; } .logo-box { width: 120px; } .hero-section { height: 300px; } }
     </style>
 </head>
 <body>
@@ -219,8 +206,8 @@
         <h1 class="welcome-title">Bienvenue à Boisset</h1>
         <nav>
             <a href="#mairie" class="nav-link">La Mairie</a>
+            <a href="#vie-locale" class="nav-link">Vie Locale</a>
             <a href="#news-section" class="nav-link">Actualités</a>
-            <a href="#" class="nav-link">Vie Locale</a>
             <a href="https://alloboisset.fr" target="_blank" class="nav-link" style="color:#8ec63f">Covoiturage</a>
         </nav>
     </header>
@@ -237,7 +224,7 @@
 
     <section class="quick-links">
         <a href="#mairie" class="link-card"><span>🏛️</span>Mairie & Démarches</a>
-        <a href="#" class="link-card"><span>♻️</span>Déchets & Environnement</a>
+        <a href="#vie-locale" class="link-card"><span>🤝</span>Associations & Commerces</a>
         <a href="#" class="link-card"><span>🏡</span>Urbanisme & Travaux</a>
         <a href="#" class="link-card"><span>📅</span>Agenda Municipal</a>
     </section>
@@ -249,64 +236,75 @@
             <strong>Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
         </p>
 
-        <section id="mairie" class="section-padding">
-            <h2 class="section-title">La Mairie & Vos Démarches</h2>
+        <section id="vie-locale" class="section-padding">
+            <h2 class="section-title">Vie Locale & Annuaire</h2>
+            <p style="max-width: 700px; margin: -20px auto 50px;">Retrouvez ici les acteurs qui font bouger notre village : associations, commerces et services de proximité.</p>
             
-            <div style="margin-bottom: 60px;">
-                <h3>L'Équipe Municipale</h3>
-                <div class="council-grid">
-                    <div class="member-card">
-                        <h4>Nom du Maire</h4>
-                        <p>MAIRE</p>
-                    </div>
-                    <div class="member-card">
-                        <h4>1er Adjoint</h4>
-                        <p>ADJOINT</p>
-                    </div>
-                    <div class="member-card">
-                        <h4>2ème Adjoint</h4>
-                        <p>ADJOINT</p>
-                    </div>
-                    </div>
-            </div>
+            <div class="directory-grid">
+                <div class="directory-card">
+                    <span class="category-tag">Association</span>
+                    <h3>Comité des Fêtes</h3>
+                    <p>Organisation des événements annuels, de la fête patronale et des animations du village.</p>
+                    <div class="directory-contact">📞 Contact : Mairie de Boisset</div>
+                </div>
 
-            <div class="steps-list">
-                <h3>Services & État Civil</h3>
-                <div class="step-item">
-                    <span>Demande de Carte d'Identité / Passeport</span>
-                    <a href="https://passeport.ants.gouv.fr/" target="_blank" class="btn-external">ANTS →</a>
+                <div class="directory-card">
+                    <span class="category-tag">Association</span>
+                    <h3>Club des Aînés</h3>
+                    <p>Rencontres, sorties et activités conviviales pour nos seniors.</p>
+                    <div class="directory-contact">📅 Réunion tous les mardis</div>
                 </div>
-                <div class="step-item">
-                    <span>Actes de Naissance, Mariage, Décès</span>
-                    <a href="https://www.service-public.fr/particuliers/vosdroits/N359" target="_blank" class="btn-external">Service-Public →</a>
-                </div>
-                <div class="step-item">
-                    <span>Inscription sur les listes électorales</span>
-                    <a href="https://www.service-public.fr/particuliers/vosdroits/R16396" target="_blank" class="btn-external">S'inscrire →</a>
-                </div>
-                <div class="step-item">
-                    <span>Recensement citoyen (16 ans)</span>
-                    <a href="https://www.service-public.fr/particuliers/vosdroits/F870" target="_blank" class="btn-external">Infos →</a>
-                </div>
-            </div>
 
-            <div style="margin-top: 60px; padding: 20px; border: 2px dashed #ccc; border-radius: 10px; color: #888;">
-                <p>📂 <strong>Comptes-rendus du Conseil Municipal :</strong> Les documents seront bientôt consultables en ligne.</p>
+                <div class="directory-card">
+                    <span class="category-tag">Commerce</span>
+                    <h3>Commerces de Proximité</h3>
+                    <p>Découvrez les producteurs locaux et commerces itinérants qui desservent la commune.</p>
+                    <div class="directory-contact">📍 Voir affichage en Mairie</div>
+                </div>
+
+                <div class="directory-card" style="border-left-color: #214316;">
+                    <span class="category-tag" style="background: #8ec63f; color: #1a1a1a;">Éducation</span>
+                    <h3>École de Boisset</h3>
+                    <p>Le groupe scolaire accueille les enfants de la commune. Cantine et garderie disponibles.</p>
+                    <div class="directory-contact">📞 04.71.XX.XX.XX</div>
+                </div>
+
+                <div class="directory-card" style="border-left-color: #214316;">
+                    <span class="category-tag" style="background: #8ec63f; color: #1a1a1a;">Services</span>
+                    <h3>Bibliothèque Municipale</h3>
+                    <p>Un large choix d'ouvrages pour petits et grands. Accès gratuit pour les résidents.</p>
+                    <div class="directory-contact">⏰ Mercredi : 14h - 16h</div>
+                </div>
+
+                <div class="directory-card" style="border-left-color: #214316;">
+                    <span class="category-tag" style="background: #8ec63f; color: #1a1a1a;">Services</span>
+                    <h3>Agence Postale</h3>
+                    <p>Pour vos envois de courriers, colis et opérations financières de base.</p>
+                    <div class="directory-contact">📍 Située à la Mairie</div>
+                </div>
             </div>
         </section>
 
-        <section id="news-section" class="section-padding">
-            <h2 class="section-title">Actualités Récentes</h2>
+        <section id="mairie" class="section-padding">
+            <h2 class="section-title">La Mairie & Vos Démarches</h2>
+            <div style="text-align: left; max-width: 800px; margin: 0 auto; background: #f1f1f1; padding: 40px; border-radius: 15px;">
+                <p><strong>Secrétariat ouvert :</strong> Lun 9-12h, Mar 14-18h, Jeu 9-12h, Sam 14-16h.</p>
+                <a href="https://www.service-public.fr" target="_blank" style="color:#214316; font-weight: 700;">Accéder au portail Service-Public.fr →</a>
+            </div>
+        </section>
+
+        <section id="news-section" class="section-padding" style="border-bottom: none;">
+            <h2 class="section-title">Actualités</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; text-align: left;">
                 <article style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
                     <div style="height: 200px; background: #eee; background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80'); background-size: cover;"></div>
                     <div style="padding: 25px;">
-                        <h3 style="margin: 0 0 10px 0;">Vœux du Maire 2026</h3>
-                        <p style="color: #666; font-size: 0.9rem;">Monsieur le Maire vous invite à la cérémonie des vœux à la salle polyvalente...</p>
+                        <h3>Vœux du Maire 2026</h3>
+                        <p style="color: #666; font-size: 0.9rem;">Rejoignez-nous pour la cérémonie annuelle...</p>
                         <a href="#" style="color:#8ec63f; font-weight:700; text-decoration:none;">Lire la suite →</a>
                     </div>
                 </article>
-                </div>
+            </div>
         </section>
     </main>
 
@@ -314,20 +312,25 @@
         <div class="footer-content">
             <div>
                 <h3>📍 Mairie de Boisset</h3>
-                <p>Le Bourg<br>43500 Boisset, France</p>
-                <div class="footer-contact">
-                    <p>📞 <strong>Tél :</strong> 04.71.61.32.66</p>
-                    <p>✉️ <strong>Email :</strong> mairie.boisset@wanadoo.fr</p>
-                </div>
+                <p>Le Bourg, 43500 Boisset</p>
+                <p>📞 04.71.61.32.66</p>
+                <p>✉️ mairie.boisset@wanadoo.fr</p>
             </div>
             <div>
-                <h3>⏰ Secrétariat de Mairie</h3>
-                <p><strong>Lundi :</strong> 9h00 - 12h00</p>
-                <p><strong>Mardi :</strong> 14h00 - 18h00</p>
-                <p><strong>Jeudi :</strong> 9h00 - 12h00</p>
-                <p><strong>Samedi :</strong> 14h00 - 16h00</p>
+                <h3>⏰ Horaires</h3>
+                <p>Lun : 9h-12h | Mar : 14h-18h</p>
+                <p>Jeu : 9h-12h | Sam : 14h-16h</p>
             </div>
             <div>
-                <h3>🔗 Liens Rapides</h3>
-                <a href="#" style="color:#8ec63f; text-decoration:none;">Mentions Légales</a><br><br>
-                <a href="
+                <h3>🔗 Liens</h3>
+                <a href="https://alloboisset.fr" target="_blank" style="color:#8ec63f; text-decoration:none;">AlloBoisset (Covoiturage)</a><br>
+                <a href="#" style="color:#8ec63f; text-decoration:none;">Mentions Légales</a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 60px; border-top: 1px solid #333; padding-top: 30px; font-size: 0.8rem;">
+            &copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.
+        </div>
+    </footer>
+
+</body>
+</html>
