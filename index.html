@@ -3,173 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commune de Boisset (43) - Site Officiel</title>
+    <title>Mairie de Boisset (43) - Site Officiel</title>
+    
+    <link rel="icon" type="image/png" href="logo-boisset.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #27ae60;
-            --accent: #e67e22;
-            --light: #f8f9fa;
-            --dark: #333;
+            --primary: #1e293b; /* Bleu nuit institutionnel */
+            --secondary: #16a34a; /* Vert nature */
+            --accent: #d97706; /* Orange pour les alertes */
+            --light: #f8fafc;
+            --text: #334155;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             margin: 0;
-            padding: 0;
+            background-color: #f1f5f9;
+            color: var(--text);
             line-height: 1.6;
-            background-color: #f4f4f4;
-            color: var(--dark);
         }
 
+        /* En-tête */
         header {
             background: var(--primary);
             color: white;
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 4px solid var(--secondary);
         }
 
+        .header-content img {
+            height: 120px; /* Taille de ton blason.png */
+            width: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); /* Donne du relief au blason transparent */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* Navigation */
         nav {
-            background: #34495e;
-            padding: 10px;
+            background: #334155;
+            padding: 1rem;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
+            margin: 0 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
         }
 
         .container {
             max-width: 1100px;
-            margin: 20px auto;
+            margin: 2rem auto;
             padding: 0 20px;
         }
 
         h2 {
-            border-bottom: 3px solid var(--secondary);
-            padding-bottom: 10px;
             color: var(--primary);
+            border-left: 5px solid var(--secondary);
+            padding-left: 15px;
+            margin-bottom: 1.5rem;
         }
 
-        /* Grille pour les cartes */
+        /* Grilles et Cartes */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 4rem;
         }
 
         .card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             position: relative;
+            transition: transform 0.2s;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
 
         .card.pinned {
             border: 2px solid var(--accent);
+            background: #fffbeb;
         }
 
         .badge-pinned {
             background: var(--accent);
             color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
+            text-transform: uppercase;
         }
 
         .category {
             color: var(--secondary);
-            font-weight: bold;
-            font-size: 0.9rem;
+            font-weight: 800;
+            font-size: 0.8rem;
             text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
         }
 
-        .contact-info {
-            background: #eef7f1;
-            padding: 10px;
-            border-radius: 4px;
+        .contact-info-box {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
             font-size: 0.9rem;
-            margin-top: 10px;
+            color: #475569;
         }
 
-        /* Formulaire de contact */
+        /* Formulaire */
         form {
             background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
         }
 
         input, textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
         }
 
         button {
             background: var(--secondary);
             color: white;
-            padding: 10px 20px;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
+            padding: 15px 30px;
+            border-radius: 8px;
             font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
         }
 
         button:hover {
-            background: #219150;
+            background: #15803d;
         }
 
+        /* Pied de page */
         footer {
-            text-align: center;
-            padding: 40px;
             background: var(--primary);
             color: white;
-            margin-top: 50px;
+            padding: 4rem 1rem;
+            text-align: center;
+            margin-top: 5rem;
         }
 
-        #status-message {
-            margin-top: 10px;
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column {
+            max-width: 300px;
+            text-align: left;
+        }
+
+        #status-msg {
+            margin-top: 15px;
             font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Mairie de Boisset</h1>
-    <p>Bienvenue sur le portail officiel de notre commune en Haute-Loire</p>
+    <div class="header-content">
+        <img src="blason.png" alt="Blason de Boisset">
+        <h1>Mairie de Boisset</h1>
+        <p>Commune de la Haute-Loire (43500)</p>
+    </div>
 </header>
 
 <nav>
@@ -183,52 +246,66 @@
     <section id="news">
         <h2>Dernières Actualités</h2>
         <div id="news-list" class="grid">
-            <p>Chargement des actualités...</p>
+            <p>Chargement des actualités municipales...</p>
         </div>
     </section>
 
     <section id="annuaire">
-        <h2>Annuaire Local</h2>
+        <h2>Vie Locale & Services</h2>
         <div id="directory-list" class="grid">
             <p>Chargement de l'annuaire...</p>
         </div>
     </section>
 
     <section id="contact">
-        <h2>Nous contacter</h2>
+        <h2>Écrire à la Mairie</h2>
         <form id="contact-form">
-            <div class="form-group">
-                <label for="name">Nom / Prénom</label>
-                <input type="text" id="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Votre Email</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" rows="5" required></textarea>
-            </div>
-            <button type="submit">Envoyer le message</button>
-            <div id="status-message"></div>
+            <label for="name">Nom et Prénom</label>
+            <input type="text" id="name" placeholder="Ex: Jean Dupont" required>
+            
+            <label for="email">Adresse Email</label>
+            <input type="email" id="email" placeholder="votre@email.com" required>
+            
+            <label for="message">Votre message</label>
+            <textarea id="message" rows="6" placeholder="Comment pouvons-nous vous aider ?" required></textarea>
+            
+            <button type="submit">Envoyer ma demande</button>
+            <div id="status-msg"></div>
         </form>
     </section>
 
 </div>
 
 <footer>
-    <p>&copy; 2026 Mairie de Boisset - 43500</p>
+    <div class="footer-info">
+        <div class="footer-column">
+            <h3>Coordonnées</h3>
+            <p>📍 Le Bourg<br>43500 Boisset</p>
+            <p>📞 04.71.XX.XX.XX</p>
+        </div>
+        <div class="footer-column">
+            <h3>Horaires d'ouverture</h3>
+            <p>Lundi au Vendredi :<br>9h00 - 12h00</p>
+        </div>
+    </div>
+    <hr style="opacity: 0.2; width: 50%;">
+    <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9rem;">
+        © 2026 Mairie de Boisset - Site Officiel<br>
+        Propulsé par la Mairie de Boisset
+    </p>
 </footer>
 
 <script>
-    // Configuration de ta connexion Supabase
-    const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // Configuration Supabase (Tes identifiants)
+    const URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
+    const KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
+    
+    // Initialisation du client (renommé en 'api' pour plus de clarté)
+    const api = supabase.createClient(URL, KEY);
 
-    // 1. Charger les News
+    // 1. Fonction pour charger les News
     async function loadNews() {
-        const { data, error } = await supabase
+        const { data, error } = await api
             .from('news')
             .select('*')
             .order('is_pinned', { ascending: false })
@@ -237,7 +314,7 @@
         const container = document.getElementById('news-list');
         
         if (error) {
-            container.innerHTML = "<p>Erreur lors du chargement des news.</p>";
+            container.innerHTML = "<p>Erreur lors du chargement des données.</p>";
             return;
         }
 
@@ -246,19 +323,19 @@
             const dateStr = new Date(item.created_at).toLocaleDateString('fr-FR');
             container.innerHTML += `
                 <div class="card ${item.is_pinned ? 'pinned' : ''}">
-                    ${item.is_pinned ? '<span class="badge-pinned">À la une</span>' : ''}
+                    ${item.is_pinned ? '<span class="badge-pinned">Prioritaire</span>' : ''}
                     <span class="category">${item.category}</span>
                     <h3>${item.title}</h3>
                     <p>${item.content}</p>
-                    <small>Publié le ${dateStr}</small>
+                    <small>📅 Publié le ${dateStr}</small>
                 </div>
             `;
         });
     }
 
-    // 2. Charger l'Annuaire
+    // 2. Fonction pour charger l'Annuaire
     async function loadDirectory() {
-        const { data, error } = await supabase
+        const { data, error } = await api
             .from('local_directory')
             .select('*')
             .order('name', { ascending: true });
@@ -277,40 +354,38 @@
                     <span class="category">${item.category}</span>
                     <h3>${item.name}</h3>
                     <p>${item.description || ''}</p>
-                    <div class="contact-info">
-                        <strong>Contact :</strong> ${item.contact_info}
+                    <div class="contact-info-box">
+                        <strong>📍 Contact :</strong><br>${item.contact_info}
                     </div>
                 </div>
             `;
         });
     }
 
-    // 3. Gérer le formulaire de contact
+    // 3. Gestion du formulaire de contact
     document.getElementById('contact-form').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const status = document.getElementById('status-message');
+        const msgDiv = document.getElementById('status-msg');
         
-        const formData = {
+        const contactData = {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
             message: document.getElementById('message').value
         };
 
-        const { error } = await supabase
-            .from('contact_requests')
-            .insert([formData]);
+        const { error } = await api.from('contact_requests').insert([contactData]);
 
         if (error) {
-            status.style.color = "red";
-            status.innerText = "Erreur lors de l'envoi. Réessayez.";
+            msgDiv.style.color = "red";
+            msgDiv.innerText = "❌ Une erreur est survenue lors de l'envoi.";
         } else {
-            status.style.color = "green";
-            status.innerText = "Message envoyé avec succès !";
-            document.getElementById('contact-form').reset();
+            msgDiv.style.color = "green";
+            msgDiv.innerText = "✅ Message envoyé avec succès à la mairie !";
+            e.target.reset();
         }
     });
 
-    // Lancement au chargement de la page
+    // Lancement automatique
     loadNews();
     loadDirectory();
 </script>
