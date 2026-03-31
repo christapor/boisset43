@@ -20,7 +20,6 @@
             --dark: #1a1a1a;      
         }
 
-        /* BASE & TYPO */
         body { 
             margin: 0; 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
@@ -30,13 +29,10 @@
             scroll-behavior: smooth;
         }
 
-        /* ARRIÈRE-PLAN FIXE (PARALLAXE) */
+        /* FOND PARALLAXE */
         #bg-parallax {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
+            top: 0; left: 0; width: 100%; height: 100vh;
             z-index: -1; 
             background-image: url('fond.jpeg'); 
             background-size: cover;
@@ -53,11 +49,9 @@
             display: flex;
             justify-content: flex-end; 
             align-items: center;
-            padding: 0 40px 0 5%; 
+            padding: 0 40px; 
             position: fixed; 
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             border-bottom: 3px solid var(--azur);
@@ -79,7 +73,7 @@
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
         }
 
-        /* NAVIGATION PC */
+        /* NAVIGATION */
         .nav-menu { display: flex; align-items: center; }
 
         .nav-link {
@@ -102,32 +96,28 @@
             text-align: center;
             color: var(--sinople) !important;
         }
-        .nav-link-special span {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .nav-link-special span { font-size: 13px; font-weight: 700; text-transform: uppercase; }
 
-        /* LOGO / BLASON */
+        /* LOGO BOX - SÉCURISÉ */
         .logo-box {
             position: fixed; 
             top: 10px;
             left: 20px;
-            z-index: 1210;
+            z-index: 3000; /* Toujours au dessus */
             width: 300px;
             filter: drop-shadow(0 8px 25px rgba(0,0,0,0.6));
-            transition: all 0.3s ease;
+            pointer-events: auto;
         }
         .logo-box img { width: 100%; height: auto; display: block; }
 
-        /* BOUTON BURGER (Caché sur PC) */
+        /* BOUTON BURGER */
         .burger-btn {
             display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            z-index: 2000;
+            z-index: 4000; /* Le plus haut pour cliquer */
+            padding: 10px;
         }
         .burger-btn span {
             display: block;
@@ -135,188 +125,83 @@
             height: 4px;
             background: white;
             border-radius: 2px;
-            transition: 0.3s;
         }
 
-        /* CONTENU */
-        .main-content {
-            margin-top: 120px; 
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-spacer {
-            height: 400px; 
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 50px;
-        }
-
-        .skew-bar {
+        /* CONTENU CONTENEUR */
+        .main-content { margin-top: 120px; position: relative; z-index: 10; }
+        .hero-spacer { height: 400px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 50px; }
+        
+        .skew-bar { 
             background: var(--sinople); 
-            height: 70px;
-            width: 110%;
-            transform: rotate(-2deg);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: -40px;
+            height: 70px; 
+            width: 110%; 
+            transform: rotate(-2deg); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            margin-bottom: -40px; 
         }
 
-        .quick-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            max-width: 1100px;
-            margin: -60px auto 80px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 60;
+        .quick-links { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 20px; 
+            max-width: 1100px; 
+            margin: -60px auto 80px; 
+            padding: 0 20px; 
+            position: relative; 
+            z-index: 60; 
         }
-
-        .link-card {
-            background: white;
-            padding: 40px 20px;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-align: center;
-            border-bottom: 5px solid var(--azur);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
+        
+        .link-card { 
+            background: white; padding: 40px 20px; border-radius: 12px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-decoration: none; 
+            color: var(--dark); font-weight: 800; text-transform: uppercase; 
+            font-size: 0.9rem; text-align: center; border-bottom: 5px solid var(--azur); 
+            display: flex; flex-direction: column; align-items: center; gap: 15px; 
         }
         .link-card span { font-size: 2.5rem; }
-        .link-card:hover { transform: translateY(-10px); border-bottom-color: var(--sinople); }
 
         .container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            padding: 40px 20px; 
-            text-align: center; 
-            background: rgba(248, 248, 248, 0.96); 
-            border-radius: 20px 20px 0 0;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+            max-width: 1100px; margin: 0 auto; padding: 40px 20px; 
+            text-align: center; background: rgba(248, 248, 248, 0.96); 
+            border-radius: 20px 20px 0 0; box-shadow: 0 -10px 30px rgba(0,0,0,0.2); 
         }
 
-        .decoration { width: 100px; height: 6px; background: var(--sinople); margin: 35px auto; border-radius: 3px; }
         .section-padding { padding: 80px 0; border-bottom: 1px solid #eee; }
-        
-        .section-title {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 50px;
-            text-transform: uppercase;
-            font-weight: 900;
-            position: relative;
-            display: inline-block;
-        }
-        .section-title::after {
-            content: ""; width: 50%; height: 4px; background: var(--azur);
-            position: absolute; bottom: -10px; left: 25%;
-        }
+        .section-title { font-size: 2.5rem; color: var(--dark); margin-bottom: 50px; text-transform: uppercase; font-weight: 900; }
 
-        .dynamic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-            text-align: left;
-        }
-        .item-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--azur);
-        }
-        
-        .category-tag {
-            display: inline-block;
-            background: var(--sinople);
-            color: white;
-            font-size: 0.7rem;
-            padding: 3px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .contact-box {
-            max-width: 600px;
-            margin: 40px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            text-align: left;
-            border-top: 5px solid var(--azur);
-        }
-        .contact-box input, .contact-box textarea {
-            width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;
-        }
-
-        .schedule-table {
-            width: 100%; max-width: 400px; border-collapse: collapse; background: transparent; border-radius: 8px; overflow: hidden; text-align: left;
-        }
-        .schedule-table td { padding: 8px 15px; border-bottom: 1px solid #333; }
-
-        /* FOOTER & MENTIONS */
-        footer {
-            background: var(--dark); color: #ccc; padding: 80px 0 40px; border-top: 10px solid var(--azur); position: relative; z-index: 10;
-        }
-        .footer-content { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            display: flex; 
-            justify-content: space-around; 
-            align-items: flex-start;
-            flex-wrap: wrap; 
-            gap: 50px; 
-            padding: 0 20px; 
-        }
+        /* FOOTER */
+        footer { background: var(--dark); color: #ccc; padding: 80px 0 40px; border-top: 10px solid var(--azur); position: relative; z-index: 10; }
+        .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 50px; padding: 0 20px; }
         .footer-column { flex: 1; min-width: 280px; text-align: center; }
         footer h3 { color: white; border-bottom: 2px solid var(--sinople); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
+        
+        .schedule-table { width: 100%; max-width: 400px; border-collapse: collapse; margin: 0 auto; text-align: left; }
+        .schedule-table td { padding: 8px 15px; border-bottom: 1px solid #333; }
 
-        .legal-notices {
-            max-width: 900px; margin: 30px auto; padding: 0 20px; text-align: left; font-size: 0.85rem; color: #bbb;
-        }
-        .legal-notices h4 { color: var(--sinople); text-transform: uppercase; margin-bottom: 15px; font-size: 1rem; }
-        .legal-notices p { margin-bottom: 10px; }
+        .legal-notices { max-width: 900px; margin: 30px auto; padding: 20px; text-align: left; font-size: 0.85rem; color: #bbb; border-top: 1px solid #333; }
+        .legal-notices h4 { color: var(--sinople); text-transform: uppercase; margin-bottom: 15px; }
 
-        #cookie-banner {
-            position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); color: white; padding: 20px; display: none; justify-content: space-between; align-items: center; z-index: 9999; border-top: 4px solid var(--azur);
-        }
-
-        /* --- AJOUTS SPECIFIQUES MOBILE (RESPONSIVE) --- */
+        /* MOBILE RESPONSIVE */
         @media (max-width: 950px) {
             .welcome-title { display: none; }
-            .logo-box { width: 120px; top: 5px; left: 10px; }
-            .top-header { height: 90px; }
-            .main-content { margin-top: 90px; } 
+            .logo-box { width: 130px; top: 10px; left: 10px; }
+            .top-header { height: 90px; padding: 0 15px; }
+            .main-content { margin-top: 90px; }
             .hero-spacer { height: 200px; }
             
-            .burger-btn { display: flex; margin-right: 10px; } 
+            .burger-btn { display: flex; }
 
             .nav-menu {
                 display: none; 
                 flex-direction: column;
                 position: absolute;
                 top: 90px; left: 0; right: 0;
-                background: var(--dark);
+                background: #1a1a1a;
                 padding: 20px 0;
-                border-bottom: 3px solid var(--sinople);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                border-bottom: 4px solid var(--sinople);
             }
-
-            .nav-menu.active { display: flex; }
+            .nav-menu.active { display: flex !important; }
             .nav-link { margin: 15px 0; font-size: 16px; margin-left: 0; text-align: center; }
-            .nav-link-special { margin-top: 10px; }
         }
     </style>
 </head>
@@ -326,37 +211,26 @@
 
     <header class="top-header">
         <h1 class="welcome-title">Bienvenue à Boisset</h1>
-        
         <div class="burger-btn" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
-
         <nav class="nav-menu" id="nav-menu">
             <a href="#mairie" class="nav-link" onclick="toggleMenu()">La Mairie</a>
             <a href="#news-section" class="nav-link" onclick="toggleMenu()">Actualités</a>
             <a href="#vie-locale" class="nav-link" onclick="toggleMenu()">Vie Locale</a>
             <a href="#contact-section" class="nav-link" onclick="toggleMenu()">Contact</a>
             <a href="https://alloboisset.fr" target="_blank" class="nav-link nav-link-special">
-                <span>Covoiturage</span>
-                <span>local</span>
-                <span>gratuit</span>
-                <span>alloboisset.fr</span>
+                <span>Covoiturage</span><span>local</span><span>gratuit</span><span>alloboisset.fr</span>
             </a>
         </nav>
     </header>
 
     <div class="logo-box">
-        <a href="/">
-            <img src="blason.png" alt="Blason de la commune de Boisset">
-        </a>
+        <img src="blason.png" alt="Blason de la commune de Boisset">
     </div>
 
     <div class="main-content">
-        <div class="hero-spacer">
-            <div class="skew-bar"></div>
-        </div>
+        <div class="hero-spacer"><div class="skew-bar"></div></div>
 
         <section class="quick-links">
             <a href="#mairie" class="link-card"><span>🏛️</span>Mairie & Démarches</a>
@@ -366,21 +240,20 @@
         </section>
 
         <main class="container">
-            <div class="decoration"></div>
-            <p style="font-size: 1.8rem; color: var(--sinople); margin-bottom: 80px; font-weight: 300;">
+            <p style="font-size: 1.8rem; color: var(--sinople); margin-bottom: 60px; font-weight: 300;">
                 Le portail officiel de notre commune.<br>
                 <strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
             </p>
 
             <section id="news-section" class="section-padding">
                 <h2 class="section-title">Actualités</h2>
-                <div id="news-container" class="dynamic-grid"></div>
+                <div id="news-container" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:30px; text-align:left;"></div>
             </section>
 
             <section id="mairie" class="section-padding">
                 <h2 class="section-title">La Mairie</h2>
-                <div style="max-width: 800px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; text-align: left;">
-                    <div style="flex: 1; min-width: 300px;">
+                <div style="display:flex; flex-wrap:wrap; gap:40px; text-align:left; justify-content:center;">
+                    <div style="flex:1; min-width:300px;">
                         <h3>Horaires du Secrétariat</h3>
                         <table style="width:100%; border-collapse:collapse;">
                             <tr style="border-bottom:1px solid #eee;"><td style="padding:10px; font-weight:bold;">Lundi</td><td style="text-align:right;">09h - 12h</td></tr>
@@ -389,28 +262,26 @@
                             <tr><td style="padding:10px; font-weight:bold;">Samedi</td><td style="text-align:right;">14h - 16h</td></tr>
                         </table>
                     </div>
-                    <div style="flex: 1; min-width: 300px;">
+                    <div style="flex:1; min-width:300px;">
                         <h3>Coordonnées</h3>
-                        <p>📍 Le Bourg, 43500 Boisset</p>
-                        <p>📞 04.71.61.32.66</p>
-                        <p>✉️ <a href="mailto:mairie.boisset@wanadoo.fr" style="color: var(--azur); font-weight: 700;">mairie.boisset@wanadoo.fr</a></p>
+                        <p>📍 Le Bourg, 43500 Boisset<br>📞 04.71.61.32.66<br>✉️ <a href="mailto:mairie.boisset@wanadoo.fr" style="color:var(--azur); font-weight:700;">mairie.boisset@wanadoo.fr</a></p>
                     </div>
                 </div>
             </section>
 
             <section id="vie-locale" class="section-padding">
                 <h2 class="section-title">Vie Locale & Annuaire</h2>
-                <div id="directory-container" class="dynamic-grid"></div>
+                <div id="directory-container" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:30px; text-align:left;"></div>
             </section>
 
             <section id="contact-section" class="section-padding">
                 <h2 class="section-title">Nous contacter</h2>
-                <div class="contact-box">
+                <div style="max-width:600px; margin:0 auto; background:white; padding:40px; border-radius:15px; border-top:5px solid var(--azur); text-align:left;">
                     <form id="contact-form">
-                        <input type="text" id="name" placeholder="Votre Nom" required>
-                        <input type="email" id="email" placeholder="Votre Email" required>
-                        <textarea id="message" rows="5" placeholder="Votre message..." required></textarea>
-                        <button type="submit" style="background:var(--azur); color:white; width:100%; padding:15px; border:none; border-radius:8px; cursor:pointer; font-weight: bold;">ENVOYER</button>
+                        <input type="text" id="name" placeholder="Votre Nom" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;">
+                        <input type="email" id="email" placeholder="Votre Email" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;">
+                        <textarea id="message" rows="5" placeholder="Votre message..." required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;"></textarea>
+                        <button type="submit" style="background:var(--azur); color:white; width:100%; padding:15px; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">ENVOYER</button>
                         <p id="form-status" style="text-align:center; margin-top:10px; font-weight:bold;"></p>
                     </form>
                 </div>
@@ -421,40 +292,26 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>⏰ Horaires</h3>
-                    <table class="schedule-table" style="margin: 0 auto; color: #ccc; border: none;">
-                        <tr style="border-bottom: 1px solid #333;"><td style="color: white;">Lun / Jeu</td><td style="text-align: right;">09h - 12h</td></tr>
-                        <tr style="border-bottom: 1px solid #333;"><td style="color: white;">Mardi</td><td style="text-align: right;">14h - 18h</td></tr>
-                        <tr style="border-bottom: none;"><td style="color: white;">Samedi</td><td style="text-align: right;">14h - 16h</td></tr>
+                    <table class="schedule-table" style="color:#ccc;">
+                        <tr><td style="color:white;">Lun / Jeu</td><td style="text-align:right;">09h - 12h</td></tr>
+                        <tr><td style="color:white;">Mardi</td><td style="text-align:right;">14h - 18h</td></tr>
+                        <tr><td style="color:white;">Samedi</td><td style="text-align:right;">14h - 16h</td></tr>
                     </table>
                 </div>
-
                 <div class="footer-column">
                     <h3>📍 Mairie de Boisset</h3>
-                    <p style="margin: 5px 0;">Le Bourg, 43500 Boisset</p>
-                    <p style="margin: 5px 0;">📞 04.71.61.32.66</p>
-                    <p style="margin: 5px 0;">✉️ mairie.boisset@wanadoo.fr</p>
+                    <p>Le Bourg, 43500 Boisset<br>📞 04.71.61.32.66<br>✉️ mairie.boisset@wanadoo.fr</p>
                 </div>
             </div>
-
-            <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid #333;">
-                <div class="legal-notices">
-                    <h4>Mentions Légales</h4>
-                    <p><strong>1. Éditeur du site :</strong> Le site boisset43.fr est édité par la commune de Boisset. Adresse : Mairie de Boisset, Le Bourg, 43500 Boisset. Téléphone : 04.71.61.32.66. Email : mairie.boisset@wanadoo.fr. Directeur de la publication : Monsieur Florian Capdevielle, Maire de Boisset.</p>
-                    <p><strong>2. Hébergement et Stockage :</strong> En cours de configuration.</p>
-                    <p><strong>3. Propriété intellectuelle :</strong> L'ensemble des contenus (textes, photographies, blason) présents sur le site sont la propriété exclusive de la commune de Boisset, sauf mention contraire. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
-                    <p><strong>4. Protection des données personnelles (RGPD) :</strong> Les informations collectées via le formulaire de contact sont uniquement destinées au secrétariat de la mairie pour répondre à vos demandes. Elles ne sont jamais transmises à des tiers. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données en contactant la mairie.</p>
-                </div>
-                
-                <p style="font-size: 0.8rem; margin-top: 20px;">
-                    &copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.
-                </p>
+            <div class="legal-notices">
+                <h4>Mentions Légales</h4>
+                <p><strong>1. Éditeur :</strong> Le site boisset43.fr est édité par la commune de Boisset. Mairie : Le Bourg, 43500 Boisset. Tél : 04.71.61.32.66. Directeur : M. Florian Capdevielle, Maire.</p>
+                <p><strong>2. Hébergement :</strong> En cours de configuration.</p>
+                <p><strong>3. Propriété :</strong> L'ensemble des contenus sont la propriété exclusive de la commune de Boisset.</p>
+                <p><strong>4. RGPD :</strong> Les données collectées via le formulaire sont destinées au secrétariat et ne sont jamais transmises à des tiers.</p>
+                <p style="text-align:center; margin-top:20px;">&copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.</p>
             </div>
         </footer>
-    </div>
-
-    <div id="cookie-banner">
-        <span>🍪 Ce site utilise des cookies techniques nécessaires.</span>
-        <button onclick="acceptCookies()" style="background:var(--sinople); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight: bold;">ACCEPTER</button>
     </div>
 
     <script>
@@ -469,18 +326,29 @@
             }
         }
 
-        function checkCookies() { if (!localStorage.getItem('cookie-consent')) document.getElementById('cookie-banner').style.display = 'flex'; }
-        function acceptCookies() { localStorage.setItem('cookie-consent', 'true'); document.getElementById('cookie-banner').style.display = 'none'; }
-
         async function loadData() {
             const { data: dir } = await sb.from('local_directory').select('*').order('name');
             const dirCont = document.getElementById('directory-container');
             if (dir && dirCont) {
                 dirCont.innerHTML = '';
-                dir.forEach(i => dirCont.innerHTML += `<div class="item-card"><span class="category-tag">${i.category}</span><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
+                dir.forEach(i => dirCont.innerHTML += `<div style="background:white; padding:25px; border-radius:15px; border-left:5px solid var(--azur); box-shadow:0 10px 25px rgba(0,0,0,0.05);"><span style="display:inline-block; background:var(--sinople); color:white; font-size:0.7rem; padding:3px 10px; border-radius:20px; text-transform:uppercase; font-weight:700; margin-bottom:10px;">${i.category}</span><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
             }
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
             const newsCont = document.getElementById('news-container');
             if (news && newsCont) {
                 newsCont.innerHTML = '';
-                news.forEach(n => newsCont.innerHTML += `<div class="item-card"><sp
+                news.forEach(n => newsCont.innerHTML += `<div style="background:white; padding:25px; border-radius:15px; border-left:5px solid var(--sinople); box-shadow:0 10px 25px rgba(0,0,0,0.05);"><span style="display:inline-block; background:var(--sinople); color:white; font-size:0.7rem; padding:3px 10px; border-radius:20px; text-transform:uppercase; font-weight:700; margin-bottom:10px;">${n.category}</span><h3>${n.title}</h3><p>${n.content}</p></div>`);
+            }
+        }
+
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const status = document.getElementById('form-status');
+            const { error } = await sb.from('contact_requests').insert([{ name: document.getElementById('name').value, email: document.getElementById('email').value, message: document.getElementById('message').value }]);
+            if (!error) { status.style.color="green"; status.innerText = "✅ Message envoyé !"; e.target.reset(); }
+        });
+
+        loadData();
+    </script>
+</body>
+</html>
