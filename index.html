@@ -257,6 +257,23 @@
             padding: 0 20px;
         }
         footer h3 { color: white; border-bottom: 2px solid var(--sinople); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
+
+        /* MENTIONS LEGALES BLOCK */
+        .legal-notices {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+        .legal-notices h4 {
+            color: var(--sinople);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        .legal-notices p { margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -344,6 +361,7 @@
                 <form id="contact-form">
                     <input type="text" id="name" placeholder="Votre Nom" required>
                     <input type="email" id="email" placeholder="Votre Email" required>
+                    <input type="tel" id="phone" placeholder="Votre Téléphone (optionnel)">
                     <textarea id="message" rows="5" placeholder="Votre message..." required></textarea>
                     <button type="submit">Envoyer le message</button>
                     <p id="form-status" style="margin-top:15px; font-weight:700; text-align:center;"></p>
@@ -370,12 +388,22 @@
             </div>
             <div>
                 <h3>🔗 Liens utiles</h3>
-                <a href="https://alloboisset.fr" target="_blank" style="color:var(--sinople); text-decoration:none; font-weight: 700;">AlloBoisset (Covoiturage)</a><br><br>
-                <a href="#" style="color:var(--sinople); text-decoration:none;">Mentions Légales</a>
+                <a href="https://alloboisset.fr" target="_blank" style="color:var(--sinople); text-decoration:none; font-weight: 700;">AlloBoisset (Covoiturage)</a>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid #333; font-size: 0.8rem;">
-            &copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.
+        
+        <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid #333;">
+            <div class="legal-notices">
+                <h4>Mentions Légales</h4>
+                <p><strong>1. Éditeur du site :</strong> Le site boisset43.fr est édité par la commune de Boisset. Adresse : Mairie de Boisset, Le Bourg, 43500 Boisset. Téléphone : 04.71.61.32.66. Email : mairie.boisset@wanadoo.fr. Directeur de la publication : Monsieur Florian Capdevielle, Maire de Boisset.</p>
+                <p><strong>2. Hébergement et Stockage :</strong> En cours de configuration.</p>
+                <p><strong>3. Propriété intellectuelle :</strong> L'ensemble des contenus (textes, photographies, blason) présents sur le site sont la propriété exclusive de la commune de Boisset, sauf mention contraire. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+                <p><strong>4. Protection des données personnelles (RGPD) :</strong> Les informations collectées via le formulaire de contact (nom, email, message, numéro de téléphone) sont uniquement destinées au secrétariat de la mairie pour répondre à vos demandes. Elles ne sont jamais transmises à des tiers. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données en contactant la mairie par email ou courrier.</p>
+            </div>
+            
+            <p style="font-size: 0.8rem; margin-top: 20px;">
+                &copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.
+            </p>
         </div>
     </footer>
 
@@ -423,6 +451,7 @@
             const { error } = await sb.from('contact_requests').insert([{
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
                 message: document.getElementById('message').value
             }]);
             if (error) {
