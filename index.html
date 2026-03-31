@@ -115,6 +115,7 @@
             z-index: 1210;
             width: 300px;
             filter: drop-shadow(0 8px 25px rgba(0,0,0,0.6));
+            transition: all 0.3s ease;
         }
         .logo-box img { width: 100%; height: auto; display: block; }
 
@@ -272,6 +273,18 @@
         #cookie-banner {
             position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); color: white; padding: 20px; display: none; justify-content: space-between; align-items: center; z-index: 9999; border-top: 4px solid var(--azur);
         }
+
+        /* --- AJOUTS SPECIFIQUES MOBILE (RESPONSIVE) --- */
+        @media (max-width: 950px) {
+            .welcome-title { display: none; } /* On cache "Bienvenue" pour laisser la place au menu */
+            .logo-box { width: 120px; top: 5px; left: 10px; } /* Blason plus petit */
+            .top-header { height: 90px; } /* Header moins haut */
+            .main-content { margin-top: 90px; } 
+            .nav-link { margin-left: 10px; font-size: 10px; } /* Liens resserrés */
+            .nav-link-special span { font-size: 9px; }
+            .hero-spacer { height: 200px; } /* On remonte le contenu pour voir la photo */
+            .section-title { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -358,7 +371,7 @@
                         <input type="email" id="email" placeholder="Votre Email" required>
                         <textarea id="message" rows="5" placeholder="Votre message..." required></textarea>
                         <button type="submit" style="background:var(--azur); color:white; width:100%; padding:15px; border:none; border-radius:8px; cursor:pointer; font-weight: bold;">ENVOYER</button>
-                        <p id="form-status"></p>
+                        <p id="form-status" style="text-align:center; margin-top:10px; font-weight:bold;"></p>
                     </form>
                 </div>
             </section>
@@ -420,13 +433,13 @@
         async function loadData() {
             const { data: dir } = await sb.from('local_directory').select('*').order('name');
             const dirCont = document.getElementById('directory-container');
-            if (dir) {
+            if (dir && dirCont) {
                 dirCont.innerHTML = '';
                 dir.forEach(i => dirCont.innerHTML += `<div class="item-card"><span class="category-tag">${i.category}</span><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
             }
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
             const newsCont = document.getElementById('news-container');
-            if (news) {
+            if (news && newsCont) {
                 newsCont.innerHTML = '';
                 news.forEach(n => newsCont.innerHTML += `<div class="item-card"><span class="category-tag">${n.category}</span><h3>${n.title}</h3><p>${n.content}</p></div>`);
             }
@@ -440,7 +453,7 @@
                 email: document.getElementById('email').value,
                 message: document.getElementById('message').value
             }]);
-            if (!error) { status.innerText = "Message envoyé !"; e.target.reset(); }
+            if (!error) { status.innerText = "✅ Message envoyé !"; e.target.reset(); }
         });
 
         checkCookies();
