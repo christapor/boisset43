@@ -42,7 +42,7 @@
             background-position: center;
             background-repeat: no-repeat;
             transition: background-image 1.5s ease-in-out;
-            background-color: #333; /* Fond d'attente avant les photos */
+            background-color: #333; 
         }
         
         /* HEADER FIXE */
@@ -92,17 +92,16 @@
         }
         .nav-link:hover { color: var(--sinople); }
 
-        /* LIEN COVOITURAGE MULTI-LIGNES (Taille identique) */
         .nav-link-special {
             display: flex;
             flex-direction: column;
             align-items: center;
-            line-height: 1.1; /* Plus serré pour le bloc vertical */
+            line-height: 1.1;
             text-align: center;
             color: var(--sinople) !important;
         }
         .nav-link-special span {
-            font-size: 13px; /* Même taille que les autres liens */
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -134,7 +133,7 @@
         }
 
         .skew-bar {
-            background: var(--sinople); /* --- CORRECTION ICI : LE GROS TRAIT OBLIQUE EST MAINTENANT VERT SINOPLE --- */
+            background: var(--sinople); /* Vert Sinople pour Florian */
             height: 70px;
             width: 110%;
             transform: rotate(-2deg);
@@ -142,12 +141,50 @@
             margin-bottom: -40px;
         }
 
+        /* QUICK LINKS (LES CARTES RÉINSTALLÉES) */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: -60px auto 80px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 60;
+        }
+
+        .link-card {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            border-bottom: 5px solid var(--azur);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .link-card span { font-size: 2.5rem; }
+        .link-card:hover { 
+            transform: translateY(-10px); 
+            border-bottom-color: var(--sinople);
+            background: #f9f9f9;
+        }
+
+        /* CONTENEUR BLANC */
         .container { 
             max-width: 1100px; 
             margin: 0 auto; 
             padding: 40px 20px; 
             text-align: center; 
-            background: rgba(248, 248, 248, 0.94); 
+            background: rgba(248, 248, 248, 0.96); 
             border-radius: 20px 20px 0 0;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
         }
@@ -280,6 +317,13 @@
             <div class="skew-bar"></div>
         </div>
 
+        <section class="quick-links">
+            <a href="#mairie" class="link-card"><span>🏛️</span>Mairie & Démarches</a>
+            <a href="#news-section" class="link-card"><span>📰</span>Dernières News</a>
+            <a href="#vie-locale" class="link-card"><span>🤝</span>Vie Locale</a>
+            <a href="#contact-section" class="link-card"><span>✉️</span>Nous écrire</a>
+        </section>
+
         <main class="container">
             <div class="decoration"></div>
             <p style="font-size: 1.8rem; color: var(--sinople); margin-bottom: 80px; font-weight: 300;">
@@ -355,28 +399,23 @@
     </div>
 
     <script>
-        // CONFIGURATION SUPABASE (Tes identifiants)
         const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- DIAPORAMA DE FOND (AFFICHERA TES PHOTOS) ---
-        // Liste de tes futures photos sur GitHub (photo1.jpg, etc...)
         const images = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg'];
         let currentIndex = 0;
 
         function startSlideshow() {
             const bgSlider = document.getElementById('bg-slider');
             function updateBg() {
-                // On change l'image de fond
                 bgSlider.style.backgroundImage = `url(${images[currentIndex]})`;
                 currentIndex = (currentIndex + 1) % images.length;
             }
-            updateBg(); // Première image
-            setInterval(updateBg, 30000); // Change toutes les 30 secondes
+            updateBg();
+            setInterval(updateBg, 30000); 
         }
 
-        // --- COOKIES ---
         function checkCookies() {
             if (!localStorage.getItem('cookie-consent')) document.getElementById('cookie-banner').style.display = 'flex';
         }
@@ -385,9 +424,7 @@
             document.getElementById('cookie-banner').style.display = 'none';
         }
 
-        // --- DATA DYNAMIQUE ---
         async function loadData() {
-            // Charger l'annuaire
             const { data: dir } = await sb.from('local_directory').select('*').order('name');
             const dirCont = document.getElementById('directory-container');
             if (dir) {
@@ -395,7 +432,6 @@
                 dir.forEach(i => dirCont.innerHTML += `<div class="item-card"><span class="category-tag">${i.category}</span><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
             }
 
-            // Charger les news
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
             const newsCont = document.getElementById('news-container');
             if (news) {
@@ -404,7 +440,6 @@
             }
         }
 
-        // LANCEMENT AUTOMATIQUE
         startSlideshow();
         checkCookies();
         loadData();
