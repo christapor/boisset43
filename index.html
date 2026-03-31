@@ -30,7 +30,7 @@
             scroll-behavior: smooth;
         }
 
-        /* ARRIÈRE-PLAN FIXE ET DIAPORAMA */
+        /* ARRIÈRE-PLAN FIXE ET DIAPORAMA (PARALLAXE) */
         #bg-slider {
             position: fixed;
             top: 0;
@@ -134,7 +134,7 @@
         }
 
         .skew-bar {
-            background: var(--azur);
+            background: var(--sinople); /* --- CORRECTION ICI : LE GROS TRAIT OBLIQUE EST MAINTENANT VERT SINOPLE --- */
             height: 70px;
             width: 110%;
             transform: rotate(-2deg);
@@ -355,23 +355,28 @@
     </div>
 
     <script>
+        // CONFIGURATION SUPABASE (Tes identifiants)
         const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // --- DIAPORAMA DE FOND (AFFICHERA TES PHOTOS) ---
+        // Liste de tes futures photos sur GitHub (photo1.jpg, etc...)
         const images = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg'];
         let currentIndex = 0;
 
         function startSlideshow() {
             const bgSlider = document.getElementById('bg-slider');
             function updateBg() {
+                // On change l'image de fond
                 bgSlider.style.backgroundImage = `url(${images[currentIndex]})`;
                 currentIndex = (currentIndex + 1) % images.length;
             }
-            updateBg();
-            setInterval(updateBg, 30000); 
+            updateBg(); // Première image
+            setInterval(updateBg, 30000); // Change toutes les 30 secondes
         }
 
+        // --- COOKIES ---
         function checkCookies() {
             if (!localStorage.getItem('cookie-consent')) document.getElementById('cookie-banner').style.display = 'flex';
         }
@@ -380,7 +385,9 @@
             document.getElementById('cookie-banner').style.display = 'none';
         }
 
+        // --- DATA DYNAMIQUE ---
         async function loadData() {
+            // Charger l'annuaire
             const { data: dir } = await sb.from('local_directory').select('*').order('name');
             const dirCont = document.getElementById('directory-container');
             if (dir) {
@@ -388,6 +395,7 @@
                 dir.forEach(i => dirCont.innerHTML += `<div class="item-card"><span class="category-tag">${i.category}</span><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
             }
 
+            // Charger les news
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
             const newsCont = document.getElementById('news-container');
             if (news) {
@@ -396,6 +404,7 @@
             }
         }
 
+        // LANCEMENT AUTOMATIQUE
         startSlideshow();
         checkCookies();
         loadData();
