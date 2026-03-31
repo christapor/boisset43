@@ -30,20 +30,20 @@
             scroll-behavior: smooth;
         }
 
-        /* ARRIÈRE-PLAN FIXE (PARALLAXE) AVEC TON IMAGE */
-        #bg-slider {
+        /* ARRIÈRE-PLAN FIXE (PARALLAXE) */
+        #bg-parallax {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            z-index: -1; /* Derrière tout le monde */
-            background-image: url('fong.jpeg'); /* --- TON IMAGE ICI --- */
+            z-index: -1; 
+            background-image: url('fond.jpeg'); /* --- NOM DE L'IMAGE CORRIGÉ --- */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* Renforce l'effet parallaxe */
-            background-color: #333; /* Fond d'attente au cas où */
+            background-attachment: fixed;
+            background-color: #333; 
         }
         
         /* HEADER FIXE */
@@ -93,17 +93,16 @@
         }
         .nav-link:hover { color: var(--sinople); }
 
-        /* LIEN COVOITURAGE MULTI-LIGNES (Taille identique) */
         .nav-link-special {
             display: flex;
             flex-direction: column;
             align-items: center;
-            line-height: 1.1; 
+            line-height: 1.1;
             text-align: center;
             color: var(--sinople) !important;
         }
         .nav-link-special span {
-            font-size: 13px; 
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -119,7 +118,7 @@
         }
         .logo-box img { width: 100%; height: auto; display: block; }
 
-        /* CONTENU PRINCIPAL */
+        /* CONTENU */
         .main-content {
             margin-top: 120px; 
             position: relative;
@@ -127,7 +126,7 @@
         }
 
         .hero-spacer {
-            height: 400px; /* Espace pour voir la photo au début */
+            height: 400px; 
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -135,7 +134,7 @@
         }
 
         .skew-bar {
-            background: var(--sinople); /* Vert Sinople pour Florian */
+            background: var(--sinople); 
             height: 70px;
             width: 110%;
             transform: rotate(-2deg);
@@ -143,7 +142,6 @@
             margin-bottom: -40px;
         }
 
-        /* QUICK LINKS (LES 4 GRANDES CARTES) */
         .quick-links {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -174,19 +172,14 @@
             gap: 15px;
         }
         .link-card span { font-size: 2.5rem; }
-        .link-card:hover { 
-            transform: translateY(-10px); 
-            border-bottom-color: var(--sinople);
-            background: #f9f9f9;
-        }
+        .link-card:hover { transform: translateY(-10px); border-bottom-color: var(--sinople); }
 
-        /* CONTENEUR BLANC */
         .container { 
             max-width: 1100px; 
             margin: 0 auto; 
             padding: 40px 20px; 
             text-align: center; 
-            background: rgba(248, 248, 248, 0.96); /* Fond argent très légèrement transparent */
+            background: rgba(248, 248, 248, 0.96); 
             border-radius: 20px 20px 0 0;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
         }
@@ -245,55 +238,35 @@
             border-top: 5px solid var(--azur);
         }
         .contact-box input, .contact-box textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
+            width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;
         }
 
         .schedule-table {
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            text-align: left;
+            width: 100%; max-width: 400px; margin: 20px auto; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; text-align: left;
         }
         .schedule-table td { padding: 12px 20px; border-bottom: 1px solid #eee; }
 
-        /* COOKIE BANNER */
+        /* MENTIONS LEGALES STYLE */
+        .legal-notices {
+            max-width: 900px; margin: 30px auto; padding: 0 20px; text-align: left; font-size: 0.85rem; color: #bbb;
+        }
+        .legal-notices h4 { color: var(--sinople); text-transform: uppercase; margin-bottom: 15px; font-size: 1rem; }
+        .legal-notices p { margin-bottom: 10px; }
+
         #cookie-banner {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: var(--dark);
-            color: white;
-            padding: 20px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 9999;
-            border-top: 4px solid var(--azur);
+            position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); color: white; padding: 20px; display: none; justify-content: space-between; align-items: center; z-index: 9999; border-top: 4px solid var(--azur);
         }
 
-        /* FOOTER */
         footer {
-            background: var(--dark);
-            color: #ccc;
-            padding: 80px 0 40px;
-            border-top: 10px solid var(--azur);
-            position: relative;
-            z-index: 10;
+            background: var(--dark); color: #ccc; padding: 80px 0 40px; border-top: 10px solid var(--azur); position: relative; z-index: 10;
         }
         .footer-content { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; padding: 0 20px; }
+        footer h3 { color: white; border-bottom: 2px solid var(--sinople); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <div id="bg-slider"></div>
+    <div id="bg-parallax"></div>
 
     <header class="top-header">
         <h1 class="welcome-title">Bienvenue à Boisset</h1>
@@ -385,30 +358,41 @@
                 <div>
                     <h3>📍 Mairie de Boisset</h3>
                     <p>Le Bourg, 43500 Boisset</p>
+                    <p>📞 04.71.61.32.66</p>
+                    <p>✉️ mairie.boisset@wanadoo.fr</p>
                 </div>
                 <div>
                     <h3>🔗 Liens utiles</h3>
                     <a href="https://alloboisset.fr" target="_blank" style="color:var(--sinople); text-decoration:none; font-weight: 700;">AlloBoisset (Covoiturage)</a>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #333;">
-                <p>&copy; 2026 Commune de Boisset - Site Officiel.</p>
+
+            <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid #333;">
+                <div class="legal-notices">
+                    <h4>Mentions Légales</h4>
+                    <p><strong>1. Éditeur du site :</strong> Le site boisset43.fr est édité par la commune de Boisset. Adresse : Mairie de Boisset, Le Bourg, 43500 Boisset. Téléphone : 04.71.61.32.66. Email : mairie.boisset@wanadoo.fr. Directeur de la publication : Monsieur Florian Capdevielle, Maire de Boisset.</p>
+                    <p><strong>2. Hébergement et Stockage :</strong> En cours de configuration.</p>
+                    <p><strong>3. Propriété intellectuelle :</strong> L'ensemble des contenus (textes, photographies, blason) présents sur le site sont la propriété exclusive de la commune de Boisset, sauf mention contraire. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+                    <p><strong>4. Protection des données personnelles (RGPD) :</strong> Les informations collectées via le formulaire de contact sont uniquement destinées au secrétariat de la mairie pour répondre à vos demandes. Elles ne sont jamais transmises à des tiers. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données en contactant la mairie.</p>
+                </div>
+                
+                <p style="font-size: 0.8rem; margin-top: 20px;">
+                    &copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.
+                </p>
             </div>
         </footer>
     </div>
 
     <div id="cookie-banner">
-        <span>🍪 Ce site utilise des cookies techniques nécessaires à son bon fonctionnement.</span>
+        <span>🍪 Ce site utilise des cookies techniques nécessaires.</span>
         <button onclick="acceptCookies()" style="background:var(--sinople); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight: bold;">ACCEPTER</button>
     </div>
 
     <script>
-        // CONFIGURATION SUPABASE (Tes identifiants)
         const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- COOKIES ---
         function checkCookies() {
             if (!localStorage.getItem('cookie-consent')) document.getElementById('cookie-banner').style.display = 'flex';
         }
@@ -417,17 +401,13 @@
             document.getElementById('cookie-banner').style.display = 'none';
         }
 
-        // --- DATA DYNAMIQUE ---
         async function loadData() {
-            // Charger l'annuaire
             const { data: dir } = await sb.from('local_directory').select('*').order('name');
             const dirCont = document.getElementById('directory-container');
             if (dir) {
                 dirCont.innerHTML = '';
                 dir.forEach(i => dirCont.innerHTML += `<div class="item-card"><span class="category-tag">${i.category}</span><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
             }
-
-            // Charger les news
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
             const newsCont = document.getElementById('news-container');
             if (news) {
@@ -436,7 +416,17 @@
             }
         }
 
-        // LANCEMENT AUTOMATIQUE (Le diaporama JS est désactivé)
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const status = document.getElementById('form-status');
+            const { error } = await sb.from('contact_requests').insert([{
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            }]);
+            if (!error) { status.innerText = "Message envoyé !"; e.target.reset(); }
+        });
+
         checkCookies();
         loadData();
     </script>
