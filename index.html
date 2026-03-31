@@ -7,16 +7,24 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1a1a1a">
+    <meta name="theme-color" content="#0055A4">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
+        /* COULEURS DU BLASON */
+        :root {
+            --azur: #0055A4;      /* Bleu de la bordure */
+            --sinople: #228B22;   /* Vert du fayard */
+            --argent: #F8F8F8;    /* Fond clair */
+            --dark: #1a1a1a;      /* Pour le contraste */
+        }
+
         /* BASE & TYPO */
         body { 
             margin: 0; 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background: #fdfdfd; 
+            background: var(--argent); 
             color: #333; 
             overflow-x: hidden; 
             line-height: 1.6;
@@ -25,15 +33,16 @@
         
         /* HEADER */
         .top-header {
-            background: #1a1a1a;
+            background: var(--dark);
             height: 120px;
             display: flex;
             justify-content: flex-end; 
             align-items: center;
-            padding: 0 40px 0 5%; /* Décalage vers la droite accentué pour le confort */
+            padding: 0 40px 0 5%; 
             position: relative;
             z-index: 100;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border-bottom: 3px solid var(--azur);
         }
 
         .welcome-title {
@@ -62,7 +71,7 @@
             letter-spacing: 1px;
             transition: 0.3s;
         }
-        .nav-link:hover { color: #8ec63f; }
+        .nav-link:hover { color: var(--sinople); }
 
         .logo-box {
             position: absolute;
@@ -80,11 +89,11 @@
             height: 500px;
             background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
                         url('https://www.ville-boisset.fr/wp-content/uploads/2021/01/fond-entete.jpg') center/cover no-repeat;
-            border-bottom: 15px solid #8ec63f;
+            border-bottom: 15px solid var(--sinople);
         }
 
         .skew-bar {
-            background: #8ec63f;
+            background: var(--azur);
             height: 70px;
             width: 110%;
             position: absolute;
@@ -113,29 +122,32 @@
             border-radius: 12px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-decoration: none;
-            color: #1a1a1a;
+            color: var(--dark);
             font-weight: 800;
             text-transform: uppercase;
             font-size: 0.9rem;
             transition: all 0.3s ease;
             text-align: center;
-            border-bottom: 5px solid #8ec63f;
+            border-bottom: 5px solid var(--azur);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 15px;
         }
         .link-card span { font-size: 2.5rem; }
-        .link-card:hover { transform: translateY(-10px); background: #f9f9f9; }
+        .link-card:hover { 
+            transform: translateY(-10px); 
+            border-bottom-color: var(--sinople);
+        }
 
         /* CONTAINERS */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; text-align: center; }
-        .decoration { width: 100px; height: 6px; background: #8ec63f; margin: 35px auto; border-radius: 3px; }
+        .decoration { width: 100px; height: 6px; background: var(--sinople); margin: 35px auto; border-radius: 3px; }
         .section-padding { padding: 80px 0; border-bottom: 1px solid #eee; }
         
         .section-title {
             font-size: 2.5rem;
-            color: #1a1a1a;
+            color: var(--dark);
             margin-bottom: 50px;
             text-transform: uppercase;
             font-weight: 900;
@@ -143,7 +155,7 @@
             display: inline-block;
         }
         .section-title::after {
-            content: ""; width: 50%; height: 4px; background: #8ec63f;
+            content: ""; width: 50%; height: 4px; background: var(--azur);
             position: absolute; bottom: -10px; left: 25%;
         }
 
@@ -160,12 +172,14 @@
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border-left: 5px solid #8ec63f;
+            border-left: 5px solid var(--azur);
             transition: 0.3s;
         }
+        .item-card:hover { border-left-color: var(--sinople); }
+        
         .category-tag {
             display: inline-block;
-            background: #214316;
+            background: var(--sinople);
             color: white;
             font-size: 0.7rem;
             padding: 3px 10px;
@@ -184,6 +198,7 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: left;
+            border-top: 5px solid var(--azur);
         }
         .contact-box input, .contact-box textarea {
             width: 100%;
@@ -194,7 +209,7 @@
             box-sizing: border-box;
         }
         .contact-box button {
-            background: #8ec63f;
+            background: var(--azur);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -203,9 +218,11 @@
             cursor: pointer;
             width: 100%;
             text-transform: uppercase;
+            transition: 0.3s;
         }
+        .contact-box button:hover { background: var(--sinople); }
 
-        /* TABLE STYLE (HORAIRES) */
+        /* TABLE STYLE */
         .schedule-table {
             width: 100%;
             max-width: 400px;
@@ -221,17 +238,15 @@
             padding: 12px 20px;
             border-bottom: 1px solid #eee;
         }
-        .schedule-table tr:last-child td { border-bottom: none; }
-        .schedule-table td:first-child { font-weight: 700; color: #1a1a1a; width: 40%; }
-        .schedule-table td:last-child { color: #214316; font-weight: 600; text-align: right; }
-        .closed-day { color: #999 !important; font-style: italic; font-weight: 400 !important; }
+        .schedule-table td:first-child { font-weight: 700; color: var(--dark); width: 40%; }
+        .schedule-table td:last-child { color: var(--sinople); font-weight: 600; text-align: right; }
 
         /* FOOTER */
         footer {
-            background: #1a1a1a;
+            background: var(--dark);
             color: #ccc;
             padding: 80px 0 40px;
-            border-top: 10px solid #8ec63f;
+            border-top: 10px solid var(--azur);
         }
         .footer-content {
             max-width: 1100px;
@@ -241,10 +256,7 @@
             gap: 50px;
             padding: 0 20px;
         }
-
-        /* RESPONSIVE */
-        @media (max-width: 1200px) { .welcome-title { font-size: 2.8rem; left: 240px; } .logo-box { width: 200px; } }
-        @media (max-width: 850px) { .welcome-title { display: none; } .top-header { height: 80px; } .logo-box { width: 120px; } .hero-section { height: 300px; } }
+        footer h3 { color: white; border-bottom: 2px solid var(--sinople); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -256,7 +268,7 @@
             <a href="#news-section" class="nav-link">Actualités</a>
             <a href="#vie-locale" class="nav-link">Vie Locale</a>
             <a href="#contact-section" class="nav-link">Contact</a>
-            <a href="https://alloboisset.fr" target="_blank" class="nav-link" style="color:#8ec63f">Covoiturage</a>
+            <a href="https://alloboisset.fr" target="_blank" class="nav-link" style="color:var(--sinople)">Covoiturage</a>
         </nav>
     </header>
 
@@ -279,15 +291,15 @@
 
     <main class="container">
         <div class="decoration"></div>
-        <p style="font-size: 1.8rem; color: #214316; margin-bottom: 80px;">
+        <p style="font-size: 1.8rem; color: var(--sinople); margin-bottom: 80px; font-weight: 300;">
             Le portail officiel de notre commune.<br>
-            <strong>Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
+            <strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
         </p>
 
         <section id="news-section" class="section-padding">
             <h2 class="section-title">Actualités</h2>
             <div id="news-container" class="dynamic-grid">
-                <p>Chargement des actualités...</p>
+                <p>Chargement des actualités municipales...</p>
             </div>
         </section>
 
@@ -297,13 +309,13 @@
                 
                 <div style="flex: 1; min-width: 300px;">
                     <h3>Horaires du Secrétariat</h3>
-                    <p>Le secrétariat vous accueille pour toutes vos démarches administratives aux horaires suivants :</p>
+                    <p>Le secrétariat vous accueille aux horaires suivants :</p>
                     <table class="schedule-table">
                         <tr><td>Lundi</td><td>09h - 12h</td></tr>
                         <tr><td>Mardi</td><td>14h - 18h</td></tr>
-                        <tr><td>Mercredi</td><td class="closed-day">Fermé</td></tr>
+                        <tr><td>Mercredi</td><td style="color:#999; font-style:italic;">Fermé</td></tr>
                         <tr><td>Jeudi</td><td>09h - 12h</td></tr>
-                        <tr><td>Vendredi</td><td class="closed-day">Fermé</td></tr>
+                        <tr><td>Vendredi</td><td style="color:#999; font-style:italic;">Fermé</td></tr>
                         <tr><td>Samedi</td><td>14h - 16h</td></tr>
                     </table>
                 </div>
@@ -312,9 +324,9 @@
                     <h3>Coordonnées</h3>
                     <p>📍 <strong>Adresse :</strong> Le Bourg, 43500 Boisset</p>
                     <p>📞 <strong>Téléphone :</strong> 04.71.61.32.66</p>
-                    <p>✉️ <strong>Email :</strong> <a href="mailto:mairie.boisset@wanadoo.fr" style="color: #214316; font-weight: 700;">mairie.boisset@wanadoo.fr</a></p>
+                    <p>✉️ <strong>Email :</strong> <a href="mailto:mairie.boisset@wanadoo.fr" style="color: var(--azur); font-weight: 700;">mairie.boisset@wanadoo.fr</a></p>
                     <br>
-                    <a href="https://www.service-public.fr" target="_blank" style="display: inline-block; background: #8ec63f; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 700;">Portail Service-Public.fr →</a>
+                    <a href="https://www.service-public.fr" target="_blank" style="display: inline-block; background: var(--sinople); color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: 700; transition: 0.3s;">Portail Service-Public.fr →</a>
                 </div>
             </div>
         </section>
@@ -322,7 +334,7 @@
         <section id="vie-locale" class="section-padding">
             <h2 class="section-title">Vie Locale & Annuaire</h2>
             <div id="directory-container" class="dynamic-grid">
-                <p>Chargement des informations...</p>
+                <p>Chargement de l'annuaire...</p>
             </div>
         </section>
 
@@ -358,8 +370,8 @@
             </div>
             <div>
                 <h3>🔗 Liens utiles</h3>
-                <a href="https://alloboisset.fr" target="_blank" style="color:#8ec63f; text-decoration:none;">AlloBoisset (Covoiturage)</a><br><br>
-                <a href="#" style="color:#8ec63f; text-decoration:none;">Mentions Légales</a>
+                <a href="https://alloboisset.fr" target="_blank" style="color:var(--sinople); text-decoration:none; font-weight: 700;">AlloBoisset (Covoiturage)</a><br><br>
+                <a href="#" style="color:var(--sinople); text-decoration:none;">Mentions Légales</a>
             </div>
         </div>
         <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid #333; font-size: 0.8rem;">
@@ -372,7 +384,6 @@
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Charger l'annuaire
         async function loadDirectory() {
             const container = document.getElementById('directory-container');
             const { data, error } = await sb.from('local_directory').select('*').order('name');
@@ -384,13 +395,12 @@
                             <span class="category-tag">${item.category}</span>
                             <h3>${item.name}</h3>
                             <p>${item.description || ''}</p>
-                            <div style="font-weight:700; font-size:0.85rem; margin-top:10px;">📞 ${item.contact_info}</div>
+                            <div style="font-weight:700; font-size:0.85rem; margin-top:10px; color:var(--azur);">📞 ${item.contact_info}</div>
                         </div>`;
                 });
             }
         }
 
-        // Charger les news
         async function loadNews() {
             const container = document.getElementById('news-container');
             const { data, error } = await sb.from('news').select('*').order('created_at', { ascending: false });
@@ -407,7 +417,6 @@
             }
         }
 
-        // Formulaire de contact
         document.getElementById('contact-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const status = document.getElementById('form-status');
@@ -420,7 +429,7 @@
                 status.style.color = "red";
                 status.innerText = "Erreur lors de l'envoi.";
             } else {
-                status.style.color = "green";
+                status.style.color = "var(--sinople)";
                 status.innerText = "Message bien envoyé !";
                 e.target.reset();
             }
