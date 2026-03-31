@@ -28,12 +28,9 @@
             background: #1a1a1a;
             height: 120px;
             display: flex;
-            justify-content: flex-end; /* Aligne le menu à droite */
+            justify-content: flex-end; 
             align-items: center;
-            /* --- CORRECTION ICI POUR DÉCALER LE MENU VERS LA DROITE --- */
-            /* J'ai changé 'padding: 0 5%;' par 'padding: 0 20px 0 5%;' (haut, droite, bas, gauche) */
-            padding: 0 20px 0 5%; 
-            /* --------------------------------------------------------- */
+            padding: 0 40px 0 5%; /* Décalage vers la droite accentué pour le confort */
             position: relative;
             z-index: 100;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
@@ -150,15 +147,15 @@
             position: absolute; bottom: -10px; left: 25%;
         }
 
-        /* DIRECTORY GRID (DYNAMIC) */
-        .directory-grid {
+        /* DYNAMIC GRIDS */
+        .dynamic-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 40px;
             text-align: left;
         }
-        .directory-card {
+        .item-card {
             background: white;
             border-radius: 15px;
             padding: 25px;
@@ -176,6 +173,36 @@
             text-transform: uppercase;
             font-weight: 700;
             margin-bottom: 10px;
+        }
+
+        /* CONTACT FORM */
+        .contact-box {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        .contact-box input, .contact-box textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .contact-box button {
+            background: #8ec63f;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
         }
 
         /* TABLE STYLE (HORAIRES) */
@@ -226,8 +253,9 @@
         <h1 class="welcome-title">Bienvenue à Boisset</h1>
         <nav>
             <a href="#mairie" class="nav-link">La Mairie</a>
-            <a href="#vie-locale" class="nav-link">Vie Locale</a>
             <a href="#news-section" class="nav-link">Actualités</a>
+            <a href="#vie-locale" class="nav-link">Vie Locale</a>
+            <a href="#contact-section" class="nav-link">Contact</a>
             <a href="https://alloboisset.fr" target="_blank" class="nav-link" style="color:#8ec63f">Covoiturage</a>
         </nav>
     </header>
@@ -244,9 +272,9 @@
 
     <section class="quick-links">
         <a href="#mairie" class="link-card"><span>🏛️</span>Mairie & Démarches</a>
+        <a href="#news-section" class="link-card"><span>📰</span>Dernières News</a>
         <a href="#vie-locale" class="link-card"><span>🤝</span>Vie Locale</a>
-        <a href="#" class="link-card"><span>🏡</span>Urbanisme</a>
-        <a href="#" class="link-card"><span>📅</span>Agenda</a>
+        <a href="#contact-section" class="link-card"><span>✉️</span>Nous écrire</a>
     </section>
 
     <main class="container">
@@ -255,6 +283,13 @@
             Le portail officiel de notre commune.<br>
             <strong>Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
         </p>
+
+        <section id="news-section" class="section-padding">
+            <h2 class="section-title">Actualités</h2>
+            <div id="news-container" class="dynamic-grid">
+                <p>Chargement des actualités...</p>
+            </div>
+        </section>
 
         <section id="mairie" class="section-padding">
             <h2 class="section-title">La Mairie</h2>
@@ -286,8 +321,21 @@
 
         <section id="vie-locale" class="section-padding">
             <h2 class="section-title">Vie Locale & Annuaire</h2>
-            <div id="directory-container" class="directory-grid">
+            <div id="directory-container" class="dynamic-grid">
                 <p>Chargement des informations...</p>
+            </div>
+        </section>
+
+        <section id="contact-section" class="section-padding">
+            <h2 class="section-title">Nous contacter</h2>
+            <div class="contact-box">
+                <form id="contact-form">
+                    <input type="text" id="name" placeholder="Votre Nom" required>
+                    <input type="email" id="email" placeholder="Votre Email" required>
+                    <textarea id="message" rows="5" placeholder="Votre message..." required></textarea>
+                    <button type="submit">Envoyer le message</button>
+                    <p id="form-status" style="margin-top:15px; font-weight:700; text-align:center;"></p>
+                </form>
             </div>
         </section>
     </main>
@@ -320,46 +368,66 @@
     </footer>
 
     <script>
-        // CONFIGURATION SUPABASE (Clés réelles)
         const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // Charger l'annuaire
         async function loadDirectory() {
             const container = document.getElementById('directory-container');
-            try {
-                const { data, error } = await supabaseClient
-                    .from('local_directory')
-                    .select('*')
-                    .order('name', { ascending: true });
-
-                if (error) throw error;
+            const { data, error } = await sb.from('local_directory').select('*').order('name');
+            if (!error) {
                 container.innerHTML = '';
-
-                if (data.length === 0) {
-                    container.innerHTML = '<p>Aucune information répertoriée pour le moment.</p>';
-                    return;
-                }
-
                 data.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'directory-card';
-                    card.innerHTML = `
-                        <span class="category-tag">${item.category}</span>
-                        <h3>${item.name}</h3>
-                        <p>${item.description || ''}</p>
-                        <div style="font-weight:700; font-size:0.85rem; margin-top:10px;">📞 ${item.contact_info || 'Contact en Mairie'}</div>
-                    `;
-                    container.appendChild(card);
+                    container.innerHTML += `
+                        <div class="item-card">
+                            <span class="category-tag">${item.category}</span>
+                            <h3>${item.name}</h3>
+                            <p>${item.description || ''}</p>
+                            <div style="font-weight:700; font-size:0.85rem; margin-top:10px;">📞 ${item.contact_info}</div>
+                        </div>`;
                 });
-            } catch (err) {
-                console.error("Erreur:", err.message);
-                container.innerHTML = `<p style="color:red">Erreur de chargement des données.</p>`;
             }
         }
 
-        // Lancement automatique au chargement de la page
+        // Charger les news
+        async function loadNews() {
+            const container = document.getElementById('news-container');
+            const { data, error } = await sb.from('news').select('*').order('created_at', { ascending: false });
+            if (!error) {
+                container.innerHTML = '';
+                data.forEach(item => {
+                    container.innerHTML += `
+                        <div class="item-card">
+                            <span class="category-tag">${item.category}</span>
+                            <h3>${item.title}</h3>
+                            <p>${item.content}</p>
+                        </div>`;
+                });
+            }
+        }
+
+        // Formulaire de contact
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const status = document.getElementById('form-status');
+            const { error } = await sb.from('contact_requests').insert([{
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            }]);
+            if (error) {
+                status.style.color = "red";
+                status.innerText = "Erreur lors de l'envoi.";
+            } else {
+                status.style.color = "green";
+                status.innerText = "Message bien envoyé !";
+                e.target.reset();
+            }
+        });
+
         loadDirectory();
+        loadNews();
     </script>
 </body>
 </html>
