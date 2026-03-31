@@ -98,12 +98,12 @@
         }
         .nav-link-special span { font-size: 13px; font-weight: 700; text-transform: uppercase; }
 
-        /* LOGO BOX - SÉCURISÉ */
+        /* LOGO BOX */
         .logo-box {
             position: fixed; 
             top: 10px;
             left: 20px;
-            z-index: 3000; /* Toujours au dessus */
+            z-index: 3000; 
             width: 300px;
             filter: drop-shadow(0 8px 25px rgba(0,0,0,0.6));
             pointer-events: auto;
@@ -116,7 +116,7 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            z-index: 4000; /* Le plus haut pour cliquer */
+            z-index: 4000; 
             padding: 10px;
         }
         .burger-btn span {
@@ -127,7 +127,28 @@
             border-radius: 2px;
         }
 
-        /* CONTENU CONTENEUR */
+        /* BOUTON REMONTER (BACK TO TOP) */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--sinople);
+            color: white;
+            border-radius: 50%;
+            display: none; /* Apparaîtra via JS */
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 5000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid white;
+            transition: 0.3s;
+        }
+
+        /* CONTENU */
         .main-content { margin-top: 120px; position: relative; z-index: 10; }
         .hero-spacer { height: 400px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 50px; }
         
@@ -171,7 +192,7 @@
 
         /* FOOTER */
         footer { background: var(--dark); color: #ccc; padding: 80px 0 40px; border-top: 10px solid var(--azur); position: relative; z-index: 10; }
-        .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 50px; padding: 0 20px; }
+        .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap; gap: 50px; padding: 0 20px; }
         .footer-column { flex: 1; min-width: 280px; text-align: center; }
         footer h3 { color: white; border-bottom: 2px solid var(--sinople); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
         
@@ -228,6 +249,8 @@
     <div class="logo-box">
         <img src="blason.png" alt="Blason de la commune de Boisset">
     </div>
+
+    <button id="back-to-top" onclick="scrollToTop()">⬆️</button>
 
     <div class="main-content">
         <div class="hero-spacer"><div class="skew-bar"></div></div>
@@ -300,13 +323,13 @@
                 </div>
                 <div class="footer-column">
                     <h3>📍 Mairie de Boisset</h3>
-                    <p>Le Bourg, 43500 Boisset<br>📞 04.71.61.32.66<br>✉️ mairie.boisset@wanadoo.fr</p>
+                    <p>Le Bourg, 43500 Boisset<br>📞 04.71.61.32.66</p>
                 </div>
             </div>
             <div class="legal-notices">
                 <h4>Mentions Légales</h4>
-                <p><strong>1. Éditeur :</strong> Le site boisset43.fr est édité par la commune de Boisset. Mairie : Le Bourg, 43500 Boisset. Tél : 04.71.61.32.66. Directeur : M. Florian Capdevielle, Maire.</p>
-                <p><strong>2. Hébergement :</strong> En cours de configuration.</p>
+                <p><strong>1. Éditeur du site :</strong> Le site boisset43.fr est édité par la commune de Boisset. Mairie : Le Bourg, 43500 Boisset. Tél : 04.71.61.32.66. Directeur : M. Florian Capdevielle, Maire.</p>
+                <p><strong>2. Hébergement et Stockage :</strong> En cours de configuration.</p>
                 <p><strong>3. Propriété :</strong> L'ensemble des contenus sont la propriété exclusive de la commune de Boisset.</p>
                 <p><strong>4. RGPD :</strong> Les données collectées via le formulaire sont destinées au secrétariat et ne sont jamais transmises à des tiers.</p>
                 <p style="text-align:center; margin-top:20px;">&copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.</p>
@@ -319,6 +342,21 @@
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // --- GESTION DU BOUTON REMONTER ---
+        const btnTop = document.getElementById("back-to-top");
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btnTop.style.display = "flex";
+            } else {
+                btnTop.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- MENU BURGER ---
         function toggleMenu() {
             if (window.innerWidth <= 950) {
                 const menu = document.getElementById('nav-menu');
@@ -326,6 +364,7 @@
             }
         }
 
+        // --- CHARGEMENT DATA ---
         async function loadData() {
             const { data: dir } = await sb.from('local_directory').select('*').order('name');
             const dirCont = document.getElementById('directory-container');
