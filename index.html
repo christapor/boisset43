@@ -61,6 +61,11 @@
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
         }
 
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-link {
             color: white;
             text-decoration: none;
@@ -72,6 +77,22 @@
             transition: 0.3s;
         }
         .nav-link:hover { color: var(--sinople); }
+
+        /* LIEN COVOITURAGE MULTI-LIGNES */
+        .nav-link-special {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.2;
+            text-align: center;
+            color: var(--sinople) !important;
+        }
+        .nav-link-special .sub-text {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0;
+            text-transform: none;
+        }
 
         .logo-box {
             position: absolute;
@@ -250,7 +271,7 @@
             background: var(--dark);
             color: white;
             padding: 20px;
-            display: none; /* Caché par défaut, affiché par JS */
+            display: none; 
             justify-content: space-between;
             align-items: center;
             z-index: 9999;
@@ -314,7 +335,12 @@
             <a href="#news-section" class="nav-link">Actualités</a>
             <a href="#vie-locale" class="nav-link">Vie Locale</a>
             <a href="#contact-section" class="nav-link">Contact</a>
-            <a href="https://alloboisset.fr" target="_blank" class="nav-link" style="color:var(--sinople)">Covoiturage</a>
+            <a href="https://alloboisset.fr" target="_blank" class="nav-link nav-link-special">
+                <span>Covoiturage</span>
+                <span class="sub-text">local</span>
+                <span class="sub-text">gratuit</span>
+                <span class="sub-text">car il y a de la place</span>
+            </a>
         </nav>
     </header>
 
@@ -448,7 +474,6 @@
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- GESTION DES COOKIES ---
         function checkCookies() {
             const consent = localStorage.getItem('cookie-consent');
             if (!consent) {
@@ -461,7 +486,6 @@
             document.getElementById('cookie-banner').style.display = 'none';
         }
 
-        // --- CHARGEMENT DATA ---
         async function loadDirectory() {
             const container = document.getElementById('directory-container');
             const { data, error } = await sb.from('local_directory').select('*').order('name');
@@ -514,7 +538,6 @@
             }
         });
 
-        // LANCEMENT
         checkCookies();
         loadDirectory();
         loadNews();
