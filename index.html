@@ -38,7 +38,7 @@
             width: 100%;
             height: 100vh;
             z-index: -1; 
-            background-image: url('fond.jpeg'); /* --- NOM DE L'IMAGE CORRIGÉ --- */
+            background-image: url('fond.jpeg'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -242,11 +242,27 @@
         }
 
         .schedule-table {
-            width: 100%; max-width: 400px; margin: 20px auto; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; text-align: left;
+            width: 100%; max-width: 400px; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; text-align: left;
         }
-        .schedule-table td { padding: 12px 20px; border-bottom: 1px solid #eee; }
+        .schedule-table td { padding: 8px 15px; border-bottom: 1px solid #eee; }
 
-        /* MENTIONS LEGALES STYLE */
+        /* FOOTER & MENTIONS */
+        footer {
+            background: var(--dark); color: #ccc; padding: 80px 0 40px; border-top: 10px solid var(--azur); position: relative; z-index: 10;
+        }
+        .footer-content { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: flex-start;
+            flex-wrap: wrap; 
+            gap: 50px; 
+            padding: 0 20px; 
+        }
+        .footer-column { flex: 1; min-width: 280px; text-align: center; }
+        footer h3 { color: white; border-bottom: 2px solid var(--sinople); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
+
         .legal-notices {
             max-width: 900px; margin: 30px auto; padding: 0 20px; text-align: left; font-size: 0.85rem; color: #bbb;
         }
@@ -256,12 +272,6 @@
         #cookie-banner {
             position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); color: white; padding: 20px; display: none; justify-content: space-between; align-items: center; z-index: 9999; border-top: 4px solid var(--azur);
         }
-
-        footer {
-            background: var(--dark); color: #ccc; padding: 80px 0 40px; border-top: 10px solid var(--azur); position: relative; z-index: 10;
-        }
-        .footer-content { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; padding: 0 20px; }
-        footer h3 { color: white; border-bottom: 2px solid var(--sinople); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -355,15 +365,20 @@
 
         <footer>
             <div class="footer-content">
-                <div>
-                    <h3>📍 Mairie de Boisset</h3>
-                    <p>Le Bourg, 43500 Boisset</p>
-                    <p>📞 04.71.61.32.66</p>
-                    <p>✉️ mairie.boisset@wanadoo.fr</p>
+                <div class="footer-column">
+                    <h3>⏰ Horaires</h3>
+                    <table class="schedule-table" style="margin: 0 auto; background: transparent; color: #ccc; border: none;">
+                        <tr style="border-bottom: 1px solid #333;"><td style="color: white;">Lun / Jeu</td><td style="text-align: right;">09h - 12h</td></tr>
+                        <tr style="border-bottom: 1px solid #333;"><td style="color: white;">Mardi</td><td style="text-align: right;">14h - 18h</td></tr>
+                        <tr><td style="color: white;">Samedi</td><td style="text-align: right;">14h - 16h</td></tr>
+                    </table>
                 </div>
-                <div>
-                    <h3>🔗 Liens utiles</h3>
-                    <a href="https://alloboisset.fr" target="_blank" style="color:var(--sinople); text-decoration:none; font-weight: 700;">AlloBoisset (Covoiturage)</a>
+
+                <div class="footer-column">
+                    <h3>📍 Mairie de Boisset</h3>
+                    <p style="margin: 5px 0;">Le Bourg, 43500 Boisset</p>
+                    <p style="margin: 5px 0;">📞 04.71.61.32.66</p>
+                    <p style="margin: 5px 0;">✉️ mairie.boisset@wanadoo.fr</p>
                 </div>
             </div>
 
