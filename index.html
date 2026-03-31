@@ -241,6 +241,35 @@
         .schedule-table td:first-child { font-weight: 700; color: var(--dark); width: 40%; }
         .schedule-table td:last-child { color: var(--sinople); font-weight: 600; text-align: right; }
 
+        /* COOKIE BANNER */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark);
+            color: white;
+            padding: 20px;
+            display: none; /* Caché par défaut, affiché par JS */
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+            border-top: 4px solid var(--azur);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .cookie-btn {
+            background: var(--sinople);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .cookie-btn.refuse { background: #555; margin-left: 10px; }
+
         /* FOOTER */
         footer {
             background: var(--dark);
@@ -323,7 +352,6 @@
         <section id="mairie" class="section-padding">
             <h2 class="section-title">La Mairie</h2>
             <div style="max-width: 800px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; text-align: left;">
-                
                 <div style="flex: 1; min-width: 300px;">
                     <h3>Horaires du Secrétariat</h3>
                     <p>Le secrétariat vous accueille aux horaires suivants :</p>
@@ -336,7 +364,6 @@
                         <tr><td>Samedi</td><td>14h - 16h</td></tr>
                     </table>
                 </div>
-
                 <div style="flex: 1; min-width: 300px;">
                     <h3>Coordonnées</h3>
                     <p>📍 <strong>Adresse :</strong> Le Bourg, 43500 Boisset</p>
@@ -370,6 +397,17 @@
         </section>
     </main>
 
+    <div id="cookie-banner">
+        <div>
+            <strong>🍪 Respect de votre vie privée</strong><br>
+            <span style="font-size: 0.9rem;">Ce site utilise des cookies techniques nécessaires à son bon fonctionnement.</span>
+        </div>
+        <div>
+            <button class="cookie-btn" onclick="acceptCookies()">Accepter</button>
+            <button class="cookie-btn refuse" onclick="acceptCookies()">Refuser</button>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <div>
@@ -391,7 +429,6 @@
                 <a href="https://alloboisset.fr" target="_blank" style="color:var(--sinople); text-decoration:none; font-weight: 700;">AlloBoisset (Covoiturage)</a>
             </div>
         </div>
-        
         <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid #333;">
             <div class="legal-notices">
                 <h4>Mentions Légales</h4>
@@ -400,7 +437,6 @@
                 <p><strong>3. Propriété intellectuelle :</strong> L'ensemble des contenus (textes, photographies, blason) présents sur le site sont la propriété exclusive de la commune de Boisset, sauf mention contraire. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
                 <p><strong>4. Protection des données personnelles (RGPD) :</strong> Les informations collectées via le formulaire de contact (nom, email, message, numéro de téléphone) sont uniquement destinées au secrétariat de la mairie pour répondre à vos demandes. Elles ne sont jamais transmises à des tiers. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données en contactant la mairie par email ou courrier.</p>
             </div>
-            
             <p style="font-size: 0.8rem; margin-top: 20px;">
                 &copy; 2026 Commune de Boisset (Haute-Loire) - Site Officiel.
             </p>
@@ -412,6 +448,20 @@
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // --- GESTION DES COOKIES ---
+        function checkCookies() {
+            const consent = localStorage.getItem('cookie-consent');
+            if (!consent) {
+                document.getElementById('cookie-banner').style.display = 'flex';
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookie-consent', 'true');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+
+        // --- CHARGEMENT DATA ---
         async function loadDirectory() {
             const container = document.getElementById('directory-container');
             const { data, error } = await sb.from('local_directory').select('*').order('name');
@@ -464,6 +514,8 @@
             }
         });
 
+        // LANCEMENT
+        checkCookies();
         loadDirectory();
         loadNews();
     </script>
