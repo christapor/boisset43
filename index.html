@@ -30,19 +30,20 @@
             scroll-behavior: smooth;
         }
 
-        /* ARRIÈRE-PLAN FIXE ET DIAPORAMA (PARALLAXE) */
+        /* ARRIÈRE-PLAN FIXE (PARALLAXE) AVEC TON IMAGE */
         #bg-slider {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            z-index: -1; 
+            z-index: -1; /* Derrière tout le monde */
+            background-image: url('fong.jpeg'); /* --- TON IMAGE ICI --- */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transition: background-image 1.5s ease-in-out;
-            background-color: #333; 
+            background-attachment: fixed; /* Renforce l'effet parallaxe */
+            background-color: #333; /* Fond d'attente au cas où */
         }
         
         /* HEADER FIXE */
@@ -92,16 +93,17 @@
         }
         .nav-link:hover { color: var(--sinople); }
 
+        /* LIEN COVOITURAGE MULTI-LIGNES (Taille identique) */
         .nav-link-special {
             display: flex;
             flex-direction: column;
             align-items: center;
-            line-height: 1.1;
+            line-height: 1.1; 
             text-align: center;
             color: var(--sinople) !important;
         }
         .nav-link-special span {
-            font-size: 13px;
+            font-size: 13px; 
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -125,7 +127,7 @@
         }
 
         .hero-spacer {
-            height: 400px; 
+            height: 400px; /* Espace pour voir la photo au début */
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -141,7 +143,7 @@
             margin-bottom: -40px;
         }
 
-        /* QUICK LINKS (LES CARTES RÉINSTALLÉES) */
+        /* QUICK LINKS (LES 4 GRANDES CARTES) */
         .quick-links {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -184,7 +186,7 @@
             margin: 0 auto; 
             padding: 40px 20px; 
             text-align: center; 
-            background: rgba(248, 248, 248, 0.96); 
+            background: rgba(248, 248, 248, 0.96); /* Fond argent très légèrement transparent */
             border-radius: 20px 20px 0 0;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
         }
@@ -263,6 +265,7 @@
         }
         .schedule-table td { padding: 12px 20px; border-bottom: 1px solid #eee; }
 
+        /* COOKIE BANNER */
         #cookie-banner {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -276,6 +279,7 @@
             border-top: 4px solid var(--azur);
         }
 
+        /* FOOTER */
         footer {
             background: var(--dark);
             color: #ccc;
@@ -394,28 +398,17 @@
     </div>
 
     <div id="cookie-banner">
-        <span>🍪 Ce site utilise des cookies techniques nécessaires.</span>
+        <span>🍪 Ce site utilise des cookies techniques nécessaires à son bon fonctionnement.</span>
         <button onclick="acceptCookies()" style="background:var(--sinople); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight: bold;">ACCEPTER</button>
     </div>
 
     <script>
+        // CONFIGURATION SUPABASE (Tes identifiants)
         const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const images = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg'];
-        let currentIndex = 0;
-
-        function startSlideshow() {
-            const bgSlider = document.getElementById('bg-slider');
-            function updateBg() {
-                bgSlider.style.backgroundImage = `url(${images[currentIndex]})`;
-                currentIndex = (currentIndex + 1) % images.length;
-            }
-            updateBg();
-            setInterval(updateBg, 30000); 
-        }
-
+        // --- COOKIES ---
         function checkCookies() {
             if (!localStorage.getItem('cookie-consent')) document.getElementById('cookie-banner').style.display = 'flex';
         }
@@ -424,7 +417,9 @@
             document.getElementById('cookie-banner').style.display = 'none';
         }
 
+        // --- DATA DYNAMIQUE ---
         async function loadData() {
+            // Charger l'annuaire
             const { data: dir } = await sb.from('local_directory').select('*').order('name');
             const dirCont = document.getElementById('directory-container');
             if (dir) {
@@ -432,6 +427,7 @@
                 dir.forEach(i => dirCont.innerHTML += `<div class="item-card"><span class="category-tag">${i.category}</span><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
             }
 
+            // Charger les news
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
             const newsCont = document.getElementById('news-container');
             if (news) {
@@ -440,7 +436,7 @@
             }
         }
 
-        startSlideshow();
+        // LANCEMENT AUTOMATIQUE (Le diaporama JS est désactivé)
         checkCookies();
         loadData();
     </script>
