@@ -29,6 +29,11 @@
             scroll-behavior: smooth;
         }
 
+        /* CORRECTION DU SCROLL : Empêche le header de cacher les titres */
+        section {
+            scroll-margin-top: 135px;
+        }
+
         /* FOND PARALLAXE */
         #bg-parallax {
             position: fixed;
@@ -236,6 +241,9 @@
             }
             .nav-menu.active { display: flex !important; }
             .nav-link { margin: 12px 0; font-size: 15px; margin-left: 0; text-align: center; }
+            section {
+                scroll-margin-top: 90px; /* Ajusté pour le header plus petit sur mobile */
+            }
         }
     </style>
 </head>
