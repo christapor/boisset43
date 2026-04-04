@@ -12,12 +12,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        /* COULEURS DU BLASON */
         :root {
             --azur: #0055A4;      
             --sinople: #228B22;   
             --argent: #F8F8F8;    
-            --dark: #1a1a1a;      
+            --dark: #1a1a1a;
+            --header-h: 80px;
+            --menu-h: 50px;
         }
 
         body { 
@@ -29,12 +30,11 @@
             scroll-behavior: smooth;
         }
 
-        /* CORRECTION DU SCROLL : Empêche le header de cacher les titres */
+        /* AJUSTEMENT DU SCROLL (Somme des deux bandeaux + marge) */
         section {
-            scroll-margin-top: 135px;
+            scroll-margin-top: 150px;
         }
 
-        /* FOND PARALLAXE */
         #bg-parallax {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
@@ -47,203 +47,146 @@
             background-color: #333; 
         }
         
-        /* HEADER FIXE */
+        /* BANDEAU 1 : TITRE ET LOGO */
         .top-header {
             background: var(--dark);
-            height: 120px;
+            height: var(--header-h);
             display: flex;
-            justify-content: flex-end; 
+            justify-content: center; 
             align-items: center;
-            padding: 0 40px; 
             position: fixed; 
             top: 0; left: 0; right: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            border-bottom: 3px solid var(--azur);
+            z-index: 2000;
+            border-bottom: 1px solid #333;
         }
 
         .welcome-title {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 330px;
             color: #f8f8f8;
-            font-size: 3.2rem;
+            font-size: 2.2rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             margin: 0;
-            z-index: 200;
-            white-space: nowrap;
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
         }
 
-        /* NAVIGATION */
-        .nav-menu { display: flex; align-items: center; }
+        /* BANDEAU 2 : LE MENU FIXE */
+        .sub-header {
+            background: #2a2a2a; /* Un gris un peu plus clair pour détacher du noir */
+            height: var(--menu-h);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: var(--header-h); left: 0; right: 0;
+            z-index: 1900;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-bottom: 3px solid var(--azur);
+        }
+
+        .nav-menu { display: flex; align-items: center; gap: 30px; }
 
         .nav-link {
             color: white;
             text-decoration: none;
-            margin-left: 25px;
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 1px;
             transition: 0.3s;
         }
         .nav-link:hover { color: var(--sinople); }
 
         .nav-link-special {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.1;
-            text-align: center;
             color: var(--sinople) !important;
-            border: 1px solid var(--sinople);
-            padding: 5px 10px;
-            border-radius: 5px;
+            font-weight: 800;
         }
-        .nav-link-special span { font-size: 11px; font-weight: 700; text-transform: uppercase; }
 
-        /* LOGO BOX */
+        /* LOGO */
         .logo-box {
             position: fixed; 
-            top: 10px;
+            top: 5px;
             left: 20px;
             z-index: 3000; 
-            width: 280px;
-            filter: drop-shadow(0 8px 25px rgba(0,0,0,0.6));
-            pointer-events: auto;
+            width: 180px; /* Réduit pour ne pas manger le titre */
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
         }
-        .logo-box img { width: 100%; height: auto; display: block; }
+        .logo-box img { width: 100%; height: auto; }
 
-        /* BURGER */
+        /* BURGER (Mobile uniquement) */
         .burger-btn {
             display: none;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             cursor: pointer;
-            z-index: 4000; 
-            padding: 10px;
+            position: absolute;
+            right: 20px;
         }
-        .burger-btn span {
-            display: block;
-            width: 30px;
-            height: 4px;
-            background: white;
-            border-radius: 2px;
-        }
+        .burger-btn span { width: 25px; height: 3px; background: white; border-radius: 2px; }
 
         #back-to-top {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background-color: var(--sinople);
-            color: white;
-            border-radius: 50%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 5000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border: 2px solid white;
-            transition: 0.3s;
+            bottom: 20px; right: 20px;
+            width: 40px; height: 40px;
+            background: var(--sinople);
+            color: white; border-radius: 50%;
+            display: none; justify-content: center; align-items: center;
+            cursor: pointer; z-index: 5000; border: 2px solid white;
         }
 
         /* CONTENU */
-        .main-content { margin-top: 120px; position: relative; z-index: 10; }
-        .hero-spacer { height: 350px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 50px; }
+        .main-content { margin-top: 130px; position: relative; z-index: 10; }
+        .hero-spacer { height: 250px; display: flex; align-items: flex-end; justify-content: center; }
         
         .skew-bar { 
             background: var(--sinople); 
-            height: 70px; 
-            width: 110%; 
-            transform: rotate(-2deg); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-            margin-bottom: -40px; 
+            height: 60px; width: 110%; transform: rotate(-1.5deg); 
+            margin-bottom: -30px; 
         }
 
         .quick-links { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 20px; 
-            max-width: 1100px; 
-            margin: -60px auto 80px; 
-            padding: 0 20px; 
-            position: relative; 
-            z-index: 60; 
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 15px; max-width: 1100px; margin: -50px auto 60px; padding: 0 20px;
+            position: relative; z-index: 60; 
         }
         
         .link-card { 
-            background: white; padding: 30px 15px; border-radius: 12px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-decoration: none; 
+            background: white; padding: 25px 10px; border-radius: 10px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-decoration: none; 
             color: var(--dark); font-weight: 800; text-transform: uppercase; 
-            font-size: 0.8rem; text-align: center; border-bottom: 5px solid var(--azur); 
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-            transition: transform 0.3s;
+            font-size: 0.75rem; text-align: center; border-bottom: 4px solid var(--azur); 
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
         }
-        .link-card:hover { transform: translateY(-5px); }
-        .link-card span { font-size: 2rem; }
+        .link-card span { font-size: 1.8rem; }
 
         .container { 
             max-width: 1100px; margin: 0 auto; padding: 40px 20px; 
             text-align: center; background: rgba(248, 248, 248, 0.98); 
-            border-radius: 20px 20px 0 0; box-shadow: 0 -10px 30px rgba(0,0,0,0.2); 
+            border-radius: 20px 20px 0 0;
         }
 
-        .section-padding { padding: 60px 0; border-bottom: 1px solid #eee; }
-        .section-title { font-size: 2.2rem; color: var(--dark); margin-bottom: 40px; text-transform: uppercase; font-weight: 900; }
+        .section-padding { padding: 50px 0; border-bottom: 1px solid #eee; }
+        .section-title { font-size: 2rem; color: var(--dark); margin-bottom: 30px; text-transform: uppercase; font-weight: 900; }
         
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            text-align: left;
-        }
-        .service-item {
-            background: white; padding: 25px; border-radius: 15px;
-            border-left: 5px solid var(--azur);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left; }
+        .service-item { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid var(--azur); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
-        /* FOOTER */
-        footer { background: var(--dark); color: #ccc; padding: 60px 0 30px; border-top: 10px solid var(--azur); position: relative; z-index: 10; }
-        .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap; gap: 40px; padding: 0 20px; }
-        .footer-column { flex: 1; min-width: 250px; text-align: center; }
-        footer h3 { color: white; border-bottom: 2px solid var(--sinople); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
-        
-        .schedule-table { width: 100%; max-width: 350px; border-collapse: collapse; margin: 0 auto; text-align: left; }
-        .schedule-table td { padding: 8px 15px; border-bottom: 1px solid #333; }
-
-        .legal-notices { max-width: 900px; margin: 30px auto; padding: 20px; text-align: left; font-size: 0.8rem; color: #999; border-top: 1px solid #333; }
+        footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
+        .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; padding: 0 20px; }
+        footer h3 { color: white; border-bottom: 2px solid var(--sinople); padding-bottom: 5px; margin-bottom: 15px; }
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 950px) {
-            .welcome-title { display: none; }
-            .logo-box { width: 140px; top: 5px; left: 10px; }
-            .top-header { height: 80px; padding: 0 15px; }
-            .main-content { margin-top: 80px; }
-            .hero-spacer { height: 180px; }
-            .burger-btn { display: flex; }
-            .nav-menu {
-                display: none; 
-                flex-direction: column;
-                position: absolute;
-                top: 80px; left: 0; right: 0;
-                background: #1a1a1a;
-                padding: 20px 0;
-                border-bottom: 4px solid var(--sinople);
-            }
-            .nav-menu.active { display: flex !important; }
-            .nav-link { margin: 12px 0; font-size: 15px; margin-left: 0; text-align: center; }
-            section {
-                scroll-margin-top: 90px; /* Ajusté pour le header plus petit sur mobile */
-            }
+            .logo-box { width: 100px; left: 10px; top: 5px; }
+            .welcome-title { font-size: 1.3rem; letter-spacing: 1px; }
+            .top-header { height: 60px; }
+            .sub-header { top: 60px; height: auto; padding: 10px 0; }
+            .nav-menu { display: none; flex-direction: column; gap: 15px; width: 100%; }
+            .nav-menu.active { display: flex; }
+            .burger-btn { display: flex; top: 20px; }
+            .main-content { margin-top: 120px; }
+            section { scroll-margin-top: 180px; }
         }
     </style>
 </head>
@@ -256,20 +199,21 @@
         <div class="burger-btn" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
-        <nav class="nav-menu" id="nav-menu">
+    </header>
+
+    <nav class="sub-header">
+        <div class="nav-menu" id="nav-menu">
             <a href="#mairie" class="nav-link" onclick="toggleMenu()">La Mairie</a>
             <a href="#services-municipaux" class="nav-link" onclick="toggleMenu()">Services publics</a>
             <a href="#news-section" class="nav-link" onclick="toggleMenu()">Actualités</a>
             <a href="#vie-locale" class="nav-link" onclick="toggleMenu()">Vie Locale</a>
             <a href="mailto:mairie.boisset@wanadoo.fr?subject=Boîte%20à%20idées" target="_blank" class="nav-link" style="color:var(--sinople) !important;">💡 Boîte à Idées</a>
-            <a href="https://alloboisset.fr" target="_blank" class="nav-link nav-link-special">
-                <span>Allo Boisset</span><span>Covoiturage</span>
-            </a>
-        </nav>
-    </header>
+            <a href="https://alloboisset.fr" target="_blank" class="nav-link nav-link-special">ALLO BOISSET</a>
+        </div>
+    </nav>
 
     <div class="logo-box">
-        <img src="blason.png" alt="Blason de Boisset">
+        <img src="blason.png" alt="Blason">
     </div>
 
     <button id="back-to-top" onclick="scrollToTop()">⬆️</button>
@@ -278,15 +222,15 @@
         <div class="hero-spacer"><div class="skew-bar"></div></div>
 
         <section class="quick-links">
-            <a href="#mairie" class="link-card"><span>🏛️</span>Ma Mairie</a>
-            <a href="#services-municipaux" class="link-card"><span>🎒</span>Vie Quotidienne</a>
+            <a href="#mairie" class="link-card"><span>🏛️</span>Mairie</a>
+            <a href="#services-municipaux" class="link-card"><span>🎒</span>Quotidien</a>
             <a href="#news-section" class="link-card"><span>📰</span>Actualités</a>
             <a href="#vie-locale" class="link-card"><span>🤝</span>Annuaire</a>
             <a href="#contact-section" class="link-card"><span>✉️</span>Contact</a>
         </section>
 
         <main class="container">
-            <p style="font-size: 1.6rem; color: var(--sinople); margin-bottom: 40px; font-weight: 300;">
+            <p style="font-size: 1.5rem; color: var(--sinople); margin-bottom: 30px; font-weight: 300;">
                 Portail officiel de la commune.<br>
                 <strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
             </p>
@@ -299,57 +243,51 @@
             <section id="mairie" class="section-padding">
                 <h2 class="section-title">Vie Municipale</h2>
                 <div style="display:flex; flex-wrap:wrap; gap:40px; text-align:left; justify-content:center;">
-                    <div style="flex:1; min-width:300px;">
+                    <div style="flex:1; min-width:280px;">
                         <h3>Horaires du Secrétariat</h3>
                         <table style="width:100%; border-collapse:collapse;">
-                            <tr style="border-bottom:1px solid #ddd;"><td style="padding:10px; font-weight:bold;">Lundi</td><td style="text-align:right;">09h - 12h</td></tr>
-                            <tr style="border-bottom:1px solid #ddd;"><td style="padding:10px; font-weight:bold;">Mardi</td><td style="text-align:right;">14h - 18h</td></tr>
-                            <tr style="border-bottom:1px solid #ddd;"><td style="padding:10px; font-weight:bold;">Jeudi</td><td style="text-align:right;">09h - 12h</td></tr>
-                            <tr><td style="padding:10px; font-weight:bold;">Samedi</td><td style="text-align:right;">14h - 16h</td></tr>
+                            <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px; font-weight:bold;">Lundi / Jeudi</td><td style="text-align:right;">09h - 12h</td></tr>
+                            <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px; font-weight:bold;">Mardi</td><td style="text-align:right;">14h - 18h</td></tr>
+                            <tr><td style="padding:8px; font-weight:bold;">Samedi</td><td style="text-align:right;">14h - 16h</td></tr>
                         </table>
                     </div>
-                    <div style="flex:1; min-width:300px;">
+                    <div style="flex:1; min-width:280px;">
                         <h3>Le Conseil Municipal</h3>
-                        <div style="display:flex; flex-direction:column; gap:10px;">
-                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:12px; border-radius:8px; font-size:0.9rem; text-align:center;">👥 Élus & Commissions</a>
-                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:12px; border-radius:8px; font-size:0.9rem; text-align:center;">📄 Comptes-rendus & PV</a>
-                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:12px; border-radius:8px; font-size:0.9rem; text-align:center;">Réunions Publiques</a>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:10px; border-radius:5px; text-align:center;">Élus & Commissions</a>
+                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:10px; border-radius:5px; text-align:center;">Comptes-rendus & PV</a>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="services-municipaux" class="section-padding">
-                <h2 class="section-title">Services & Vie Quotidienne</h2>
+                <h2 class="section-title">Services publics</h2>
                 <div class="services-grid">
                     <div class="service-item">
                         <h3>🎒 École & Enfance</h3>
-                        <p>Infos école publique, inscriptions scolaires et périscolaire.</p>
-                        <p style="font-size:0.85rem; background:#f9f9f9; padding:5px; border-radius:4px;">🍴 Cantine & Transport : S'adresser à la mairie.</p>
+                        <p>Inscriptions scolaires et périscolaire. Cantine et transport.</p>
                     </div>
                     <div class="service-item" style="border-left-color: var(--sinople);">
                         <h3>🏢 Salles Municipales</h3>
-                        <p>Tarifs et réservations des salles pour événements.</p>
-                        <p style="font-size:0.85rem; color:#666;">Possibilité d'annulation via le secrétariat.</p>
+                        <p>Tarifs et réservations. Voir avec le secrétariat.</p>
                     </div>
                     <div class="service-item">
                         <h3>📚 Bibliothèque</h3>
-                        <p>Espace de lecture géré par les bénévoles.</p>
-                        <p><strong>📞 Contact :</strong> 04.71.61.32.66</p>
+                        <p>Ouverte aux habitants. 📞 04.71.61.32.66</p>
                     </div>
                     <div class="service-item" style="border-left-color: var(--sinople);">
                         <h3>🏗️ Urbanisme</h3>
-                        <p>Plan Local d'Urbanisme (PLU) et demandes de travaux (Cerfa).</p>
+                        <p>Plan Local d'Urbanisme (PLU) et travaux (Cerfa).</p>
                     </div>
                 </div>
 
-                <div style="margin-top:50px; background:#f0f4f8; padding:30px; border-radius:15px; text-align:center;">
-                    <h4 style="margin-top:0; color:var(--azur);">Services de la ComCom & Syndicats</h4>
-                    <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">
-                        <span style="background:white; padding:10px 20px; border-radius:30px; box-shadow:0 2px 5px rgba(0,0,0,0.1); font-size:0.85rem;">♻️ Ordures (SICTOM)</span>
-                        <span style="background:white; padding:10px 20px; border-radius:30px; box-shadow:0 2px 5px rgba(0,0,0,0.1); font-size:0.85rem;">💧 Eau (SGEV)</span>
-                        <span style="background:white; padding:10px 20px; border-radius:30px; box-shadow:0 2px 5px rgba(0,0,0,0.1); font-size:0.85rem;">🏥 Maison de Santé St-Pal</span>
-                        <span style="background:white; padding:10px 20px; border-radius:30px; box-shadow:0 2px 5px rgba(0,0,0,0.1); font-size:0.85rem;">👮 Gendarmerie / 17</span>
+                <div style="margin-top:40px; background:#f0f4f8; padding:20px; border-radius:12px; text-align:center;">
+                    <h4 style="margin-top:0; color:var(--azur);">Intercommunalité & Syndicats</h4>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">♻️ Ordures</span>
+                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">💧 Eau</span>
+                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">🏥 Santé</span>
                     </div>
                 </div>
             </section>
@@ -360,13 +298,13 @@
             </section>
 
             <section id="contact-section" class="section-padding">
-                <h2 class="section-title">Nous contacter</h2>
-                <div style="max-width:600px; margin:0 auto; background:white; padding:40px; border-radius:15px; border-top:5px solid var(--azur); text-align:left; box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+                <h2 class="section-title">Contact</h2>
+                <div style="max-width:600px; margin:0 auto; background:white; padding:30px; border-radius:15px; border-top:5px solid var(--azur); text-align:left;">
                     <form id="contact-form">
-                        <input type="text" id="name" placeholder="Votre Nom" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;">
-                        <input type="email" id="email" placeholder="Votre Email" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;">
-                        <textarea id="message" rows="5" placeholder="Votre message..." required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;"></textarea>
-                        <button type="submit" style="background:var(--azur); color:white; width:100%; padding:15px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; transition: 0.3s;">ENVOYER LE MESSAGE</button>
+                        <input type="text" id="name" placeholder="Votre Nom" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        <input type="email" id="email" placeholder="Votre Email" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        <textarea id="message" rows="4" placeholder="Votre message..." required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;"></textarea>
+                        <button type="submit" style="background:var(--azur); color:white; width:100%; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">ENVOYER</button>
                         <p id="form-status" style="text-align:center; margin-top:10px; font-weight:bold;"></p>
                     </form>
                 </div>
@@ -376,25 +314,15 @@
         <footer>
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>⏰ Horaires Mairie</h3>
-                    <table class="schedule-table" style="color:#ccc;">
-                        <tr><td style="color:white;">Lun / Jeu</td><td style="text-align:right;">09h - 12h</td></tr>
-                        <tr><td style="color:white;">Mardi</td><td style="text-align:right;">14h - 18h</td></tr>
-                        <tr><td style="color:white;">Samedi</td><td style="text-align:right;">14h - 16h</td></tr>
-                    </table>
+                    <h3>⏰ Mairie</h3>
+                    <p>Lun-Jeu: 9h-12h<br>Mar: 14h-18h / Sam: 14h-16h</p>
                 </div>
                 <div class="footer-column">
-                    <h3>📍 Coordonnées</h3>
-                    <p>Mairie de Boisset<br>Le Bourg, 43500 Boisset<br>📞 04.71.61.32.66</p>
-                    <p>✉️ <a href="mailto:mairie.boisset@wanadoo.fr" style="color:white;">mairie.boisset@wanadoo.fr</a></p>
+                    <h3>📍 Adresse</h3>
+                    <p>Mairie de Boisset<br>Le Bourg, 43500 Boisset</p>
                 </div>
             </div>
-            <div class="legal-notices">
-                <h4>Mentions Légales</h4>
-                <p><strong>Éditeur :</strong> Commune de Boisset. Directeur : M. Florian Capdevielle, Maire.</p>
-                <p><strong>Hébergement :</strong> En cours de configuration. | <strong>RGPD :</strong> Données utilisées uniquement pour la correspondance mairie/administrés.</p>
-                <p style="text-align:center; margin-top:20px;">&copy; 2026 Commune de Boisset - Haute-Loire.</p>
-            </div>
+            <div style="text-align:center; margin-top:30px; font-size:0.8rem; color:#888;">&copy; 2026 Commune de Boisset - Haute-Loire.</div>
         </footer>
     </div>
 
@@ -412,9 +340,7 @@
             }
         };
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
         function toggleMenu() {
             if (window.innerWidth <= 950) {
@@ -428,23 +354,13 @@
             const dirCont = document.getElementById('directory-container');
             if (dir && dirCont) {
                 dirCont.innerHTML = '';
-                dir.forEach(i => dirCont.innerHTML += `
-                    <div style="background:white; padding:25px; border-radius:15px; border-left:5px solid var(--azur); box-shadow:0 10px 25px rgba(0,0,0,0.05);">
-                        <span style="display:inline-block; background:var(--sinople); color:white; font-size:0.7rem; padding:3px 10px; border-radius:20px; text-transform:uppercase; font-weight:700; margin-bottom:10px;">${i.category}</span>
-                        <h3 style="margin:5px 0;">${i.name}</h3>
-                        <p style="color:#666;">${i.description || ''}</p>
-                    </div>`);
+                dir.forEach(i => dirCont.innerHTML += `<div class="service-item"><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
             }
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
             const newsCont = document.getElementById('news-container');
             if (news && newsCont) {
                 newsCont.innerHTML = '';
-                news.forEach(n => newsCont.innerHTML += `
-                    <div style="background:white; padding:25px; border-radius:15px; border-left:5px solid var(--sinople); box-shadow:0 10px 25px rgba(0,0,0,0.05);">
-                        <span style="color:#999; font-size:0.8rem; font-weight:bold;">${new Date(n.created_at).toLocaleDateString()}</span>
-                        <h3 style="margin:10px 0;">${n.title}</h3>
-                        <p>${n.content}</p>
-                    </div>`);
+                news.forEach(n => newsCont.innerHTML += `<div class="service-item" style="border-left-color:var(--sinople)"><h3>${n.title}</h3><p>${n.content}</p></div>`);
             }
         }
 
@@ -452,8 +368,7 @@
             e.preventDefault();
             const status = document.getElementById('form-status');
             const { error } = await sb.from('contact_requests').insert([{ name: document.getElementById('name').value, email: document.getElementById('email').value, message: document.getElementById('message').value }]);
-            if (!error) { status.style.color="green"; status.innerText = "✅ Message envoyé au secrétariat !"; e.target.reset(); }
-            else { status.style.color="red"; status.innerText = "❌ Erreur lors de l'envoi."; }
+            if (!error) { status.style.color="green"; status.innerText = "✅ Message envoyé !"; e.target.reset(); }
         });
 
         loadData();
