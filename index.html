@@ -22,158 +22,39 @@
             --menu-h: 50px;
         }
 
-        body { 
-            margin: 0; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            color: #333; 
-            overflow-x: hidden; 
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-
+        body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #333; overflow-x: hidden; line-height: 1.6; scroll-behavior: smooth; }
         section { scroll-margin-top: 150px; }
-
-        #bg-parallax {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            z-index: -1; 
-            background-image: url('fond.jpeg'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-color: #333; 
-        }
+        #bg-parallax { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; background-image: url('fond.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; background-color: #333; }
         
-        .top-header {
-            background: var(--dark);
-            height: var(--header-h);
-            display: flex;
-            justify-content: center; 
-            align-items: center;
-            position: fixed; 
-            top: 0; left: 0; right: 0;
-            z-index: 2000;
-            border-bottom: 1px solid #333;
-        }
-
-        .welcome-title {
-            color: #f8f8f8;
-            font-size: 2.2rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin: 0;
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
-        }
-
-        .sub-header {
-            background: #2a2a2a;
-            height: var(--menu-h);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: var(--header-h); left: 0; right: 0;
-            z-index: 1900;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border-bottom: 3px solid var(--azur);
-        }
-
+        .top-header { background: var(--dark); height: var(--header-h); display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 2000; border-bottom: 1px solid #333; }
+        .welcome-title { color: #f8f8f8; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin: 0; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4)); }
+        .sub-header { background: #2a2a2a; height: var(--menu-h); display: flex; justify-content: center; align-items: center; position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 1900; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-bottom: 3px solid var(--azur); }
         .nav-menu { display: flex; align-items: center; gap: 30px; }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
+        .nav-link { color: white; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; transition: 0.3s; }
         .nav-link:hover { color: var(--sinople); }
-
-        .logo-box {
-            position: fixed; 
-            top: 5px;
-            left: 20px;
-            z-index: 3000; 
-            width: 180px;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
-        }
+        .logo-box { position: fixed; top: 5px; left: 20px; z-index: 3000; width: 180px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
         .logo-box img { width: 100%; height: auto; }
-
-        .burger-btn {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-        }
+        .burger-btn { display: none; flex-direction: column; gap: 4px; cursor: pointer; position: absolute; right: 20px; }
         .burger-btn span { width: 25px; height: 3px; background: white; border-radius: 2px; }
-
-        #back-to-top {
-            position: fixed;
-            bottom: 20px; right: 20px;
-            width: 40px; height: 40px;
-            background: var(--sinople);
-            color: white; border-radius: 50%;
-            display: none; justify-content: center; align-items: center;
-            cursor: pointer; z-index: 5000; border: 2px solid white;
-        }
-
+        #back-to-top { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; background: var(--sinople); color: white; border-radius: 50%; display: none; justify-content: center; align-items: center; cursor: pointer; z-index: 5000; border: 2px solid white; }
         .main-content { margin-top: 130px; position: relative; z-index: 10; }
         .hero-spacer { height: 250px; display: flex; align-items: flex-end; justify-content: center; }
-        
-        .skew-bar { 
-            background: var(--sinople); 
-            height: 60px; width: 110%; transform: rotate(-1.5deg); 
-            margin-bottom: -30px; 
-        }
-
-        .quick-links { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-            gap: 15px; max-width: 1100px; margin: -50px auto 60px; padding: 0 20px;
-            position: relative; z-index: 60; 
-        }
-        
-        .link-card { 
-            background: white; padding: 25px 10px; border-radius: 10px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-decoration: none; 
-            color: var(--dark); font-weight: 800; text-transform: uppercase; 
-            font-size: 0.75rem; text-align: center; border-bottom: 4px solid var(--azur); 
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-        }
+        .skew-bar { background: var(--sinople); height: 60px; width: 110%; transform: rotate(-1.5deg); margin-bottom: -30px; }
+        .quick-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; max-width: 1100px; margin: -50px auto 60px; padding: 0 20px; position: relative; z-index: 60; }
+        .link-card { background: white; padding: 25px 10px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-decoration: none; color: var(--dark); font-weight: 800; text-transform: uppercase; font-size: 0.75rem; text-align: center; border-bottom: 4px solid var(--azur); display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .link-card span { font-size: 1.8rem; }
-
-        .container { 
-            max-width: 1100px; margin: 0 auto; padding: 40px 20px; 
-            text-align: center; background: rgba(248, 248, 248, 0.98); 
-            border-radius: 20px 20px 0 0;
-        }
-
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; text-align: center; background: rgba(248, 248, 248, 0.98); border-radius: 20px 20px 0 0; }
         .section-padding { padding: 50px 0; border-bottom: 1px solid #eee; }
         .section-title { font-size: 2rem; color: var(--dark); margin-bottom: 30px; text-transform: uppercase; font-weight: 900; }
-        
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left; }
         .service-item { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid var(--azur); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-
-        .calendar-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .calendar-table th { background: var(--azur); color: white; padding: 12px; text-align: left; text-transform: uppercase; font-size: 0.8rem; }
-        .calendar-table td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; font-size: 0.9rem; }
-        .month-row { background: #f0f4f8; font-weight: bold; color: var(--azur); text-transform: uppercase; font-size: 0.8rem; }
-
-        /* Tarifs des salles */
-        .price-tag { background: #f1f1f1; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
-        .price-tag h4 { margin-top: 0; color: var(--azur); border-bottom: 2px solid var(--azur); display: inline-block; }
         .price-list { list-style: none; padding: 0; font-size: 0.85rem; }
         .price-list li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed #ccc; }
-
-        /* Calendrier de réservation */
         #calendar-container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 30px; }
-        #calendar { max-width: 100%; margin: 0 auto; height: 500px; }
-
+        #calendar { max-width: 100%; height: 500px; }
+        .fc-event { cursor: not-allowed !important; }
+        .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: left; margin-top: 20px; }
+        .directory-card { background: white; padding: 15px; border-radius: 10px; border-top: 3px solid var(--sinople); box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-size: 0.85rem; }
         footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
         .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; padding: 0 20px; }
 
@@ -196,26 +77,21 @@
 
     <header class="top-header">
         <h1 class="welcome-title">Bienvenue à Boisset</h1>
-        <div class="burger-btn" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
+        <div class="burger-btn" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </header>
 
     <nav class="sub-header">
         <div class="nav-menu" id="nav-menu">
             <a href="#mairie" class="nav-link" onclick="toggleMenu()">La Mairie</a>
             <a href="#services-municipaux" class="nav-link" onclick="toggleMenu()">Services publics</a>
-            <a href="#news-section" class="nav-link" onclick="toggleMenu()">Calendrier & Actus</a>
+            <a href="#news-section" class="nav-link" onclick="toggleMenu()">Actualités</a>
             <a href="#vie-locale" class="nav-link" onclick="toggleMenu()">Vie Locale</a>
-            <a href="mailto:mairie.boisset@wanadoo.fr?subject=Boîte aux idées" target="_blank" class="nav-link" style="color:var(--sinople) !important;">💡 Boîte à Idées</a>
+            <a href="mailto:mairie.boisset@orange.fr?subject=Boîte aux idées" target="_blank" class="nav-link" style="color:var(--sinople) !important;">💡 Boîte à Idées</a>
             <a href="https://alloboisset.fr" target="_blank" class="nav-link">ALLO BOISSET</a>
         </div>
     </nav>
 
-    <div class="logo-box">
-        <img src="blason.png" alt="Blason">
-    </div>
-
+    <div class="logo-box"><img src="blason.png" alt="Blason"></div>
     <button id="back-to-top" onclick="scrollToTop()">⬆️</button>
 
     <div class="main-content">
@@ -224,37 +100,16 @@
         <section class="quick-links">
             <a href="#mairie" class="link-card"><span>🏛️</span>Mairie</a>
             <a href="#services-municipaux" class="link-card"><span>🎒</span>Quotidien</a>
-            <a href="#news-section" class="link-card"><span>📅</span>Calendrier</a>
-            <a href="#vie-locale" class="link-card"><span>🤝</span>Associations</a>
+            <a href="#news-section" class="link-card"><span>📰</span>Actualités</a>
+            <a href="#vie-locale" class="link-card"><span>🤝</span>Annuaire</a>
             <a href="#contact-section" class="link-card"><span>✉️</span>Contact</a>
         </section>
 
         <main class="container">
-            <p style="font-size: 1.5rem; color: var(--sinople); margin-bottom: 30px; font-weight: 300;">
-                Portail officiel de la commune.<br>
-                <strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
-            </p>
+            <p style="font-size: 1.5rem; color: var(--sinople); margin-bottom: 30px; font-weight: 300;">Le portail officiel de notre commune.<br><strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong></p>
 
             <section id="news-section" class="section-padding">
-                <h2 class="section-title">Calendrier & Actualités</h2>
-                <div style="max-height: 400px; overflow-y: auto; margin-bottom: 40px;">
-                    <table class="calendar-table">
-                        <thead><tr><th>Date</th><th>Organisateur</th><th>Événement</th></tr></thead>
-                        <tbody>
-                            <tr class="month-row"><td colspan="3">Janvier / Février</td></tr>
-                            <tr><td>10 janv.</td><td>Comité des fêtes</td><td>Assemblée générale</td></tr>
-                            <tr><td>11 janv.</td><td>Municipalité</td><td>Vœux du maire [cite: 150]</td></tr>
-                            <tr><td>7 fév.</td><td>Classards</td><td>Bal</td></tr>
-                            <tr><td>15 fév.</td><td>CCAS</td><td>Thé dansant</td></tr>
-                            <tr class="month-row"><td colspan="3">Mars / Avril</td></tr>
-                            <tr><td>1er mars</td><td>ACCA</td><td>Concours de coinche</td></tr>
-                            <tr><td>11 avril</td><td>Parents d'élèves</td><td>Soirée sarasson [cite: 150]</td></tr>
-                            <tr class="month-row"><td colspan="3">Juillet / Septembre</td></tr>
-                            <tr><td>24-26 juil.</td><td>Comité des fêtes</td><td>Fête patronale [cite: 150]</td></tr>
-                            <tr><td>6 sept.</td><td>Comité des fêtes</td><td>Voitures anciennes</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <h2 class="section-title">Actualités</h2>
                 <div id="news-container" class="services-grid"></div>
             </section>
 
@@ -262,26 +117,28 @@
                 <h2 class="section-title">Vie Municipale</h2>
                 <div style="display:flex; flex-wrap:wrap; gap:40px; text-align:left; justify-content:center;">
                     <div style="flex:1; min-width:280px;">
-                        <h3>Secrétariat</h3>
-                        <p>📞 04 71 61 32 66 | ✉️ mairie.boisset@orange.fr [cite: 239]</p>
-                        <table style="width:100%; border-collapse:collapse;">
+                        <h3>Secrétariat & Horaires</h3>
+                        <p>📞 04 71 61 32 66 | ✉️ mairie.boisset@orange.fr</p>
+                        <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
                             <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px; font-weight:bold;">Lundi / Jeudi</td><td style="text-align:right;">09h - 12h</td></tr>
                             <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px; font-weight:bold;">Mardi</td><td style="text-align:right;">14h - 18h</td></tr>
                             <tr><td style="padding:8px; font-weight:bold;">Samedi</td><td style="text-align:right;">14h - 16h</td></tr>
                         </table>
+                        <h4 style="margin-top:20px;">Personnel Communal</h4>
+                        <ul style="font-size: 0.85rem; padding-left: 20px;">
+                            <li><strong>Secrétariat :</strong> Murielle Bouillon</li>
+                            <li><strong>École :</strong> Mélanie Perbet, Thiphaine Jalabert, Arnaud Beurion</li>
+                            <li><strong>Technique :</strong> Cédric Dérail, Thierry Petit</li>
+                        </ul>
                     </div>
                     <div style="flex:1; min-width:280px;">
-                        <h3>Le Personnel Communal</h3>
-                        <ul style="font-size: 0.9rem; padding-left: 20px;">
-                            <li><strong>Secrétariat :</strong> Murielle Bouillon </li>
-                            <li><strong>École :</strong> Mélanie Perbet (Aide mat.) & Thiphaine Jalabert </li>
-                            <li><strong>Technique :</strong> Cédric Dérail & Thierry Petit </li>
-                            <li><strong>Service Civique :</strong> Arnaud Beurion </li>
-                        </ul>
-                        <div style="display:flex; flex-direction:column; gap:8px; margin-top:15px;">
+                        <h3>Vie Politique & Utile</h3>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
                             <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:10px; border-radius:5px; text-align:center;">Élus & Commissions</a>
                             <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:10px; border-radius:5px; text-align:center;">Comptes-rendus & PV</a>
                         </div>
+                        <h4 style="margin-top:20px;">Santé au plus près</h4>
+                        <p style="font-size:0.85rem;">👨‍⚕️ <strong>Médecin (St-Pal) :</strong> 04 71 61 32 25<br>💊 <strong>Pharmacie :</strong> 04 71 61 30 49<br>🚒 <strong>Pompiers :</strong> 18 ou 112</p>
                     </div>
                 </div>
             </section>
@@ -290,62 +147,59 @@
                 <h2 class="section-title">Services publics</h2>
                 <div class="services-grid">
                     <div class="service-item" id="salles" style="grid-column: span 2;">
-                        <h3>🏢 Location des Salles Communales</h3>
+                        <h3>🏢 Location des Salles & Réservation</h3>
                         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
-                            <div class="price-tag">
-                                <h4>Salle Polyvalente [cite: 242]</h4>
+                            <div>
+                                <h4 style="font-size:0.9rem; color:var(--azur);">Salle Polyvalente</h4>
                                 <ul class="price-list">
                                     <li><span>Mariage (Commune)</span> <strong>250 €</strong></li>
                                     <li><span>Mariage (Extérieur)</span> <strong>560 €</strong></li>
-                                    <li><span>Repas familial (Commune)</span> <strong>120 €</strong></li>
+                                    <li><span>Repas famille (Commune)</span> <strong>120 €</strong></li>
                                     <li><span>Boom jeunes</span> <strong>140 €</strong></li>
                                 </ul>
                             </div>
-                            <div class="price-tag">
-                                <h4>Salle Communale [cite: 250, 253]</h4>
+                            <div>
+                                <h4 style="font-size:0.9rem; color:var(--azur);">Salle Communale</h4>
                                 <ul class="price-list">
-                                    <li><span>Repas familial (Commune)</span> <strong>60 €</strong></li>
+                                    <li><span>Repas famille (Commune)</span> <strong>60 €</strong></li>
                                     <li><span>Utilisation extérieure</span> <strong>150 €</strong></li>
                                     <li><span>Réunions associations</span> <strong>Gratuit</strong></li>
                                 </ul>
                             </div>
                         </div>
-
                         <div id="calendar-container">
-                            <h4 style="margin-bottom:15px;">📅 Disponibilités & Demande de réservation</h4>
-                            <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Cliquez sur une date libre pour envoyer votre demande au secrétariat.</p>
+                            <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Cliquez sur une date libre pour envoyer une demande de réservation.</p>
                             <div id="calendar"></div>
                         </div>
                     </div>
 
                     <div class="service-item" id="bibliotheque" style="border-left-color: var(--sinople);">
                         <h3>📚 Bibliothèque</h3>
-                        <p>Inscription et prêt GRATUITS[cite: 8].</p>
-                        <p style="font-size:0.85rem;">⏰ Samedi 14h-16h | Mardi (scolaires)[cite: 245, 247].</p>
+                        <p style="font-size:0.9rem;">Samedi 14h-16h (Public). Inscription et prêt GRATUITS.</p>
                     </div>
 
                     <div class="service-item" id="urbanisme" style="border-left-color: var(--sinople);">
                         <h3>🏗️ Urbanisme & PLU</h3>
-                        <p>Études du PLU jusqu'à fin 2026 pour protéger l'Ance et l'Andrable[cite: 33, 36].</p>
+                        <p style="font-size:0.9rem;">Études en cours (2025-2026). Protection de l'Ance et l'Andrable.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top:40px; background:#f0f4f8; padding:20px; border-radius:12px; text-align:center;">
+                    <h4 style="margin-top:0; color:var(--azur);">Informations Pratiques</h4>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; font-size:0.8rem;">
+                        <span style="background:white; padding:8px 15px; border-radius:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">🍽️ <strong>Cantine :</strong> 3,80 € (Parents)</span>
+                        <span style="background:white; padding:8px 15px; border-radius:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">⚰️ <strong>Cimetière :</strong> 510 € (Concession)</span>
+                        <span style="background:white; padding:8px 15px; border-radius:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">♻️ <strong>Déchetterie :</strong> Ven 14h-17h / Sam 9h-12h</span>
                     </div>
                 </div>
             </section>
 
             <section id="vie-locale" class="section-padding">
-                <h2 class="section-title">Associations & Vie Locale</h2>
+                <h2 class="section-title">Vie Locale & Annuaire</h2>
                 <div class="services-grid">
-                    <div class="service-item" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>🚂 La Micheline</h3>
-                        <p>Distribution légumes/pain un mardi sur deux (17h-19h)[cite: 164]. Ateliers dessin le mercredi[cite: 172].</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>🤝 Club de la Bonne Entente</h3>
-                        <p>50 adhérents[cite: 11]. Présidente : Chantal Bayle (06 74 47 74 20)[cite: 15, 16].</p>
-                    </div>
-                    <div class="service-item" style="border-left-color: var(--sinople);">
-                        <h3>🎈 Comité des Fêtes</h3>
-                        <p>Fête patronale 24-26 juillet[cite: 74]. Pr. Christophe Morawiec[cite: 76].</p>
-                    </div>
+                    <div class="service-item" style="border-left-color: var(--sinople);"><h3>🤝 Club Bonne Entente</h3><p>Sorties et jeux le jeudi. 50 adhérents.</p></div>
+                    <div class="service-item"><h3>🥳 Les Joyeux Lurons</h3><p>Brioches de vogue et bals. Rdv : 11 avril 2026.</p></div>
+                    <div class="service-item" style="border-left-color: var(--sinople);"><h3>🎈 Comité des Fêtes</h3><p>Fête patronale fin juillet. Pr. C. Morawiec.</p></div>
                 </div>
             </section>
 
@@ -353,9 +207,9 @@
                 <h2 class="section-title">Contact</h2>
                 <div style="max-width:600px; margin:0 auto; background:white; padding:30px; border-radius:15px; border-top:5px solid var(--azur); text-align:left;">
                     <form id="contact-form">
-                        <input type="text" id="name" placeholder="Nom" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        <input type="email" id="email" placeholder="Email" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        <textarea id="message" rows="4" placeholder="Message..." required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;"></textarea>
+                        <input type="text" id="name" placeholder="Votre Nom" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        <input type="email" id="email" placeholder="Votre Email" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        <textarea id="message" rows="4" placeholder="Votre message..." required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;"></textarea>
                         <button type="submit" style="background:var(--azur); color:white; width:100%; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">ENVOYER</button>
                         <p id="form-status" style="text-align:center; margin-top:10px; font-weight:bold;"></p>
                     </form>
@@ -365,9 +219,10 @@
 
         <footer>
             <div class="footer-content">
-                <div class="footer-column"><h3>⏰ Mairie</h3><p>Lun-Jeu : 09h-12h / Mar : 14h-18h / Sam : 14h-16h [cite: 239]</p></div>
-                <div class="footer-column"><h3>📍 Adresse</h3><p>Mairie de Boisset<br>Le Bourg, 43500 Boisset</p></div>
+                <div class="footer-column"><h3>⏰ Mairie</h3><p>Lun/Jeu : 9h-12h / Mar : 14h-18h / Sam : 14h-16h</p></div>
+                <div class="footer-column"><h3>📍 Adresse</h3><p>Mairie de Boisset - Le Bourg, 43500 Boisset</p></div>
             </div>
+            <div style="text-align:center; margin-top:30px; font-size:0.8rem; color:#888;">&copy; 2026 Commune de Boisset - Haute-Loire.</div>
         </footer>
     </div>
 
@@ -376,30 +231,33 @@
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- GESTION DU CALENDRIER DE RÉSERVATION ---
-        document.addEventListener('DOMContentLoaded', function() {
+        // GESTION DU CALENDRIER
+        document.addEventListener('DOMContentLoaded', async function() {
             var calendarEl = document.getElementById('calendar');
+            
+            // Récupérer les dates bloquées
+            const { data: reservations } = await sb.from('salle_reservations').select('*').eq('status', 'confirmé');
+            const takenDates = reservations ? reservations.map(r => r.date_debut) : [];
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 locale: 'fr',
                 headerToolbar: { left: 'prev,next', center: 'title', right: '' },
-                selectable: true,
-                events: async function(info, successCallback, failureCallback) {
-                    const { data, error } = await sb.from('salle_reservations').select('*').eq('status', 'confirmé');
-                    if (error) failureCallback(error);
-                    else successCallback(data.map(event => ({ title: 'Occupé', start: event.date_debut, end: event.date_fin, color: '#d9534f' })));
-                },
+                events: takenDates.map(d => ({ start: d, display: 'background', color: '#ff9f89' })),
                 dateClick: function(info) {
-                    if(confirm("Souhaitez-vous envoyer une demande de réservation pour le " + info.dateStr + " ?")) {
-                        window.location.href = "#contact-section";
-                        document.getElementById('message').value = "Demande de réservation de salle pour le : " + info.dateStr;
+                    if (takenDates.includes(info.dateStr)) {
+                        alert("Désolé, la salle est déjà réservée pour cette date.");
+                    } else {
+                        if(confirm("La date du " + info.dateStr + " est libre. Souhaitez-vous envoyer une demande de réservation à la mairie ?")) {
+                            window.location.href = "#contact-section";
+                            document.getElementById('message').value = "Demande de réservation de salle pour le : " + info.dateStr;
+                        }
                     }
                 }
             });
             calendar.render();
         });
 
-        // --- AUTRES SCRIPTS ---
         const btnTop = document.getElementById("back-to-top");
         window.onscroll = function() { btnTop.style.display = (window.scrollY > 300) ? "flex" : "none"; };
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
@@ -418,7 +276,7 @@
             e.preventDefault();
             const status = document.getElementById('form-status');
             const { error } = await sb.from('contact_requests').insert([{ name: document.getElementById('name').value, email: document.getElementById('email').value, message: document.getElementById('message').value }]);
-            if (!error) { status.style.color="green"; status.innerText = "✅ Message envoyé !"; e.target.reset(); }
+            if (!error) { status.style.color="green"; status.innerText = "✅ Message envoyé à la mairie !"; e.target.reset(); }
         });
 
         loadData();
