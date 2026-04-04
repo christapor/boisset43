@@ -10,6 +10,7 @@
     <meta name="theme-color" content="#0055A4">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
     
     <style>
         :root {
@@ -30,9 +31,7 @@
             scroll-behavior: smooth;
         }
 
-        section {
-            scroll-margin-top: 150px;
-        }
+        section { scroll-margin-top: 150px; }
 
         #bg-parallax {
             position: fixed;
@@ -41,7 +40,6 @@
             background-image: url('fond.jpeg'); 
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             background-attachment: fixed;
             background-color: #333; 
         }
@@ -161,23 +159,23 @@
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left; }
         .service-item { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid var(--azur); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
-        .club-list { list-style: none; padding: 0; margin-top: 10px; }
-        .club-list li { margin-bottom: 8px; padding: 8px; background: #f9f9f9; border-radius: 5px; font-size: 0.85rem; }
-        .club-list a { color: var(--azur); font-weight: bold; text-decoration: none; }
+        .calendar-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .calendar-table th { background: var(--azur); color: white; padding: 12px; text-align: left; text-transform: uppercase; font-size: 0.8rem; }
+        .calendar-table td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; font-size: 0.9rem; }
+        .month-row { background: #f0f4f8; font-weight: bold; color: var(--azur); text-transform: uppercase; font-size: 0.8rem; }
 
-        .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: left; margin-top: 20px; }
-        .directory-card { background: white; padding: 15px; border-radius: 10px; border-top: 3px solid var(--sinople); box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-size: 0.85rem; }
-        .directory-card h4 { margin: 0 0 5px 0; color: var(--dark); border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .cat-tag { font-size: 0.7rem; background: #eee; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; display: inline-block; }
+        /* Tarifs des salles */
+        .price-tag { background: #f1f1f1; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
+        .price-tag h4 { margin-top: 0; color: var(--azur); border-bottom: 2px solid var(--azur); display: inline-block; }
+        .price-list { list-style: none; padding: 0; font-size: 0.85rem; }
+        .price-list li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed #ccc; }
 
-        /* Style spécifique pour le tableau des associations */
-        .assoc-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; font-size: 0.9rem; text-align: left; }
-        .assoc-table th { background: var(--azur); color: white; padding: 12px; }
-        .assoc-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        /* Calendrier de réservation */
+        #calendar-container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 30px; }
+        #calendar { max-width: 100%; margin: 0 auto; height: 500px; }
 
         footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
         .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; padding: 0 20px; }
-        footer h3 { color: white; border-bottom: 2px solid var(--sinople); padding-bottom: 5px; margin-bottom: 15px; }
 
         @media (max-width: 950px) {
             .logo-box { width: 100px; left: 10px; top: 5px; }
@@ -207,9 +205,9 @@
         <div class="nav-menu" id="nav-menu">
             <a href="#mairie" class="nav-link" onclick="toggleMenu()">La Mairie</a>
             <a href="#services-municipaux" class="nav-link" onclick="toggleMenu()">Services publics</a>
-            <a href="#news-section" class="nav-link" onclick="toggleMenu()">Actualités</a>
+            <a href="#news-section" class="nav-link" onclick="toggleMenu()">Calendrier & Actus</a>
             <a href="#vie-locale" class="nav-link" onclick="toggleMenu()">Vie Locale</a>
-            <a href="mailto:mairie.boisset@wanadoo.fr?subject=Boîte%20à%20idées" target="_blank" class="nav-link" style="color:var(--sinople) !important;">💡 Boîte à Idées</a>
+            <a href="mailto:mairie.boisset@wanadoo.fr?subject=Boîte aux idées" target="_blank" class="nav-link" style="color:var(--sinople) !important;">💡 Boîte à Idées</a>
             <a href="https://alloboisset.fr" target="_blank" class="nav-link">ALLO BOISSET</a>
         </div>
     </nav>
@@ -226,8 +224,8 @@
         <section class="quick-links">
             <a href="#mairie" class="link-card"><span>🏛️</span>Mairie</a>
             <a href="#services-municipaux" class="link-card"><span>🎒</span>Quotidien</a>
-            <a href="#news-section" class="link-card"><span>📰</span>Actualités</a>
-            <a href="#vie-locale" class="link-card"><span>🤝</span>Commerces & Asso</a>
+            <a href="#news-section" class="link-card"><span>📅</span>Calendrier</a>
+            <a href="#vie-locale" class="link-card"><span>🤝</span>Associations</a>
             <a href="#contact-section" class="link-card"><span>✉️</span>Contact</a>
         </section>
 
@@ -238,7 +236,25 @@
             </p>
 
             <section id="news-section" class="section-padding">
-                <h2 class="section-title">Actualités</h2>
+                <h2 class="section-title">Calendrier & Actualités</h2>
+                <div style="max-height: 400px; overflow-y: auto; margin-bottom: 40px;">
+                    <table class="calendar-table">
+                        <thead><tr><th>Date</th><th>Organisateur</th><th>Événement</th></tr></thead>
+                        <tbody>
+                            <tr class="month-row"><td colspan="3">Janvier / Février</td></tr>
+                            <tr><td>10 janv.</td><td>Comité des fêtes</td><td>Assemblée générale</td></tr>
+                            <tr><td>11 janv.</td><td>Municipalité</td><td>Vœux du maire [cite: 150]</td></tr>
+                            <tr><td>7 fév.</td><td>Classards</td><td>Bal</td></tr>
+                            <tr><td>15 fév.</td><td>CCAS</td><td>Thé dansant</td></tr>
+                            <tr class="month-row"><td colspan="3">Mars / Avril</td></tr>
+                            <tr><td>1er mars</td><td>ACCA</td><td>Concours de coinche</td></tr>
+                            <tr><td>11 avril</td><td>Parents d'élèves</td><td>Soirée sarasson [cite: 150]</td></tr>
+                            <tr class="month-row"><td colspan="3">Juillet / Septembre</td></tr>
+                            <tr><td>24-26 juil.</td><td>Comité des fêtes</td><td>Fête patronale [cite: 150]</td></tr>
+                            <tr><td>6 sept.</td><td>Comité des fêtes</td><td>Voitures anciennes</td></tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div id="news-container" class="services-grid"></div>
             </section>
 
@@ -246,7 +262,8 @@
                 <h2 class="section-title">Vie Municipale</h2>
                 <div style="display:flex; flex-wrap:wrap; gap:40px; text-align:left; justify-content:center;">
                     <div style="flex:1; min-width:280px;">
-                        <h3>Horaires du Secrétariat</h3>
+                        <h3>Secrétariat</h3>
+                        <p>📞 04 71 61 32 66 | ✉️ mairie.boisset@orange.fr [cite: 239]</p>
                         <table style="width:100%; border-collapse:collapse;">
                             <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px; font-weight:bold;">Lundi / Jeudi</td><td style="text-align:right;">09h - 12h</td></tr>
                             <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px; font-weight:bold;">Mardi</td><td style="text-align:right;">14h - 18h</td></tr>
@@ -254,8 +271,14 @@
                         </table>
                     </div>
                     <div style="flex:1; min-width:280px;">
-                        <h3>Vie Politique</h3>
-                        <div style="display:flex; flex-direction:column; gap:8px;">
+                        <h3>Le Personnel Communal</h3>
+                        <ul style="font-size: 0.9rem; padding-left: 20px;">
+                            <li><strong>Secrétariat :</strong> Murielle Bouillon </li>
+                            <li><strong>École :</strong> Mélanie Perbet (Aide mat.) & Thiphaine Jalabert </li>
+                            <li><strong>Technique :</strong> Cédric Dérail & Thierry Petit </li>
+                            <li><strong>Service Civique :</strong> Arnaud Beurion </li>
+                        </ul>
+                        <div style="display:flex; flex-direction:column; gap:8px; margin-top:15px;">
                             <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:10px; border-radius:5px; text-align:center;">Élus & Commissions</a>
                             <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:10px; border-radius:5px; text-align:center;">Comptes-rendus & PV</a>
                         </div>
@@ -266,173 +289,62 @@
             <section id="services-municipaux" class="section-padding">
                 <h2 class="section-title">Services publics</h2>
                 <div class="services-grid">
-                    <div class="service-item">
-                        <h3>🎒 École & Enfance</h3>
-                        <p>Inscriptions scolaires et périscolaire. Cantine et transport (tarifs en mairie).</p>
-                    </div>
-                    
-                    <div class="service-item" id="bibliotheque" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>📚 Bibliothèque de Boisset</h3>
-                        <p>Littérature, BD, mangas... Un fond propre et le passage régulier du bibliobus du Puy-en-Velay.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
-                            <div><strong>⏰ Samedi :</strong> 14h-16h (tous publics)<br><strong>⏰ Scolaires :</strong> Lun (1/2) et Jeu 9h</div>
-                            <div><strong>💡 À savoir :</strong> Inscription et prêt GRATUITS. Navette départementale disponible.</div>
-                            <div><strong>👥 Bénévoles :</strong> S. Legay, M. Habouzit, M. Roche, G. Gerphagnon, G. Bayle, C. Bayle.</div>
+                    <div class="service-item" id="salles" style="grid-column: span 2;">
+                        <h3>🏢 Location des Salles Communales</h3>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
+                            <div class="price-tag">
+                                <h4>Salle Polyvalente [cite: 242]</h4>
+                                <ul class="price-list">
+                                    <li><span>Mariage (Commune)</span> <strong>250 €</strong></li>
+                                    <li><span>Mariage (Extérieur)</span> <strong>560 €</strong></li>
+                                    <li><span>Repas familial (Commune)</span> <strong>120 €</strong></li>
+                                    <li><span>Boom jeunes</span> <strong>140 €</strong></li>
+                                </ul>
+                            </div>
+                            <div class="price-tag">
+                                <h4>Salle Communale [cite: 250, 253]</h4>
+                                <ul class="price-list">
+                                    <li><span>Repas familial (Commune)</span> <strong>60 €</strong></li>
+                                    <li><span>Utilisation extérieure</span> <strong>150 €</strong></li>
+                                    <li><span>Réunions associations</span> <strong>Gratuit</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="calendar-container">
+                            <h4 style="margin-bottom:15px;">📅 Disponibilités & Demande de réservation</h4>
+                            <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Cliquez sur une date libre pour envoyer votre demande au secrétariat.</p>
+                            <div id="calendar"></div>
                         </div>
                     </div>
 
-                    <div class="service-item">
-                        <h3>🏢 Salles Municipales</h3>
-                        <p>Tarifs et réservations des salles communales. Contactez le secrétariat pour toute demande.</p>
+                    <div class="service-item" id="bibliotheque" style="border-left-color: var(--sinople);">
+                        <h3>📚 Bibliothèque</h3>
+                        <p>Inscription et prêt GRATUITS[cite: 8].</p>
+                        <p style="font-size:0.85rem;">⏰ Samedi 14h-16h | Mardi (scolaires)[cite: 245, 247].</p>
                     </div>
 
-                    <div class="service-item" id="urbanisme" style="border-left-color: var(--sinople); grid-column: span 2;">
+                    <div class="service-item" id="urbanisme" style="border-left-color: var(--sinople);">
                         <h3>🏗️ Urbanisme & PLU</h3>
-                        <p>Élaboration du Plan Local d'Urbanisme en cours (études 2025-2026) pour remplacer la carte de 2013.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
-                            <div><strong>🎯 Objectifs :</strong> Loi Climat et Résilience, protection de l'Ance et de l'Andrable.</div>
-                            <div><strong>🎢 Projets :</strong> Trail Center (VTT), Domaine du Boyssetum, terrain du Breuil.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top:40px; background:#f0f4f8; padding:20px; border-radius:12px; text-align:center;">
-                    <h4 style="margin-top:0; color:var(--azur);">Intercommunalité & Syndicats</h4>
-                    <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
-                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">♻️ Ordures (SICTOM)</span>
-                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">💧 Eau (SGEV)</span>
-                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">🏥 Santé (St-Pal)</span>
-                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">👮 Gendarmerie</span>
+                        <p>Études du PLU jusqu'à fin 2026 pour protéger l'Ance et l'Andrable[cite: 33, 36].</p>
                     </div>
                 </div>
             </section>
 
             <section id="vie-locale" class="section-padding">
-                <h2 class="section-title">Vie Locale & Associations</h2>
-                
+                <h2 class="section-title">Associations & Vie Locale</h2>
                 <div class="services-grid">
                     <div class="service-item" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>🚂 La Micheline (Association Mobile)</h3>
-                        <p>Association créatrice de lien social, de rencontres et de soutien local.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:15px; margin-top:10px; font-size:0.85rem;">
-                            <div><strong>🛒 Un mardi sur deux (17h-19h) :</strong> Distribution de légumes (Jan Chevalier) et pain bio (Maximilien Dubois).</div>
-                            <div><strong>🎨 Un mercredi sur deux :</strong> Cours de dessin/peinture (Christine Baleydier).</div>
-                            <div><strong>🍲 Événements :</strong> Soupes Musicales (vacances scolaires, 18h-21h), soirées à thème.</div>
-                        </div>
+                        <h3>🚂 La Micheline</h3>
+                        <p>Distribution légumes/pain un mardi sur deux (17h-19h)[cite: 164]. Ateliers dessin le mercredi[cite: 172].</p>
                     </div>
-
-                    <div class="service-item">
-                        <h3>🛒 Épicerie Associative & Marchés</h3>
-                        <p><strong>Épicerie :</strong> Produits locaux et dépannage. Vente du journal "La Tribune".<br>⏰ Lun-Sam : 9h-12h.</p>
-                        <p><strong>Marchés d'été :</strong> Neuf marchés chaque été le samedi matin sur la place du village (animations, frites).</p>
-                        <p><strong>Présidente :</strong> Laurie Coudert</p>
-                    </div>
-
-                    <div class="service-item" style="border-left-color: var(--sinople);">
-                        <h3>🎨 Les Arts du Plateau</h3>
-                        <p>Développement de la culture rurale depuis 2018. Expositions annuelles à la Chapelle Saint Roch.</p>
-                        <p><strong>Événement :</strong> Temps musical et festif pour le solstice d'été.</p>
-                        <p><strong>Présidente :</strong> Denise Boutin</p>
-                    </div>
-
                     <div class="service-item">
                         <h3>🤝 Club de la Bonne Entente</h3>
-                        <p>Bowling, sorties, jeux le jeudi. 50 adhérents.<br>
-                        📞 <a href="tel:0674477420">06 74 47 74 20</a> (Chantal Bayle)</p>
+                        <p>50 adhérents[cite: 11]. Présidente : Chantal Bayle (06 74 47 74 20)[cite: 15, 16].</p>
                     </div>
-                    
                     <div class="service-item" style="border-left-color: var(--sinople);">
-                        <h3>🥳 Les Joyeux Lurons</h3>
-                        <p>13 membres actifs. Vogue de juillet (brioches), bal des jeunes, fête de la bière.<br>
-                        <strong>Rdv :</strong> 11 avril 2026. Pr. Flavien Riberon.</p>
-                    </div>
-                </div>
-
-                <h3 style="margin-top:50px; text-transform:uppercase;">Annuaire des Associations</h3>
-                <div style="overflow-x:auto;">
-                    <table class="assoc-table">
-                        <thead>
-                            <tr><th>Organisme</th><th>Président(e)</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>A.C.C.A. (Chasse)</td><td>Jean-Marc Sallanon</td></tr>
-                            <tr><td>Anciens combattants</td><td>Claude Thivillier</td></tr>
-                            <tr><td>L'Envol des Jeunes</td><td>Leo Petrucci & Raphaël Baudoin</td></tr>
-                            <tr><td>Donneurs de sang</td><td>Thierry Provost</td></tr>
-                            <tr><td>Dynamique et Avenir de Boisset</td><td>Ludovic Petrucci</td></tr>
-                            <tr><td>Syndicat Agricole</td><td>Fabien Sivard</td></tr>
-                            <tr><td>Quad Plaisir des 3 Vallées</td><td>Vincent Bufferne</td></tr>
-                            <tr><td>Association Millepertuis</td><td>Jean-Marc Denise</td></tr>
-                            <tr><td>Brocatoc</td><td>Marie-Laure Jasserand</td></tr>
-                            <tr><td>A.D.M.R.</td><td>Geneviève Dantony</td></tr>
-                            <tr><td>ONG LanDestini</td><td>Fanny Agostini & Henri Landes</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3 style="margin-top:50px; text-transform:uppercase;">Annuaire des Professionnels</h3>
-                <div class="directory-grid">
-                    <div class="directory-card">
-                        <span class="cat-tag">Bâtiment</span>
-                        <h4>Fabrice Beyssac</h4>
-                        <p>Menuiserie, cuisines, agencements.</p>
-                        <p>📞 <a href="tel:0607102820">06 07 10 28 20</a> | 📍 La Rochette</p>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bâtiment</span>
-                        <h4>Théo Électricité</h4>
-                        <p>Générale, neuf et dépannage.</p>
-                        <p>📞 <a href="tel:0787024055">07 87 02 40 55</a> | 📍 Le Ponteil</p>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bâtiment</span>
-                        <h4>SAS RF Charpente (F. Ravachol)</h4>
-                        <p>Couverture, ossature bois, menuiserie.</p>
-                        <p>📞 <a href="tel:0681000748">06 81 00 07 48</a> | 📍 La Rochette</p>
-                    </div>
-
-                    <div class="directory-card" style="border-top-color: var(--azur);">
-                        <span class="cat-tag">Alimentation</span>
-                        <h4>L'éveil des délices</h4>
-                        <p>Restaurant Rochedix.</p>
-                        <p>📞 <a href="tel:0471752962">04 71 75 29 62</a> | 📍 Le Bourg</p>
-                    </div>
-                    <div class="directory-card" style="border-top-color: var(--azur);">
-                        <span class="cat-tag">Alimentation</span>
-                        <h4>Au plaisir fermier (GAEC de l'Herm)</h4>
-                        <p>Produits laitiers bios et glaces.</p>
-                        <p>📞 <a href="tel:0675893608">06 75 89 36 08</a></p>
-                    </div>
-                    <div class="directory-card" style="border-top-color: var(--azur);">
-                        <span class="cat-tag">Alimentation</span>
-                        <h4>Pizza 500</h4>
-                        <p>Vente à emporter ou sur place.</p>
-                        <p>📞 <a href="tel:0615242032">06 15 24 20 32</a></p>
-                    </div>
-
-                    <div class="directory-card">
-                        <span class="cat-tag">Bien-être</span>
-                        <h4>Katy Lengrand</h4>
-                        <p>Sophrologue certifiée, massages.</p>
-                        <p>📞 <a href="tel:0684681187">06 84 68 11 87</a></p>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bien-être</span>
-                        <h4>Entre Ciel & Terre (S. Saifi)</h4>
-                        <p>Réflexologie, massages, astrologie.</p>
-                        <p>📞 <a href="tel:0617405338">06 17 40 53 38</a></p>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Loisirs</span>
-                        <h4>Forez à Cheval</h4>
-                        <p>Ferme équestre, cours et rando.</p>
-                        <p>📞 <a href="tel:0688016794">06 88 01 67 94</a></p>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Services</span>
-                        <h4>Mickael Sommet</h4>
-                        <p>Carrosserie et vitrage auto.</p>
-                        <p>📞 <a href="tel:0689600715">06 89 60 07 15</a> | 📍 Le Ponteil</p>
+                        <h3>🎈 Comité des Fêtes</h3>
+                        <p>Fête patronale 24-26 juillet[cite: 74]. Pr. Christophe Morawiec[cite: 76].</p>
                     </div>
                 </div>
             </section>
@@ -441,9 +353,9 @@
                 <h2 class="section-title">Contact</h2>
                 <div style="max-width:600px; margin:0 auto; background:white; padding:30px; border-radius:15px; border-top:5px solid var(--azur); text-align:left;">
                     <form id="contact-form">
-                        <input type="text" id="name" placeholder="Votre Nom" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        <input type="email" id="email" placeholder="Votre Email" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        <textarea id="message" rows="4" placeholder="Votre message..." required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;"></textarea>
+                        <input type="text" id="name" placeholder="Nom" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        <input type="email" id="email" placeholder="Email" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        <textarea id="message" rows="4" placeholder="Message..." required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;"></textarea>
                         <button type="submit" style="background:var(--azur); color:white; width:100%; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">ENVOYER</button>
                         <p id="form-status" style="text-align:center; margin-top:10px; font-weight:bold;"></p>
                     </form>
@@ -453,16 +365,9 @@
 
         <footer>
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>⏰ Mairie</h3>
-                    <p>Lundi-Jeudi : 09h-12h<br>Mardi : 14h-18h / Samedi : 14h-16h</p>
-                </div>
-                <div class="footer-column">
-                    <h3>📍 Adresse</h3>
-                    <p>Mairie de Boisset<br>Le Bourg, 43500 Boisset</p>
-                </div>
+                <div class="footer-column"><h3>⏰ Mairie</h3><p>Lun-Jeu : 09h-12h / Mar : 14h-18h / Sam : 14h-16h [cite: 239]</p></div>
+                <div class="footer-column"><h3>📍 Adresse</h3><p>Mairie de Boisset<br>Le Bourg, 43500 Boisset</p></div>
             </div>
-            <div style="text-align:center; margin-top:30px; font-size:0.8rem; color:#888;">&copy; 2026 Commune de Boisset - Haute-Loire.</div>
         </footer>
     </div>
 
@@ -471,23 +376,34 @@
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // --- GESTION DU CALENDRIER DE RÉSERVATION ---
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                headerToolbar: { left: 'prev,next', center: 'title', right: '' },
+                selectable: true,
+                events: async function(info, successCallback, failureCallback) {
+                    const { data, error } = await sb.from('salle_reservations').select('*').eq('status', 'confirmé');
+                    if (error) failureCallback(error);
+                    else successCallback(data.map(event => ({ title: 'Occupé', start: event.date_debut, end: event.date_fin, color: '#d9534f' })));
+                },
+                dateClick: function(info) {
+                    if(confirm("Souhaitez-vous envoyer une demande de réservation pour le " + info.dateStr + " ?")) {
+                        window.location.href = "#contact-section";
+                        document.getElementById('message').value = "Demande de réservation de salle pour le : " + info.dateStr;
+                    }
+                }
+            });
+            calendar.render();
+        });
+
+        // --- AUTRES SCRIPTS ---
         const btnTop = document.getElementById("back-to-top");
-        window.onscroll = function() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btnTop.style.display = "flex";
-            } else {
-                btnTop.style.display = "none";
-            }
-        };
-
+        window.onscroll = function() { btnTop.style.display = (window.scrollY > 300) ? "flex" : "none"; };
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-        function toggleMenu() {
-            if (window.innerWidth <= 950) {
-                const menu = document.getElementById('nav-menu');
-                menu.classList.toggle('active');
-            }
-        }
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
 
         async function loadData() {
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
