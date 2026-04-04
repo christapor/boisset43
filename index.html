@@ -168,12 +168,16 @@
 
         .club-list { list-style: none; padding: 0; margin-top: 10px; }
         .club-list li { margin-bottom: 8px; padding: 8px; background: #f9f9f9; border-radius: 5px; font-size: 0.85rem; }
+        .club-list a { color: var(--azur); font-weight: bold; text-decoration: none; }
+
         .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: left; margin-top: 20px; }
         .directory-card { background: white; padding: 15px; border-radius: 10px; border-top: 3px solid var(--sinople); box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-size: 0.85rem; }
+        .directory-card h4 { margin: 0 0 5px 0; color: var(--dark); border-bottom: 1px solid #eee; padding-bottom: 5px; }
         .cat-tag { font-size: 0.7rem; background: #eee; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; display: inline-block; }
 
         footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
         .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; padding: 0 20px; }
+        footer h3 { color: white; border-bottom: 2px solid var(--sinople); padding-bottom: 5px; margin-bottom: 15px; }
 
         @media (max-width: 950px) {
             .logo-box { width: 100px; left: 10px; top: 5px; }
@@ -235,44 +239,23 @@
 
             <section id="news-section" class="section-padding">
                 <h2 class="section-title">Calendrier des manifestations 2026</h2>
-                
-                <div style="max-height: 500px; overflow-y: auto; margin-bottom: 40px;">
+                <div style="max-height: 400px; overflow-y: auto; margin-bottom: 40px;">
                     <table class="calendar-table">
-                        <thead>
-                            <tr><th>Date</th><th>Organisateur</th><th>Événement</th></tr>
-                        </thead>
+                        <thead><tr><th>Date</th><th>Organisateur</th><th>Événement</th></tr></thead>
                         <tbody>
-                            <tr class="month-row"><td colspan="3">Janvier</td></tr>
-                            <tr><td>10 janv.</td><td>Comité des fêtes</td><td>Assemblée générale</td></tr>
-                            <tr><td>11 janv.</td><td>Municipalité</td><td>Vœux du maire</td></tr>
-                            <tr class="month-row"><td colspan="3">Février</td></tr>
-                            <tr><td>7 fév.</td><td>Classards</td><td>Bal</td></tr>
-                            <tr><td>15 fév.</td><td>CCAS</td><td>Thé dansant</td></tr>
-                            <tr class="month-row"><td colspan="3">Mars</td></tr>
-                            <tr><td>1er mars</td><td>ACCA</td><td>Concours de coinche</td></tr>
-                            <tr><td>28-29 mars</td><td>Millepertuis</td><td>Salon</td></tr>
-                            <tr class="month-row"><td colspan="3">Avril</td></tr>
-                            <tr><td>4 avril</td><td>La Tauperie</td><td>Animation</td></tr>
-                            <tr><td>7 avril</td><td>A.D.S.B.</td><td>Don du sang</td></tr>
-                            <tr><td>11 avril</td><td>Parents d'élèves</td><td>Soirée sarasson</td></tr>
-                            <tr class="month-row"><td colspan="3">Mai / Juin</td></tr>
-                            <tr><td>8-9 mai</td><td>Parents d'élèves</td><td>Vente de fleurs</td></tr>
-                            <tr><td>30 mai</td><td>ACCA</td><td>Pétanque et soupe aux choux</td></tr>
-                            <tr><td>6 juin</td><td>Team racing</td><td>Bal</td></tr>
-                            <tr><td>20-21 juin</td><td>Multi-associations</td><td>Fête de la musique</td></tr>
-                            <tr class="month-row"><td colspan="3">Juillet / Août</td></tr>
-                            <tr><td>4-25 juil.</td><td>Arts / Marchés</td><td>Expos & Marchés d'été</td></tr>
-                            <tr><td>5 juil.</td><td>Association marchés</td><td>Vide grenier</td></tr>
-                            <tr><td>24-26 juil.</td><td>Comité des fêtes</td><td>Fête patronale</td></tr>
-                            <tr class="month-row"><td colspan="3">Septembre / Décembre</td></tr>
-                            <tr><td>6 sept.</td><td>Comité des fêtes</td><td>Voitures anciennes & tracteurs</td></tr>
-                            <tr><td>19 sept.</td><td>Envol des jeunes</td><td>Soirée repas</td></tr>
-                            <tr><td>10 oct.</td><td>CCAS</td><td>Soirée saucisses aux choux</td></tr>
-                            <tr><td>6 déc.</td><td>Parents d'élèves</td><td>Marché de Noël</td></tr>
+                            <tr class="month-row"><td colspan="3">Janvier / Février</td></tr>
+                            <tr><td>10 janv. [cite: 150]</td><td>Comité des fêtes [cite: 150]</td><td>Assemblée générale [cite: 150]</td></tr>
+                            <tr><td>11 janv. [cite: 150]</td><td>Municipalité [cite: 150]</td><td>Vœux du maire [cite: 150]</td></tr>
+                            <tr><td>7 fév. [cite: 150]</td><td>Classards [cite: 150]</td><td>Bal [cite: 150]</td></tr>
+                            <tr class="month-row"><td colspan="3">Mars / Avril</td></tr>
+                            <tr><td>1er mars [cite: 150]</td><td>ACCA [cite: 150]</td><td>Concours de coinche [cite: 150]</td></tr>
+                            <tr><td>11 avril [cite: 150]</td><td>Parents d'élèves [cite: 150]</td><td>Soirée sarasson [cite: 150]</td></tr>
+                            <tr class="month-row"><td colspan="3">Juillet / Septembre</td></tr>
+                            <tr><td>24-26 juil. [cite: 150]</td><td>Comité des fêtes [cite: 150]</td><td>Fête patronale [cite: 150]</td></tr>
+                            <tr><td>6 sept. [cite: 150]</td><td>Comité des fêtes [cite: 150]</td><td>Voitures anciennes [cite: 150]</td></tr>
                         </tbody>
                     </table>
                 </div>
-
                 <h3 style="margin-bottom:20px; text-transform:uppercase;">Dernières Actualités</h3>
                 <div id="news-container" class="services-grid"></div>
             </section>
@@ -306,84 +289,46 @@
                         <p>Inscriptions scolaires et périscolaire. Cantine et transport.</p>
                     </div>
                     <div class="service-item" id="bibliotheque" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>📚 Bibliothèque de Boisset</h3>
-                        <p>Littérature classique, polars ou mangas : plus de 800 livres empruntés en 2025.</p>
-                        <p style="font-size:0.85rem;">⏰ Samedi 14h-16h | Scolaires lun/jeu. Gratuit.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>🏢 Salles Municipales</h3>
-                        <p>Tarifs et réservations des salles communales. Voir secrétariat.</p>
+                        <h3>📚 Bibliothèque de Boisset [cite: 1]</h3>
+                        <p>Littérature classique, contemporaine, polars ou mangas[cite: 3]. Inscription et prêt GRATUITS[cite: 8].</p>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
+                            <div><strong>⏰ Samedi [cite: 6] :</strong> 14h-16h<br>Scolaires : lun/jeu [cite: 6]</div>
+                            <div><strong>👥 Équipe[cite: 6]:</strong> S. Legay, M. Habouzit, M. Roche, G. Gerphagnon, G. Bayle et C. Bayle.</div>
+                        </div>
                     </div>
                     <div class="service-item" id="urbanisme" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>🏗️ Urbanisme & PLU</h3>
-                        <p>Études du PLU jusqu'à fin 2026. Projets : Trail Center (VTT) et Domaine du Boyssetum.</p>
+                        <h3>🏗️ Urbanisme & PLU [cite: 26]</h3>
+                        <p>Élaboration du PLU en cours [cite: 27] (études jusqu'à fin 2026 [cite: 36]). Projets : Trail Center (VTT) et Domaine du Boyssetum[cite: 34].</p>
                     </div>
                 </div>
             </section>
 
             <section id="vie-locale" class="section-padding">
                 <h2 class="section-title">Associations & Vie Locale</h2>
-                
                 <div class="services-grid">
                     <div class="service-item" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>🚂 Association La Micheline</h3>
-                        <p>Association mobile créant du lien social à travers des rencontres chaleureuses et le soutien au local.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
-                            <div>
-                                <strong>🛒 Permanences (1 mar/2, 17h-19h) :</strong><br>
-                                Distribution de légumes (Jan Chevalier) et de pain bio (Maximilien Dubois).
-                            </div>
-                            <div>
-                                <strong>🎨 Ateliers & Loisirs :</strong><br>
-                                Cours de dessin/peinture un mercredi sur deux (C. Baleydier). Soupes musicales pendant les vacances.
-                            </div>
-                            <div>
-                                <strong>💡 Esprit Micheline :</strong><br>
-                                Pas de lieu fixe, l'association voyage au gré des événements pour relier les habitants.
-                            </div>
-                        </div>
+                        <h3>🚂 La Micheline [cite: 152]</h3>
+                        <p>Association mobile créant du lien[cite: 157, 162]. Distribution légumes/pain un mardi sur deux (17h-19h)[cite: 164]. Ateliers dessin/peinture le mercredi[cite: 172].</p>
                     </div>
-
                     <div class="service-item">
-                        <h3>🤝 Club de la Bonne Entente</h3>
-                        <p>50 adhérents. Sorties et jeux le jeudi. Présidente : Chantal Bayle.</p>
+                        <h3>🤝 Club de la Bonne Entente [cite: 10]</h3>
+                        <p>50 adhérents[cite: 11]. Présidente : Chantal Bayle (06 74 47 74 20)[cite: 15, 16].</p>
                     </div>
                     <div class="service-item" style="border-left-color: var(--sinople);">
-                        <h3>🥳 Les Joyeux Lurons</h3>
-                        <p>Brioches de la vogue et bals. Prochain rdv : 11 avril 2026.</p>
+                        <h3>🥳 Les Joyeux Lurons [cite: 65]</h3>
+                        <p>13 membres[cite: 66]. Prochain rdv : 11 avril 2026[cite: 68]. Flavien Riberon (Pr.)[cite: 70].</p>
                     </div>
                     <div class="service-item">
-                        <h3>🎈 Comité des Fêtes</h3>
-                        <p>Fête patronale fin juillet. Président : Christophe Morawiec.</p>
+                        <h3>🎈 Comité des Fêtes [cite: 71]</h3>
+                        <p>Fête patronale 24-26 juillet[cite: 74]. Président : Christophe Morawiec[cite: 76].</p>
                     </div>
                 </div>
 
-                <h3 style="margin-top:50px; text-transform:uppercase;">Annuaire des Professionnels</h3>
+                <h3 style="margin-top:50px; text-transform:uppercase;">Annuaire des Professionnels [cite: 78]</h3>
                 <div class="directory-grid">
-                    <div class="directory-card">
-                        <span class="cat-tag">Bâtiment</span>
-                        <h4>Fabrice Beyssac</h4>
-                        <p>Menuiserie, cuisines, bains.</p>
-                        <p>📞 06 07 10 28 20 | 📍 La Rochette</p>
-                    </div>
-                    <div class="directory-card" style="border-top-color: var(--azur);">
-                        <span class="cat-tag">Alimentation</span>
-                        <h4>L'éveil des délices</h4>
-                        <p>Restaurant M. et J-P. Rochedix.</p>
-                        <p>📞 04 71 75 29 62 | 📍 Le Bourg</p>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bien-être</span>
-                        <h4>Katy Lengrand</h4>
-                        <p>Sophrologue, massages.</p>
-                        <p>📞 06 84 68 11 87</p>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Loisirs</span>
-                        <h4>Forez à Cheval</h4>
-                        <p>Cours et balades équestres.</p>
-                        <p>📞 06 88 01 67 94</p>
-                    </div>
+                    <div class="directory-card"><span class="cat-tag">Bâtiment [cite: 78]</span><h4>Fabrice Beyssac [cite: 79]</h4><p>Menuiserie, cuisines[cite: 81, 83]. 📞 06 07 10 28 20[cite: 81].</p></div>
+                    <div class="directory-card"><span class="cat-tag">Électricité [cite: 85]</span><h4>Théo Broussard [cite: 84]</h4><p>📞 07 87 02 40 55[cite: 85].</p></div>
+                    <div class="directory-card"><span class="cat-tag">Alimentation [cite: 104]</span><h4>L'éveil des délices [cite: 104]</h4><p>📞 04 71 75 29 62[cite: 106].</p></div>
                 </div>
             </section>
 
@@ -391,9 +336,9 @@
                 <h2 class="section-title">Contact</h2>
                 <div style="max-width:600px; margin:0 auto; background:white; padding:30px; border-radius:15px; border-top:5px solid var(--azur); text-align:left;">
                     <form id="contact-form">
-                        <input type="text" id="name" placeholder="Votre Nom" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        <input type="email" id="email" placeholder="Votre Email" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        <textarea id="message" rows="4" placeholder="Votre message..." required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;"></textarea>
+                        <input type="text" id="name" placeholder="Nom" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        <input type="email" id="email" placeholder="Email" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        <textarea id="message" rows="4" placeholder="Message..." required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;"></textarea>
                         <button type="submit" style="background:var(--azur); color:white; width:100%; padding:12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">ENVOYER</button>
                         <p id="form-status" style="text-align:center; margin-top:10px; font-weight:bold;"></p>
                     </form>
@@ -403,16 +348,9 @@
 
         <footer>
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>⏰ Mairie</h3>
-                    <p>Lundi-Jeudi : 09h-12h<br>Mardi : 14h-18h / Samedi : 14h-16h</p>
-                </div>
-                <div class="footer-column">
-                    <h3>📍 Adresse</h3>
-                    <p>Mairie de Boisset<br>Le Bourg, 43500 Boisset</p>
-                </div>
+                <div class="footer-column"><h3>⏰ Mairie</h3><p>Lun-Jeu : 09h-12h<br>Mar : 14h-18h / Sam : 14h-16h</p></div>
+                <div class="footer-column"><h3>📍 Adresse</h3><p>Mairie de Boisset<br>Le Bourg, 43500 Boisset</p></div>
             </div>
-            <div style="text-align:center; margin-top:30px; font-size:0.8rem; color:#888;">&copy; 2026 Commune de Boisset - Haute-Loire.</div>
         </footer>
     </div>
 
