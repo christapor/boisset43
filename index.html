@@ -109,7 +109,7 @@
         </section>
 
         <main class="container">
-            <p style="font-size: 1.5rem; color: var(--sinople); margin-bottom: 30px; font-weight: 300;">Le portail officiel de la commune.<br><strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong></p>
+            <p style="font-size: 1.5rem; color: var(--sinople); margin-bottom: 30px; font-weight: 300;">Le portail officiel de notre commune.<br><strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong></p>
 
             <section id="news-section" class="section-padding">
                 <h2 class="section-title">Calendrier & Actualités</h2>
@@ -243,7 +243,7 @@
 
         <footer>
             <div class="footer-content">
-                <div class="footer-column"><h3>⏰ Mairie</h3><p>Lun/Jeu : 9h-12h / Mar : 14h-18h / Sam : 14h-16h</p></div>
+                <div class="footer-column"><h3>⏰ Mairie</h3><p>Lun/Jeu : 09h-12h / Mar : 14h-18h / Sam : 14h-16h</p></div>
                 <div class="footer-column"><h3>📍 Adresse</h3><p>Mairie de Boisset - Le Bourg, 43500 Boisset</p></div>
             </div>
         </footer>
@@ -253,6 +253,13 @@
         const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        function formatToFrenchDate(dateObj) {
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const year = dateObj.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
 
         document.addEventListener('DOMContentLoaded', async function() {
             var calendarEl = document.getElementById('calendar');
@@ -265,12 +272,13 @@
                 headerToolbar: { left: 'prev,next', center: 'title', right: '' },
                 events: takenDates.map(d => ({ start: d, display: 'background', color: '#ff9f89' })),
                 dateClick: function(info) {
+                    const frenchDate = formatToFrenchDate(info.date);
                     if (takenDates.includes(info.dateStr)) {
-                        alert("Cette date est déjà réservée.");
+                        alert("Cette date (" + frenchDate + ") est déjà réservée.");
                     } else {
-                        if(confirm("Date libre. Aller au formulaire pour réserver le " + info.dateStr + " ?")) {
+                        if(confirm("Date libre. Aller au formulaire pour réserver le " + frenchDate + " ?")) {
                             window.location.href = "#contact-section";
-                            document.getElementById('message-body').value = "Demande de réservation de salle pour le : " + info.dateStr;
+                            document.getElementById('message-body').value = "Demande de réservation de salle pour le : " + frenchDate;
                         }
                     }
                 }
