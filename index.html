@@ -161,9 +161,9 @@
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left; }
         .service-item { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid var(--azur); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
-        .club-list { list-style: none; padding: 0; }
-        .club-list li { margin-bottom: 10px; padding: 8px; background: #f9f9f9; border-radius: 5px; }
-        .club-list a { color: var(--azur); font-weight: bold; text-decoration: none; }
+        .club-list { list-style: none; padding: 0; margin-top: 10px; }
+        .club-list li { margin-bottom: 8px; padding: 8px; background: #f9f9f9; border-radius: 5px; font-size: 0.9rem; }
+        .club-list strong { color: var(--dark); }
 
         footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
         .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; padding: 0 20px; }
@@ -217,7 +217,7 @@
             <a href="#mairie" class="link-card"><span>🏛️</span>Mairie</a>
             <a href="#services-municipaux" class="link-card"><span>🎒</span>Quotidien</a>
             <a href="#news-section" class="link-card"><span>📰</span>Actualités</a>
-            <a href="#vie-locale" class="link-card"><span>🤝</span>Annuaire</a>
+            <a href="#vie-locale" class="link-card"><span>🤝</span>Associations</a>
             <a href="#contact-section" class="link-card"><span>✉️</span>Contact</a>
         </section>
 
@@ -244,7 +244,7 @@
                         </table>
                     </div>
                     <div style="flex:1; min-width:280px;">
-                        <h3>Le Conseil Municipal</h3>
+                        <h3>Vie Politique</h3>
                         <div style="display:flex; flex-direction:column; gap:8px;">
                             <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:10px; border-radius:5px; text-align:center;">Élus & Commissions</a>
                             <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:10px; border-radius:5px; text-align:center;">Comptes-rendus & PV</a>
@@ -263,63 +263,25 @@
                     
                     <div class="service-item" id="bibliotheque" style="border-left-color: var(--sinople); grid-column: span 2;">
                         <h3>📚 Bibliothèque de Boisset</h3>
-                        <p>Passionnés de littérature classique (Hugo, Zola), contemporaine (Despentes), de polars (Simenon) ou de BD (Asterix, Mangas), vous trouverez votre bonheur ici.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:15px; font-size:0.9rem;">
-                            <div>
-                                <strong>⏰ Horaires :</strong><br>
-                                • Public : Samedi 14h-16h<br>
-                                • CE1-CM2 : Lundi (1/2)<br>
-                                • Maternelles-CP : Jeudi 9h
-                            </div>
-                            <div>
-                                <strong>💡 À savoir :</strong><br>
-                                • Inscription et prêt GRATUITS<br>
-                                • Boîte à livres disponible<br>
-                                • Navette départementale pour vos commandes spécifiques
-                            </div>
-                            <div>
-                                <strong>👥 L'équipe :</strong><br>
-                                Sylvie Legay, Monique Habouzit, Marcelle Roche, Gérard Gerphagnon, Gérard Bayle et Chantal Bayle.
-                            </div>
+                        <p> Littérature classique, polars, BD ou mangas : plus de 800 livres ont été empruntés en 2025.</p>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
+                            <div><strong>⏰ Samedi :</strong> 14h-16h<br>Scolaires : Lundi (1/2) et Jeudi 9h</div>
+                            <div><strong>💡 Gratuité :</strong> Inscription et prêt offerts. Navette départementale disponible.</div>
                         </div>
                     </div>
 
                     <div class="service-item">
                         <h3>🏢 Salles Municipales</h3>
-                        <p>Tarifs et réservations. Voir avec le secrétariat.</p>
+                        <p>Tarifs et réservations des salles communales. Voir secrétariat.</p>
                     </div>
 
                     <div class="service-item" id="urbanisme" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>🏗️ Urbanisme : Élaboration du PLU</h3>
-                        <p>La commune élabore son Plan Local d’Urbanisme pour remplacer la carte communale de 2013 et s'adapter aux nouvelles réglementations (Loi Climat et Résilience).</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:15px; font-size:0.9rem;">
-                            <div>
-                                <strong>🎯 Objectifs principaux :</strong><br>
-                                • Protéger les espaces naturels (L'Ance, L'Andrable)<br>
-                                • Mettre en œuvre le projet communal (SCOT)<br>
-                                • Définir les autorisations de travaux
-                            </div>
-                            <div>
-                                <strong>🎢 Projets de développement :</strong><br>
-                                • Trail Center (Espace VTT)<br>
-                                • Domaine du Boyssetum (Parc médiéval-fantastique)<br>
-                                • Aménagement du terrain du Breuil
-                            </div>
-                            <div>
-                                <strong>📅 État d'avancement :</strong><br>
-                                Les études, accompagnées par deux bureaux d'études, ont débuté en mars 2025 et se poursuivront jusqu'à fin 2026.
-                            </div>
+                        <h3>🏗️ Urbanisme & PLU</h3>
+                        <p>La commune élabore son PLU (études jusqu'à fin 2026) pour s'adapter à la Loi Climat et protéger nos espaces naturels.</p>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
+                            <div><strong>🎢 Projets :</strong> Trail Center (VTT) et Domaine du Boyssetum.</div>
+                            <div><strong>🌳 Nature :</strong> Protection de l'Ance et de l'Andrable.</div>
                         </div>
-                    </div>
-                </div>
-
-                <div style="margin-top:40px; background:#f0f4f8; padding:20px; border-radius:12px; text-align:center;">
-                    <h4 style="margin-top:0; color:var(--azur);">Intercommunalité & Syndicats</h4>
-                    <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
-                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">♻️ Ordures (SICTOM)</span>
-                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">💧 Eau (SGEV)</span>
-                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">🏥 Santé (St-Pal)</span>
-                        <span style="background:white; padding:8px 15px; border-radius:20px; font-size:0.8rem; box-shadow:0 2px 5px rgba(0,0,0,0.05);">👮 Gendarmerie</span>
                     </div>
                 </div>
             </section>
@@ -327,27 +289,36 @@
             <section id="vie-locale" class="section-padding">
                 <h2 class="section-title">Associations & Vie Locale</h2>
                 
-                <div style="background:white; padding:30px; border-radius:15px; border-left:10px solid var(--sinople); box-shadow:0 10px 25px rgba(0,0,0,0.05); text-align:left; margin-bottom:40px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                <div class="services-grid">
+                    <div class="service-item" style="border-left-color: var(--sinople);">
                         <h3>🤝 Club de la Bonne Entente</h3>
-                        <span style="background:var(--sinople); color:white; padding:5px 15px; border-radius:20px; font-size:0.8rem;">50 membres adhérents</span>
+                        <p>50 adhérents. Bowling, sorties culturelles et jeux le jeudi après-midi.</p>
+                        <ul class="club-list">
+                            <li><strong>Chantal Bayle (Pr.) :</strong> 06 74 47 74 20</li>
+                            <li><strong>Sylvie Legay (Secr.) :</strong> 06 77 49 86 32</li>
+                        </ul>
                     </div>
-                    <p>Bowling, restaurant, sorties culturelles ou jeux le jeudi après-midi : rejoignez un club dynamique !</p>
-                    
-                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px; margin-top:15px;">
+
+                    <div class="service-item">
+                        <h3>🥳 Les Joyeux Lurons</h3>
+                        <p>Équipe de 13 membres motivés. Vogue de juillet (brioches), bal des jeunes et fête de la bière.</p>
+                        <p style="font-size:0.85rem; font-weight:bold; color:var(--azur);">🗓️ Prochain rendez-vous : 11 avril 2026.</p>
                         <ul class="club-list">
-                            <li><strong>Présidente :</strong> Chantal Bayle <br>📞 <a href="tel:0674477420">06 74 47 74 20</a></li>
-                            <li><strong>Vice-Président :</strong> Jean-Michel Pouzet <br>📞 <a href="tel:0651872409">06 51 87 24 09</a></li>
+                            <li><strong>Flavien Riberon (Pr.)</strong> / Léa Barry (Trés.)</li>
+                            <li>Coralie Peyron (Secr.)</li>
                         </ul>
-                        <ul class="club-list">
-                            <li><strong>Secrétaire :</strong> Sylvie Legay <br>📞 <a href="tel:0677498632">06 77 49 86 32</a></li>
-                            <li><strong>Trésorière :</strong> Jeanine Thivillier <br>📞 <a href="tel:0618306956">06 18 30 69 56</a></li>
-                            <li><strong>Vice-trésorier :</strong> Lucien Laval</li>
-                        </ul>
+                    </div>
+
+                    <div class="service-item" style="border-left-color: var(--sinople);">
+                        <h3>🎈 Comité des Fêtes</h3>
+                        <p>Association dynamique à la recherche de nouveaux membres !</p>
+                        <p style="font-size:0.85rem;"><strong>📅 Calendrier 2026 :</strong><br>
+                        • Fête patronale : 24, 25 et 26 juillet<br>
+                        • Voitures anciennes : 6 septembre<br>
+                        • Bal d'octobre</p>
+                        <p><strong>Président :</strong> Christophe Morawiec</p>
                     </div>
                 </div>
-
-                <div id="directory-container" class="services-grid"></div>
             </section>
 
             <section id="contact-section" class="section-padding">
@@ -403,12 +374,6 @@
         }
 
         async function loadData() {
-            const { data: dir } = await sb.from('local_directory').select('*').order('name');
-            const dirCont = document.getElementById('directory-container');
-            if (dir && dirCont) {
-                dirCont.innerHTML = '';
-                dir.forEach(i => dirCont.innerHTML += `<div class="service-item"><h3>${i.name}</h3><p>${i.description || ''}</p></div>`);
-            }
             const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
             const newsCont = document.getElementById('news-container');
             if (news && newsCont) {
