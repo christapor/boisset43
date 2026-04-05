@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Administration - Boisset (43)</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background: #f0f4f8; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h1 { color: #0055A4; border-bottom: 2px solid #0055A4; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #0055A4; color: white; }
+        .status-badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .en_cours { background: #FFE0B2; color: #E65100; } /* Orange */
+        .btn-valid { background: #228B22; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        .btn-valid:hover { background: #1a6b1a; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tableau de Bord - Réservations "La Jourdane"</h1>
+    <p><em>Cette interface permet de valider les demandes reçues par e-mail.</em></p>
+    
+    <table id="reservations-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Demandeur</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            </tbody>
+    </table>
+</div>
+
+<script>
+    // Configuration Supabase (Tes identifiants)
+    const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_O_CXZsn4-Qo_s2TAuRY0Kw_aW51PWZw';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // 1. Charger les demandes en attente (Orange)
+    async function loadPending() {
+        const { data: reservations, error } = await sb
+            .from('salle_reservations')
+            .select('*')
+            .eq('status', 'en_cours')
+            .order('date_debut', { ascending: true });
+
+        const tbody = document.getElementById('table-body');
+        tbody.innerHTML = '';
+
+        if (reservations.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Aucune demande en attente.</td></tr>';
+        }
+
+        reservations.forEach(res => {
+            const row = `<tr>
+                <td><strong>${res.date_debut}</strong></td>
+                <td>${res.nom_client || 'Non renseigné'}</td>
+                <td><span class="status-badge en_cours">En attente</span></td>
+                <td><button class="btn-valid" onclick="validateRes('${res.id}', '${res.date_debut}')">✅ Valider</button></td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
+
+    // 2. Valider une réservation
+    async function validateRes(id, date) {
+        const { error } = await sb
+            .from('salle_reservations')
+            .update({ status: 'confirmé' })
+            .eq('id', id);
+
+        if (!error) {
+            alert("RÉUSSI !\n\n1. La date du " + date + " est maintenant ROUGE sur le site.\n2. MERCI DE LA NOTER DANS LE CAHIER PAPIER MAINTENANT.");
+            loadPending(); // Rafraîchir la liste
+        } else {
+            alert("Erreur lors de la validation.");
+        }
+    }
+
+    loadPending();
+</script>
+
+</body>
+</html>
