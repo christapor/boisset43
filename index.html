@@ -238,27 +238,56 @@
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 20px; 
             text-align: left; 
-            margin-top: 20px; 
+            margin-top: 30px; 
         }
 
         .directory-card { 
             background: white; 
-            padding: 15px; 
-            border-radius: 10px; 
-            border-top: 3px solid var(--sinople); 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-            font-size: 0.85rem; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-top: 5px solid var(--sinople); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+            transition: 0.3s;
+        }
+
+        .directory-card:hover { 
+            transform: translateY(-5px); 
         }
 
         .cat-tag { 
-            font-size: 0.7rem; 
-            background: #eee; 
-            padding: 2px 8px; 
+            font-size: 0.65rem; 
+            background: #f0f0f0; 
+            padding: 4px 10px; 
             border-radius: 10px; 
             text-transform: uppercase; 
-            font-weight: bold; 
-            margin-bottom: 5px; 
+            font-weight: 800; 
+            color: #666;
+            margin-bottom: 15px; 
             display: inline-block; 
+            letter-spacing: 0.5px;
+        }
+
+        .directory-card h4 { 
+            margin: 10px 0; 
+            font-size: 1.1rem; 
+            font-weight: 900; 
+            color: #1a1a1a; 
+        }
+
+        .directory-card p { 
+            font-size: 0.9rem; 
+            color: #555; 
+            margin-bottom: 15px; 
+        }
+
+        .phone-link { 
+            color: var(--azur); 
+            text-decoration: none; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 0.95rem;
         }
 
         .calendar-table { 
@@ -337,7 +366,7 @@
     </nav>
 
     <div class="logo-box">
-        <img src="blason.png" alt="Blason de Boisset">
+        <img src="blason.png" alt="Blason">
     </div>
 
     <button id="back-to-top" onclick="scrollToTop()">⬆️</button>
@@ -374,7 +403,7 @@
                         </thead>
                         <tbody>
                             <tr style="background:#f0f0f0; font-weight:bold;">
-                                <td colspan="3">Prochainement</td>
+                                <td colspan="3">Événements associatifs à venir</td>
                             </tr>
                             <tr><td>11 avril</td><td>APE</td><td>Soirée sarasson</td></tr>
                             <tr><td>8-9 mai</td><td>APE</td><td>Vente de fleurs</td></tr>
@@ -407,8 +436,8 @@
                             </tr>
                         </table>
                         
-                        <h4 style="margin-top:25px; color:var(--azur);">Personnel Communal</h4>
-                        <ul style="font-size: 0.85rem; padding-left: 20px; line-height: 1.8;">
+                        <h4 style="margin-top:25px; color:var(--azur);">Équipe Communale</h4>
+                        <ul style="font-size: 0.85rem; padding-left: 20px; line-height: 2.2;">
                             <li><strong>Secrétariat :</strong> Murielle Bouillon</li>
                             <li><strong>École :</strong> Mélanie Perbet</li>
                             <li><strong>École :</strong> Thiphaine Jalabert</li>
@@ -419,91 +448,98 @@
                     </div>
 
                     <div style="flex:1; min-width:300px;" class="service-item">
-                        <h3>Santé & Urgences</h3>
-                        <p style="font-size:0.9rem;">👨‍⚕️ <strong>Médecin (St-Pal) :</strong> <a href="tel:0471613225">04 71 61 32 25</a> (Dr Rodriguez)</p>
-                        <p style="font-size:0.9rem;">💊 <strong>Pharmacie :</strong> <a href="tel:0471613049">04 71 61 30 49</a> (Pérez-Desbrun)</p>
-                        <p style="font-size:0.9rem;">🚑 <strong>Urgences :</strong> 15 / 112 | 🚒 <strong>Pompiers :</strong> 18</p>
+                        <h3>Santé & Numéros Utiles</h3>
+                        <p style="font-size:0.95rem;">👨‍⚕️ <strong>Médecin (St-Pal) :</strong> <a href="tel:0471613225">04 71 61 32 25</a> (Dr Rodriguez)</p>
+                        <p style="font-size:0.95rem;">💊 <strong>Pharmacie :</strong> <a href="tel:0471613049">04 71 61 30 49</a> (Pérez-Desbrun)</p>
+                        <p style="font-size:0.95rem;">🚑 <strong>Urgences :</strong> 15 / 112 / 18</p>
                         
-                        <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
-                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.8rem;">ÉLUS & COMMISSIONS</a>
-                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.8rem;">COMPTES-RENDUS MUNICIPAUX</a>
+                        <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
+                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Conseil Municipal</a>
+                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Procès-Verbaux (PV)</a>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="services-municipaux" class="section-padding">
-                <h2 class="section-title">Services publics</h2>
+                <h2 class="section-title">Location & Services</h2>
                 <div class="services-grid">
                     <div class="service-item" id="salles-loc" style="grid-column: span 2;">
-                        <h3>🏢 Location des Salles & Réservation</h3>
+                        <h3>🏢 Salles Communales</h3>
                         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:30px;">
                             <div>
                                 <h4 style="color:var(--azur);">La Jourdane (Salle Polyvalente)</h4>
                                 <ul class="price-list">
-                                    <li><span>Mariage (Commune)</span> <strong>250 €</strong></li>
+                                    <li><span>Mariage (Habitant Boisset)</span> <strong>250 €</strong></li>
                                     <li><span>Mariage (Extérieur)</span> <strong>560 €</strong></li>
-                                    <li><span>Repas famille (Commune)</span> <strong>120 €</strong></li>
+                                    <li><span>Repas famille (Habitant)</span> <strong>120 €</strong></li>
                                 </ul>
                             </div>
                             <div>
-                                <h4 style="color:var(--azur);">Petite Salle Communale</h4>
+                                <h4 style="color:var(--azur);">Petite Salle Municipale</h4>
                                 <ul class="price-list">
-                                    <li><span>Repas famille (Commune)</span> <strong>60 €</strong></li>
+                                    <li><span>Utilisation commune</span> <strong>60 €</strong></li>
                                     <li><span>Utilisation extérieure</span> <strong>150 €</strong></li>
                                 </ul>
                             </div>
                         </div>
-                        <p style="font-size:0.8rem; color:var(--sinople); margin-top:20px; font-weight:bold;">
-                            🟠 En attente | 🔴 Réservé | ⚪ Libre (Cliquez sur une date libre pour réserver)
+                        <p style="font-size:0.85rem; color:var(--sinople); margin-top:25px; font-weight:bold;">
+                            🟠 Demande en cours | 🔴 Réservé | ⚪ Libre (Cliquez sur le calendrier)
                         </p>
                         <div id="calendar"></div>
                     </div>
 
                     <div class="service-item" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>📚 Bibliothèque de Boisset</h3>
-                        <p>Navette départementale et bibliobus du Puy-en-Velay. Inscription et prêt GRATUITS.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:15px; font-size:0.85rem;">
+                        <h3>📚 Bibliothèque municipale</h3>
+                        <p>Accès aux collections départementales et bibliobus. Prêts GRATUITS pour tous les résidents.</p>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:15px; font-size:0.9rem;">
                             <div class="service-item" style="border:none; background:#f9f9f9;"><strong>⏰ Public :</strong> Samedi 14h-16h</div>
-                            <div class="service-item" style="border:none; background:#f9f9f9;"><strong>⏰ Scolaires :</strong> Mardi/Jeudi 9h</div>
+                            <div class="service-item" style="border:none; background:#f9f9f9;"><strong>⏰ École :</strong> Mardi et Jeudi matin</div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="vie-locale" class="section-padding">
-                <h2 class="section-title">Vie Locale & Associations</h2>
-                <div class="services-grid">
-                    <div class="service-item" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>🚂 La Micheline (Association Mobile)</h3>
-                        <p>Légumes bio, pain bio, ateliers dessin et soupes musicales. Un véritable cœur battant pour le village.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>🛒 Épicerie Associative</h3>
-                        <p>Produits locaux, dépannage et journal "La Tribune".<br><strong>Ouvert Lun-Sam : 9h-12h.</strong></p>
-                    </div>
-                    <div class="service-item" style="border-left-color: var(--sinople);">
-                        <h3>🤝 Club de la Bonne Entente</h3>
-                        <p>Bowling, sorties, jeux le jeudi. Présidente : Chantal Bayle.</p>
-                    </div>
-                </div>
-
-                <h3 style="margin-top:60px; text-transform:uppercase; font-weight:900;">Annuaire des Professionnels</h3>
+                <h2 class="section-title">Annuaire des Professionnels</h2>
+                <p>Retrouvez ici les entreprises et artisans qui font vivre notre territoire.</p>
                 <div class="directory-grid">
+                    
                     <div class="directory-card">
                         <span class="cat-tag">Bâtiment</span>
                         <h4>Fabrice Beyssac</h4>
-                        <p>Menuiserie de précision.<br>📞 06 07 10 28 20</p>
+                        <p>Artisan menuisier spécialisé dans la menuiserie de précision, l'aménagement intérieur et la pose de fermetures.</p>
+                        <a href="tel:0607102820" class="phone-link">📞 06 07 10 28 20</a>
                     </div>
+                    
                     <div class="directory-card">
                         <span class="cat-tag">Informatique</span>
                         <h4>TaporDigital</h4>
-                        <p>Conception Web & PWA.<br>📞 06 60 41 92 26</p>
+                        <p>Expertise en développement de sites Web, Applications Mobiles (PWA) et accompagnement à la transition digitale.</p>
+                        <a href="tel:0660419226" class="phone-link">📞 06 60 41 92 26</a>
                     </div>
+                    
                     <div class="directory-card">
                         <span class="cat-tag">Alimentation</span>
                         <h4>L'éveil des délices</h4>
-                        <p>Restaurant de terroir.<br>📞 04 71 75 29 62</p>
+                        <p>Restaurant de village proposant une cuisine de terroir, généreuse et concoctée à partir de produits frais de saison.</p>
+                        <a href="tel:0471752962" class="phone-link">📞 04 71 75 29 62</a>
+                    </div>
+
+                </div>
+
+                <div class="services-grid" style="margin-top:50px;">
+                    <div class="service-item" style="border-left-color: var(--sinople); grid-column: span 2;">
+                        <h3>🚂 La Micheline</h3>
+                        <p>Association dynamique proposant des produits bio locaux, des ateliers créatifs et des moments de convivialité.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>🛒 Épicerie Associative</h3>
+                        <p>Dépannage de proximité, produits du terroir et point presse.<br><strong>Ouvert du Lundi au Samedi (9h-12h).</strong></p>
+                    </div>
+                    <div class="service-item" style="border-left-color: var(--sinople);">
+                        <h3>🤝 Club de la Bonne Entente</h3>
+                        <p>Rencontres, sorties et activités ludiques tous les jeudis.<br><strong>Présidente : Chantal Bayle.</strong></p>
                     </div>
                 </div>
             </section>
@@ -512,22 +548,22 @@
                 <h2 class="section-title">Contact & Réservation</h2>
                 <div style="max-width:650px; margin:0 auto; background:white; padding:40px; border-radius:15px; border-top:6px solid var(--azur); text-align:left; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                     <form id="contact-form">
-                        <input type="hidden" name="_subject" value="Nouvelle demande - La Jourdane">
+                        <input type="hidden" name="_subject" value="Demande de réservation Boisset">
                         <input type="text" name="_gotcha" style="display:none">
                         
-                        <label style="font-size:0.85rem; font-weight:bold; color:var(--azur);">VOTRE IDENTITÉ</label>
-                        <input type="text" id="user-name" name="name" placeholder="Nom Prénom" required style="width:100%; padding:14px; margin:10px 0 20px; border:1px solid #ddd; border-radius:5px;">
+                        <label style="font-size:0.85rem; font-weight:bold; color:var(--azur);">NOM ET PRÉNOM DU RÉSERVANT</label>
+                        <input type="text" id="user-name" name="name" placeholder="Votre nom complet" required style="width:100%; padding:14px; margin:10px 0 20px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
                         
-                        <label style="font-size:0.85rem; font-weight:bold; color:var(--azur);">VOTRE EMAIL</label>
-                        <input type="email" id="user-email" name="_replyto" placeholder="votre@email.com" required style="width:100%; padding:14px; margin:10px 0 20px; border:1px solid #ddd; border-radius:5px;">
+                        <label style="font-size:0.85rem; font-weight:bold; color:var(--azur);">ADRESSE EMAIL</label>
+                        <input type="email" id="user-email" name="_replyto" placeholder="votre@email.com" required style="width:100%; padding:14px; margin:10px 0 20px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
                         
                         <label style="font-size:0.85rem; font-weight:bold; color:var(--azur);">NATURE DE L'ÉVÉNEMENT</label>
-                        <input type="text" id="event-nature" name="evenement" placeholder="Ex: Mariage, Anniversaire, Loto, Réunion..." required style="width:100%; padding:14px; margin:10px 0 20px; border:1px solid #ddd; border-radius:5px;">
+                        <input type="text" id="event-nature" name="evenement" placeholder="Ex: Mariage, Anniversaire, Réunion..." required style="width:100%; padding:14px; margin:10px 0 20px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
                         
-                        <label style="font-size:0.85rem; font-weight:bold; color:var(--azur);">VOTRE DEMANDE (CLIQUEZ SUR LE CALENDRIER)</label>
-                        <textarea name="message" id="message-body" rows="6" placeholder="Veuillez d'abord sélectionner une date libre sur le calendrier ci-dessus..." required style="width:100%; padding:14px; margin:10px 0 25px; border:1px solid #ddd; border-radius:5px; font-family:inherit;"></textarea>
+                        <label style="font-size:0.85rem; font-weight:bold; color:var(--azur);">DÉTAILS DE VOTRE DEMANDE</label>
+                        <textarea name="message" id="message-body" rows="6" placeholder="Cliquez d'abord sur une date dans le calendrier..." required style="width:100%; padding:14px; margin:10px 0 25px; border:1px solid #ddd; border-radius:5px; font-family:inherit; box-sizing:border-box;"></textarea>
                         
-                        <button type="submit" id="submit-btn" style="background:var(--azur); color:white; width:100%; padding:18px; border:none; border-radius:5px; cursor:pointer; font-weight:900; font-size:1.1rem; text-transform:uppercase; letter-spacing:1px;">ENVOYER LA DEMANDE</button>
+                        <button type="submit" id="submit-btn" style="background:var(--azur); color:white; width:100%; padding:18px; border:none; border-radius:5px; cursor:pointer; font-weight:900; font-size:1.1rem; text-transform:uppercase; letter-spacing:1px; width:100%;">Envoyer la demande</button>
                     </form>
                 </div>
             </section>
@@ -535,8 +571,7 @@
 
         <footer>
             <div style="text-align:center; padding:30px; font-size:0.85rem; color:#888;">
-                &copy; 2026 Commune de Boisset (43) - Tous droits réservés.<br>
-                Développement par <strong>TaporDigital</strong>.
+                &copy; 2026 Commune de Boisset (43) - Tous droits réservés.<br>Développement par <strong>TaporDigital</strong>.
             </div>
         </footer>
     </div>
@@ -556,7 +591,6 @@
         document.addEventListener('DOMContentLoaded', async function() {
             var calendarEl = document.getElementById('calendar');
             const { data: res } = await sb.from('salle_reservations').select('*');
-            
             const events = res ? res.map(r => ({
                 start: r.date_debut,
                 display: 'background',
@@ -570,9 +604,8 @@
                 dateClick: function(info) {
                     const frenchDate = formatToFrenchDate(info.date);
                     const isTaken = res && res.some(r => r.date_debut === info.dateStr);
-                    
                     if (isTaken) {
-                        alert("Cette date (" + frenchDate + ") est déjà occupée.");
+                        alert("Cette date (" + frenchDate + ") est déjà demandée ou réservée.");
                     } else {
                         if(confirm("Date libre. Préparer le formulaire pour le " + frenchDate + " ?")) {
                             window.location.href = "#contact-section";
@@ -590,21 +623,21 @@
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
             btn.disabled = true;
-            btn.innerText = "SÉCURISATION DE LA DATE...";
+            btn.innerText = "ENREGISTREMENT...";
 
             const message = document.getElementById('message-body').value;
             const dateMatch = message.match(/(\d{2}\/\d{2}\/\d{4})/);
             const datePourDB = dateMatch ? dateMatch[0].split('/').reverse().join('-') : null;
 
             if (!datePourDB) {
-                alert("Erreur : Veuillez d'abord cliquer sur une date dans le calendrier.");
+                alert("Erreur : Veuillez d'abord cliquer sur une date libre dans le calendrier.");
                 btn.disabled = false;
                 btn.innerText = "ENVOYER LA DEMANDE";
                 return;
             }
 
             try {
-                // 1. ÉCRITURE DANS SUPABASE
+                // ÉCRITURE SUPABASE
                 const { error: sbError } = await sb.from('salle_reservations').insert([{ 
                     date_debut: datePourDB, 
                     nom_client: document.getElementById('user-name').value, 
@@ -612,16 +645,11 @@
                     status: 'en_cours' 
                 }]);
 
-                if (sbError) {
-                    alert("⚠️ Erreur Base de données : " + sbError.message);
-                    btn.disabled = false;
-                    btn.innerText = "ENVOYER LA DEMANDE";
-                    return; 
-                }
+                if (sbError) throw sbError;
 
-                // 2. ENVOI MAIL FORMSPREE
+                // MAIL FORMSPREE
                 const formData = new FormData(this);
-                const response = await fetch("https://formspree.io/f/mvzvvbpd", {
+                await fetch("https://formspree.io/f/mvzvvbpd", {
                     method: "POST",
                     body: formData,
                     headers: { 'Accept': 'application/json' }
@@ -630,7 +658,7 @@
                 window.location.href = "merci.html";
 
             } catch (err) {
-                alert("Une erreur imprévue est survenue.");
+                alert("Une erreur est survenue lors de l'enregistrement.");
                 btn.disabled = false;
                 btn.innerText = "ENVOYER LA DEMANDE";
             }
@@ -650,15 +678,12 @@
                 });
             }
         }
-
+        
         window.onscroll = function() { 
-            const btn = document.getElementById('back-to-top');
-            btn.style.display = (document.documentElement.scrollTop > 100) ? "flex" : "none";
+            const btt = document.getElementById('back-to-top');
+            btt.style.display = (document.documentElement.scrollTop > 100) ? "flex" : "none";
         };
-
-        function scrollToTop() { 
-            window.scrollTo({ top: 0, behavior: 'smooth' }); 
-        }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     </script>
 </body>
 </html>
