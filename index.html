@@ -56,8 +56,6 @@
         .assoc-table, .calendar-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; font-size: 0.9rem; text-align: left; }
         .assoc-table th, .calendar-table th { background: var(--azur); color: white; padding: 12px; }
         .assoc-table td, .calendar-table td { padding: 10px; border-bottom: 1px solid #eee; }
-        .month-row { background: #f0f4f8; font-weight: bold; color: var(--azur); text-transform: uppercase; font-size: 0.8rem; }
-        #calendar { background: white; padding: 10px; border-radius: 10px; height: 500px; }
         footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
         .footer-content { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; padding: 0 20px; }
 
@@ -122,7 +120,6 @@
                             <tr><td>8-9 mai</td><td>APE</td><td>Vente de fleurs</td></tr>
                             <tr><td>30 mai</td><td>ACCA</td><td>Pétanque et soupe aux choux</td></tr>
                             <tr><td>24-26 juil.</td><td>Comité des fêtes</td><td>Fête patronale</td></tr>
-                            <tr><td>6 sept.</td><td>Comité des fêtes</td><td>Voitures anciennes</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -140,21 +137,6 @@
                             <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px; font-weight:bold;">Mardi</td><td style="text-align:right;">14h - 18h</td></tr>
                             <tr><td style="padding:8px; font-weight:bold;">Samedi</td><td style="text-align:right;">14h - 16h</td></tr>
                         </table>
-                        <h4 style="margin-top:20px;">Personnel Communal</h4>
-                        <ul style="font-size: 0.85rem; padding-left: 20px;">
-                            <li><strong>Secrétariat :</strong> Murielle Bouillon</li>
-                            <li><strong>École :</strong> Mélanie Perbet, Thiphaine Jalabert, Arnaud Beurion</li>
-                            <li><strong>Technique :</strong> Cédric Dérail, Thierry Petit</li>
-                        </ul>
-                    </div>
-                    <div style="flex:1; min-width:280px;">
-                        <h3>Vie Politique & Santé</h3>
-                        <div style="display:flex; flex-direction:column; gap:8px;">
-                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:10px; border-radius:5px; text-align:center;">Élus & Commissions</a>
-                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:10px; border-radius:5px; text-align:center;">Comptes-rendus & PV</a>
-                        </div>
-                        <h4 style="margin-top:20px;">Numéros utiles</h4>
-                        <p style="font-size:0.85rem;">👨‍⚕️ <strong>Médecin (St-Pal) :</strong> <a href="tel:0471613225">04 71 61 32 25</a> (Dr Rodriguez)<br>💊 <strong>Pharmacie :</strong> <a href="tel:0471613049">04 71 61 30 49</a> (Pérez-Desbrun)<br>🚒 <strong>Pompiers :</strong> 18 / 112</p>
                     </div>
                 </div>
             </section>
@@ -164,116 +146,39 @@
                 <div class="services-grid">
                     <div class="service-item" id="salles" style="grid-column: span 2;">
                         <h3>🏢 Location des Salles & Réservation</h3>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
-                            <div>
-                                <h4 style="font-size:0.9rem; color:var(--azur);">Salle Polyvalente (La Jourdane)</h4>
-                                <ul class="price-list">
-                                    <li><span>Mariage (Commune)</span> <strong>250 €</strong></li>
-                                    <li><span>Mariage (Extérieur)</span> <strong>560 €</strong></li>
-                                    <li><span>Repas famille (Commune)</span> <strong>120 €</strong></li>
-                                    <li><span>Boums jeunes</span> <strong>140 €</strong></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 style="font-size:0.9rem; color:var(--azur);">Salle Communale</h4>
-                                <ul class="price-list">
-                                    <li><span>Repas famille (Commune)</span> <strong>60 €</strong></li>
-                                    <li><span>Utilisation extérieure</span> <strong>150 €</strong></li>
-                                    <li><span>Réunions associations</span> <strong>Gratuit</strong></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <p style="font-size:0.8rem; color:var(--sinople); margin-top:10px;"><em>Cliquez sur une date libre dans le calendrier ci-dessous pour lancer une demande.</em></p>
+                        <h4 style="font-size:0.9rem; color:var(--azur);">Salle Polyvalente (La Jourdane)</h4>
                         <div id="calendar" style="margin-top: 20px;"></div>
                     </div>
-
-                    <div class="service-item" id="bibliotheque" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>📚 Bibliothèque de Boisset</h3>
-                        <p>Littérature classique, BD ou mangas. Navette départementale et bibliobus du Puy-en-Velay.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
-                            <div><strong>⏰ Samedi :</strong> 14h-16h (Public)<br><strong>⏰ Scolaires :</strong> Mardi et Jeudi 9h</div>
-                            <div><strong>💡 À savoir :</strong> Inscription et prêt GRATUITS. Boîte à livres disponible.</div>
-                            <div><strong>👥 Équipe :</strong> S. Legay, M. Habouzit, M. Roche, G. Gerphagnon, G. Bayle et C. Bayle.</div>
-                        </div>
-                    </div>
-
-                    <div class="service-item" id="urbanisme" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>🏗️ Urbanisme & PLU</h3>
-                        <p>Élaboration du Plan Local d'Urbanisme (2025-2026) pour remplacer la carte de 2013.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
-                            <div><strong>🎯 Objectifs :</strong> Loi Climat et Résilience, protection de l'Ance et de l'Andrable.</div>
-                            <div><strong>🎢 Projets :</strong> Trail Center (VTT), Domaine du Boyssetum, terrain du Breuil.</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="vie-locale" class="section-padding">
-                <h2 class="section-title">Associations & Vie Locale</h2>
-                <div class="services-grid">
-                    <div class="service-item" style="border-left-color: var(--sinople); grid-column: span 2;">
-                        <h3>🚂 La Micheline (Association Mobile)</h3>
-                        <p>Association créatrice de lien social, de rencontres et de soutien local.</p>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:15px; margin-top:10px; font-size:0.85rem;">
-                            <div><strong>🛒 Un mardi sur deux (17h-19h) :</strong> Légumes (Jan Chevalier) et pain bio (Maximilien Dubois).</div>
-                            <div><strong>🎨 Un mercredi sur deux :</strong> Dessin/peinture (C. Baleydier). Ateliers BD/Aquarelle.</div>
-                            <div><strong>🍲 Événements :</strong> Soupes Musicales (vacances), fête de la musique 2026.</div>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <h3>🛒 Épicerie Associative & Marchés</h3>
-                        <p>Produits locaux, dépannage et journal "La Tribune".<br>⏰ Lun-Sam : 9h-12h.</p>
-                        <p><strong>Marchés d'été :</strong> 9 marchés le samedi matin (place du village).</p>
-                    </div>
-                    <div class="service-item" style="border-left-color: var(--sinople);">
-                        <h3>🎨 Les Arts du Plateau</h3>
-                        <p>Art et culture rurale depuis 2018. Expositions annuelles à la Chapelle Saint Roch.</p>
-                    </div>
-                </div>
-
-                <h3 style="margin-top:50px; text-transform:uppercase;">Annuaire des Professionnels</h3>
-                <div class="directory-grid">
-                    <div class="directory-card"><span class="cat-tag">Bâtiment</span><h4>Fabrice Beyssac</h4><p>Menuiserie. 📞 <a href="tel:0607102820">06 07 10 28 20</a></p></div>
-                    <div class="directory-card"><span class="cat-tag">Informatique</span><h4>TaporDigital</h4><p>Conception Web & PWA. 📞 <a href="tel:0660419226">06 60 41 92 26</a></p></div>
                 </div>
             </section>
 
             <section id="contact-section" class="section-padding">
                 <h2 class="section-title">Contact & Réservation</h2>
                 <div style="max-width:600px; margin:0 auto; background:white; padding:30px; border-radius:15px; border-top:5px solid var(--azur); text-align:left;">
-                    <form id="contact-form" action="https://formspree.io/f/VOTRE_ID_FORMSPREE" method="POST">
-                        
+                    <form id="contact-form" action="https://formspree.io/f/mqaebrda" method="POST">
                         <input type="hidden" name="_subject" value="Nouvelle demande de réservation - La Jourdane">
                         <input type="text" name="_gotcha" style="display:none">
+                        <input type="hidden" name="_next" value="https://boisset43.fr/merci.html">
                         
                         <label style="font-size:0.8rem; font-weight:bold;">Votre Identité</label>
                         <input type="text" name="name" placeholder="Nom Prénom" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;">
                         
-                        <label style="font-size:0.8rem; font-weight:bold;">Votre Email (pour la réponse)</label>
+                        <label style="font-size:0.8rem; font-weight:bold;">Votre Email</label>
                         <input type="email" name="_replyto" placeholder="votre@email.com" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;">
                         
                         <label style="font-size:0.8rem; font-weight:bold;">Votre demande détaillée</label>
-                        <textarea name="message" id="message-body" rows="6" placeholder="Précisez la date souhaitée et le type d'événement..." required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px; font-family:inherit;"></textarea>
+                        <textarea name="message" id="message-body" rows="6" placeholder="Précisez la date souhaitée..." required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px; font-family:inherit;"></textarea>
                         
-                        <button type="submit" style="background:var(--azur); color:white; width:100%; padding:15px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1.1rem; transition:0.3s;">
-                            ENVOYER LA DEMANDE À LA MAIRIE
-                        </button>
+                        <button type="submit" style="background:var(--azur); color:white; width:100%; padding:15px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1.1rem;">ENVOYER LA DEMANDE</button>
                     </form>
-                    
-                    <div style="margin-top: 25px; text-align: center; border-top: 1px solid #eee; padding-top: 15px;">
-                        <p style="font-size: 0.85rem; color: #666;">Ou contactez directement le secrétariat :</p>
-                        <a href="mailto:mairie.boisset@orange.fr" style="color:var(--azur); font-weight:bold; text-decoration: underline;">mairie.boisset@orange.fr</a>
-                    </div>
                 </div>
             </section>
         </main>
 
         <footer>
-            <div class="footer-content">
-                <div class="footer-column"><h3>⏰ Mairie</h3><p>Lun/Jeu : 9h-12h / Mar : 14h-18h / Sam : 14h-16h</p></div>
-                <div class="footer-column"><h3>📍 Adresse</h3><p>Mairie de Boisset - Le Bourg, 43500 Boisset</p></div>
+            <div style="text-align:center; padding:20px; font-size:0.8rem; color:#888;">
+                &copy; 2026 Commune de Boisset - Réalisé par <strong>TaporDigital</strong>.
             </div>
-            <div style="text-align:center; margin-top:30px; font-size:0.8rem; color:#888;">&copy; 2026 Commune de Boisset - Réalisé par TaporDigital.</div>
         </footer>
     </div>
 
@@ -302,11 +207,11 @@
                 dateClick: function(info) {
                     const frenchDate = formatToFrenchDate(info.date);
                     if (takenDates.includes(info.dateStr)) {
-                        alert("Cette date (" + frenchDate + ") est déjà réservée pour La Jourdane.");
+                        alert("Cette date (" + frenchDate + ") est déjà réservée.");
                     } else {
-                        if(confirm("Date libre pour La Jourdane. Cliquer sur OK pour préparer le formulaire de réservation pour le " + frenchDate + " ?")) {
+                        if(confirm("Date libre. Préparer le formulaire pour le " + frenchDate + " ?")) {
                             window.location.href = "#contact-section";
-                            document.getElementById('message-body').value = "Bonjour,\n\nJe souhaiterais réserver la salle polyvalente 'La Jourdane' pour la date du : " + frenchDate + ".\n\nType d'événement : \nNombre de personnes attendues : ";
+                            document.getElementById('message-body').value = "Bonjour,\n\nJe souhaiterais réserver la salle 'La Jourdane' pour la date du : " + frenchDate + ".";
                             document.getElementById('message-body').focus();
                         }
                     }
@@ -315,20 +220,8 @@
             calendar.render();
         });
 
-        const btnTop = document.getElementById("back-to-top");
-        window.onscroll = function() { btnTop.style.display = (window.scrollY > 300) ? "flex" : "none"; };
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
-
-        async function loadData() {
-            const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
-            const newsCont = document.getElementById('news-container');
-            if (news && newsCont) {
-                newsCont.innerHTML = '';
-                news.forEach(n => newsCont.innerHTML += `<div class="service-item" style="border-left-color:var(--sinople)"><h3>${n.title}</h3><p>${n.content}</p></div>`);
-            }
-        }
-        loadData();
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     </script>
 </body>
 </html>
