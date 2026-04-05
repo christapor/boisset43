@@ -138,6 +138,21 @@
                             <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px; font-weight:bold;">Mardi</td><td style="text-align:right;">14h - 18h</td></tr>
                             <tr><td style="padding:8px; font-weight:bold;">Samedi</td><td style="text-align:right;">14h - 16h</td></tr>
                         </table>
+                        <h4 style="margin-top:20px;">Personnel Communal</h4>
+                        <ul style="font-size: 0.85rem; padding-left: 20px;">
+                            <li><strong>Secrétariat :</strong> Murielle Bouillon</li>
+                            <li><strong>École :</strong> Mélanie Perbet, Thiphaine Jalabert, Arnaud Beurion</li>
+                            <li><strong>Technique :</strong> Cédric Dérail, Thierry Petit</li>
+                        </ul>
+                    </div>
+                    <div style="flex:1; min-width:280px;">
+                        <h3>Vie Politique & Santé</h3>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:10px; border-radius:5px; text-align:center;">Élus & Commissions</a>
+                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:10px; border-radius:5px; text-align:center;">Comptes-rendus & PV</a>
+                        </div>
+                        <h4 style="margin-top:20px;">Numéros utiles</h4>
+                        <p style="font-size:0.85rem;">👨‍⚕️ <strong>Médecin (St-Pal) :</strong> <a href="tel:0471613225">04 71 61 32 25</a> (Dr Rodriguez)<br>💊 <strong>Pharmacie :</strong> <a href="tel:0471613049">04 71 61 30 49</a> (Pérez-Desbrun)<br>🚒 <strong>Pompiers :</strong> 18 / 112</p>
                     </div>
                 </div>
             </section>
@@ -147,9 +162,60 @@
                 <div class="services-grid">
                     <div class="service-item" id="salles" style="grid-column: span 2;">
                         <h3>🏢 Location des Salles & Réservation</h3>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
+                            <div>
+                                <h4 style="font-size:0.9rem; color:var(--azur);">Salle Polyvalente (La Jourdane)</h4>
+                                <ul class="price-list">
+                                    <li><span>Mariage (Commune)</span> <strong>250 €</strong></li>
+                                    <li><span>Mariage (Extérieur)</span> <strong>560 €</strong></li>
+                                    <li><span>Repas famille (Commune)</span> <strong>120 €</strong></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="font-size:0.9rem; color:var(--azur);">Salle Communale</h4>
+                                <ul class="price-list">
+                                    <li><span>Repas famille (Commune)</span> <strong>60 €</strong></li>
+                                    <li><span>Utilisation extérieure</span> <strong>150 €</strong></li>
+                                </ul>
+                            </div>
+                        </div>
                         <p style="font-size:0.8rem; color:var(--sinople); margin-top:10px;"><em>Orange = En attente | Rouge = Réservé. Cliquez sur une date libre pour réserver.</em></p>
                         <div id="calendar" style="margin-top: 20px;"></div>
                     </div>
+
+                    <div class="service-item" id="bibliotheque" style="border-left-color: var(--sinople); grid-column: span 2;">
+                        <h3>📚 Bibliothèque de Boisset</h3>
+                        <p>Littérature classique, BD ou mangas. Inscription et prêt GRATUITS.</p>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:10px; font-size:0.85rem;">
+                            <div><strong>⏰ Samedi :</strong> 14h-16h</div>
+                            <div><strong>⏰ Scolaires :</strong> Mardi et Jeudi 9h</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="vie-locale" class="section-padding">
+                <h2 class="section-title">Associations & Vie Locale</h2>
+                <div class="services-grid">
+                    <div class="service-item" style="border-left-color: var(--sinople); grid-column: span 2;">
+                        <h3>🚂 La Micheline</h3>
+                        <p>Légumes bio, pain bio, ateliers dessin et soupes musicales.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>🛒 Épicerie Associative</h3>
+                        <p>Produits locaux, dépannage et journal. Lun-Sam : 9h-12h.</p>
+                    </div>
+                    <div class="service-item" style="border-left-color: var(--sinople);">
+                        <h3>🤝 Club de la Bonne Entente</h3>
+                        <p>Bowling, sorties, jeux le jeudi. Présidente : Chantal Bayle.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:50px; text-transform:uppercase;">Annuaire des Professionnels</h3>
+                <div class="directory-grid">
+                    <div class="directory-card"><span class="cat-tag">Bâtiment</span><h4>Fabrice Beyssac</h4><p>Menuiserie. 📞 06 07 10 28 20</p></div>
+                    <div class="directory-card"><span class="cat-tag">Informatique</span><h4>TaporDigital</h4><p>Conception Web & PWA. 📞 06 60 41 92 26</p></div>
+                    <div class="directory-card"><span class="cat-tag">Alimentation</span><h4>L'éveil des délices</h4><p>Restaurant. 📞 04 71 75 29 62</p></div>
                 </div>
             </section>
 
@@ -159,16 +225,12 @@
                     <form id="contact-form">
                         <input type="hidden" name="_subject" value="Nouvelle demande - La Jourdane">
                         <input type="text" name="_gotcha" style="display:none">
-                        
                         <label style="font-size:0.8rem; font-weight:bold;">Votre Identité</label>
                         <input type="text" id="user-name" name="name" placeholder="Nom Prénom" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;">
-                        
                         <label style="font-size:0.8rem; font-weight:bold;">Votre Email</label>
                         <input type="email" id="user-email" name="_replyto" placeholder="votre@email.com" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;">
-                        
                         <label style="font-size:0.8rem; font-weight:bold;">Votre demande détaillée</label>
                         <textarea name="message" id="message-body" rows="6" placeholder="Cliquez sur le calendrier pour remplir la date..." required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px; font-family:inherit;"></textarea>
-                        
                         <button type="submit" id="submit-btn" style="background:var(--azur); color:white; width:100%; padding:15px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; font-size:1.1rem;">ENVOYER LA DEMANDE</button>
                     </form>
                 </div>
@@ -194,11 +256,10 @@
             return `${day}/${month}/${year}`;
         }
 
-        // CHARGEMENT DU CALENDRIER
+        // --- CHARGEMENT DU CALENDRIER ---
         document.addEventListener('DOMContentLoaded', async function() {
             var calendarEl = document.getElementById('calendar');
             const { data: res } = await sb.from('salle_reservations').select('*');
-            
             const events = res ? res.map(r => ({
                 start: r.date_debut,
                 display: 'background',
@@ -212,7 +273,6 @@
                 dateClick: function(info) {
                     const frenchDate = formatToFrenchDate(info.date);
                     const isTaken = res && res.some(r => r.date_debut === info.dateStr);
-                    
                     if (isTaken) {
                         alert("Cette date (" + frenchDate + ") est déjà demandée ou réservée.");
                     } else {
@@ -225,10 +285,10 @@
                 }
             });
             calendar.render();
-            loadNews(); // On charge aussi les actus
+            loadNews();
         });
 
-        // GESTION DE L'ENVOI (SUPABASE PUIS FORMSPREE)
+        // --- GESTION DE L'ENVOI ---
         document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -278,7 +338,6 @@
                 }
 
             } catch (err) {
-                console.error("Erreur critique :", err);
                 alert("Une erreur imprévue est survenue.");
                 btn.disabled = false;
                 btn.innerText = "ENVOYER LA DEMANDE";
@@ -290,16 +349,9 @@
             const newsCont = document.getElementById('news-container');
             if (news && newsCont) {
                 newsCont.innerHTML = '';
-                news.forEach(n => {
-                    newsCont.innerHTML += `
-                        <div class="service-item" style="border-left-color:var(--sinople)">
-                            <h3>${n.title}</h3>
-                            <p>${n.content}</p>
-                        </div>`;
-                });
+                news.forEach(n => newsCont.innerHTML += `<div class="service-item" style="border-left-color:var(--sinople)"><h3>${n.title}</h3><p>${n.content}</p></div>`);
             }
         }
-
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     </script>
