@@ -112,7 +112,7 @@
 
         /* --- STYLES MENU BURGER --- */
         .burger-icon {
-            display: none; /* Caché sur PC */
+            display: none; 
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
@@ -132,7 +132,7 @@
         /* --- RESPONSIVE MOBILE & TABLETTE --- */
         @media (max-width: 1024px) {
             .nav-menu {
-                display: none; /* On cache le menu classique */
+                display: none; 
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -146,7 +146,7 @@
             }
 
             .nav-menu.active {
-                display: flex; /* On l'affiche quand il est activé */
+                display: flex; 
             }
 
             .nav-link {
@@ -159,11 +159,11 @@
 
             .welcome-title {
                 font-size: 1.4rem;
-                padding: 0 60px; /* Évite de chevaucher le burger */
+                padding: 0 60px; 
             }
 
             .logo-box {
-                width: 80px !important; /* Blason réduit sur mobile */
+                width: 80px !important; 
                 top: 10px !important;
                 left: 10px !important;
             }
@@ -341,6 +341,46 @@
             margin-bottom: 15px; 
         }
 
+        /* --- STYLES CARTES ASSOCIATIONS (Bleu) --- */
+        .asso-card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-top: 5px solid var(--azur); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+            transition: 0.3s;
+        }
+
+        .asso-card:hover { 
+            transform: translateY(-5px); 
+        }
+
+        .asso-tag { 
+            font-size: 0.65rem; 
+            background: #e8f0fe; 
+            padding: 4px 10px; 
+            border-radius: 10px; 
+            text-transform: uppercase; 
+            font-weight: 800; 
+            color: var(--azur);
+            margin-bottom: 15px; 
+            display: inline-block; 
+            letter-spacing: 0.5px;
+        }
+
+        .asso-card h4 { 
+            margin: 10px 0; 
+            font-size: 1.1rem; 
+            font-weight: 900; 
+            color: #1a1a1a; 
+        }
+
+        .asso-card p { 
+            font-size: 0.9rem; 
+            color: #555; 
+            margin-bottom: 15px; 
+        }
+
         .phone-link { 
             color: var(--azur); 
             text-decoration: none; 
@@ -426,6 +466,7 @@
             <a href="#services-municipaux" class="nav-link" onclick="toggleMenu()">Services publics</a>
             <a href="#news-section" class="nav-link" onclick="toggleMenu()">Actualités</a>
             <a href="#vie-locale" class="nav-link" onclick="toggleMenu()">Vie Locale</a>
+            <a href="#associations-section" class="nav-link" onclick="toggleMenu()">Associations</a>
             <a href="mailto:mairie.boisset@orange.fr?subject=Boîte aux idées" class="nav-link" style="color:var(--sinople) !important;">💡 Boîte à Idées</a>
             <a href="https://alloboisset.fr" target="_blank" class="nav-link">ALLO BOISSET</a>
         </div>
@@ -733,6 +774,130 @@
                         <h3>🤝 Club de la Bonne Entente</h3>
                         <p>Rencontres, sorties et activités ludiques tous les jeudis.<br><strong>Présidente : Chantal Bayle.</strong></p>
                     </div>
+                </div>
+            </section>
+
+            <section id="associations-section" class="section-padding">
+                <h2 class="section-title">Le Tissu Associatif</h2>
+                <p>Découvrez les nombreuses associations qui animent notre village tout au long de l'année.</p>
+                
+                <div class="directory-grid">
+                    
+                    <div class="asso-card">
+                        <span class="asso-tag">Lien Social / Animation</span>
+                        <h4>La Micheline</h4>
+                        <p>Café associatif mobile, rencontres, ateliers, distribution de produits locaux et soupe musicale. Présidente : Caroline Freitas.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Culture / Art</span>
+                        <h4>Les Arts du Plateau</h4>
+                        <p>Développer l'art et la culture en milieu rural. Organisation d'expositions à la Chapelle St Roch. Présidente : Denise Boutin.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Comité des Fêtes</h4>
+                        <p>Organisation de la Fête patronale fin juillet, rassemblement de voitures anciennes et bals. Président : Christophe Morawiec.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Les Joyeux Lurons</h4>
+                        <p>Organisation de la vogue, bals des jeunes en plein air et fête de la bière. Président : Flavien Riberon.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Loisirs / Seniors</span>
+                        <h4>Club de la Bonne Entente</h4>
+                        <p>Après-midis jeux tous les jeudis, repas conviviaux, excursions et diverses sorties de groupe. Présidente : Chantal Bayle.</p>
+                        <a href="tel:0674477420" class="phone-link">📞 06 74 47 74 20</a>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Culture</span>
+                        <h4>La Bibliothèque</h4>
+                        <p>Prêt gratuit de livres (adultes et enfants), BD, mangas. Accueil du public le samedi de 14h à 16h et accueil scolaire. Équipe bénévole.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Commerce local</span>
+                        <h4>Épicerie Associative</h4>
+                        <p>Produits de dépannage locaux et presse. Tenue par des bénévoles du Lundi au Samedi (9h-12h). Présidente : Laurie Coudert.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Événementiel</span>
+                        <h4>Association des Marchés d'Été</h4>
+                        <p>Organisation des marchés estivaux sur la place du village avec animations et producteurs. Présidente : Laurie Coudert.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Chasse / Nature</span>
+                        <h4>A.C.C.A.</h4>
+                        <p>Association Communale de Chasse Agréée. Président : Jean-Marc Sallanon.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Mémoire</span>
+                        <h4>Anciens Combattants</h4>
+                        <p>Préservation du devoir de mémoire. Président : Claude Thivillier.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Jeunesse</span>
+                        <h4>L'Envol des Jeunes</h4>
+                        <p>Co-présidents : Leo Petrucci & Raphaël Baudoin.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Solidarité</span>
+                        <h4>Donneurs de sang</h4>
+                        <p>Organisation et promotion du don du sang. Président : Thierry Provost.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Développement Local</span>
+                        <h4>Dynamique et Avenir de Boisset</h4>
+                        <p>Président : Ludovic Petrucci.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Agriculture</span>
+                        <h4>Syndicat Agricole</h4>
+                        <p>Représentation et entraide agricole. Président : Fabien Sivard.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Sport / Mécanique</span>
+                        <h4>Quad Plaisir des 3 Vallées</h4>
+                        <p>Randonnées et passion du quad. Président : Vincent Bufferne.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Nature / Environnement</span>
+                        <h4>Association Millepertuis</h4>
+                        <p>Président : Jean-Marc Denise.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Brocatoc</h4>
+                        <p>Présidente : Marie-Laure Jasserand.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Solidarité / Aide</span>
+                        <h4>A.D.M.R.</h4>
+                        <p>Aide à domicile en milieu rural. Présidente : Geneviève Dantony.</p>
+                    </div>
+
+                    <div class="asso-card">
+                        <span class="asso-tag">Environnement</span>
+                        <h4>ONG LanDestini</h4>
+                        <p>Présidence : Fanny Agostini & Henri Landes.</p>
+                    </div>
+
                 </div>
             </section>
 
