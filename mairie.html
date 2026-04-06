@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Mairie - Boisset (43)</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0055A4">
+    
+    <style>
+        /* Les styles restent identiques à votre index.html */
+        :root {
+            --azur: #0055A4;      
+            --sinople: #228B22;   
+            --argent: #F8F8F8;    
+            --dark: #1a1a1a;
+            --header-h: 80px;
+            --menu-h: 50px;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            color: #333; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+            scroll-behavior: smooth; 
+        }
+
+        #bg-parallax { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            z-index: -1; 
+            /* L'image de fond est maintenant définie directement dans le HTML plus bas */
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            background-color: #333; 
+        }
+        
+        .top-header { 
+            background: var(--dark); 
+            height: var(--header-h); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            z-index: 2000; 
+            border-bottom: 1px solid #333; 
+        }
+
+        .welcome-title { 
+            color: #f8f8f8; 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            margin: 0; 
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4)); 
+            text-align: center;
+        }
+        
+        .sub-header { 
+            background: #2a2a2a; 
+            height: var(--menu-h); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: fixed; 
+            top: var(--header-h); 
+            left: 0; 
+            right: 0; 
+            z-index: 1900; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+            border-bottom: 3px solid var(--azur); 
+        }
+
+        .nav-menu { 
+            display: flex; 
+            align-items: center; 
+            gap: 30px; 
+        }
+
+        .nav-link { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 11px; 
+            letter-spacing: 1px; 
+            transition: 0.3s; 
+        }
+
+        .nav-link:hover { 
+            color: var(--sinople); 
+        }
+
+        /* --- STYLES MENU BURGER --- */
+        .burger-icon {
+            display: none; 
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            z-index: 3001;
+        }
+
+        .burger-icon span {
+            width: 30px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* --- RESPONSIVE MOBILE & TABLETTE --- */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none; 
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                z-index: 2500;
+            }
+
+            .nav-menu.active { display: flex; }
+            .nav-link { font-size: 1.5rem; }
+            .burger-icon { display: flex; }
+            .welcome-title { font-size: 1.4rem; padding: 0 60px; }
+            .logo-box { width: 80px !important; top: 10px !important; left: 10px !important; }
+        }
+
+        .logo-box { 
+            position: fixed; 
+            top: 5px; 
+            left: 20px; 
+            z-index: 3000; 
+            width: 180px; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); 
+            transition: 0.3s;
+        }
+
+        .logo-box img { width: 100%; height: auto; }
+
+        .main-content { 
+            margin-top: 130px; 
+            position: relative; 
+            z-index: 10; 
+        }
+
+        .hero-spacer { 
+            height: 250px; 
+            display: flex; 
+            align-items: flex-end; 
+            justify-content: center; 
+        }
+
+        .skew-bar { 
+            background: var(--sinople); 
+            height: 60px; 
+            width: 110%; 
+            transform: rotate(-1.5deg); 
+            margin-bottom: -30px; 
+        }
+
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            text-align: center; 
+            background: rgba(248, 248, 248, 0.98); 
+            border-radius: 20px 20px 0 0; 
+            min-height: 50vh; /* Permet à la page de ne pas paraître vide si peu de contenu */
+        }
+
+        .section-padding { 
+            padding: 50px 0; 
+        }
+
+        .section-title { 
+            font-size: 2rem; 
+            color: var(--dark); 
+            margin-bottom: 30px; 
+            text-transform: uppercase; 
+            font-weight: 900; 
+        }
+
+        .service-item { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            border-left: 5px solid var(--azur); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+        }
+        
+        #back-to-top { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            width: 45px; 
+            height: 45px; 
+            background: var(--sinople); 
+            color: white; 
+            border-radius: 50%; 
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            cursor: pointer; 
+            z-index: 5000; 
+            border: 2px solid white; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+        }
+
+        footer { 
+            background: var(--dark); 
+            color: #ccc; 
+            padding: 50px 0 30px; 
+            border-top: 8px solid var(--azur); 
+            position: relative; 
+            z-index: 10; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-parallax" style="background-image: url('fond.jpeg');"></div>
+
+    <header class="top-header">
+        <div class="burger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <h1 class="welcome-title">La Mairie</h1>
+    </header>
+
+    <nav class="sub-header">
+        <div class="nav-menu" id="mobileMenu">
+            <a href="index.html" class="nav-link" onclick="toggleMenu()">🏠 Accueil</a>
+            <a href="mairie.html" class="nav-link" style="color:var(--sinople);" onclick="toggleMenu()">La Mairie</a>
+            <a href="index.html#services-municipaux" class="nav-link" onclick="toggleMenu()">Services publics</a>
+            <a href="index.html#news-section" class="nav-link" onclick="toggleMenu()">Actualités</a>
+            <a href="index.html#vie-locale" class="nav-link" onclick="toggleMenu()">Vie Locale</a>
+            <a href="index.html#associations-section" class="nav-link" onclick="toggleMenu()">Associations</a>
+        </div>
+    </nav>
+
+    <div class="logo-box">
+        <a href="index.html">
+            <img src="blason.png" alt="Blason de Boisset">
+        </a>
+    </div>
+
+    <button id="back-to-top" onclick="scrollToTop()">⬆️</button>
+
+    <div class="main-content">
+        <div class="hero-spacer">
+            <div class="skew-bar"></div>
+        </div>
+
+        <main class="container">
+            
+            <section id="mairie" class="section-padding">
+                <h2 class="section-title">Vie Municipale</h2>
+                <div style="display:flex; flex-wrap:wrap; gap:40px; text-align:left; justify-content:center;">
+                    <div style="flex:1; min-width:300px;" class="service-item">
+                        <h3>Secrétariat & Horaires</h3>
+                        <p>📞 <a href="tel:0471613266">04 71 61 32 66</a> | ✉️ <a href="mailto:mairie.boisset@orange.fr">mairie.boisset@orange.fr</a></p>
+                        <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:10px; font-weight:bold;">Lundi / Jeudi</td>
+                                <td style="text-align:right;">09h - 12h</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:10px; font-weight:bold;">Mardi</td>
+                                <td style="text-align:right;">14h - 18h</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:10px; font-weight:bold;">Samedi</td>
+                                <td style="text-align:right;">14h - 16h</td>
+                            </tr>
+                        </table>
+                        
+                        <h4 style="margin-top:25px; color:var(--azur);">Équipe Communale</h4>
+                        <ul style="font-size: 0.85rem; padding-left: 20px; line-height: 2.2;">
+                            <li><strong>Secrétariat :</strong> Murielle Bouillon</li>
+                            <li><strong>École :</strong> Mélanie Perbet</li>
+                            <li><strong>École :</strong> Thiphaine Jalabert</li>
+                            <li><strong>École :</strong> Arnaud Beurion</li>
+                            <li><strong>Services Techniques :</strong> Cédric Dérail</li>
+                            <li><strong>Services Techniques :</strong> Thierry Petit</li>
+                        </ul>
+                    </div>
+
+                    <div style="flex:1; min-width:300px;" class="service-item">
+                        <h3>Santé & Numéros Utiles</h3>
+                        <p style="font-size:0.95rem;">👨‍⚕️ <strong>Médecin (St-Pal) :</strong> <a href="tel:0471613225">04 71 61 32 25</a> (Dr Rodriguez)</p>
+                        <p style="font-size:0.95rem;">💊 <strong>Pharmacie :</strong> <a href="tel:0471613049">04 71 61 30 49</a> (Pérez-Desbrun)</p>
+                        <p style="font-size:0.95rem;">🚑 <strong>Urgences :</strong> 15 / 112 / 18</p>
+                        
+                        <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
+                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Conseil Municipal</a>
+                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Procès-Verbaux (PV)</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div style="max-width: 800px; margin: 0 auto; text-align:center; padding:30px 20px; font-size:0.85rem; color:#888; line-height: 1.6;">
+                <h4 style="color: #ccc; font-size: 1rem; margin-bottom: 10px;">🔒 Vos données, en toute confiance</h4>
+                <p style="margin-bottom: 20px;">
+                    Nous respectons votre vie privée avec la plus grande exigence. Les données éventuellement collectées sur ce site (via les formulaires de contact) le sont uniquement dans un cadre strictement nécessaire à son fonctionnement et à la gestion de vos demandes.<br>
+                    Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données à tout moment en contactant la mairie.<br>
+                    Aucune information personnelle n’est vendue, ni partagée à des tiers sans votre consentement.
+                </p>
+                <hr style="border: none; border-top: 1px solid #444; margin: 20px auto; width: 50%;">
+                &copy; 2026 Commune de Boisset (43) - Tous droits réservés.<br>Développement par <strong>TaporDigital</strong>. Siret : 390 724 243 00022
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- LOGIQUE MENU BURGER ---
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // --- GESTION DU BOUTON RETOUR EN HAUT ---
+        window.onscroll = function() { 
+            const btt = document.getElementById('back-to-top');
+            btt.style.display = (document.documentElement.scrollTop > 100) ? "flex" : "none";
+        };
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    </script>
+</body>
+</html>
