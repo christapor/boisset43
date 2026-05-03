@@ -20,7 +20,7 @@
             --dark: #1a1a1a;
             --header-h: 80px;
             --menu-h: 50px;
-            --accent-red: #ff4757;
+            --accent-red: #ff4757; /* Couleur pastille */
         }
 
         body { 
@@ -111,6 +111,7 @@
             color: var(--sinople); 
         }
 
+        /* --- STYLES MENU BURGER --- */
         .burger-icon {
             display: none; 
             flex-direction: column;
@@ -129,6 +130,7 @@
             transition: 0.3s;
         }
 
+        /* --- RESPONSIVE MOBILE & TABLETTE --- */
         @media (max-width: 1024px) {
             .nav-menu {
                 display: none; 
@@ -993,7 +995,8 @@
                             }
 
                             if (!card.querySelector('.event-info-line')) {
-                                const dateFr = row.event_expiry ? row.event_expiry.split('-').reverse().join('/') : '';
+                                // CORRECTION DE LA DATE ICI : On coupe avant le 'T', on split par tiret, on inverse et on rejoint avec des slashs
+                                const dateFr = row.event_expiry ? row.event_expiry.split('T')[0].split('-').reverse().join('/') : '';
                                 const infoLine = document.createElement('div');
                                 infoLine.className = 'event-info-line';
                                 infoLine.innerHTML = `📅 Événement : ${row.event_text} ${dateFr ? '(jusqu\'au ' + dateFr + ')' : ''}`;
