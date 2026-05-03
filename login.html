@@ -30,14 +30,17 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-        async function sendMagicLink() {
-            const email = document.getElementById('email').value;
-            const msgElement = document.getElementById('message');
-            
-            const { error } = await supabaseClient.auth.signInWithOtp({
-                email: email,
-                options: {
-                    emailRedirectTo: 'https://boisset43.vercel.app/edit.html'
+       async function sendMagicLink() {
+    const email = document.getElementById('email').value;
+    const { error } = await supabaseClient.auth.signInWithOtp({
+        email: email,
+        options: {
+            // Force l'URL complète pour éviter les erreurs de redirection
+            emailRedirectTo: 'https://boisset43.vercel.app/edit.html'
+        }
+    });
+    // ... reste du code
+}
                 }
             });
 
