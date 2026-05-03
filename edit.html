@@ -11,7 +11,7 @@
         h2 { border-bottom: 2px solid #3ecf8e; padding-bottom: 10px; color: #333; }
         label { display: block; margin-top: 20px; font-weight: 600; color: #555; }
         input { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { margin-top: 30px; width: 100%; padding: 15px; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button { margin-top: 30px; width: 100%; padding: 15px; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
         button:hover { background: #000; }
         #status { margin-top: 20px; text-align: center; font-weight: bold; }
         .nav-link { display: block; margin-top: 20px; text-align: center; color: #3ecf8e; text-decoration: none; }
@@ -19,82 +19,84 @@
 </head>
 <body>
     <div class="container">
-        <h2>🔧 Gérer ma notification</h2>
+        <h2>Gérer mon événement</h2>
         <p id="user-info">Vérification de la session...</p>
-
+        
         <div id="form-area" style="display:none;">
-            <label>Texte de l'alerte (Pastille)</label>
-            <input type="text" id="event_text" placeholder="Ex: Bal masqué le 25 juillet">
-
-            <label>Lien de redirection (Optionnel)</label>
-            <input type="url" id="event_link" placeholder="https://votre-site.fr/page-event">
-
-            <label>Date de fin (La pastille disparaîtra après)</label>
+            <label>Nom de l'événement</label>
+            <input type="text" id="event_text" placeholder="Ex: Soupe aux choux">
+            
+            <label>Date de l'événement</label>
             <input type="date" id="event_expiry">
-
-            <button onclick="saveData()">Mettre à jour mon profil</button>
+            
+            <label>Horaires (Texte libre)</label>
+            <input type="text" id="event_time" placeholder="Ex: de 19h30 à 22h30">
+            
+            <button onclick="updateData()" id="updateBtn">Mettre à jour ma fiche</button>
         </div>
+        
         <p id="status"></p>
-        <a href="https://boisset43.vercel.app" class="nav-link">← Retour au site</a>
+        <a href="index.html" class="nav-link">← Retour au site</a>
     </div>
 
     <script>
         const supabaseUrl = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
-        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
-        let userEmail = "";
+        let currentUser = null;
 
-        async function init() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            
-            if (session) {
-                userEmail = session.user.email;
-                document.getElementById('user-info').innerText = "Connecté : " + userEmail;
+        async function checkUser() {
+            const { data: { user } } = await sb.auth.getUser();
+            if (user) {
+                currentUser = user;
+                document.getElementById('user-info').innerText = "Connecté en tant que : " + user.email;
                 document.getElementById('form-area').style.display = "block";
-                loadData();
+                loadCurrentData();
             } else {
-                document.getElementById('user-info').innerHTML = "<span style='color:red'>Accès refusé.</span> Tu dois utiliser le lien reçu par mail.";
+                document.getElementById('user-info').innerText = "Non connecté.";
+                setTimeout(() => window.location.href = "login.html", 2000);
             }
         }
 
-        async function loadData() {
-            const { data, error } = await supabaseClient
-                .from('local_directory')
-                .select('*')
-                .eq('owner_email', userEmail)
-                .single();
-
+        async function loadCurrentData() {
+            const { data, error } = await sb.from('local_directory').select('*').eq('email', currentUser.email).single();
             if (data) {
-                document.getElementById('event_text').value = data.event_text || "";
-                document.getElementById('event_link').value = data.event_link || "";
-                if (data.event_expiry) {
-                    document.getElementById('event_expiry').value = data.event_expiry.split('T')[0];
-                }
+                if(data.event_text) document.getElementById('event_text').value = data.event_text;
+                // On récupère uniquement la date sans l'heure ajoutée par Supabase
+                if(data.event_expiry) document.getElementById('event_expiry').value = data.event_expiry.split('T')[0];
+                if(data.event_time) document.getElementById('event_time').value = data.event_time;
             }
         }
 
-        async function saveData() {
+        async function updateData() {
+            const btn = document.getElementById('updateBtn');
             const status = document.getElementById('status');
-            const { error } = await supabaseClient
-                .from('local_directory')
-                .update({ 
-                    event_text: document.getElementById('event_text').value, 
-                    event_link: document.getElementById('event_link').value, 
-                    event_expiry: document.getElementById('event_expiry').value || null 
-                })
-                .eq('owner_email', userEmail);
+            btn.disabled = true;
+            status.style.color = "#333";
+            status.innerText = "Mise à jour en cours...";
+
+            const eText = document.getElementById('event_text').value;
+            const eExpiry = document.getElementById('event_expiry').value;
+            const eTime = document.getElementById('event_time').value;
+
+            const { error } = await sb.from('local_directory').update({
+                event_text: eText,
+                event_expiry: eExpiry ? eExpiry : null,
+                event_time: eTime ? eTime : null
+            }).eq('email', currentUser.email);
 
             if (error) {
                 status.style.color = "red";
-                status.innerText = "❌ Erreur : " + error.message;
+                status.innerText = "Erreur: " + error.message;
             } else {
                 status.style.color = "green";
-                status.innerText = "✅ Changements enregistrés avec succès !";
+                status.innerText = "Fiche mise à jour avec succès !";
             }
+            btn.disabled = false;
         }
 
-        init();
+        checkUser();
     </script>
 </body>
 </html>
