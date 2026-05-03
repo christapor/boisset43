@@ -972,7 +972,7 @@
             return `${day}/${month}/${year}`;
         }
 
-        // --- FONCTION CHIRURGICALE POUR LA PASTILLE ---
+       // --- FONCTION CHIRURGICALE POUR LA PASTILLE ---
         async function updateDynamicEvents() {
             try {
                 const { data: results, error } = await sb.from('local_directory').select('*');
@@ -988,27 +988,33 @@
                         const card = document.getElementById(targetId);
 
                         if (card && row.event_text && (!row.event_expiry || row.event_expiry >= today)) {
-                            // 1. Ajout de la petite pastille rouge dans le titre
+                            // 1. Pastille rouge dans le titre
                             const h4 = card.querySelector('h4');
                             if (h4 && !card.querySelector('.badge-event')) {
                                 h4.insertAdjacentHTML('beforeend', `<span class="badge-event">Événement</span>`);
                             }
 
-                            // 2. Affichage des infos formatées en bas
+                            // 2. Ligne d'informations en bas
                             if (!card.querySelector('.event-info-line')) {
-                                // Découpage, inversion et formatage avec des tirets
                                 const dateFr = row.event_expiry ? row.event_expiry.split('T')[0].split('-').reverse().join('-') : '';
                                 
                                 const infoLine = document.createElement('div');
                                 infoLine.className = 'event-info-line';
                                 
-                                // Construction de ton format multiligne (les tirets "-" de ton exemple)
-                                let htmlContent = `- ${row.event_text}`;
-                                if (dateFr) htmlContent += `<br>- ${dateFr}`;
-                                if (row.event_time) htmlContent += `<br>- ${row.event_time}`;
+                                // Construction du bloc texte avec les icônes
+                                let htmlContent = `<img src="calendrier.png" style="width:16px; vertical-align:middle; margin-right:6px;"> <strong>${row.event_text}</strong>`;
+                                if (dateFr) htmlContent += `<br><span style="margin-left:22px;">- ${dateFr}</span>`;
+                                if (row.event_time) htmlContent += `<br><span style="margin-left:22px;">- ${row.event_time}</span>`;
+                                if (row.event_location) htmlContent += `<br><img src="lieu.png" style="width:16px; vertical-align:middle; margin-right:6px; margin-top:4px;"> <strong>${row.event_location}</strong>`;
                                 
                                 infoLine.innerHTML = htmlContent;
                                 card.appendChild(infoLine);
+                            }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error(e);
                             }
                         }
                     });
