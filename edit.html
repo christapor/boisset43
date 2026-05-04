@@ -9,37 +9,30 @@
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f9f9f9; padding: 20px; }
         .container { max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
         h2 { border-bottom: 2px solid #3ecf8e; padding-bottom: 10px; color: #333; }
-        label { display: flex; align-items: center; margin-top: 20px; font-weight: 600; color: #555; }
-        .icon { width: 24px; height: 24px; margin-right: 10px; }
-        input { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        label { display: flex; align-items: center; margin-top: 20px; font-weight: 600; color: #555; font-size: 1.1rem; }
+        input { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
         button { margin-top: 30px; width: 100%; padding: 15px; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
         button:hover { background: #000; }
         #status { margin-top: 20px; text-align: center; font-weight: bold; }
-        .nav-link { display: block; margin-top: 20px; text-align: center; color: #3ecf8e; text-decoration: none; }
+        .nav-link { display: block; margin-top: 20px; text-align: center; color: #3ecf8e; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Gérer mon événement</h2>
-        <p id="user-info">Vérification de la session...</p>
+        <p id="user-info" style="color: #666; font-style: italic;">Vérification de la session...</p>
         
         <div id="form-area" style="display:none;">
-            <label>
-                <img src="calendrier.png" alt="Calendrier" class="icon"> 
-                Nom de l'événement
-            </label>
+            <label>📅 Nom de l'événement</label>
             <input type="text" id="event_text" placeholder="Ex: Soupe aux choux">
             
-            <label>Date de l'événement</label>
+            <label>📆 Date de l'événement</label>
             <input type="date" id="event_expiry">
             
-            <label>Horaires (Texte libre)</label>
+            <label>🕒 Horaires (Texte libre)</label>
             <input type="text" id="event_time" placeholder="Ex: de 19h30 à 22h30">
 
-            <label>
-                <img src="lieu.png" alt="Lieu" class="icon"> 
-                Lieu de l'événement
-            </label>
+            <label>📍 Lieu de l'événement</label>
             <input type="text" id="event_location" placeholder="Ex: Salle des fêtes La Jourdane">
             
             <button onclick="updateData()" id="updateBtn">Mettre à jour ma fiche</button>
