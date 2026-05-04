@@ -20,7 +20,7 @@
             --dark: #1a1a1a;
             --header-h: 80px;
             --menu-h: 50px;
-            --accent-red: #ff4757; /* Couleur pastille */
+            --accent-red: #ff4757; /* Couleur pastille Supabase */
         }
 
         body { 
@@ -111,7 +111,6 @@
             color: var(--sinople); 
         }
 
-        /* --- STYLES MENU BURGER --- */
         .burger-icon {
             display: none; 
             flex-direction: column;
@@ -130,7 +129,6 @@
             transition: 0.3s;
         }
 
-        /* --- RESPONSIVE MOBILE & TABLETTE --- */
         @media (max-width: 1024px) {
             .nav-menu {
                 display: none; 
@@ -267,40 +265,6 @@
             font-weight: 900; 
         }
 
-        /* --- STYLES DES PASTILLES EVENEMENTS SUPABASE --- */
-        .badge-event {
-            background-color: var(--accent-red);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            text-transform: none;
-            margin-left: 10px;
-            animation: pulse-red 2s infinite;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .event-info-line {
-            display: block;
-            margin-top: 10px;
-            padding: 8px;
-            background: #fff5f5;
-            border-radius: 6px;
-            border-left: 3px solid var(--accent-red);
-            font-size: 0.85rem;
-            color: #b33939;
-            font-weight: bold;
-        }
-
-        @keyframes pulse-red {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(255, 71, 87, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
-        }
-        /* ------------------------------------------------- */
-
         .services-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
@@ -344,6 +308,7 @@
             border-top: 5px solid var(--sinople); 
             box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
             transition: 0.3s;
+            position: relative;
         }
 
         .directory-card:hover { 
@@ -373,12 +338,45 @@
             justify-content: space-between;
         }
 
+        /* --- STYLE DES PASTILLES EVENEMENTS SUPABASE --- */
+        .badge-event {
+            background-color: var(--accent-red);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: none;
+            margin-left: 10px;
+            animation: pulse-red 2s infinite;
+            text-decoration: none;
+        }
+
+        .event-info-line {
+            display: block;
+            margin-top: 10px;
+            padding: 8px;
+            background: #fff5f5;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-red);
+            font-size: 0.85rem;
+            color: #b33939;
+            font-weight: bold;
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(255, 71, 87, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+        }
+
         .directory-card p { 
             font-size: 0.9rem; 
             color: #555; 
             margin-bottom: 15px; 
         }
 
+        /* --- STYLES CARTES ASSOCIATIONS (Bleu) --- */
         .asso-card { 
             background: white; 
             padding: 25px; 
@@ -386,6 +384,7 @@
             border-top: 5px solid var(--azur); 
             box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
             transition: 0.3s;
+            position: relative;
         }
 
         .asso-card:hover { 
@@ -410,6 +409,9 @@
             font-size: 1.1rem; 
             font-weight: 900; 
             color: #1a1a1a; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .asso-card p { 
@@ -638,6 +640,7 @@
             <section id="vie-locale" class="section-padding">
                 <h2 class="section-title">Annuaire des Professionnels</h2>
                 <p>Retrouvez ici les entreprises et artisans qui font vivre notre territoire.</p>
+                
                 <div class="directory-grid">
                     
                     <div class="directory-card">
@@ -646,8 +649,7 @@
                         <p>Agencements, menuiserie intérieure et extérieure, cuisines, bains et rangements.</p>
                         <a href="tel:0607102820" class="phone-link">📞 06 07 10 28 20</a>
                     </div>
-                    
-                    <!-- ID AJOUTE ICI POUR SUPABASE -->
+
                     <div class="directory-card" id="prof-tapordigital">
                         <span class="cat-tag">Informatique</span>
                         <h4>TaporDigital</h4>
@@ -797,7 +799,7 @@
                 
                 <div class="directory-grid">
                     
-                    <div class="asso-card">
+                    <div class="asso-card" id="prof-lamicheline">
                         <span class="asso-tag">Lien Social / Animation</span>
                         <h4>La Micheline</h4>
                         <p>Café associatif mobile, rencontres, ateliers, distribution de produits locaux et soupe musicale. Présidente : Caroline Freitas.</p>
@@ -972,7 +974,7 @@
             return `${day}/${month}/${year}`;
         }
 
-       // --- FONCTION CHIRURGICALE POUR LA PASTILLE ---
+        // --- FONCTION CHIRURGICALE POUR LA PASTILLE ---
         async function updateDynamicEvents() {
             try {
                 const { data: results, error } = await sb.from('local_directory').select('*');
@@ -1002,19 +1004,13 @@
                                 infoLine.className = 'event-info-line';
                                 
                                 // Construction du bloc texte avec les icônes
-                                let htmlContent = `<img src="calendrier.png" style="width:16px; vertical-align:middle; margin-right:6px;"> <strong>${row.event_text}</strong>`;
-                                if (dateFr) htmlContent += `<br><span style="margin-left:22px;">- ${dateFr}</span>`;
-                                if (row.event_time) htmlContent += `<br><span style="margin-left:22px;">- ${row.event_time}</span>`;
-                                if (row.event_location) htmlContent += `<br><img src="lieu.png" style="width:16px; vertical-align:middle; margin-right:6px; margin-top:4px;"> <strong>${row.event_location}</strong>`;
+                                let htmlContent = `<img src="calendrier.png" style="width:16px; vertical-align:middle; margin-right:6px;"> <strong style="color:#b33939;">- ${row.event_text}</strong>`;
+                                if (dateFr) htmlContent += `<br><span style="margin-left:22px; color:#b33939;">- ${dateFr}</span>`;
+                                if (row.event_time) htmlContent += `<br><span style="margin-left:22px; color:#b33939;">- ${row.event_time}</span>`;
+                                if (row.event_location) htmlContent += `<br><div style="margin-top:4px;"><img src="lieu.png" style="width:16px; vertical-align:middle; margin-right:6px;"> <strong style="color:#b33939;">- ${row.event_location}</strong></div>`;
                                 
                                 infoLine.innerHTML = htmlContent;
                                 card.appendChild(infoLine);
-                            }
-                        }
-                    });
-                }
-            } catch (e) {
-                console.error(e);
                             }
                         }
                     });
