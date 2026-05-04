@@ -974,7 +974,7 @@
             return `${day}/${month}/${year}`;
         }
 
-        // --- FONCTION CHIRURGICALE POUR LA PASTILLE ---
+       // --- FONCTION CHIRURGICALE POUR LA PASTILLE ---
         async function updateDynamicEvents() {
             try {
                 const { data: results, error } = await sb.from('local_directory').select('*');
@@ -996,18 +996,19 @@
                                 h4.insertAdjacentHTML('beforeend', `<span class="badge-event">Événement</span>`);
                             }
 
-                            // 2. Ligne d'informations en bas
+                            // 2. Ligne d'informations en bas (100% Emojis)
                             if (!card.querySelector('.event-info-line')) {
                                 const dateFr = row.event_expiry ? row.event_expiry.split('T')[0].split('-').reverse().join('-') : '';
                                 
                                 const infoLine = document.createElement('div');
                                 infoLine.className = 'event-info-line';
                                 
-                               // Construction du bloc texte avec les émojis
-let htmlContent = `📅 <strong style="color:#b33939;">- ${row.event_text}</strong>`;
-if (dateFr) htmlContent += `<br><span style="margin-left:24px; color:#b33939;">- ${dateFr}</span>`;
-if (row.event_time) htmlContent += `<br><span style="margin-left:24px; color:#b33939;">- ${row.event_time}</span>`;
-if (row.event_location) htmlContent += `<br><div style="margin-top:4px;">📍 <strong style="color:#b33939;">- ${row.event_location}</strong></div>`;
+                                // Construction du bloc texte avec émojis
+                                let htmlContent = `📅 <strong style="color:#b33939;">- ${row.event_text}</strong>`;
+                                if (dateFr) htmlContent += `<br><span style="margin-left:26px; color:#b33939;">- ${dateFr}</span>`;
+                                if (row.event_time) htmlContent += `<br>🕒 <strong style="color:#b33939; margin-left:2px;">- ${row.event_time}</strong>`;
+                                if (row.event_location) htmlContent += `<br><div style="margin-top:4px;">📍 <strong style="color:#b33939; margin-left:4px;">- ${row.event_location}</strong></div>`;
+                                
                                 infoLine.innerHTML = htmlContent;
                                 card.appendChild(infoLine);
                             }
