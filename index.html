@@ -484,6 +484,254 @@
             position: relative; 
             z-index: 10; 
         }
+
+        /* =========================================================
+           RECHERCHE LIVE ANNUAIRE + TRANSITIONS
+           ========================================================= */
+
+        .directory-search {
+            max-width: 680px;
+            margin: 28px auto 10px;
+            text-align: left;
+        }
+
+        .directory-search-label {
+            display: block;
+            margin: 0 0 8px 4px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        .directory-search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid #e6e6e6;
+            border-radius: 999px;
+            padding: 11px 14px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+            transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .directory-search-box:focus-within {
+            border-color: rgba(0, 85, 164, 0.35);
+            box-shadow: 0 10px 28px rgba(0, 85, 164, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .directory-search-icon {
+            font-size: 1rem;
+            opacity: 0.65;
+            flex: 0 0 auto;
+        }
+
+        #directory-search-input {
+            width: 100%;
+            min-width: 0;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #222;
+            font: inherit;
+            font-size: 0.95rem;
+        }
+
+        #directory-search-input::placeholder {
+            color: #9a9a9a;
+        }
+
+        #directory-search-input::-webkit-search-cancel-button {
+            display: none;
+        }
+
+        .directory-search-reset {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 50%;
+            background: #f1f1f1;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.15rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .directory-search-reset:hover {
+            background: var(--azur);
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .directory-search-reset[hidden] {
+            display: none !important;
+        }
+
+        .directory-search-help {
+            margin: 8px 4px 0;
+            text-align: center;
+            font-size: 0.82rem;
+            color: #666;
+        }
+
+        .directory-search-empty {
+            margin: 14px auto 0;
+            padding: 12px 16px;
+            max-width: 520px;
+            background: #fff;
+            border-radius: 12px;
+            border-left: 4px solid var(--azur);
+            color: #555;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+
+        /* Transition fluide au filtrage */
+        .directory-card,
+        .asso-card {
+            max-height: 900px;
+            overflow: hidden;
+            will-change: opacity, transform;
+            transition:
+                opacity 0.24s ease,
+                transform 0.24s ease,
+                max-height 0.24s ease,
+                padding 0.24s ease,
+                margin 0.24s ease,
+                border-width 0.24s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .directory-card.is-filtered-out,
+        .asso-card.is-filtered-out {
+            opacity: 0;
+            transform: translateY(10px) scale(0.98);
+            max-height: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            border-width: 0 !important;
+            pointer-events: none;
+        }
+
+        .directory-card[hidden],
+        .asso-card[hidden] {
+            display: none !important;
+        }
+
+        /* =========================================================
+           SKELETON LOADER POUR LES BADGES EVENEMENTS
+           ========================================================= */
+
+        .event-slot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 0 0 auto;
+            min-width: 78px;
+            margin-left: 10px;
+        }
+
+        .badge-event {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .event-badge-skeleton {
+            width: 76px;
+            height: 20px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ececec 25%, #f8f8f8 37%, #ececec 63%);
+            background-size: 400% 100%;
+            animation: skeleton-loading 1.15s ease-in-out infinite;
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 100% 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        /* Lignes d'info événement générées sans innerHTML */
+        .event-info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .event-info-row + .event-info-row {
+            margin-top: 2px;
+        }
+
+        .event-info-row--offset {
+            padding-left: 26px;
+        }
+
+        .event-info-icon {
+            width: 20px;
+            flex: 0 0 20px;
+            line-height: 1.4;
+        }
+
+        .event-info-line strong {
+            color: #b33939;
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .directory-search {
+                margin-top: 22px;
+            }
+
+            .directory-search-box {
+                padding: 10px 12px;
+                border-radius: 16px;
+            }
+
+            #directory-search-input {
+                font-size: 0.9rem;
+            }
+
+            .event-slot {
+                min-width: 64px;
+            }
+
+            .event-badge-skeleton {
+                width: 64px;
+            }
+
+            .badge-event {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+        }
+
+        /* Accessibilité : réduit les animations si l'utilisateur le demande */
+        @media (prefers-reduced-motion: reduce) {
+            .directory-card,
+            .asso-card,
+            .directory-search-box,
+            .directory-search-reset,
+            .event-badge-skeleton,
+            .badge-event {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -961,10 +1209,24 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        const ACTIVE_VILLAGE_ID = 'boisset';
+        const VILLAGE_FILTER_ENABLED = true;
+        const FILTER_TRANSITION_MS = 240;
+
+        const SELECTS = {
+            directoryEvents: 'name,event_text,event_expiry,event_time,event_location',
+            reservations: 'date_debut,status',
+            news: 'title,content,created_at'
+        };
+
         // --- LOGIQUE MENU BURGER ---
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
+            if (menu) menu.classList.toggle('active');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function formatToFrenchDate(dateObj) {
@@ -974,149 +1236,596 @@
             return `${day}/${month}/${year}`;
         }
 
-       // --- FONCTION CHIRURGICALE POUR LA PASTILLE ---
-        async function updateDynamicEvents() {
-            try {
-                const { data: results, error } = await sb.from('local_directory').select('*');
-                if (error) {
-                    console.error("Erreur Supabase:", error);
-                    return;
-                }
-                const today = new Date().toISOString().split('T')[0];
+        function getTodayIsoLocal() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
 
-                if (results) {
-                    results.forEach(row => {
-                        const targetId = "prof-" + row.name.toLowerCase().replace(/\s/g, '');
-                        const card = document.getElementById(targetId);
+        function formatDBDateToFrench(dateValue) {
+            if (!dateValue) return '';
 
-                        if (card && row.event_text && (!row.event_expiry || row.event_expiry >= today)) {
-                            // 1. Pastille rouge dans le titre
-                            const h4 = card.querySelector('h4');
-                            if (h4 && !card.querySelector('.badge-event')) {
-                                h4.insertAdjacentHTML('beforeend', `<span class="badge-event">Événement</span>`);
-                            }
+            const isoDate = String(dateValue).split('T')[0];
+            const parts = isoDate.split('-');
 
-                            // 2. Ligne d'informations en bas (100% Emojis)
-                            if (!card.querySelector('.event-info-line')) {
-                                const dateFr = row.event_expiry ? row.event_expiry.split('T')[0].split('-').reverse().join('-') : '';
-                                
-                                const infoLine = document.createElement('div');
-                                infoLine.className = 'event-info-line';
-                                
-                                // Construction du bloc texte avec émojis
-                                let htmlContent = `📅 <strong style="color:#b33939;">• ${row.event_text}</strong>`;
-                                if (dateFr) htmlContent += `<br><span style="margin-left:26px; color:#b33939;">• ${dateFr}</span>`;
-                                if (row.event_time) htmlContent += `<br>🕒 <strong style="color:#b33939; margin-left:2px;">• ${row.event_time}</strong>`;
-                                if (row.event_location) htmlContent += `<br><div style="margin-top:4px;">📍 <strong style="color:#b33939; margin-left:4px;">• ${row.event_location}</strong></div>`;
-                                
-                                infoLine.innerHTML = htmlContent;
-                                card.appendChild(infoLine);
-                            }
-                        }
+            if (parts.length !== 3) return String(dateValue);
+
+            const [year, month, day] = parts;
+            return `${day}/${month}/${year}`;
+        }
+
+        /*
+         * IMPORTANT :
+         * Respect strict de ta règle ID/DB :
+         * "L'éveil des délices" devient "prof-l'éveildesdélices"
+         * On ne supprime PAS les accents, apostrophes ou caractères spéciaux.
+         * On retire uniquement les espaces.
+         */
+        function buildDirectoryId(name) {
+            return 'prof-' + String(name || '')
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, '');
+        }
+
+        function getCardTitleText(card) {
+            const h4 = card ? card.querySelector('h4') : null;
+            if (!h4) return '';
+
+            const clone = h4.cloneNode(true);
+            clone.querySelectorAll('.badge-event, .event-slot, .event-badge-skeleton').forEach(el => el.remove());
+
+            return clone.textContent.trim();
+        }
+
+        /*
+         * Sécurité non destructive :
+         * si une carte n'a pas encore son ID dans le HTML,
+         * on l'ajoute en mémoire au chargement, selon ta convention exacte.
+         */
+        function ensureDirectoryCardIds() {
+            document.querySelectorAll('.directory-card, .asso-card').forEach(card => {
+                if (card.id) return;
+
+                const cardName = getCardTitleText(card);
+                if (!cardName) return;
+
+                card.id = buildDirectoryId(cardName);
+            });
+        }
+
+        // --- RECHERCHE LIVE ANNUAIRE ---
+        function normalizeForSearch(value) {
+            return String(value || '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .trim();
+        }
+
+        function getCardCategoryText(card) {
+            const tag = card.querySelector('.cat-tag, .asso-tag');
+            return tag ? tag.textContent.trim() : '';
+        }
+
+        function setCardVisibility(card, shouldShow) {
+            if (shouldShow) {
+                if (card.hidden) {
+                    card.classList.add('is-filtered-out');
+                    card.hidden = false;
+
+                    requestAnimationFrame(() => {
+                        card.classList.remove('is-filtered-out');
                     });
+                } else {
+                    card.classList.remove('is-filtered-out');
                 }
-            } catch (e) {
-                console.error(e);
+
+                card.setAttribute('aria-hidden', 'false');
+                return;
+            }
+
+            card.setAttribute('aria-hidden', 'true');
+
+            if (card.hidden) return;
+
+            card.classList.add('is-filtered-out');
+
+            window.setTimeout(() => {
+                if (card.classList.contains('is-filtered-out')) {
+                    card.hidden = true;
+                }
+            }, FILTER_TRANSITION_MS);
+        }
+
+        function initDirectorySearch() {
+            const vieLocaleSection = document.getElementById('vie-locale');
+            if (!vieLocaleSection || document.getElementById('directory-search-input')) return;
+
+            const firstDirectoryGrid = vieLocaleSection.querySelector('.directory-grid');
+            if (!firstDirectoryGrid) return;
+
+            const searchWrapper = document.createElement('div');
+            searchWrapper.className = 'directory-search';
+            searchWrapper.innerHTML = `
+                <label class="directory-search-label" for="directory-search-input">
+                    Rechercher dans l'annuaire
+                </label>
+                <div class="directory-search-box">
+                    <span class="directory-search-icon" aria-hidden="true">🔎</span>
+                    <input
+                        id="directory-search-input"
+                        type="search"
+                        placeholder="Nom ou catégorie..."
+                        autocomplete="off"
+                        aria-describedby="directory-search-count"
+                    >
+                    <button
+                        type="button"
+                        class="directory-search-reset"
+                        id="directory-search-reset"
+                        aria-label="Effacer la recherche"
+                        hidden
+                    >×</button>
+                </div>
+                <p class="directory-search-help">
+                    <span id="directory-search-count"></span>
+                </p>
+                <p class="directory-search-empty" id="directory-search-empty" hidden>
+                    Aucun résultat ne correspond à cette recherche.
+                </p>
+            `;
+
+            firstDirectoryGrid.insertAdjacentElement('beforebegin', searchWrapper);
+
+            const input = document.getElementById('directory-search-input');
+            const clearButton = document.getElementById('directory-search-reset');
+            const count = document.getElementById('directory-search-count');
+            const empty = document.getElementById('directory-search-empty');
+            const cards = Array.from(document.querySelectorAll('.directory-card, .asso-card'));
+
+            cards.forEach(card => {
+                const name = getCardTitleText(card);
+                const category = getCardCategoryText(card);
+
+                card.dataset.searchName = normalizeForSearch(name);
+                card.dataset.searchCategory = normalizeForSearch(category);
+                card.dataset.searchHaystack = `${card.dataset.searchName} ${card.dataset.searchCategory}`;
+            });
+
+            let searchTimer = null;
+
+            function applyFilter() {
+                const rawQuery = input.value || '';
+                const terms = normalizeForSearch(rawQuery).split(/\s+/).filter(Boolean);
+
+                let visibleCount = 0;
+
+                cards.forEach(card => {
+                    const haystack = card.dataset.searchHaystack || '';
+                    const matches = terms.length === 0 || terms.every(term => haystack.includes(term));
+
+                    if (matches) visibleCount += 1;
+                    setCardVisibility(card, matches);
+                });
+
+                if (count) {
+                    if (terms.length === 0) {
+                        count.textContent = `${cards.length} entrées dans l'annuaire`;
+                    } else {
+                        const plural = visibleCount > 1 ? 's' : '';
+                        count.textContent = `${visibleCount} résultat${plural} trouvé${plural}`;
+                    }
+                }
+
+                if (empty) {
+                    empty.hidden = visibleCount !== 0 || terms.length === 0;
+                }
+
+                if (clearButton) {
+                    clearButton.hidden = rawQuery.length === 0;
+                }
+            }
+
+            input.addEventListener('input', () => {
+                window.clearTimeout(searchTimer);
+                searchTimer = window.setTimeout(applyFilter, 60);
+            });
+
+            clearButton.addEventListener('click', () => {
+                input.value = '';
+                applyFilter();
+                input.focus();
+            });
+
+            applyFilter();
+        }
+
+        // --- SUPABASE : SELECT OPTIMISE + PREPARATION MULTI-SITE ---
+        function isMissingVillageColumnError(error) {
+            const message = [
+                error && error.message,
+                error && error.details,
+                error && error.hint
+            ].filter(Boolean).join(' ');
+
+            return /village_id/i.test(message)
+                && /(does not exist|schema cache|could not find|column)/i.test(message);
+        }
+
+        async function selectRows(table, columns, options = {}) {
+            const orderBy = options.orderBy || null;
+            const ascending = options.ascending === true;
+            const villageScoped = options.villageScoped !== false && VILLAGE_FILTER_ENABLED;
+
+            let query = sb.from(table).select(columns);
+
+            if (villageScoped) {
+                query = query.eq('village_id', ACTIVE_VILLAGE_ID);
+            }
+
+            if (orderBy) {
+                query = query.order(orderBy, { ascending });
+            }
+
+            let { data, error } = await query;
+
+            /*
+             * Fallback temporaire :
+             * si la colonne village_id n'existe pas encore dans une table,
+             * le site continue de fonctionner.
+             * Dès que village_id existe, le filtre est appliqué automatiquement.
+             */
+            if (error && villageScoped && isMissingVillageColumnError(error)) {
+                console.warn(`[${table}] Colonne village_id absente : requête relancée sans filtre multi-site.`);
+
+                query = sb.from(table).select(columns);
+
+                if (orderBy) {
+                    query = query.order(orderBy, { ascending });
+                }
+
+                ({ data, error } = await query);
+            }
+
+            if (error) throw error;
+            return data || [];
+        }
+
+        async function insertReservation(payload) {
+            const payloadWithVillage = VILLAGE_FILTER_ENABLED
+                ? { ...payload, village_id: ACTIVE_VILLAGE_ID }
+                : { ...payload };
+
+            let { error } = await sb
+                .from('salle_reservations')
+                .insert([payloadWithVillage]);
+
+            if (error && VILLAGE_FILTER_ENABLED && isMissingVillageColumnError(error)) {
+                console.warn('[salle_reservations] Colonne village_id absente : insertion relancée sans filtre multi-site.');
+
+                ({ error } = await sb
+                    .from('salle_reservations')
+                    .insert([payload]));
+            }
+
+            if (error) throw error;
+        }
+
+        // --- SKELETON + PASTILLES EVENEMENTS ---
+        function ensureEventSlot(card) {
+            const h4 = card ? card.querySelector('h4') : null;
+            if (!h4) return null;
+
+            let slot = h4.querySelector('.event-slot');
+
+            if (!slot) {
+                slot = document.createElement('span');
+                slot.className = 'event-slot';
+                h4.appendChild(slot);
+            }
+
+            return slot;
+        }
+
+        function showEventSkeletons() {
+            document.querySelectorAll('.directory-card, .asso-card').forEach(card => {
+                const slot = ensureEventSlot(card);
+                if (!slot) return;
+
+                if (!slot.querySelector('.badge-event') && !slot.querySelector('.event-badge-skeleton')) {
+                    const skeleton = document.createElement('span');
+                    skeleton.className = 'event-badge-skeleton';
+                    skeleton.setAttribute('aria-hidden', 'true');
+                    slot.appendChild(skeleton);
+                }
+            });
+        }
+
+        function clearEventSkeletons() {
+            document.querySelectorAll('.event-badge-skeleton').forEach(el => el.remove());
+
+            document.querySelectorAll('.event-slot').forEach(slot => {
+                if (!slot.querySelector('.badge-event') && !slot.textContent.trim()) {
+                    slot.remove();
+                }
+            });
+        }
+
+        function clearDynamicEventContent() {
+            document.querySelectorAll('.badge-event, .event-info-line').forEach(el => el.remove());
+
+            document.querySelectorAll('.event-slot').forEach(slot => {
+                if (!slot.querySelector('.event-badge-skeleton')) {
+                    slot.remove();
+                }
+            });
+        }
+
+        function hasActiveEvent(row, todayIso) {
+            const eventText = String(row.event_text || '').trim();
+            if (!eventText) return false;
+
+            const expiry = row.event_expiry
+                ? String(row.event_expiry).split('T')[0]
+                : null;
+
+            return !expiry || expiry >= todayIso;
+        }
+
+        function addEventBadge(card) {
+            const slot = ensureEventSlot(card);
+            if (!slot) return;
+
+            slot.querySelectorAll('.event-badge-skeleton').forEach(el => el.remove());
+
+            if (!slot.querySelector('.badge-event')) {
+                const badge = document.createElement('span');
+                badge.className = 'badge-event';
+                badge.textContent = 'Événement';
+                slot.appendChild(badge);
             }
         }
 
-        document.addEventListener('DOMContentLoaded', async function() {
-            var calendarEl = document.getElementById('calendar');
-            const { data: res } = await sb.from('salle_reservations').select('*');
-            const events = res ? res.map(r => ({
-                start: r.date_debut,
-                display: 'background',
-                color: r.status === 'confirmé' ? '#ff4d4d' : '#ffa500'
-            })) : [];
+        function appendEventInfoRow(container, icon, value) {
+            const cleanValue = String(value || '').trim();
+            if (!cleanValue) return;
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            const row = document.createElement('div');
+            row.className = 'event-info-row';
+
+            if (icon) {
+                const iconSpan = document.createElement('span');
+                iconSpan.className = 'event-info-icon';
+                iconSpan.textContent = icon;
+                row.appendChild(iconSpan);
+            } else {
+                row.classList.add('event-info-row--offset');
+            }
+
+            const strong = document.createElement('strong');
+            strong.textContent = `• ${cleanValue}`;
+            row.appendChild(strong);
+
+            container.appendChild(row);
+        }
+
+        function addEventInfoLine(card, row) {
+            if (card.querySelector('.event-info-line')) return;
+
+            const infoLine = document.createElement('div');
+            infoLine.className = 'event-info-line';
+
+            appendEventInfoRow(infoLine, '📅', row.event_text);
+
+            const dateFr = formatDBDateToFrench(row.event_expiry);
+            appendEventInfoRow(infoLine, '', dateFr);
+
+            appendEventInfoRow(infoLine, '🕒', row.event_time);
+            appendEventInfoRow(infoLine, '📍', row.event_location);
+
+            card.appendChild(infoLine);
+        }
+
+        // --- FONCTION CHIRURGICALE POUR LES PASTILLES SUPABASE ---
+        async function updateDynamicEvents() {
+            clearDynamicEventContent();
+            showEventSkeletons();
+
+            try {
+                const results = await selectRows('local_directory', SELECTS.directoryEvents, {
+                    villageScoped: true
+                });
+
+                const today = getTodayIsoLocal();
+
+                results.forEach(row => {
+                    const targetId = buildDirectoryId(row.name);
+                    const card = document.getElementById(targetId);
+
+                    if (!card) return;
+                    if (!hasActiveEvent(row, today)) return;
+
+                    addEventBadge(card);
+                    addEventInfoLine(card, row);
+                });
+            } catch (error) {
+                console.error('Erreur Supabase local_directory:', error);
+            } finally {
+                clearEventSkeletons();
+            }
+        }
+
+        // --- CALENDRIER RESERVATIONS ---
+        async function initCalendar() {
+            const calendarEl = document.getElementById('calendar');
+            if (!calendarEl || typeof FullCalendar === 'undefined') return;
+
+            let reservations = [];
+
+            try {
+                reservations = await selectRows('salle_reservations', SELECTS.reservations, {
+                    villageScoped: true
+                });
+            } catch (error) {
+                console.error('Erreur Supabase salle_reservations:', error);
+            }
+
+            const events = reservations
+                .filter(r => r.date_debut)
+                .map(r => ({
+                    start: String(r.date_debut).split('T')[0],
+                    display: 'background',
+                    color: r.status === 'confirmé' ? '#ff4d4d' : '#ffa500'
+                }));
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 locale: 'fr',
-                events: events,
+                events,
                 dateClick: function(info) {
                     const frenchDate = formatToFrenchDate(info.date);
-                    const isTaken = res && res.some(r => r.date_debut === info.dateStr);
+                    const isTaken = reservations.some(r => {
+                        return String(r.date_debut).split('T')[0] === info.dateStr;
+                    });
+
                     if (isTaken) {
                         alert("Cette date (" + frenchDate + ") est déjà demandée ou réservée.");
-                    } else {
-                        if(confirm("Date libre. Préparer le formulaire pour le " + frenchDate + " ?")) {
-                            window.location.href = "#contact-section";
-                            document.getElementById('message-body').value = "Bonjour,\n\nJe souhaiterais réserver la salle 'La Jourdane' pour la date du : " + frenchDate + ".";
-                            document.getElementById('message-body').focus();
+                        return;
+                    }
+
+                    if (confirm("Date libre. Préparer le formulaire pour le " + frenchDate + " ?")) {
+                        window.location.href = "#contact-section";
+
+                        const messageBody = document.getElementById('message-body');
+                        if (messageBody) {
+                            messageBody.value = "Bonjour,\n\nJe souhaiterais réserver la salle 'La Jourdane' pour la date du : " + frenchDate + ".";
+                            messageBody.focus();
                         }
                     }
                 }
             });
+
             calendar.render();
-            loadNews();
-            
-            // Lancement de l'ajout des pastilles sans rien effacer
-            updateDynamicEvents(); 
-        });
+        }
 
-        document.getElementById('contact-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.disabled = true;
-            btn.innerText = "ENREGISTREMENT...";
-
-            const message = document.getElementById('message-body').value;
-            const dateMatch = message.match(/(\d{2}\/\d{2}\/\d{4})/);
-            const datePourDB = dateMatch ? dateMatch[0].split('/').reverse().join('-') : null;
-
-            if (!datePourDB) {
-                alert("Erreur : Veuillez d'abord cliquer sur une date libre dans le calendrier.");
-                btn.disabled = false;
-                btn.innerText = "ENVOYER LA DEMANDE";
-                return;
-            }
+        // --- ACTUALITES ---
+        async function loadNews() {
+            const newsCont = document.getElementById('news-container');
+            if (!newsCont) return;
 
             try {
-                const { error: sbError } = await sb.from('salle_reservations').insert([{ 
-                    date_debut: datePourDB, 
-                    nom_client: document.getElementById('user-name').value, 
-                    evenement: document.getElementById('event-nature').value,
-                    status: 'en_cours' 
-                }]);
-
-                if (sbError) throw sbError;
-
-                const formData = new FormData(this);
-                await fetch("https://formspree.io/f/mvzvvbpd", {
-                    method: "POST",
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
+                const news = await selectRows('news', SELECTS.news, {
+                    orderBy: 'created_at',
+                    ascending: false,
+                    villageScoped: true
                 });
 
-                window.location.href = "merci.html";
+                newsCont.textContent = '';
 
-            } catch (err) {
-                alert("Une erreur est survenue lors de l'enregistrement.");
-                btn.disabled = false;
-                btn.innerText = "ENVOYER LA DEMANDE";
-            }
-        });
+                const fragment = document.createDocumentFragment();
 
-        async function loadNews() {
-            const { data: news } = await sb.from('news').select('*').order('created_at', { ascending: false });
-            const newsCont = document.getElementById('news-container');
-            if (news && newsCont) {
-                newsCont.innerHTML = '';
                 news.forEach(n => {
-                    newsCont.innerHTML += `
-                        <div class="service-item" style="border-left-color:var(--sinople)">
-                            <h3>${n.title}</h3>
-                            <p>${n.content}</p>
-                        </div>`;
+                    const item = document.createElement('div');
+                    item.className = 'service-item';
+                    item.style.borderLeftColor = 'var(--sinople)';
+
+                    const title = document.createElement('h3');
+                    title.textContent = n.title || '';
+
+                    const content = document.createElement('p');
+                    content.textContent = n.content || '';
+
+                    item.appendChild(title);
+                    item.appendChild(content);
+                    fragment.appendChild(item);
                 });
+
+                newsCont.appendChild(fragment);
+            } catch (error) {
+                console.error('Erreur Supabase news:', error);
             }
         }
-        
-        window.onscroll = function() { 
+
+        // --- FORMULAIRE RESERVATION ---
+        function setupReservationForm() {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const btn = document.getElementById('submit-btn');
+                const message = document.getElementById('message-body').value;
+                const dateMatch = message.match(/(\d{2}\/\d{2}\/\d{4})/);
+                const datePourDB = dateMatch ? dateMatch[0].split('/').reverse().join('-') : null;
+
+                if (!datePourDB) {
+                    alert("Erreur : Veuillez d'abord cliquer sur une date libre dans le calendrier.");
+                    return;
+                }
+
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerText = "ENREGISTREMENT...";
+                }
+
+                try {
+                    await insertReservation({
+                        date_debut: datePourDB,
+                        nom_client: document.getElementById('user-name').value,
+                        evenement: document.getElementById('event-nature').value,
+                        status: 'en_cours'
+                    });
+
+                    const formData = new FormData(this);
+
+                    await fetch("https://formspree.io/f/mvzvvbpd", {
+                        method: "POST",
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    window.location.href = "merci.html";
+                } catch (error) {
+                    console.error('Erreur réservation:', error);
+                    alert("Une erreur est survenue lors de l'enregistrement.");
+
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerText = "ENVOYER LA DEMANDE";
+                    }
+                }
+            });
+        }
+
+        // --- BOUTON RETOUR HAUT ---
+        function initBackToTopButton() {
             const btt = document.getElementById('back-to-top');
-            if(btt) btt.style.display = (document.documentElement.scrollTop > 100) ? "flex" : "none";
-        };
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+            if (!btt) return;
+
+            function toggleBackToTop() {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                btt.style.display = scrollTop > 100 ? "flex" : "none";
+            }
+
+            window.addEventListener('scroll', toggleBackToTop, { passive: true });
+            toggleBackToTop();
+        }
+
+        // --- INITIALISATION GENERALE ---
+        document.addEventListener('DOMContentLoaded', function() {
+            ensureDirectoryCardIds();
+            initDirectorySearch();
+            setupReservationForm();
+            initBackToTopButton();
+
+            updateDynamicEvents();
+            loadNews();
+            initCalendar();
+        });
     </script>
 </body>
 </html>
