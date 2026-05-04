@@ -42,7 +42,7 @@
         <a href="index.html" class="nav-link">← Retour au site</a>
     </div>
 
-    <script>
+   <script>
         const supabaseUrl = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
         const sb = supabase.createClient(supabaseUrl, supabaseKey);
@@ -63,7 +63,8 @@
         }
 
         async function loadCurrentData() {
-            const { data, error } = await sb.from('local_directory').select('*').eq('email', currentUser.email).single();
+            // CORRECTION ICI : On utilise 'owner_email' au lieu de 'email'
+            const { data, error } = await sb.from('local_directory').select('*').eq('owner_email', currentUser.email).single();
             if (data) {
                 if(data.event_text) document.getElementById('event_text').value = data.event_text;
                 if(data.event_expiry) document.getElementById('event_expiry').value = data.event_expiry.split('T')[0];
@@ -84,12 +85,13 @@
             const eTime = document.getElementById('event_time').value;
             const eLocation = document.getElementById('event_location').value;
 
+            // CORRECTION ICI AUSSI : On utilise 'owner_email' au lieu de 'email'
             const { error } = await sb.from('local_directory').update({
                 event_text: eText,
                 event_expiry: eExpiry ? eExpiry : null,
                 event_time: eTime ? eTime : null,
                 event_location: eLocation ? eLocation : null
-            }).eq('email', currentUser.email);
+            }).eq('owner_email', currentUser.email);
 
             if (error) {
                 status.style.color = "red";
