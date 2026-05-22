@@ -159,8 +159,11 @@
             max-width: 1100px; 
             margin: -50px auto 40px; 
             padding: 0 20px; 
-            position: relative; 
-            z-index: 60; 
+            
+            /* LA MAGIE DU STICKY */
+            position: sticky; 
+            top: 165px; /* S'arrête juste sous vos menus (90px + 55px + 20px d'espace) */
+            z-index: 1800; /* Reste au-dessus du texte qui défile, mais sous le menu principal (1900) */
         }
 
         .link-card { 
