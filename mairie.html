@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Mairie - Boisset (43)</title>
+    <title>La Mairie - Commune de Boisset</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0055A4">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        /* Les styles restent identiques à votre index.html */
         :root {
             --azur: #0055A4;      
             --sinople: #228B22;   
             --argent: #F8F8F8;    
             --dark: #1a1a1a;
-            --header-h: 80px;
-            --menu-h: 50px;
+            --header-h: 90px; /* Légèrement augmenté pour le grand blason */
+            --menu-h: 55px;   /* Légèrement augmenté pour le grand menu */
         }
 
         body { 
@@ -26,9 +27,9 @@
             color: #333; 
             overflow-x: hidden; 
             line-height: 1.6; 
-            scroll-behavior: smooth; 
         }
 
+        /* Fond Parallax */
         #bg-parallax { 
             position: fixed; 
             top: 0; 
@@ -36,7 +37,7 @@
             width: 100%; 
             height: 100vh; 
             z-index: -1; 
-            /* L'image de fond est maintenant définie directement dans le HTML plus bas */
+            background-image: url('fond.jpeg'); 
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat; 
@@ -44,8 +45,11 @@
             background-color: #333; 
         }
         
+        /* BANDEAU SUPÉRIEUR (75px de haut, transparent 55% + flou) */
         .top-header { 
-            background: var(--dark); 
+            background: rgba(26, 26, 26, 0.55) !important; 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             height: var(--header-h); 
             display: flex; 
             justify-content: center; 
@@ -55,7 +59,7 @@
             left: 0; 
             right: 0; 
             z-index: 2000; 
-            border-bottom: 1px solid #333; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
         }
 
         .welcome-title { 
@@ -65,12 +69,15 @@
             text-transform: uppercase; 
             letter-spacing: 3px; 
             margin: 0; 
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4)); 
             text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
         
+        /* MENU DE NAVIGATION (Agrandi à 14px selon le souhait de Florian) */
         .sub-header { 
-            background: #2a2a2a; 
+            background: rgba(42, 42, 42, 0.55) !important; 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             height: var(--menu-h); 
             display: flex; 
             justify-content: center; 
@@ -87,7 +94,7 @@
         .nav-menu { 
             display: flex; 
             align-items: center; 
-            gap: 30px; 
+            gap: 25px; 
         }
 
         .nav-link { 
@@ -95,102 +102,50 @@
             text-decoration: none; 
             font-weight: 700; 
             text-transform: uppercase; 
-            font-size: 11px; 
+            font-size: 14px; /* Augmenté de 11px à 14px */
             letter-spacing: 1px; 
             transition: 0.3s; 
+            text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0,0,0,0.8);
         }
 
-        .nav-link:hover { 
+        .nav-link:hover, .nav-link.active { 
             color: var(--sinople); 
         }
 
-        /* --- STYLES MENU BURGER --- */
-        .burger-icon {
-            display: none; 
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            z-index: 3001;
-        }
-
-        .burger-icon span {
-            width: 30px;
-            height: 3px;
-            background: white;
-            border-radius: 2px;
-            transition: 0.3s;
-        }
-
-        /* --- RESPONSIVE MOBILE & TABLETTE --- */
-        @media (max-width: 1024px) {
-            .nav-menu {
-                display: none; 
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(26, 26, 26, 0.98);
-                flex-direction: column;
-                justify-content: center;
-                gap: 40px;
-                z-index: 2500;
-            }
-
-            .nav-menu.active { display: flex; }
-            .nav-link { font-size: 1.5rem; }
-            .burger-icon { display: flex; }
-            .welcome-title { font-size: 1.4rem; padding: 0 60px; }
-            .logo-box { width: 80px !important; top: 10px !important; left: 10px !important; }
-        }
-
+        /* GRAND BLASON (Agrandi selon le souhait de Florian) */
         .logo-box { 
             position: fixed; 
-            top: 5px; 
-            left: 20px; 
+            top: 10px; 
+            left: 30px; 
             z-index: 3000; 
-            width: 180px; 
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); 
-            transition: 0.3s;
+            width: 210px; /* Augmenté de 180px à 210px */
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); 
         }
 
-        .logo-box img { width: 100%; height: auto; }
+        .logo-box img { 
+            width: 100%; 
+            height: auto; 
+        }
 
+        /* CONTENEUR PRINCIPAL */
         .main-content { 
-            margin-top: 130px; 
+            margin-top: 180px; 
             position: relative; 
             z-index: 10; 
-        }
-
-        .hero-spacer { 
-            height: 250px; 
-            display: flex; 
-            align-items: flex-end; 
-            justify-content: center; 
-        }
-
-        .skew-bar { 
-            background: var(--sinople); 
-            height: 60px; 
-            width: 110%; 
-            transform: rotate(-1.5deg); 
-            margin-bottom: -30px; 
         }
 
         .container { 
             max-width: 1100px; 
             margin: 0 auto; 
             padding: 40px 20px; 
-            text-align: center; 
             background: rgba(248, 248, 248, 0.98); 
             border-radius: 20px 20px 0 0; 
-            min-height: 50vh; /* Permet à la page de ne pas paraître vide si peu de contenu */
+            box-sizing: border-box;
         }
 
         .section-padding { 
-            padding: 50px 0; 
+            padding: 40px 0; 
+            border-bottom: 1px solid #eee;
         }
 
         .section-title { 
@@ -199,177 +154,310 @@
             margin-bottom: 30px; 
             text-transform: uppercase; 
             font-weight: 900; 
+            text-align: center;
         }
 
-        .service-item { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 12px; 
-            border-left: 5px solid var(--azur); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+        /* GRILLES ET CARTES PROPRES */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .grid-trombi {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .mairie-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--azur);
+            text-align: left;
+        }
+
+        /* STYLE TROMBINOSCOPE (Élus et Agents) */
+        .trombi-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            border-bottom: 3px solid #ccc;
+            transition: 0.3s;
         }
         
-        #back-to-top { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            width: 45px; 
-            height: 45px; 
-            background: var(--sinople); 
-            color: white; 
-            border-radius: 50%; 
-            display: none; 
-            justify-content: center; 
-            align-items: center; 
-            cursor: pointer; 
-            z-index: 5000; 
-            border: 2px solid white; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+        .trombi-card:hover {
+            border-bottom-color: var(--sinople);
+            transform: translateY(-3px);
+        }
+
+        .trombi-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #eee;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 2.5rem;
+            overflow: hidden;
+            border: 3px solid var(--azur);
+        }
+
+        .trombi-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trombi-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin: 5px 0;
+            font-size: 1.1rem;
+        }
+
+        .trombi-role {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* HORAIRES LISTE */
+        .horaires-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .horaires-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        /* TABLEAU DES CONSEILS */
+        .table-conseils {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        .table-conseils th, .table-conseils td {
+            padding: 15px 20px;
+        }
+
+        .table-conseils th {
+            background: var(--dark);
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .table-conseils tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .btn-download {
+            background: var(--azur);
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .btn-download:hover {
+            background: var(--sinople);
         }
 
         footer { 
             background: var(--dark); 
             color: #ccc; 
-            padding: 50px 0 30px; 
+            padding: 40px 0 30px; 
             border-top: 8px solid var(--azur); 
-            position: relative; 
-            z-index: 10; 
-        }
-
-        /* ========================================== */
-        /* ENHANCEMENT BLOC : MENU TRANSPARENT (55%)  */
-        /* ========================================== */
-        .top-header, .sub-header {
-            background: rgba(26, 26, 26, 0.50) !important; 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: background 0.3s ease; 
-        }
-
-        .nav-link, .welcome-title {
-            text-shadow: 
-                -1px -1px 0 #1a1a1a,  
-                 1px -1px 0 #1a1a1a,
-                -1px  1px 0 #1a1a1a,
-                 1px  1px 0 #1a1a1a,
-                 0px  2px 4px rgba(0, 0, 0, 0.8);
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div id="bg-parallax" style="background-image: url('fond.jpeg');"></div>
+    <div id="bg-parallax"></div>
 
     <header class="top-header">
-        <div class="burger-icon" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <h1 class="welcome-title">La Mairie</h1>
+        <h1 class="welcome-title">Commune de Boisset</h1>
     </header>
 
     <nav class="sub-header">
-        <div class="nav-menu" id="mobileMenu">
-            <a href="index.html" class="nav-link" onclick="toggleMenu()">🏠 Accueil</a>
-            <a href="mairie.html" class="nav-link" style="color:var(--sinople);" onclick="toggleMenu()">La Mairie</a>
-            <a href="index.html#services-municipaux" class="nav-link" onclick="toggleMenu()">Services publics</a>
-            <a href="index.html#news-section" class="nav-link" onclick="toggleMenu()">Actualités</a>
-            <a href="index.html#vie-locale" class="nav-link" onclick="toggleMenu()">Vie Locale</a>
-            <a href="index.html#associations-section" class="nav-link" onclick="toggleMenu()">Associations</a>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Accueil</a>
+            <a href="mairie.html" class="nav-link active">La Mairie</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="vie-locale.html" class="nav-link">Vie Locale</a>
+            <a href="territoire.html" class="nav-link">Territoire</a>
         </div>
     </nav>
 
     <div class="logo-box">
-        <a href="index.html">
-            <img src="blason.png" alt="Blason de Boisset">
-        </a>
+        <img src="blason.png" alt="Blason de Boisset">
     </div>
 
-    <button id="back-to-top" onclick="scrollToTop()">⬆️</button>
-
     <div class="main-content">
-        <div class="hero-spacer">
-            
-        </div>
-
         <main class="container">
             
-            <section id="mairie" class="section-padding">
-                <h2 class="section-title">Vie Municipale</h2>
-                <div style="display:flex; flex-wrap:wrap; gap:40px; text-align:left; justify-content:center;">
-                    <div style="flex:1; min-width:300px;" class="service-item">
-                        <h3>Secrétariat & Horaires</h3>
-                        <p>📞 <a href="tel:0471613266">04 71 61 32 66</a> | ✉️ <a href="mailto:mairie.boisset@orange.fr">mairie.boisset@orange.fr</a></p>
-                        <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
-                            <tr style="border-bottom:1px solid #eee;">
-                                <td style="padding:10px; font-weight:bold;">Lundi / Jeudi</td>
-                                <td style="text-align:right;">09h - 12h</td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #eee;">
-                                <td style="padding:10px; font-weight:bold;">Mardi</td>
-                                <td style="text-align:right;">14h - 18h</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:10px; font-weight:bold;">Samedi</td>
-                                <td style="text-align:right;">14h - 16h</td>
-                            </tr>
-                        </table>
-                        
-                        <h4 style="margin-top:25px; color:var(--azur);">Équipe Communale</h4>
-                        <ul style="font-size: 0.85rem; padding-left: 20px; line-height: 2.2;">
-                            <li><strong>Secrétariat :</strong> Murielle Bouillon</li>
-                            <li><strong>École :</strong> Mélanie Perbet</li>
-                            <li><strong>École :</strong> Thiphaine Jalabert</li>
-                            <li><strong>École :</strong> Arnaud Beurion</li>
-                            <li><strong>Services Techniques :</strong> Cédric Dérail</li>
-                            <li><strong>Services Techniques :</strong> Thierry Petit</li>
+            <section id="secretariat" class="section-padding">
+                <h2 class="section-title">Secrétariat de Mairie</h2>
+                <div class="grid-2">
+                    <div class="mairie-card">
+                        <h3><i class="fa-solid fa-clock" style="color:var(--azur);"></i> Horaires d'ouverture</h3>
+                        <ul class="horaires-list">
+                            <li><span>Lundi</span> <strong>09h00 - 12h00</strong></li>
+                            <li><span>Mardi</span> <strong>Fermé au public</strong></li>
+                            <li><span>Mercredi</span> <strong>14h00 - 17h00</strong></li>
+                            <li><span>Jeudi</span> <strong>09h00 - 12h00</strong></li>
+                            <li><span>Vendredi</span> <strong>14h00 - 16h30</strong></li>
                         </ul>
                     </div>
-
-                    <div style="flex:1; min-width:300px;" class="service-item">
-                        <h3>Santé & Numéros Utiles</h3>
-                        <p style="font-size:0.95rem;">👨‍⚕️ <strong>Médecin (St-Pal) :</strong> <a href="tel:0471613225">04 71 61 32 25</a> (Dr Rodriguez)</p>
-                        <p style="font-size:0.95rem;">💊 <strong>Pharmacie :</strong> <a href="tel:0471613049">04 71 61 30 49</a> (Pérez-Desbrun)</p>
-                        <p style="font-size:0.95rem;">🚑 <strong>Urgences :</strong> 15 / 112 / 18</p>
-                        
-                        <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
-                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Conseil Municipal</a>
-                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Procès-Verbaux (PV)</a>
-                        </div>
+                    <div class="mairie-card" style="border-top-color: var(--sinople);">
+                        <h3><i class="fa-solid fa-phone" style="color:var(--sinople);"></i> Nous contacter</h3>
+                        <p><strong>Adresse :</strong> 1 Place de la Mairie, 43500 Boisset</p>
+                        <p><strong>Téléphone :</strong> 04 71 61 31 16</p>
+                        <p><strong>Email :</strong> mairie@boisset43.fr</p>
+                        <p style="margin-top:20px; font-size:0.9rem; color:#666; font-style:italic;">
+                            Pour toute demande d'état civil ou d'urbanisme, merci de privilégier les heures d'ouverture du secrétariat.
+                        </p>
                     </div>
+                </div>
+            </section>
+
+            <section id="elus" class="section-padding">
+                <h2 class="section-title">Vos Élus</h2>
+                <p style="text-align:center; max-width:700px; margin: 0 auto 30px; color:#555;">
+                    Le conseil municipal est à votre écoute pour accompagner le quotidien du village et bâtir ensemble les projets de demain.
+                </p>
+                
+                <div class="grid-trombi">
+                    <div class="trombi-card" style="grid-column: 1 / -1; max-width: 260px; margin: 0 auto 20px; border-color: var(--azur);">
+                        <div class="trombi-img">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="trombi-name">Florian ____</div>
+                        <div class="trombi-role" style="color:var(--azur);">Maire</div>
+                    </div>
+                </div>
+
+                <div class="grid-trombi">
+                    <div class="trombi-card">
+                        <div class="trombi-img"><i class="fa-solid fa-user"></i></div>
+                        <div class="trombi-name">1er Adjoint</div>
+                        <div class="trombi-role">Adjoint</div>
+                    </div>
+                    <div class="trombi-card">
+                        <div class="trombi-img"><i class="fa-solid fa-user"></i></div>
+                        <div class="trombi-name">2ème Adjoint</div>
+                        <div class="trombi-role">Adjoint</div>
+                    </div>
+                    <div class="trombi-card">
+                        <div class="trombi-img"><i class="fa-solid fa-user"></i></div>
+                        <div class="trombi-name">Conseiller Municipal</div>
+                        <div class="trombi-role">Conseiller</div>
+                    </div>
+                    <div class="trombi-card">
+                        <div class="trombi-img"><i class="fa-solid fa-user"></i></div>
+                        <div class="trombi-name">Conseillère Municipale</div>
+                        <div class="trombi-role">Conseillère</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="agents" class="section-padding">
+                <h2 class="section-title">Vos Agents Communaux</h2>
+                <div class="grid-trombi">
+                    <div class="trombi-card">
+                        <div class="trombi-img" style="border-color:var(--sinople);"><i class="fa-solid fa-user-gear"></i></div>
+                        <div class="trombi-name">Secrétaire</div>
+                        <div class="trombi-role">Secrétariat & Accueil</div>
+                    </div>
+                    <div class="trombi-card">
+                        <div class="trombi-img" style="border-color:var(--sinople);"><i class="fa-solid fa-user-gear"></i></div>
+                        <div class="trombi-name">Agent Technique</div>
+                        <div class="trombi-role">Entretien & Technique</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="conseils" class="section-padding">
+                <h2 class="section-title">Conseils Municipaux</h2>
+                <div style="overflow-x: auto;">
+                    <table class="table-conseils">
+                        <thead>
+                            <tr>
+                                <th>Date du Conseil</th>
+                                <th>Ordre du Jour / Compte-rendu</th>
+                                <th>Téléchargement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>--/--/2026</strong></td>
+                                <td>Procès-verbal de la séance ordinaire</td>
+                                <td><a href="docs/pv-2026-01.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-file-pdf"></i> PDF</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>--/--/2025</strong></td>
+                                <td>Compte-rendu sommaire du conseil municipal</td>
+                                <td><a href="docs/pv-2025-12.pdf" target="_blank" class="btn-download"><i class="fa-solid fa-file-pdf"></i> PDF</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="boite-idees" class="section-padding" style="border-bottom: none;">
+                <h2 class="section-title">Boîte à Idées</h2>
+                <div style="max-width:650px; margin:0 auto; background:white; padding:40px; border-radius:15px; border-top:6px solid var(--sinople); text-align:left; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                    <p style="margin-top: 0; color: #555; font-size: 0.95rem; text-align: center; margin-bottom: 25px;">
+                        Une idée pour améliorer la vie au village, un projet d'animation, une suggestion ergonomique ? Partagez vos idées directement avec l'équipe municipale.
+                    </p>
+                    <form action="https://formspree.io/f/mvzvvbpd" method="POST">
+                        <label style="font-size:0.85rem; font-weight:bold; color:var(--sinople);">VOTRE NOM (OPTIONNEL)</label>
+                        <input type="text" name="name" placeholder="Anonyme ou Votre Nom" style="width:100%; padding:14px; margin:10px 0 20px; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;">
+                        
+                        <label style="font-size:0.85rem; font-weight:bold; color:var(--sinople);">VOTRE SOUHAIT OU SUGGESTION</label>
+                        <textarea name="idee" rows="5" placeholder="Décrivez votre idée en quelques lignes..." required style="width:100%; padding:14px; margin:10px 0 25px; border:1px solid #ddd; border-radius:5px; font-family:inherit; box-sizing:border-box;"></textarea>
+                        
+                        <button type="submit" style="background:var(--sinople); color:white; width:100%; padding:18px; border:none; border-radius:5px; cursor:pointer; font-weight:900; font-size:1.1rem; text-transform:uppercase; letter-spacing:1px;">Soumettre mon idée 💡</button>
+                    </form>
                 </div>
             </section>
 
         </main>
 
         <footer>
-            <div style="max-width: 800px; margin: 0 auto; text-align:center; padding:30px 20px; font-size:0.85rem; color:#888; line-height: 1.6;">
-                <h4 style="color: #ccc; font-size: 1rem; margin-bottom: 10px;">🔒 Vos données, en toute confiance</h4>
-                <p style="margin-bottom: 20px;">
-                    Nous respectons votre vie privée avec la plus grande exigence. Les données éventuellement collectées sur ce site (via les formulaires de contact) le sont uniquement dans un cadre strictement nécessaire à son fonctionnement et à la gestion de vos demandes.<br>
-                    Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données à tout moment en contactant la mairie.<br>
-                    Aucune information personnelle n’est vendue, ni partagée à des tiers sans votre consentement.
-                </p>
-                <hr style="border: none; border-top: 1px solid #444; margin: 20px auto; width: 50%;">
-                &copy; 2026 Commune de Boisset (43) - Tous droits réservés.<br>Développement par <strong>TaporDigital</strong>. Siret : 390 724 243 00022
+            <div style="max-width: 800px; margin: 0 auto; padding:10px 20px; font-size:0.85rem; color:#888;">
+                &copy; 2026 Commune de Boisset (43) - Site Officiel.<br>Modèle de site internet communal développé par <strong>TaporDigital</strong>.
             </div>
         </footer>
     </div>
 
-    <script>
-        // --- LOGIQUE MENU BURGER ---
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-        }
-
-        // --- GESTION DU BOUTON RETOUR EN HAUT ---
-        window.onscroll = function() { 
-            const btt = document.getElementById('back-to-top');
-            btt.style.display = (document.documentElement.scrollTop > 100) ? "flex" : "none";
-        };
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    </script>
 </body>
 </html>
