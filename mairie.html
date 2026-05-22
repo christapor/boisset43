@@ -183,9 +183,8 @@
             max-width: 1100px; 
             margin: -50px auto 40px; 
             padding: 0 20px; 
-            position: sticky; 
-            top: 165px; 
-            z-index: 1800; 
+            position: relative; /* On a retiré le mode sticky */
+            z-index: 60; 
         }
 
         .link-card { 
@@ -235,7 +234,7 @@
         .section-padding { 
             padding: 60px 0 40px; 
             border-bottom: 1px solid #eee;
-            scroll-margin-top: 230px; /* Le réglage parfait de Chris */
+            scroll-margin-top: 150px; /* Réduit à 150px car les cartes ne sont plus bloquées en haut */
         }
 
         .section-title { 
@@ -376,6 +375,33 @@
             background: var(--sinople);
         }
 
+        /* --- NOUVEAU BOUTON RETOUR EN HAUT --- */
+        #back-to-top { 
+            position: fixed; 
+            bottom: 25px; 
+            right: 25px; 
+            background: var(--sinople); 
+            color: white; 
+            padding: 12px 20px; 
+            border-radius: 30px; 
+            display: none; 
+            align-items: center; 
+            gap: 8px;
+            cursor: pointer; 
+            z-index: 5000; 
+            border: 2px solid white; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        #back-to-top:hover {
+            transform: translateY(-3px);
+            background: #1a6e1a;
+        }
+
         footer { 
             background: var(--dark); 
             color: #ccc; 
@@ -470,6 +496,8 @@
     <div class="logo-box">
         <img src="blason.png" alt="Blason de Boisset">
     </div>
+
+    <button id="back-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i> Retour en haut</button>
 
     <div class="main-content">
         
@@ -625,6 +653,19 @@
             if (menu) menu.classList.toggle('active');
             if (burger) burger.classList.toggle('active');
         }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btt = document.getElementById('back-to-top');
+            if (btt) {
+                window.addEventListener('scroll', () => {
+                    btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 100 ? "flex" : "none";
+                }, { passive: true });
+            }
+        });
     </script>
 </body>
 </html>
