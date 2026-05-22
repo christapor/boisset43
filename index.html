@@ -732,6 +732,24 @@
                 animation: none !important;
             }
         }
+        /* ========================================== */
+        /* ENHANCEMENT BLOC : MENU TRANSPARENT        */
+        /* ========================================== */
+        .top-header, .sub-header {
+            background: rgba(26, 26, 26, 0.75) !important; 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: background 0.3s ease; 
+        }
+
+        .nav-link, .welcome-title {
+            text-shadow: 
+                -1px -1px 0 #1a1a1a,  
+                 1px -1px 0 #1a1a1a,
+                -1px  1px 0 #1a1a1a,
+                 1px  1px 0 #1a1a1a,
+                 0px  2px 4px rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body>
