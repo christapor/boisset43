@@ -20,7 +20,7 @@
             --dark: #1a1a1a;
             --header-h: 80px;
             --menu-h: 50px;
-            --accent-red: #ff4757; 
+            --accent-red: #ff4757;
         }
 
         body { 
@@ -51,7 +51,6 @@
             background-color: #333; 
         }
         
-        /* BANDEAU SUPÉRIEUR TRANSPARENT */
         .top-header { 
             background: rgba(26, 26, 26, 0.50) !important; 
             backdrop-filter: blur(10px);
@@ -80,7 +79,6 @@
             text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8);
         }
         
-        /* BARRE SOUS-MENU TRANSPARENTE */
         .sub-header { 
             background: rgba(26, 26, 26, 0.50) !important; 
             backdrop-filter: blur(10px);
@@ -120,7 +118,6 @@
             color: var(--sinople); 
         }
 
-        /* BLASON */
         .logo-box { 
             position: fixed; 
             top: 5px; 
@@ -136,7 +133,6 @@
             height: auto; 
         }
 
-        /* ICÔNE HAMBURGER (Cachée par défaut sur PC) */
         .burger-icon {
             display: none; 
             flex-direction: column;
@@ -284,9 +280,7 @@
             position: relative;
         }
 
-        .directory-card:hover { 
-            transform: translateY(-5px); 
-        }
+        .directory-card:hover { transform: translateY(-5px); }
 
         .cat-tag { 
             font-size: 0.65rem; 
@@ -311,7 +305,6 @@
             justify-content: space-between;
         }
 
-        /* PASTILLES EVENEMENTS SUPABASE */
         .badge-event {
             background-color: var(--accent-red);
             color: white;
@@ -343,11 +336,7 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
         }
 
-        .directory-card p { 
-            font-size: 0.9rem; 
-            color: #555; 
-            margin-bottom: 15px; 
-        }
+        .directory-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
 
         .asso-card { 
             background: white; 
@@ -359,9 +348,7 @@
             position: relative;
         }
 
-        .asso-card:hover { 
-            transform: translateY(-5px); 
-        }
+        .asso-card:hover { transform: translateY(-5px); }
 
         .asso-tag { 
             font-size: 0.65rem; 
@@ -376,51 +363,45 @@
             letter-spacing: 0.5px;
         }
 
-        .asso-card h4 { 
-            margin: 10px 0; 
-            font-size: 1.1rem; 
-            font-weight: 900; 
-            color: #1a1a1a; 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+        .asso-card h4 { margin: 10px 0; font-size: 1.1rem; font-weight: 900; color: #1a1a1a; display: flex; align-items: center; justify-content: space-between; }
+        .asso-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
 
-        .asso-card p { 
-            font-size: 0.9rem; 
-            color: #555; 
-            margin-bottom: 15px; 
-        }
+        .phone-link { color: var(--azur); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
 
-        .phone-link { 
-            color: var(--azur); 
-            text-decoration: none; 
-            font-weight: 700; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            font-size: 0.95rem;
-        }
-
-        .calendar-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-top: 20px; 
-            background: white; 
-            font-size: 0.9rem; 
-            text-align: left; 
-        }
-
+        .calendar-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; font-size: 0.9rem; text-align: left; }
         .calendar-table th { background: var(--azur); color: white; padding: 12px; }
         .calendar-table td { padding: 10px; border-bottom: 1px solid #eee; }
-
         #calendar { background: white; padding: 10px; border-radius: 10px; height: 550px; margin-top: 20px; }
         
-        #back-to-top { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; background: var(--sinople); color: white; border-radius: 50%; display: none; justify-content: center; align-items: center; cursor: pointer; z-index: 5000; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        /* --- NOUVEAU BOUTON RETOUR EN HAUT --- */
+        #back-to-top { 
+            position: fixed; 
+            bottom: 25px; 
+            right: 25px; 
+            background: var(--sinople); 
+            color: white; 
+            padding: 12px 20px; 
+            border-radius: 30px; 
+            display: none; 
+            align-items: center; 
+            gap: 8px;
+            cursor: pointer; 
+            z-index: 5000; 
+            border: 2px solid white; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        #back-to-top:hover {
+            transform: translateY(-3px);
+            background: #1a6e1a;
+        }
 
         footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
 
-        /* RECHERCHE LIVE ANNUAIRE */
         .directory-search { max-width: 680px; margin: 28px auto 10px; text-align: left; }
         .directory-search-label { display: block; margin: 0 0 8px 4px; font-size: 0.78rem; font-weight: 800; color: #555; text-transform: uppercase; letter-spacing: 0.7px; }
         .directory-search-box { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #e6e6e6; border-radius: 999px; padding: 11px 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.06); transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease; }
@@ -429,7 +410,6 @@
         #directory-search-input { width: 100%; min-width: 0; border: none; outline: none; background: transparent; color: #222; font: inherit; font-size: 0.95rem; }
         #directory-search-input::placeholder { color: #9a9a9a; }
         #directory-search-input::-webkit-search-cancel-button { display: none; }
-        
         .directory-search-reset { width: 28px; height: 28px; border: none; border-radius: 50%; background: #f1f1f1; color: #666; cursor: pointer; font-size: 1.15rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
         .directory-search-reset:hover { background: var(--azur); color: #fff; transform: rotate(90deg); }
         .directory-search-reset[hidden] { display: none !important; }
@@ -462,56 +442,16 @@
             .directory-card, .asso-card, .directory-search-box, .directory-search-reset, .event-badge-skeleton, .badge-event { transition: none !important; animation: none !important; }
         }
 
-        /* ========================================== */
         /* RESPONSIVE : MENU MOBILE & CORRECTION BUG (992px) */
-        /* ========================================== */
         @media (max-width: 992px) {
             .burger-icon { display: flex !important; }
-
-            .sub-header {
-                background: transparent !important;
-                border: none !important;
-                box-shadow: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                pointer-events: none; 
-            }
-
+            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; pointer-events: none; }
             .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
             .welcome-title { font-size: 1.3rem !important; margin-left: 100px !important; margin-right: 50px !important; text-align: left; }
             .top-header { justify-content: flex-start; }
-
-            /* Tiroir coulissant propre */
-            .nav-menu {
-                pointer-events: auto; 
-                flex-direction: column !important;
-                position: fixed !important;
-                top: 0 !important;
-                right: -300px; 
-                width: 250px !important;
-                height: 100vh !important;
-                background: rgba(26, 26, 26, 0.95) !important;
-                backdrop-filter: blur(15px) !important;
-                -webkit-backdrop-filter: blur(15px) !important;
-                padding-top: 100px !important; 
-                transition: right 0.3s ease-in-out !important;
-                border-left: 3px solid var(--azur) !important;
-                box-shadow: -5px 0 20px rgba(0,0,0,0.5) !important;
-                gap: 0 !important;
-                align-items: flex-start !important;
-                z-index: 2500;
-            }
-
+            .nav-menu { pointer-events: auto; flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; -webkit-backdrop-filter: blur(15px) !important; padding-top: 100px !important; transition: right 0.3s ease-in-out !important; border-left: 3px solid var(--azur) !important; box-shadow: -5px 0 20px rgba(0,0,0,0.5) !important; gap: 0 !important; align-items: flex-start !important; z-index: 2500; }
             .nav-menu.active { right: 0 !important; }
-
-            .nav-link {
-                font-size: 1.1rem !important; 
-                padding: 20px 30px !important;
-                width: 100% !important;
-                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-                box-sizing: border-box !important;
-            }
-
+            .nav-link { font-size: 1.1rem !important; padding: 20px 30px !important; width: 100% !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; box-sizing: border-box !important; }
             .hero-spacer { height: 120px !important; }
             .quick-links { margin-top: 20px !important; }
         }
@@ -537,8 +477,8 @@
             <a href="#news-section" class="nav-link" onclick="toggleMenu()">Actualités</a>
             <a href="#vie-locale" class="nav-link" onclick="toggleMenu()">Vie Locale</a>
             <a href="#associations-section" class="nav-link" onclick="toggleMenu()">Associations</a>
-            <a href="mailto:mairie.boisset@orange.fr?subject=Boîte aux idées" class="nav-link" style="color:var(--sinople) !important;" onclick="toggleMenu()">💡 Boîte à Idées</a>
-            <a href="https://alloboisset.fr" target="_blank" class="nav-link" onclick="toggleMenu()">ALLO BOISSET</a>
+            <a href="mailto:mairie.boisset@orange.fr?subject=Boîte aux idées" class="nav-link" style="color:var(--sinople) !important;">💡 Boîte à Idées</a>
+            <a href="https://alloboisset.fr" target="_blank" class="nav-link">ALLO BOISSET</a>
         </div>
     </nav>
 
@@ -546,7 +486,7 @@
         <img src="blason.png" alt="Blason">
     </div>
 
-    <button id="back-to-top" onclick="scrollToTop()">⬆️</button>
+    <button id="back-to-top" onclick="scrollToTop()">⬆️ Retour en haut</button>
 
     <div class="main-content">
         <div class="hero-spacer"></div>
@@ -991,7 +931,6 @@
             news: 'title,content,created_at'
         };
 
-        // --- LOGIQUE MENU BURGER ---
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             const burger = document.querySelector('.burger-icon');
@@ -1048,7 +987,6 @@
             });
         }
 
-        // --- RECHERCHE LIVE ANNUAIRE ---
         function normalizeForSearch(value) {
             return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
         }
@@ -1070,7 +1008,6 @@
                 card.setAttribute('aria-hidden', 'false');
                 return;
             }
-
             card.setAttribute('aria-hidden', 'true');
             if (card.hidden) return;
             card.classList.add('is-filtered-out');
@@ -1114,19 +1051,16 @@
             });
 
             let searchTimer = null;
-
             function applyFilter() {
                 const rawQuery = input.value || '';
                 const terms = normalizeForSearch(rawQuery).split(/\s+/).filter(Boolean);
                 let visibleCount = 0;
-
                 cards.forEach(card => {
                     const haystack = card.dataset.searchHaystack || '';
                     const matches = terms.length === 0 || terms.every(term => haystack.includes(term));
                     if (matches) visibleCount += 1;
                     setCardVisibility(card, matches);
                 });
-
                 if (count) {
                     if (terms.length === 0) {
                         count.textContent = `${cards.length} entrées dans l'annuaire`;
@@ -1144,7 +1078,6 @@
             applyFilter();
         }
 
-        // --- SUPABASE : SELECT OPTIMISE + PREPARATION MULTI-SITE ---
         function isMissingVillageColumnError(error) {
             const message = [error && error.message, error && error.details, error && error.hint].filter(Boolean).join(' ');
             return /village_id/i.test(message) && /(does not exist|schema cache|could not find|column)/i.test(message);
@@ -1154,20 +1087,16 @@
             const orderBy = options.orderBy || null;
             const ascending = options.ascending === true;
             const villageScoped = options.villageScoped !== false && VILLAGE_FILTER_ENABLED;
-
             let query = sb.from(table).select(columns);
             if (villageScoped) query = query.eq('village_id', ACTIVE_VILLAGE_ID);
             if (orderBy) query = query.order(orderBy, { ascending });
-
             let { data, error } = await query;
-
             if (error && villageScoped && isMissingVillageColumnError(error)) {
                 console.warn(`[${table}] Colonne village_id absente : requête relancée sans filtre multi-site.`);
                 query = sb.from(table).select(columns);
                 if (orderBy) query = query.order(orderBy, { ascending });
                 ({ data, error } = await query);
             }
-
             if (error) throw error;
             return data || [];
         }
@@ -1175,7 +1104,6 @@
         async function insertReservation(payload) {
             const payloadWithVillage = VILLAGE_FILTER_ENABLED ? { ...payload, village_id: ACTIVE_VILLAGE_ID } : { ...payload };
             let { error } = await sb.from('salle_reservations').insert([payloadWithVillage]);
-
             if (error && VILLAGE_FILTER_ENABLED && isMissingVillageColumnError(error)) {
                 console.warn('[salle_reservations] Colonne village_id absente : insertion relancée sans filtre multi-site.');
                 ({ error } = await sb.from('salle_reservations').insert([payload]));
@@ -1183,7 +1111,6 @@
             if (error) throw error;
         }
 
-        // --- SKELETON + PASTILLES EVENEMENTS ---
         function ensureEventSlot(card) {
             const h4 = card ? card.querySelector('h4') : null;
             if (!h4) return null;
@@ -1287,28 +1214,22 @@
                     addEventBadge(card);
                     addEventInfoLine(card, row);
                 });
-            } catch (error) {
-                console.error('Erreur Supabase local_directory:', error);
-            } finally {
-                clearEventSkeletons();
-            }
+            } catch (error) { console.error('Erreur Supabase local_directory:', error); } finally { clearEventSkeletons(); }
         }
 
-        // --- CALENDRIER RESERVATIONS ---
         async function initCalendar() {
             const calendarEl = document.getElementById('calendar');
             if (!calendarEl || typeof FullCalendar === 'undefined') return;
             let reservations = [];
-            try {
-                reservations = await selectRows('salle_reservations', SELECTS.reservations, { villageScoped: true });
-            } catch (error) {
-                console.error('Erreur Supabase salle_reservations:', error);
-            }
+            try { reservations = await selectRows('salle_reservations', SELECTS.reservations, { villageScoped: true }); } 
+            catch (error) { console.error('Erreur Supabase salle_reservations:', error); }
+
             const events = reservations.filter(r => r.date_debut).map(r => ({
                 start: String(r.date_debut).split('T')[0],
                 display: 'background',
                 color: r.status === 'confirmé' ? '#ff4d4d' : '#ffa500'
             }));
+
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 locale: 'fr',
@@ -1330,7 +1251,6 @@
             calendar.render();
         }
 
-        // --- ACTUALITES ---
         async function loadNews() {
             const newsCont = document.getElementById('news-container');
             if (!newsCont) return;
@@ -1351,12 +1271,9 @@
                     fragment.appendChild(item);
                 });
                 newsCont.appendChild(fragment);
-            } catch (error) {
-                console.error('Erreur Supabase news:', error);
-            }
+            } catch (error) { console.error('Erreur Supabase news:', error); }
         }
 
-        // --- FORMULAIRE RESERVATION ---
         function setupReservationForm() {
             const form = document.getElementById('contact-form');
             if (!form) return;
@@ -1381,7 +1298,6 @@
             });
         }
 
-        // --- BOUTON RETOUR HAUT ---
         function initBackToTopButton() {
             const btt = document.getElementById('back-to-top');
             if (!btt) return;
