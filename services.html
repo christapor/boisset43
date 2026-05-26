@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Services - Commune de Boisset</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0055A4">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --azur: #0055A4;      
+            --sinople: #228B22;   
+            --argent: #F8F8F8;    
+            --dark: #1a1a1a;
+            --header-h: 90px;
+            --menu-h: 55px;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            color: #333; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+            scroll-behavior: smooth;
+        }
+
+        /* Fond Parallax */
+        #bg-parallax { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            z-index: -1; 
+            background-image: url('fond.jpeg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            background-color: #333; 
+        }
+        
+        /* BANDEAU SUPÉRIEUR */
+        .top-header { 
+            background: rgba(26, 26, 26, 0.55) !important; 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            height: var(--header-h); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            z-index: 2000; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            transition: background 0.3s ease;
+        }
+
+        .welcome-title { 
+            color: #f8f8f8; 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            margin: 0; 
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        /* BARRE MENU PRINCIPAL */
+        .sub-header { 
+            background: rgba(42, 42, 42, 0.55) !important; 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            height: var(--menu-h); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: fixed; 
+            top: var(--header-h); 
+            left: 0; 
+            right: 0; 
+            z-index: 1900; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+            border-bottom: 3px solid var(--azur); 
+            transition: background 0.3s ease;
+        }
+
+        .nav-menu { 
+            display: flex; 
+            align-items: center; 
+            gap: 30px; 
+        }
+
+        .nav-link { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 15px; 
+            letter-spacing: 1px; 
+            transition: 0.3s; 
+            padding: 5px 10px;
+            text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .nav-link:hover, .nav-link.active { 
+            color: var(--sinople); 
+            border-bottom: 3px solid var(--sinople);
+        }
+
+        /* GRAND BLASON */
+        .logo-box { 
+            position: fixed; 
+            top: 10px; 
+            left: 30px; 
+            z-index: 3000; 
+            width: 210px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); 
+            transition: 0.3s;
+        }
+
+        .logo-box img { 
+            width: 100%; 
+            height: auto; 
+        }
+
+        /* ICÔNE HAMBURGER */
+        .burger-icon {
+            display: none; 
+            flex-direction: column;
+            justify-content: space-between;
+            width: 35px;
+            height: 25px;
+            cursor: pointer;
+            position: absolute;
+            right: 25px;
+            top: 32px;
+            z-index: 3100;
+        }
+
+        .burger-icon span {
+            display: block;
+            height: 4px;
+            width: 100%;
+            background-color: white;
+            border-radius: 4px;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .burger-icon.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+        .burger-icon.active span:nth-child(2) { opacity: 0; }
+        .burger-icon.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+
+        /* CONTENEUR PRINCIPAL */
+        .main-content { 
+            margin-top: calc(var(--header-h) + var(--menu-h)); 
+            position: relative; 
+            z-index: 10; 
+        }
+
+        .hero-spacer { 
+            height: 180px; 
+            display: flex; 
+            align-items: flex-end; 
+            justify-content: center; 
+        }
+
+        /* SYSTÈME DE CARTES DE NAVIGATION INTERNE (Sommaire) */
+        .quick-links { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            gap: 15px; 
+            max-width: 1100px; 
+            margin: -50px auto 40px; 
+            padding: 0 20px; 
+            position: relative; 
+            z-index: 60; 
+        }
+
+        .link-card { 
+            background: white; 
+            padding: 20px 10px; 
+            border-radius: 10px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            text-decoration: none; 
+            color: var(--dark); 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            text-align: center; 
+            border-bottom: 4px solid var(--azur); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s; 
+        }
+
+        .link-card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--sinople); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .link-card i { 
+            font-size: 1.6rem; 
+            color: var(--azur);
+        }
+        
+        .link-card:hover i {
+            color: var(--sinople);
+        }
+
+        /* CONTENEUR BLANC DU CONTENU */
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            background: rgba(248, 248, 248, 0.98); 
+            border-radius: 20px 20px 0 0; 
+            box-sizing: border-box;
+        }
+
+        .section-padding { 
+            padding: 60px 0 40px; 
+            border-bottom: 1px solid #eee;
+            scroll-margin-top: 150px; 
+        }
+
+        .section-title { 
+            font-size: 2rem; 
+            color: var(--dark); 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            font-weight: 900; 
+            text-align: center;
+        }
+
+        .service-placeholder {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border-left: 5px solid #ccc;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        /* --- BOUTON RETOUR EN HAUT --- */
+        #back-to-top { 
+            position: fixed; 
+            bottom: 25px; 
+            right: 25px; 
+            background: var(--sinople); 
+            color: white; 
+            padding: 12px 20px; 
+            border-radius: 30px; 
+            display: none; 
+            align-items: center; 
+            gap: 8px;
+            cursor: pointer; 
+            z-index: 5000; 
+            border: 2px solid white; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        #back-to-top:hover {
+            transform: translateY(-3px);
+            background: #1a6e1a;
+        }
+
+        footer { 
+            background: var(--dark); 
+            color: #ccc; 
+            padding: 40px 0 30px; 
+            border-top: 8px solid var(--azur); 
+            text-align: center;
+        }
+
+        /* RESPONSIVE MOBILE (992px) */
+        @media (max-width: 992px) {
+            .burger-icon { display: flex !important; }
+            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; pointer-events: none; }
+            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
+            .welcome-title { font-size: 1.3rem !important; margin-left: 100px !important; margin-right: 50px !important; text-align: left; }
+            .top-header { justify-content: flex-start; }
+
+            .nav-menu {
+                pointer-events: auto; 
+                flex-direction: column !important;
+                position: fixed !important;
+                top: 0 !important;
+                right: -300px; 
+                width: 250px !important;
+                height: 100vh !important;
+                background: rgba(26, 26, 26, 0.95) !important;
+                backdrop-filter: blur(15px) !important;
+                -webkit-backdrop-filter: blur(15px) !important;
+                padding-top: 100px !important; 
+                transition: right 0.3s ease-in-out !important;
+                border-left: 3px solid var(--azur) !important;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.5) !important;
+                gap: 0 !important;
+                align-items: flex-start !important;
+                z-index: 2500;
+            }
+            .nav-menu.active { right: 0 !important; }
+            .nav-link { font-size: 1.1rem !important; padding: 20px 30px !important; width: 100% !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; box-sizing: border-box !important; }
+            .hero-spacer { height: 120px !important; }
+            .quick-links { margin-top: 20px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-parallax"></div>
+
+    <header class="top-header">
+        <div class="burger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <h1 class="welcome-title">Commune de Boisset</h1>
+    </header>
+
+    <nav class="sub-header">
+        <div class="nav-menu" id="mobileMenu">
+            <a href="index.html" class="nav-link">Accueil</a>
+            <a href="mairie.html" class="nav-link">La Mairie</a>
+            <a href="services.html" class="nav-link active">Les Services</a>
+            <a href="territoire.html" class="nav-link">Le Territoire</a>
+            <a href="vie-locale.html" class="nav-link">La Vie Locale</a>
+        </div>
+    </nav>
+
+    <div class="logo-box">
+        <img src="blason.png" alt="Blason de Boisset">
+    </div>
+
+    <button id="back-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i> Retour en haut</button>
+
+    <div class="main-content">
+        
+        <div class="hero-spacer"></div>
+
+        <section class="quick-links">
+            <a href="#location-salles" class="link-card"><i class="fa-solid fa-building-user"></i>Location de salles</a>
+            <a href="#ecole-publique" class="link-card"><i class="fa-solid fa-graduation-cap"></i>École Publique</a>
+            <a href="#ccas" class="link-card"><i class="fa-solid fa-hands-holding-child"></i>CCAS</a>
+            <a href="#eau-assainissement" class="link-card"><i class="fa-solid fa-faucet-drip"></i>Eau - Assainissement</a>
+            <a href="#urbanisme" class="link-card"><i class="fa-solid fa-map-location-dot"></i>Urbanisme</a>
+        </section>
+
+        <main class="container">
+            
+            <section id="location-salles" class="section-padding">
+                <h2 class="section-title">Location de salles</h2>
+                <div class="service-placeholder">
+                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
+                        [Section en attente : Nous y déplacerons prochainement le calendrier de réservation Supabase et les tarifs.]
+                    </p>
+                </div>
+            </section>
+
+            <section id="ecole-publique" class="section-padding">
+                <h2 class="section-title">École Publique</h2>
+                <div class="service-placeholder" style="border-left-color: var(--sinople);">
+                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
+                        [Section en attente : Informations scolaires, cantine, garderie et inscriptions.]
+                    </p>
+                </div>
+            </section>
+
+            <section id="ccas" class="section-padding">
+                <h2 class="section-title">CCAS</h2>
+                <div class="service-placeholder">
+                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
+                        [Section en attente : Action sociale, aides de proximité et permanences.]
+                    </p>
+                </div>
+            </section>
+
+            <section id="eau-assainissement" class="section-padding">
+                <h2 class="section-title">Eau & Assainissement</h2>
+                <div class="service-placeholder" style="border-left-color: var(--sinople);">
+                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
+                        [Section en attente : Gestion des réseaux, rapports d'analyse de l'eau et démarches d'abonnement.]
+                    </p>
+                </div>
+            </section>
+
+            <section id="urbanisme" class="section-padding" style="border-bottom: none;">
+                <h2 class="section-title">Urbanisme</h2>
+                <div class="service-placeholder">
+                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
+                        [Section en attente : Accès au PLU, demandes de permis de construire et déclarations préalables.]
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div style="max-width: 800px; margin: 0 auto; padding:10px 20px; font-size:0.85rem; color:#888;">
+                &copy; 2026 Commune de Boisset (43) - Site Officiel.<br>Modèle développé par <strong>TaporDigital</strong>.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const burger = document.querySelector('.burger-icon');
+            
+            if (menu) menu.classList.toggle('active');
+            if (burger) burger.classList.toggle('active');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btt = document.getElementById('back-to-top');
+            if (btt) {
+                window.addEventListener('scroll', () => {
+                    btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 100 ? "flex" : "none";
+                }, { passive: true });
+            }
+        });
+    </script>
+</body>
+</html>
