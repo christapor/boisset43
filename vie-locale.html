@@ -17,8 +17,9 @@
             --sinople: #228B22;   
             --argent: #F8F8F8;    
             --dark: #1a1a1a;
-            --header-h: 90px;
-            --menu-h: 55px;
+            --header-h: 80px;
+            --menu-h: 50px;
+            --accent-red: #ff4757;
         }
 
         body { 
@@ -50,66 +51,45 @@
         .top-header { 
             background: rgba(26, 26, 26, 0.55) !important; 
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             height: var(--header-h); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            z-index: 2000; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            display: flex; align-items: center; 
+            padding-left: 240px; 
+            padding-right: 30px;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 2000; border-bottom: 1px solid rgba(255,255,255,0.1); 
             transition: background 0.3s ease;
         }
 
         .welcome-title { 
-            color: #f8f8f8; 
-            font-size: 2.2rem; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            margin: 0; 
-            text-align: center;
+            color: #f8f8f8; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin: 0; 
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; 
         }
+
+        /* LIENS DU TOP HEADER */
+        .top-right-link { margin-left: auto; }
+        .nav-link-top { color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; transition: 0.3s; text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8); }
+        .nav-link-idea { color: #ffbc00 !important; }
+        .nav-link-allo { color: #55b4d4 !important; }
+        .nav-link-idea:hover, .nav-link-allo:hover { filter: brightness(1.2); }
         
         /* BARRE MENU PRINCIPAL */
         .sub-header { 
             background: rgba(42, 42, 42, 0.55) !important; 
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             height: var(--menu-h); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            position: fixed; 
-            top: var(--header-h); 
-            left: 0; 
-            right: 0; 
-            z-index: 1900; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-            border-bottom: 3px solid var(--azur); 
-            transition: background 0.3s ease;
+            display: flex; justify-content: center; align-items: center; 
+            position: fixed; top: var(--header-h); left: 0; right: 0; 
+            z-index: 1900; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-bottom: 3px solid var(--azur); 
         }
 
         .nav-menu { 
-            display: flex; 
-            align-items: center; 
-            gap: 30px; 
+            display: flex; align-items: center; gap: 25px; justify-content: center; width: 100%; 
+            padding-left: 230px; 
+            padding-right: 30px; box-sizing: border-box; 
         }
 
         .nav-link { 
-            color: white; 
-            text-decoration: none; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            font-size: 15px; 
-            letter-spacing: 1px; 
-            transition: 0.3s; 
-            padding: 5px 10px;
-            text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0,0,0,0.8);
+            color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 15px; padding: 5px 8px; transition: 0.3s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: inline-flex; align-items: center; 
         }
 
         .nav-link:hover, .nav-link.active { 
@@ -117,44 +97,23 @@
             border-bottom: 3px solid var(--sinople);
         }
 
+        .mobile-only-link { display: none !important; }
+
         /* GRAND BLASON */
         .logo-box { 
-            position: fixed; 
-            top: 10px; 
-            left: 30px; 
-            z-index: 3000; 
-            width: 210px;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); 
-            transition: 0.3s;
+            position: fixed; top: 5px; left: 20px; z-index: 3000; width: 180px; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); transition: 0.3s;
         }
 
-        .logo-box img { 
-            width: 100%; 
-            height: auto; 
-        }
+        .logo-box img { width: 100%; height: auto; }
 
         /* ICÔNE HAMBURGER */
         .burger-icon {
-            display: none; 
-            flex-direction: column;
-            justify-content: space-between;
-            width: 35px;
-            height: 25px;
-            cursor: pointer;
-            position: absolute;
-            right: 25px;
-            top: 32px;
-            z-index: 3100;
+            display: none; flex-direction: column; justify-content: space-between; width: 35px; height: 25px; cursor: pointer; position: absolute; right: 25px; top: 27px; z-index: 3100;
         }
 
         .burger-icon span {
-            display: block;
-            height: 4px;
-            width: 100%;
-            background-color: white;
-            border-radius: 4px;
-            transition: 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            display: block; height: 4px; width: 100%; background-color: white; border-radius: 4px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .burger-icon.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
@@ -163,163 +122,85 @@
 
         /* CONTENEUR PRINCIPAL */
         .main-content { 
-            margin-top: calc(var(--header-h) + var(--menu-h)); 
+            margin-top: 450px; 
             position: relative; 
             z-index: 10; 
         }
 
-        .hero-spacer { 
-            height: 180px; 
-            display: flex; 
-            align-items: flex-end; 
-            justify-content: center; 
-        }
+        .hero-spacer { height: 40px; display: flex; align-items: flex-end; justify-content: center; }
 
         /* SYSTÈME DE CARTES DE NAVIGATION INTERNE (Sommaire) */
         .quick-links { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-            gap: 15px; 
-            max-width: 1100px; 
-            margin: -50px auto 40px; 
-            padding: 0 20px; 
-            position: relative; 
-            z-index: 60; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; max-width: 1100px; margin: -50px auto 40px; padding: 0 20px; position: relative; z-index: 60; 
         }
 
         .link-card { 
-            background: white; 
-            padding: 20px 10px; 
-            border-radius: 10px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-            text-decoration: none; 
-            color: var(--dark); 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            font-size: 0.8rem; 
-            text-align: center; 
-            border-bottom: 4px solid var(--azur); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 8px; 
-            transition: 0.3s; 
+            background: white; padding: 20px 10px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-decoration: none; color: var(--dark); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; text-align: center; border-bottom: 4px solid var(--azur); display: flex; flex-direction: column; align-items: center; gap: 8px; transition: 0.3s; 
         }
 
         .link-card:hover { 
-            transform: translateY(-5px); 
-            border-color: var(--sinople); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-5px); border-color: var(--sinople); box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
-        .link-card i { 
-            font-size: 1.6rem; 
-            color: var(--azur);
-        }
-        
-        .link-card:hover i {
-            color: var(--sinople);
-        }
+        .link-card i { font-size: 1.6rem; color: var(--azur); }
+        .link-card:hover i { color: var(--sinople); }
 
         /* CONTENEUR BLANC DU CONTENU */
         .container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            padding: 40px 20px; 
-            background: rgba(248, 248, 248, 0.98); 
-            border-radius: 20px 20px 0 0; 
-            box-sizing: border-box;
+            max-width: 1100px; margin: 0 auto; padding: 40px 20px; background: rgba(248, 248, 248, 0.98); border-radius: 20px; box-sizing: border-box;
         }
 
-        .section-padding { 
-            padding: 60px 0 40px; 
-            border-bottom: 1px solid #eee;
-            scroll-margin-top: 150px; 
-        }
+        .section-padding { padding: 60px 0 40px; border-bottom: 1px solid #eee; scroll-margin-top: 150px; }
 
-        .section-title { 
-            font-size: 2rem; 
-            color: var(--dark); 
-            margin-bottom: 20px; 
-            text-transform: uppercase; 
-            font-weight: 900; 
-            text-align: center;
-        }
+        .section-title { font-size: 2rem; color: var(--dark); margin-bottom: 20px; text-transform: uppercase; font-weight: 900; text-align: center; }
 
         .local-life-placeholder {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            border-left: 5px solid #ccc;
-            text-align: left;
-            margin-top: 15px;
+            background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border-left: 5px solid #ccc; text-align: left; margin-top: 15px;
         }
+
+        /* --- STYLES DES CARTES ANNUAIRE ET ASSOS --- */
+        .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: left; margin-top: 30px; }
+
+        .directory-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid var(--sinople); box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
+        .directory-card:hover { transform: translateY(-5px); }
+
+        .cat-tag { font-size: 0.65rem; background: #f0f0f0; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; color: #666; margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
+
+        .directory-card h4 { margin: 10px 0; font-size: 1.1rem; font-weight: 900; color: #1a1a1a; display: flex; align-items: center; justify-content: space-between; }
+        .directory-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+
+        .asso-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid var(--azur); box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
+        .asso-card:hover { transform: translateY(-5px); }
+
+        .asso-tag { font-size: 0.65rem; background: #e8f0fe; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; color: var(--azur); margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
+
+        .asso-card h4 { margin: 10px 0; font-size: 1.1rem; font-weight: 900; color: #1a1a1a; display: flex; align-items: center; justify-content: space-between; }
+        .asso-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+
+        .phone-link { color: var(--azur); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
 
         /* --- BOUTON RETOUR EN HAUT --- */
         #back-to-top { 
-            position: fixed; 
-            bottom: 25px; 
-            right: 25px; 
-            background: var(--sinople); 
-            color: white; 
-            padding: 12px 20px; 
-            border-radius: 30px; 
-            display: none; 
-            align-items: center; 
-            gap: 8px;
-            cursor: pointer; 
-            z-index: 5000; 
-            border: 2px solid white; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
-            font-weight: 800;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: transform 0.2s, background 0.2s;
+            position: fixed; bottom: 25px; right: 25px; background: var(--sinople); color: white; padding: 12px 20px; border-radius: 30px; display: none; align-items: center; gap: 8px; cursor: pointer; z-index: 5000; border: 2px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background 0.2s;
         }
-        #back-to-top:hover {
-            transform: translateY(-3px);
-            background: #1a6e1a;
-        }
+        #back-to-top:hover { transform: translateY(-3px); background: #1a6e1a; }
 
-        footer { 
-            background: var(--dark); 
-            color: #ccc; 
-            padding: 40px 0 30px; 
-            border-top: 8px solid var(--azur); 
-            text-align: center;
-        }
+        footer { background: var(--dark); color: #ccc; padding: 40px 0 30px; border-top: 8px solid var(--azur); text-align: center; position: relative; z-index: 10;}
 
-        /* RESPONSIVE MOBILE (992px) */
-        @media (max-width: 992px) {
+        /* RESPONSIVE MOBILE */
+        @media (max-width: 1150px) {
             .burger-icon { display: flex !important; }
-            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; pointer-events: none; }
-            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
-            .welcome-title { font-size: 1.3rem !important; margin-left: 100px !important; margin-right: 50px !important; text-align: left; }
-            .top-header { justify-content: flex-start; }
-
-            .nav-menu {
-                pointer-events: auto; 
-                flex-direction: column !important;
-                position: fixed !important;
-                top: 0 !important;
-                right: -300px; 
-                width: 250px !important;
-                height: 100vh !important;
-                background: rgba(26, 26, 26, 0.95) !important;
-                backdrop-filter: blur(15px) !important;
-                -webkit-backdrop-filter: blur(15px) !important;
-                padding-top: 100px !important; 
-                transition: right 0.3s ease-in-out !important;
-                border-left: 3px solid var(--azur) !important;
-                box-shadow: -5px 0 20px rgba(0,0,0,0.5) !important;
-                gap: 0 !important;
-                align-items: flex-start !important;
-                z-index: 2500;
-            }
+            .top-left-link, .top-right-link { display: none !important; }
+            .mobile-only-link { display: flex !important; margin-top: 15px; }
+            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; pointer-events: none; }
+            
+            .nav-menu { pointer-events: auto !important; flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; padding-top: 100px !important; padding-left: 0 !important; padding-right: 0 !important; transition: 0.3s !important; border-left: 3px solid var(--azur) !important; align-items: flex-start !important; z-index: 2500; }
             .nav-menu.active { right: 0 !important; }
             .nav-link { font-size: 1.1rem !important; padding: 20px 30px !important; width: 100% !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; box-sizing: border-box !important; }
+            
+            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
+            .welcome-title { position: static !important; transform: none !important; font-size: 1.3rem !important; margin-left: 110px !important; text-align: left; white-space: normal; }
+            .top-header { justify-content: flex-start; padding-left: 0; padding-right: 0; }
             .hero-spacer { height: 120px !important; }
             .quick-links { margin-top: 20px !important; }
         }
@@ -335,26 +216,30 @@
             <span></span>
             <span></span>
         </div>
+        
+        <div class="top-left-link">
+            <a href="index.html#boite-idees" class="nav-link-top nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+        </div>
+        
         <h1 class="welcome-title">Bienvenue à Boisset</h1>
+        
+        <div class="top-right-link">
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link-top nav-link-allo"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+        </div>
     </header>
 
     <nav class="sub-header">
-    <div class="nav-menu" id="mobileMenu">
-        <a href="index.html" class="nav-link">Accueil</a>
-        <a href="mairie.html" class="nav-link">La Mairie</a>
-        <a href="services.html" class="nav-link">Les Services</a>
-        <a href="territoire.html" class="nav-link">Le Territoire</a>
-        <a href="vie-locale.html" class="nav-link active">La Vie Locale</a>
-        
-        <a href="mailto:mairie.boisset@orange.fr?subject=Boîte à idées" class="nav-link nav-link-idea">
-            <i class="fa-solid fa-lightbulb" style="margin-right: 5px; color: #ffbc00;"></i>Boîte à Idées
-        </a>
-        
-        <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo">
-            <i class="fa-solid fa-car" style="margin-right: 5px; color: #55b4d4;"></i>AlloBoisset
-        </a>
-    </div>
-</nav>
+        <div class="nav-menu" id="mobileMenu">
+            <a href="index.html" class="nav-link" onclick="toggleMenu()">Accueil</a>
+            <a href="mairie.html" class="nav-link" onclick="toggleMenu()">La Mairie</a>
+            <a href="services.html" class="nav-link" onclick="toggleMenu()">Les Services</a>
+            <a href="territoire.html" class="nav-link" onclick="toggleMenu()">Le Territoire</a>
+            <a href="vie-locale.html" class="nav-link active" onclick="toggleMenu()">La Vie Locale</a>
+            
+            <a href="index.html#boite-idees" class="nav-link nav-link-idea mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+        </div>
+    </nav>
 
     <div class="logo-box">
         <img src="blason.png" alt="Blason de Boisset">
@@ -397,28 +282,79 @@
 
             <section id="associations" class="section-padding">
                 <h2 class="section-title">Associations</h2>
-                <div class="local-life-placeholder" style="border-left-color: var(--sinople);">
-                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
-                        [Section en attente : Annuaire complet des clubs de sport, comités des fêtes et regroupements de la commune.]
-                    </p>
+                <div class="directory-grid">
+                    <div class="asso-card" id="asso-comite-des-fetes">
+                        <span class="asso-tag">Festivités</span>
+                        <h4>Comité des Fêtes</h4>
+                        <p>Organisation des événements majeurs : Fête patronale, soirées à thème et animations estivales.</p>
+                        <a href="#" class="phone-link">Contacter via Mairie</a>
+                    </div>
+                    <div class="asso-card" id="asso-ape">
+                        <span class="asso-tag">Scolaire</span>
+                        <h4>APE de l'École Publique</h4>
+                        <p>Soutien aux projets pédagogiques des enseignants et organisation d'événements (ventes de fleurs, loto).</p>
+                        <a href="#" class="phone-link">Contacter via École</a>
+                    </div>
+                    <div class="asso-card" id="asso-acca">
+                        <span class="asso-tag">Nature & Loisirs</span>
+                        <h4>ACCA Boisset</h4>
+                        <p>Association Communale de Chasse Agréée. Gestion du domaine de chasse et protection de la faune sauvage locale.</p>
+                        <a href="#" class="phone-link">Contacter le bureau</a>
+                    </div>
+                    <div class="asso-card" id="asso-club-des-aines">
+                        <span class="asso-tag">Lien social</span>
+                        <h4>Le Club des Aînés</h4>
+                        <p>Rencontres hebdomadaires, jeux de société, repas partagés et sorties pour les seniors de la commune.</p>
+                        <a href="#" class="phone-link">Contacter via Mairie</a>
+                    </div>
                 </div>
             </section>
 
             <section id="commerces" class="section-padding">
                 <h2 class="section-title">Commerces</h2>
-                <div class="local-life-placeholder">
-                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
-                        [Section en attente : Horaires et contacts des commerçants locaux, marchés hebdomadaires et ambulants.]
-                    </p>
+                <div class="directory-grid">
+                    <div class="directory-card">
+                        <span class="cat-tag">Alimentation</span>
+                        <h4>L'éveil des délices</h4>
+                        <p>Restaurant de village proposant une cuisine de terroir, généreuse et concoctée à partir de produits frais de saison.</p>
+                        <a href="tel:0471752962" class="phone-link">📞 04 71 75 29 62</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Alimentation</span>
+                        <h4>Vival Boisset</h4>
+                        <p>Épicerie de proximité, produits locaux, dépôt de pain et relais presse.</p>
+                        <a href="tel:0471755106" class="phone-link">📞 04 71 75 51 06</a>
+                    </div>
                 </div>
             </section>
 
             <section id="entreprises" class="section-padding">
                 <h2 class="section-title">Entreprises</h2>
-                <div class="local-life-placeholder" style="border-left-color: var(--sinople);">
-                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
-                        [Section en attente : Répertoire des artisans, entrepreneurs, exploitations agricoles et services installés à Boisset.]
-                    </p>
+                <div class="directory-grid">
+                    <div class="directory-card">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Fabrice Beyssac</h4>
+                        <p>Agencements, menuiserie intérieure et extérieure, cuisines, bains et rangements.</p>
+                        <a href="tel:0607102820" class="phone-link">📞 06 07 10 28 20</a>
+                    </div>
+                    <div class="directory-card" id="prof-tapordigital">
+                        <span class="cat-tag">Informatique</span>
+                        <h4>TaporDigital</h4>
+                        <p>Expertise en création, développement et maintenance de sites internet. Conseil et assistance informatique.</p>
+                        <a href="tel:0660419226" class="phone-link">📞 06 60 41 92 26</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Elevage / Agriculture</span>
+                        <h4>GAEC de la Pradette</h4>
+                        <p>Production laitière et élevage de bovins. Vente directe sur commande.</p>
+                        <a href="#" class="phone-link" style="color:#666;">Infos en mairie</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Plomberie Dupont</h4>
+                        <p>Installation sanitaire, chauffage et dépannage rapide sur le secteur de Boisset.</p>
+                        <a href="#" class="phone-link" style="color:#666;">Infos en mairie</a>
+                    </div>
                 </div>
             </section>
 
@@ -432,6 +368,9 @@
             </section>
 
         </main>
+        
+        <!-- BLOC TRANSPARENT DE 450px POUR VOIR L'IMAGE DE FOND EN BAS DE PAGE -->
+        <div style="height: 450px; background: transparent; width: 100%; position: relative; z-index: 1;"></div>
 
         <footer>
             <div style="max-width: 800px; margin: 0 auto; padding:10px 20px; font-size:0.85rem; color:#888;">
