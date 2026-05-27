@@ -170,6 +170,13 @@
         
         .phone-link { color: var(--azur); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
 
+        /* --- RECHERCHE ANNUAIRE --- */
+        .search-container { max-width: 600px; margin: 0 auto 40px; text-align: center; }
+        .search-input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 2px solid var(--azur); border-radius: 30px; box-sizing: border-box; outline: none; transition: box-shadow 0.3s; }
+        .search-input:focus { box-shadow: 0 4px 15px rgba(0, 85, 164, 0.2); }
+        .hidden-card { display: none !important; }
+
+        
         /* --- BOUTON RETOUR EN HAUT --- */
         #back-to-top { 
             position: fixed; bottom: 25px; right: 25px; background: var(--sinople); color: white; padding: 12px 20px; border-radius: 30px; display: none; align-items: center; gap: 8px; cursor: pointer; z-index: 5000; border: 2px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background 0.2s;
@@ -252,6 +259,11 @@
         </section>
 
         <main class="container">
+
+                        <!-- BARRE DE RECHERCHE GLOBALE -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Rechercher : menuiserie, pain, séniors, nom...">
+            </div>
             
             <section id="album-photo" class="section-padding">
                 <h2 class="section-title">Album photo</h2>
@@ -558,6 +570,28 @@
                     btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 100 ? "flex" : "none";
                 }, { passive: true });
             }
+
+                    // RECHERCHE DYNAMIQUE DANS TOUTES LES CARTES (Sans tenir compte des accents/majuscules)
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                // On met en minuscule et on retire les accents pour une recherche infaillible
+                const term = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+                const cards = document.querySelectorAll('.asso-card, .directory-card');
+                
+                cards.forEach(card => {
+                    // On récupère TOUT le texte de la carte (catégorie, titre, description, tel)
+                    const textContent = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    
+                    if (textContent.includes(term)) {
+                        card.classList.remove('hidden-card');
+                    } else {
+                        card.classList.add('hidden-card');
+                    }
+                });
+            });
+        }
+
         });
     </script>
 </body>
