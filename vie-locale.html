@@ -31,75 +31,50 @@
             scroll-behavior: smooth;
         }
 
-        /* Fond Parallax */
         #bg-parallax { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100vh; 
-            z-index: -1; 
-            background-image: url('fond.jpeg'); 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat; 
-            background-attachment: fixed; 
-            background-color: #333; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; 
+            background-image: url('fond.jpeg'); background-size: cover; background-position: center; 
+            background-repeat: no-repeat; background-attachment: fixed; background-color: #333; 
         }
         
-        /* BANDEAU SUPÉRIEUR */
         .top-header { 
-            background: rgba(26, 26, 26, 0.55) !important; 
-            backdrop-filter: blur(10px);
-            height: var(--header-h); 
-            display: flex; align-items: center; 
-            padding-left: 240px; 
-            padding-right: 30px;
+            background: rgba(26, 26, 26, 0.55) !important; backdrop-filter: blur(10px);
+            height: var(--header-h); display: flex; align-items: center; 
+            padding-left: 240px; padding-right: 30px;
             position: fixed; top: 0; left: 0; right: 0; z-index: 2000; border-bottom: 1px solid rgba(255,255,255,0.1); 
             transition: background 0.3s ease;
         }
 
         .welcome-title { 
             color: #f8f8f8; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin: 0; 
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-            position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; 
         }
 
-        /* LIENS DU TOP HEADER */
         .top-right-link { margin-left: auto; }
         .nav-link-top { color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; transition: 0.3s; text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8); }
         .nav-link-idea { color: #ffbc00 !important; }
         .nav-link-allo { color: #55b4d4 !important; }
         .nav-link-idea:hover, .nav-link-allo:hover { filter: brightness(1.2); }
         
-        /* BARRE MENU PRINCIPAL */
         .sub-header { 
-            background: rgba(42, 42, 42, 0.55) !important; 
-            backdrop-filter: blur(10px);
-            height: var(--menu-h); 
-            display: flex; justify-content: center; align-items: center; 
+            background: rgba(42, 42, 42, 0.55) !important; backdrop-filter: blur(10px);
+            height: var(--menu-h); display: flex; justify-content: center; align-items: center; 
             position: fixed; top: var(--header-h); left: 0; right: 0; 
             z-index: 1900; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-bottom: 3px solid var(--azur); 
         }
 
         .nav-menu { 
             display: flex; align-items: center; gap: 25px; justify-content: center; width: 100%; 
-            padding-left: 230px; 
-            padding-right: 30px; box-sizing: border-box; 
+            padding-left: 230px; padding-right: 30px; box-sizing: border-box; 
         }
 
         .nav-link { 
             color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 15px; padding: 5px 8px; transition: 0.3s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: inline-flex; align-items: center; 
         }
 
-        .nav-link:hover, .nav-link.active { 
-            color: var(--sinople); 
-            border-bottom: 3px solid var(--sinople);
-        }
-
+        .nav-link:hover, .nav-link.active { color: var(--sinople); border-bottom: 3px solid var(--sinople); }
         .mobile-only-link { display: none !important; }
 
-        /* GRAND BLASON */
         .logo-box { 
             position: fixed; top: 5px; left: 20px; z-index: 3000; width: 180px; 
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); transition: 0.3s;
@@ -107,29 +82,18 @@
 
         .logo-box img { width: 100%; height: auto; }
 
-        /* ICÔNE HAMBURGER */
         .burger-icon {
             display: none; flex-direction: column; justify-content: space-between; width: 35px; height: 25px; cursor: pointer; position: absolute; right: 25px; top: 27px; z-index: 3100;
         }
 
-        .burger-icon span {
-            display: block; height: 4px; width: 100%; background-color: white; border-radius: 4px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-
+        .burger-icon span { display: block; height: 4px; width: 100%; background-color: white; border-radius: 4px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
         .burger-icon.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
         .burger-icon.active span:nth-child(2) { opacity: 0; }
         .burger-icon.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
 
-        /* CONTENEUR PRINCIPAL */
-        .main-content { 
-            margin-top: 450px; 
-            position: relative; 
-            z-index: 10; 
-        }
-
+        .main-content { margin-top: 450px; position: relative; z-index: 10; }
         .hero-spacer { height: 40px; display: flex; align-items: flex-end; justify-content: center; }
 
-        /* SYSTÈME DE CARTES DE NAVIGATION INTERNE (Sommaire) */
         .quick-links { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; max-width: 1100px; margin: -50px auto 40px; padding: 0 20px; position: relative; z-index: 60; 
         }
@@ -138,21 +102,20 @@
             background: white; padding: 20px 10px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-decoration: none; color: var(--dark); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; text-align: center; border-bottom: 4px solid var(--azur); display: flex; flex-direction: column; align-items: center; gap: 8px; transition: 0.3s; 
         }
 
-        .link-card:hover { 
-            transform: translateY(-5px); border-color: var(--sinople); box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
+        .link-card:hover { transform: translateY(-5px); border-color: var(--sinople); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         .link-card i { font-size: 1.6rem; color: var(--azur); }
         .link-card:hover i { color: var(--sinople); }
 
-        /* CONTENEUR BLANC DU CONTENU */
-        .container { 
-            max-width: 1100px; margin: 0 auto; padding: 40px 20px; background: rgba(248, 248, 248, 0.98); border-radius: 20px; box-sizing: border-box;
-        }
-
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; background: rgba(248, 248, 248, 0.98); border-radius: 20px; box-sizing: border-box; }
         .section-padding { padding: 60px 0 40px; border-bottom: 1px solid #eee; scroll-margin-top: 150px; }
         .section-title { font-size: 2rem; color: var(--dark); margin-bottom: 20px; text-transform: uppercase; font-weight: 900; text-align: center; }
         .local-life-placeholder { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border-left: 5px solid #ccc; text-align: left; margin-top: 15px; }
+
+        /* --- RECHERCHE ANNUAIRE --- */
+        .search-container { max-width: 600px; margin: 0 auto 40px; text-align: center; }
+        .search-input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 2px solid var(--azur); border-radius: 30px; box-sizing: border-box; outline: none; transition: box-shadow 0.3s; }
+        .search-input:focus { box-shadow: 0 4px 15px rgba(0, 85, 164, 0.2); }
+        .hidden-card { display: none !important; }
 
         /* --- STYLES DES CARTES ANNUAIRE ET ASSOS --- */
         .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: left; margin-top: 30px; }
@@ -170,13 +133,6 @@
         
         .phone-link { color: var(--azur); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
 
-        /* --- RECHERCHE ANNUAIRE --- */
-        .search-container { max-width: 600px; margin: 0 auto 40px; text-align: center; }
-        .search-input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 2px solid var(--azur); border-radius: 30px; box-sizing: border-box; outline: none; transition: box-shadow 0.3s; }
-        .search-input:focus { box-shadow: 0 4px 15px rgba(0, 85, 164, 0.2); }
-        .hidden-card { display: none !important; }
-
-        
         /* --- BOUTON RETOUR EN HAUT --- */
         #back-to-top { 
             position: fixed; bottom: 25px; right: 25px; background: var(--sinople); color: white; padding: 12px 20px; border-radius: 30px; display: none; align-items: center; gap: 8px; cursor: pointer; z-index: 5000; border: 2px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background 0.2s;
@@ -260,12 +216,12 @@
 
         <main class="container">
 
-                        <!-- BARRE DE RECHERCHE GLOBALE -->
+            <!-- BARRE DE RECHERCHE GLOBALE -->
             <div class="search-container">
                 <input type="text" id="searchInput" class="search-input" placeholder="🔍 Rechercher : menuiserie, pain, séniors, nom...">
             </div>
             
-            <section id="album-photo" class="section-padding">
+            <section id="album-photo" class="section-padding" style="padding-top:0;">
                 <h2 class="section-title">Album photo</h2>
                 <div class="local-life-placeholder" style="border-left-color: var(--sinople);">
                     <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
@@ -571,27 +527,24 @@
                 }, { passive: true });
             }
 
-                    // RECHERCHE DYNAMIQUE DANS TOUTES LES CARTES (Sans tenir compte des accents/majuscules)
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.addEventListener('input', function(e) {
-                // On met en minuscule et on retire les accents pour une recherche infaillible
-                const term = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
-                const cards = document.querySelectorAll('.asso-card, .directory-card');
-                
-                cards.forEach(card => {
-                    // On récupère TOUT le texte de la carte (catégorie, titre, description, tel)
-                    const textContent = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            // RECHERCHE DYNAMIQUE DANS TOUTES LES CARTES (Sans tenir compte des accents/majuscules)
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const term = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+                    const cards = document.querySelectorAll('.asso-card, .directory-card');
                     
-                    if (textContent.includes(term)) {
-                        card.classList.remove('hidden-card');
-                    } else {
-                        card.classList.add('hidden-card');
-                    }
+                    cards.forEach(card => {
+                        const textContent = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        
+                        if (textContent.includes(term)) {
+                            card.classList.remove('hidden-card');
+                        } else {
+                            card.classList.add('hidden-card');
+                        }
+                    });
                 });
-            });
-        }
-
+            }
         });
     </script>
 </body>
