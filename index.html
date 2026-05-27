@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenue à Boisset - Site Officiel de la Commune</title>
+    <title>Boisset (43) - Site Officiel de la Commune</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0055A4">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
     
     <style>
         :root {
@@ -19,9 +18,9 @@
             --sinople: #228B22;   
             --argent: #F8F8F8;    
             --dark: #1a1a1a;
-            --header-h: 90px;
-            --menu-h: 55px;
-            --accent-red: #ff4757; 
+            --header-h: 80px;
+            --menu-h: 50px;
+            --accent-red: #ff4757;
         }
 
         body { 
@@ -52,112 +51,52 @@
             background-color: #333; 
         }
         
+        /* BANDEAU SUPÉRIEUR (Titre + Idées + AlloBoisset) */
         .top-header { 
             background: rgba(26, 26, 26, 0.55) !important; 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            height: var(--header-h); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            z-index: 2000; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            backdrop-filter: blur(10px); height: var(--header-h); 
+            display: flex; align-items: center; 
+            padding-left: 240px; /* Dégagement pour le logo */
+            padding-right: 30px;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 2000; border-bottom: 1px solid rgba(255,255,255,0.1); 
             transition: background 0.3s ease;
         }
 
         .welcome-title { 
-            color: #f8f8f8; 
-            font-size: 2.2rem; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            margin: 0; 
-            text-align: center;
-            text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8);
+            color: #f8f8f8; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin: 0; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; /* Centrage absolu parfait */
         }
+
+        /* LIENS DU TOP HEADER */
+        .top-right-link { margin-left: auto; }
+        .nav-link-top { color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; transition: 0.3s; text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8); }
+        .nav-link-idea { color: #ffbc00 !important; }
+        .nav-link-allo { color: #55b4d4 !important; }
+        .nav-link-idea:hover, .nav-link-allo:hover { filter: brightness(1.2); }
         
-        /* BARRE SOUS-MENU : LE MUR ANTI-CHEVAUCHEMENT */
-        .sub-header { 
-            background: rgba(42, 42, 42, 0.55) !important; 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            height: var(--menu-h); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            position: fixed; 
-            top: var(--header-h); 
-            left: 0; 
-            right: 0; 
-            z-index: 1900; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-            border-bottom: 3px solid var(--azur); 
-            transition: background 0.3s ease;
-        }
-
-        /* NOUVELLE LOGIQUE FLEXBOX POUR LE MENU */
+        /* BARRE DU MENU PRINCIPAL (5 onglets) */
+        .sub-header { background: rgba(42, 42, 42, 0.55) !important; backdrop-filter: blur(10px); height: var(--menu-h); display: flex; align-items: center; position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 1900; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-bottom: 3px solid var(--azur); }
+        
         .nav-menu { 
-            display: flex; 
-            align-items: center; 
-            width: 100%;
-            padding-left: 250px; /* Espace réservé exclusivement au logo, impossible de mordre ! */
-            padding-right: 30px;
-            box-sizing: border-box;
+            display: flex; align-items: center; gap: 25px; justify-content: center; width: 100%; 
+            padding-left: 230px; /* Bouclier de protection pour ne pas mordre sur le blason ! */
+            padding-right: 30px; box-sizing: border-box; 
         }
 
-        .center-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
+        /* TAILLE DE TEXTE MAIRIE (15px - gras) */
+        .nav-link { color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 15px; padding: 5px 8px; transition: 0.3s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: inline-flex; align-items: center; }
+        .nav-link:hover, .nav-link.active { color: var(--sinople); border-bottom: 3px solid var(--sinople); }
+        
+        .mobile-only-link { display: none !important; } /* Caché sur PC, affiché dans le menu mobile */
 
-        .side-container-left {
-            flex: 1;
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        .side-container-right {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        /* TEXTE EN 15PX ET GRAS COMME SUR MAIRIE.HTML */
-        .nav-link { 
-            color: white; 
-            text-decoration: none; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            font-size: 15px; 
-            letter-spacing: 0.5px; 
-            transition: 0.3s; 
-            padding: 5px 8px;
-            text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8);
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .nav-link:hover, .nav-link.active { 
-            color: var(--sinople); 
-            border-bottom: 3px solid var(--sinople);
-        }
-
-        .nav-link-idea:hover { color: #ffbc00 !important; border-bottom-color: #ffbc00 !important; }
-        .nav-link-allo:hover { color: #55b4d4 !important; border-bottom-color: #55b4d4 !important; }
-
-        /* BLASON */
         .logo-box { 
             position: fixed; 
-            top: 10px; 
-            left: 30px; 
+            top: 5px; 
+            left: 20px; 
             z-index: 3000; 
-            width: 210px; 
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); 
+            width: 180px; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); 
             transition: 0.3s;
         }
 
@@ -166,7 +105,6 @@
             height: auto; 
         }
 
-        /* ICÔNE HAMBURGER */
         .burger-icon {
             display: none; 
             flex-direction: column;
@@ -176,7 +114,7 @@
             cursor: pointer;
             position: absolute;
             right: 25px;
-            top: 32px;
+            top: 27px;
             z-index: 3100;
         }
 
@@ -195,13 +133,13 @@
         .burger-icon.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
 
         .main-content { 
-            margin-top: calc(var(--header-h) + var(--menu-h)); 
+            margin-top: 130px; 
             position: relative; 
             z-index: 10; 
         }
 
         .hero-spacer { 
-            height: 250px; /* Augmenté car les cartes quick-links sont supprimées */
+            height: 40px; 
             display: flex; 
             align-items: flex-end; 
             justify-content: center; 
@@ -244,8 +182,18 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
         }
         
-        .price-list { list-style: none; padding: 0; font-size: 0.85rem; }
-        .price-list li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed #ccc; }
+        .price-list { 
+            list-style: none; 
+            padding: 0; 
+            font-size: 0.85rem; 
+        }
+
+        .price-list li { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 5px 0; 
+            border-bottom: 1px dashed #ccc; 
+        }
 
         .directory-grid { 
             display: grid; 
@@ -255,22 +203,65 @@
             margin-top: 30px; 
         }
 
-        .directory-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid var(--sinople); box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
+        .directory-card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-top: 5px solid var(--sinople); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+            transition: 0.3s;
+            position: relative;
+        }
+
         .directory-card:hover { transform: translateY(-5px); }
 
-        .asso-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid var(--azur); box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
-        .asso-card:hover { transform: translateY(-5px); }
+        .cat-tag { 
+            font-size: 0.65rem; 
+            background: #f0f0f0; 
+            padding: 4px 10px; 
+            border-radius: 10px; 
+            text-transform: uppercase; 
+            font-weight: 800; 
+            color: #666;
+            margin-bottom: 15px; 
+            display: inline-block; 
+            letter-spacing: 0.5px;
+        }
 
-        .cat-tag { font-size: 0.65rem; background: #f0f0f0; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; color: #666; margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
-        .asso-tag { font-size: 0.65rem; background: #e8f0fe; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; color: var(--azur); margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
+        .directory-card h4 { 
+            margin: 10px 0; 
+            font-size: 1.1rem; 
+            font-weight: 900; 
+            color: #1a1a1a; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-        .directory-card h4, .asso-card h4 { margin: 10px 0; font-size: 1.1rem; font-weight: 900; color: #1a1a1a; display: flex; align-items: center; justify-content: space-between; }
-        .directory-card p, .asso-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+        .badge-event {
+            background-color: var(--accent-red);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: none;
+            margin-left: 10px;
+            animation: pulse-red 2s infinite;
+            text-decoration: none;
+        }
 
-        .phone-link { color: var(--azur); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
-
-        .badge-event { background-color: var(--accent-red); color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.7rem; font-weight: bold; text-transform: none; margin-left: 10px; animation: pulse-red 2s infinite; text-decoration: none; }
-        .event-info-line { display: block; margin-top: 10px; padding: 8px; background: #fff5f5; border-radius: 6px; border-left: 3px solid var(--accent-red); font-size: 0.85rem; color: #b33939; font-weight: bold; }
+        .event-info-line {
+            display: block;
+            margin-top: 10px;
+            padding: 8px;
+            background: #fff5f5;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-red);
+            font-size: 0.85rem;
+            color: #b33939;
+            font-weight: bold;
+        }
 
         @keyframes pulse-red {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
@@ -278,16 +269,72 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
         }
 
+        .directory-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+
+        .asso-card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-top: 5px solid var(--azur); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .asso-card:hover { transform: translateY(-5px); }
+
+        .asso-tag { 
+            font-size: 0.65rem; 
+            background: #e8f0fe; 
+            padding: 4px 10px; 
+            border-radius: 10px; 
+            text-transform: uppercase; 
+            font-weight: 800; 
+            color: var(--azur);
+            margin-bottom: 15px; 
+            display: inline-block; 
+            letter-spacing: 0.5px;
+        }
+
+        .asso-card h4 { margin: 10px 0; font-size: 1.1rem; font-weight: 900; color: #1a1a1a; display: flex; align-items: center; justify-content: space-between; }
+        .asso-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+
+        .phone-link { color: var(--azur); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+
         .calendar-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; font-size: 0.9rem; text-align: left; }
         .calendar-table th { background: var(--azur); color: white; padding: 12px; }
         .calendar-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        #calendar { background: white; padding: 10px; border-radius: 10px; height: 550px; margin-top: 20px; }
         
-        #back-to-top { position: fixed; bottom: 25px; right: 25px; background: var(--sinople); color: white; padding: 12px 20px; border-radius: 30px; display: none; align-items: center; gap: 8px; cursor: pointer; z-index: 5000; border: 2px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background 0.2s; }
-        #back-to-top:hover { transform: translateY(-3px); background: #1a6e1a; }
+        /* --- RETOUR EN HAUT PILULE --- */
+        #back-to-top { 
+            position: fixed; 
+            bottom: 25px; 
+            right: 25px; 
+            background: var(--sinople); 
+            color: white; 
+            padding: 12px 20px; 
+            border-radius: 30px; 
+            display: none; 
+            align-items: center; 
+            gap: 8px;
+            cursor: pointer; 
+            z-index: 5000; 
+            border: 2px solid white; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        #back-to-top:hover {
+            transform: translateY(-3px);
+            background: #1a6e1a;
+        }
 
         footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
 
-        /* RECHERCHE LIVE ANNUAIRE */
         .directory-search { max-width: 680px; margin: 28px auto 10px; text-align: left; }
         .directory-search-label { display: block; margin: 0 0 8px 4px; font-size: 0.78rem; font-weight: 800; color: #555; text-transform: uppercase; letter-spacing: 0.7px; }
         .directory-search-box { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #e6e6e6; border-radius: 999px; padding: 11px 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.06); transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease; }
@@ -296,7 +343,6 @@
         #directory-search-input { width: 100%; min-width: 0; border: none; outline: none; background: transparent; color: #222; font: inherit; font-size: 0.95rem; }
         #directory-search-input::placeholder { color: #9a9a9a; }
         #directory-search-input::-webkit-search-cancel-button { display: none; }
-        
         .directory-search-reset { width: 28px; height: 28px; border: none; border-radius: 50%; background: #f1f1f1; color: #666; cursor: pointer; font-size: 1.15rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
         .directory-search-reset:hover { background: var(--azur); color: #fff; transform: rotate(90deg); }
         .directory-search-reset[hidden] { display: none !important; }
@@ -329,62 +375,18 @@
             .directory-card, .asso-card, .directory-search-box, .directory-search-reset, .event-badge-skeleton, .badge-event { transition: none !important; animation: none !important; }
         }
 
-        /* ========================================== */
-        /* RESPONSIVE : BASCULE A 1150px POUR LE MENU */
-        /* ========================================== */
+        /* RESPONSIVE 1150px (La bascule pour éviter le chevauchement) */
         @media (max-width: 1150px) {
             .burger-icon { display: flex !important; }
-
-            .sub-header {
-                background: transparent !important;
-                border: none !important;
-                box-shadow: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                pointer-events: none; 
-            }
-
-            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
-            .welcome-title { font-size: 1.3rem !important; margin-left: 100px !important; margin-right: 50px !important; text-align: left; }
-            .top-header { justify-content: flex-start; }
-
-            .nav-menu {
-                pointer-events: auto; 
-                flex-direction: column !important;
-                position: fixed !important;
-                top: 0 !important;
-                right: -300px; 
-                width: 250px !important;
-                height: 100vh !important;
-                background: rgba(26, 26, 26, 0.95) !important;
-                backdrop-filter: blur(15px) !important;
-                -webkit-backdrop-filter: blur(15px) !important;
-                padding-top: 100px !important; 
-                padding-left: 0 !important; /* On annule la marge du logo */
-                padding-right: 0 !important;
-                transition: right 0.3s ease-in-out !important;
-                border-left: 3px solid var(--azur) !important;
-                box-shadow: -5px 0 20px rgba(0,0,0,0.5) !important;
-                gap: 0 !important;
-                align-items: flex-start !important;
-                z-index: 2500;
-            }
-
+            .top-left-link, .top-right-link { display: none !important; } /* On cache les liens du haut */
+            .mobile-only-link { display: flex !important; margin-top: 15px; } /* On les affiche dans le tiroir */
+            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; pointer-events: none; }
+            .nav-menu { flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; padding-top: 100px !important; padding-left: 0 !important; padding-right: 0 !important; transition: 0.3s !important; border-left: 3px solid var(--azur) !important; align-items: flex-start !important; z-index: 2500; }
             .nav-menu.active { right: 0 !important; }
-
-            /* On passe les conteneurs en colonnes */
-            .center-links { flex-direction: column; width: 100%; gap: 0; }
-            .side-container-left, .side-container-right { display: block; width: 100%; flex: none; }
-
-            .nav-link {
-                font-size: 1.1rem !important; 
-                padding: 20px 30px !important;
-                width: 100% !important;
-                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-                box-sizing: border-box !important;
-            }
-
-            .hero-spacer { height: 120px !important; }
+            .nav-link { padding: 20px 30px !important; width: 100% !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; box-sizing: border-box !important; font-size: 1.1rem !important; }
+            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
+            .welcome-title { position: static !important; transform: none !important; font-size: 1.3rem !important; margin-left: 110px !important; text-align: left; white-space: normal; }
+            .top-header { justify-content: flex-start; padding-left: 0; padding-right: 0; }
         }
     </style>
 </head>
@@ -398,28 +400,28 @@
             <span></span>
             <span></span>
         </div>
+        
+        <div class="top-left-link">
+            <a href="#boite-idees" class="nav-link-top nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+        </div>
+        
         <h1 class="welcome-title">Bienvenue à Boisset</h1>
+        
+        <div class="top-right-link">
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link-top nav-link-allo"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+        </div>
     </header>
 
     <nav class="sub-header">
         <div class="nav-menu" id="mobileMenu">
+            <a href="index.html" class="nav-link active">Accueil</a>
+            <a href="mairie.html" class="nav-link">La Mairie</a>
+            <a href="services.html" class="nav-link">Les Services</a>
+            <a href="territoire.html" class="nav-link">Le Territoire</a>
+            <a href="vie-locale.html" class="nav-link">La Vie Locale</a>
             
-            <div class="side-container-left">
-                <a href="#boite-idees" class="nav-link nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right:8px;"></i>Boîte à Idées</a>
-            </div>
-
-            <div class="center-links">
-                <a href="index.html" class="nav-link active">Accueil</a>
-                <a href="mairie.html" class="nav-link">La Mairie</a>
-                <a href="services.html" class="nav-link">Les Services</a>
-                <a href="territoire.html" class="nav-link">Le Territoire</a>
-                <a href="vie-locale.html" class="nav-link">La Vie Locale</a>
-            </div>
-
-            <div class="side-container-right">
-                <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo"><i class="fa-solid fa-car" style="margin-right:8px;"></i>AlloBoisset</a>
-            </div>
-            
+            <a href="#boite-idees" class="nav-link nav-link-idea mobile-only-link"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo mobile-only-link"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
         </div>
     </nav>
 
@@ -427,7 +429,7 @@
         <img src="blason.png" alt="Blason">
     </div>
 
-    <button id="back-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i> Retour en haut</button>
+    <button id="back-to-top" onclick="scrollToTop()">⬆️ Retour en haut</button>
 
     <div class="main-content">
         <div class="hero-spacer"></div>
@@ -493,6 +495,50 @@
                                     Voir notre page Facebook ↗
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Vie Municipale</h2>
+                <div style="display:flex; flex-wrap:wrap; gap:40px; text-align:left; justify-content:center;">
+                    <div style="flex:1; min-width:300px;" class="service-item">
+                        <h3>Secrétariat & Horaires</h3>
+                        <p>📞 <a href="tel:0471613266">04 71 61 32 66</a> | ✉️ <a href="mailto:mairie.boisset@orange.fr">mairie.boisset@orange.fr</a></p>
+                        <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:10px; font-weight:bold;">Lundi / Jeudi</td>
+                                <td style="text-align:right;">09h - 12h</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:10px; font-weight:bold;">Mardi</td>
+                                <td style="text-align:right;">14h - 18h</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:10px; font-weight:bold;">Samedi</td>
+                                <td style="text-align:right;">14h - 16h</td>
+                            </tr>
+                        </table>
+                        
+                        <h4 style="margin-top:25px; color:var(--azur);">Équipe Communale</h4>
+                        <ul style="font-size: 0.85rem; padding-left: 20px; line-height: 2.2;">
+                            <li><strong>Secrétariat :</strong> Murielle Bouillon</li>
+                            <li><strong>École :</strong> Mélanie Perbet</li>
+                            <li><strong>École :</strong> Thiphaine Jalabert</li>
+                            <li><strong>École :</strong> Arnaud Beurion</li>
+                            <li><strong>Services Techniques :</strong> Cédric Dérail</li>
+                            <li><strong>Services Techniques :</strong> Thierry Petit</li>
+                        </ul>
+                    </div>
+
+                    <div style="flex:1; min-width:300px;" class="service-item">
+                        <h3>Santé & Numéros Utiles</h3>
+                        <p style="font-size:0.95rem;">👨‍⚕️ <strong>Médecin (St-Pal) :</strong> <a href="tel:0471613225">04 71 61 32 25</a> (Dr Rodriguez)</p>
+                        <p style="font-size:0.95rem;">💊 <strong>Pharmacie :</strong> <a href="tel:0471613049">04 71 61 30 49</a> (Pérez-Desbrun)</p>
+                        <p style="font-size:0.95rem;">🚑 <strong>Urgences :</strong> 15 / 112 / 18</p>
+                        
+                        <div style="margin-top:25px; display:flex; flex-direction:column; gap:12px;">
+                            <a href="#" style="text-decoration:none; color:white; background:var(--azur); padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Conseil Municipal</a>
+                            <a href="#" style="text-decoration:none; color:var(--dark); border:1px solid #ddd; padding:12px; border-radius:5px; text-align:center; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Procès-Verbaux (PV)</a>
                         </div>
                     </div>
                 </div>
