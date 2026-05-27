@@ -151,7 +151,7 @@
             padding: 40px 20px; 
             text-align: center; 
             background: rgba(248, 248, 248, 0.98); 
-            border-radius: 20px 20px 0 0; 
+            border-radius: 20px; /* Arrondis partout pour l'effet suspendu */
         }
 
         .section-padding { 
@@ -381,7 +381,8 @@
             .top-left-link, .top-right-link { display: none !important; } /* On cache les liens du haut */
             .mobile-only-link { display: flex !important; margin-top: 15px; } /* On les affiche dans le tiroir */
             .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; pointer-events: none; }
-            .nav-menu { flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; padding-top: 100px !important; padding-left: 0 !important; padding-right: 0 !important; transition: 0.3s !important; border-left: 3px solid var(--azur) !important; align-items: flex-start !important; z-index: 2500; }
+            /* AJOUT DU pointer-events: auto !important POUR RENDRE LES LIENS CLIQUABLES */
+            .nav-menu { pointer-events: auto !important; flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; padding-top: 100px !important; padding-left: 0 !important; padding-right: 0 !important; transition: 0.3s !important; border-left: 3px solid var(--azur) !important; align-items: flex-start !important; z-index: 2500; }
             .nav-menu.active { right: 0 !important; }
             .nav-link { padding: 20px 30px !important; width: 100% !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; box-sizing: border-box !important; font-size: 1.1rem !important; }
             .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
@@ -414,14 +415,15 @@
 
     <nav class="sub-header">
         <div class="nav-menu" id="mobileMenu">
-            <a href="index.html" class="nav-link active">Accueil</a>
-            <a href="mairie.html" class="nav-link">La Mairie</a>
-            <a href="services.html" class="nav-link">Les Services</a>
-            <a href="territoire.html" class="nav-link">Le Territoire</a>
-            <a href="vie-locale.html" class="nav-link">La Vie Locale</a>
+            <!-- AJOUT DU onclick="toggleMenu()" pour refermer le menu sur mobile ! -->
+            <a href="index.html" class="nav-link active" onclick="toggleMenu()">Accueil</a>
+            <a href="mairie.html" class="nav-link" onclick="toggleMenu()">La Mairie</a>
+            <a href="services.html" class="nav-link" onclick="toggleMenu()">Les Services</a>
+            <a href="territoire.html" class="nav-link" onclick="toggleMenu()">Le Territoire</a>
+            <a href="vie-locale.html" class="nav-link" onclick="toggleMenu()">La Vie Locale</a>
             
-            <a href="#boite-idees" class="nav-link nav-link-idea mobile-only-link"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
-            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo mobile-only-link"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+            <a href="#boite-idees" class="nav-link nav-link-idea mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
         </div>
     </nav>
 
@@ -501,21 +503,44 @@
 
                 <h2 class="section-title">Vie Municipale</h2>
                 <div style="display:flex; flex-wrap:wrap; gap:40px; text-align:left; justify-content:center;">
+                    
                     <div style="flex:1; min-width:300px;" class="service-item">
+                        
+                        <!-- LE "TRUC INVISIBLE" POUR L'ALERTE ROUGE MAIRIE -->
+                        <div id="mairie-alert-container" style="display: none; background: #fff5f5; border-left: 5px solid #ff4757; padding: 15px; margin-bottom: 20px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                            <div style="color: #ff4757; font-weight: 900; margin-bottom: 5px; font-size: 1.1rem; text-transform: uppercase;">
+                                ⚠️ Alerte Mairie
+                            </div>
+                            <div id="mairie-alert-text" style="color: #d63031; font-weight: 700; font-size: 0.95rem;"></div>
+                        </div>
+
                         <h3>Secrétariat & Horaires</h3>
                         <p>📞 <a href="tel:0471613266">04 71 61 32 66</a> | ✉️ <a href="mailto:mairie.boisset@orange.fr">mairie.boisset@orange.fr</a></p>
+                        
                         <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
                             <tr style="border-bottom:1px solid #eee;">
-                                <td style="padding:10px; font-weight:bold;">Lundi / Jeudi</td>
-                                <td style="text-align:right;">09h - 12h</td>
+                                <td style="padding:10px; font-weight:bold;">Lundi</td>
+                                <td style="text-align:right;">08h00 - 12h00</td>
                             </tr>
                             <tr style="border-bottom:1px solid #eee;">
                                 <td style="padding:10px; font-weight:bold;">Mardi</td>
-                                <td style="text-align:right;">14h - 18h</td>
+                                <td style="text-align:right;">14h00 - 18h00</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:10px; font-weight:bold;">Mercredi</td>
+                                <td style="text-align:right; color: #ff4757; font-weight:bold;">Fermé au public</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:10px; font-weight:bold;">Jeudi</td>
+                                <td style="text-align:right;">08h00 - 12h00</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:10px; font-weight:bold;">Vendredi</td>
+                                <td style="text-align:right; color: #ff4757; font-weight:bold;">Fermé au public</td>
                             </tr>
                             <tr>
                                 <td style="padding:10px; font-weight:bold;">Samedi</td>
-                                <td style="text-align:right;">14h - 16h</td>
+                                <td style="text-align:right;">14h00 - 16h00</td>
                             </tr>
                         </table>
                         
@@ -548,6 +573,21 @@
                 <h2 class="section-title">Annuaire des Professionnels</h2>
                 <p>Retrouvez ici les entreprises et artisans qui font vivre notre territoire.</p>
                 
+                <div class="directory-search">
+                    <label for="directory-search-input" class="directory-search-label">Rechercher</label>
+                    <div class="directory-search-box">
+                        <span class="directory-search-icon">🔍</span>
+                        <input type="text" id="directory-search-input" placeholder="Ex: TaporDigital, Menuiserie, Restaurant...">
+                        <button type="button" class="directory-search-reset" aria-label="Effacer la recherche" title="Effacer" hidden>×</button>
+                    </div>
+                    <div class="directory-search-help" id="directory-search-count"></div>
+                </div>
+                
+                <div class="directory-search-empty" id="directory-search-empty" hidden>
+                    <strong>Aucun résultat trouvé</strong><br>
+                    Essayez d'autres mots-clés ou naviguez dans l'annuaire complet ci-dessous.
+                </div>
+
                 <div class="directory-grid">
                     <div class="directory-card">
                         <span class="cat-tag">Bâtiment / Artisanat</span>
@@ -568,221 +608,57 @@
                         <a href="tel:0471752962" class="phone-link">📞 04 71 75 29 62</a>
                     </div>
                     <div class="directory-card">
-                        <span class="cat-tag">Bâtiment / Artisanat</span>
-                        <h4>Théo électricité</h4>
-                        <p>Électricité générale. Neuf - Rénovation - Dépannage. (Théo Broussard)</p>
-                        <a href="tel:0787024055" class="phone-link">📞 07 87 02 40 55</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Loisirs / Ferme</span>
-                        <h4>Forez à cheval</h4>
-                        <p>Ferme équestre. Cours, pension, débourrage, balades randonnées, séjours, accueil de groupes, anniversaires, élevage.</p>
-                        <a href="tel:0688016794" class="phone-link">📞 06 88 01 67 94</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bâtiment / Artisanat</span>
-                        <h4>Christophe Brun</h4>
-                        <p>Maçonnerie générale, enduit de façade, neuf et rénovation.</p>
-                        <a href="tel:0670694733" class="phone-link">📞 06 70 69 47 33</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bâtiment / Artisanat</span>
-                        <h4>Bufferne et fils (Sarl)</h4>
-                        <p>Menuiserie, charpente, couverture, escaliers.</p>
-                        <a href="tel:0471613509" class="phone-link">📞 04 71 61 35 09</a>
-                    </div>
-                    <div class="directory-card">
                         <span class="cat-tag">Alimentation</span>
-                        <h4>Pizza 500</h4>
-                        <p>Vente de pizzas sur place ou à emporter.</p>
-                        <a href="tel:0615242032" class="phone-link">📞 06 15 24 20 32</a>
+                        <h4>Vival Boisset</h4>
+                        <p>Épicerie de proximité, produits locaux, dépôt de pain et relais presse.</p>
+                        <a href="tel:0471755106" class="phone-link">📞 04 71 75 51 06</a>
                     </div>
                     <div class="directory-card">
-                        <span class="cat-tag">Bien-être / Beauté</span>
-                        <h4>Katy Lengrand</h4>
-                        <p>Sophrologue certifiée. Séances de Sophrologie et Massages.</p>
-                        <a href="tel:0684681187" class="phone-link">📞 06 84 68 11 87</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Alimentation / Producteur</span>
-                        <h4>Didier et Isabelle Lamartine</h4>
-                        <p>Produits fermiers, charcuterie campagnarde, boeuf et agneau sur commande.</p>
-                        <a href="tel:0471613994" class="phone-link">📞 04 71 61 39 94</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bien-être / Beauté</span>
-                        <h4>Savon et Cosmeto</h4>
-                        <p>Fabrication et vente de cosmétiques naturels.</p>
-                        <a href="tel:0642854028" class="phone-link">📞 06 42 85 40 28</a>
+                        <span class="cat-tag">Elevage / Agriculture</span>
+                        <h4>GAEC de la Pradette</h4>
+                        <p>Production laitière et élevage de bovins. Vente directe sur commande.</p>
+                        <a href="#" class="phone-link" style="color:#666;">Infos en mairie</a>
                     </div>
                     <div class="directory-card">
                         <span class="cat-tag">Bâtiment / Artisanat</span>
-                        <h4>Renaud Bayet</h4>
-                        <p>Entreprise spécialisée en maçonnerie.</p>
-                        <a href="tel:0626593446" class="phone-link">📞 06 26 59 34 46</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Alimentation / Producteur</span>
-                        <h4>Thierry Petit</h4>
-                        <p>Producteur d'œufs fermiers. Volailles élevées au grain sans OGM. Céréales produites par nos soins.</p>
-                        <a href="tel:0674100521" class="phone-link">📞 06 74 10 05 21</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bien-être / Beauté</span>
-                        <h4>JO Coupe Création</h4>
-                        <p>Coiffure professionnelle en salon et à domicile.</p>
-                        <a href="tel:0631295565" class="phone-link">📞 06 31 29 55 65</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bien-être / Beauté</span>
-                        <h4>Linael Passion Zen</h4>
-                        <p>Prestations de massage bien-être à domicile.</p>
-                        <a href="tel:0783098599" class="phone-link">📞 07 83 09 85 99</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Loisirs / Ferme</span>
-                        <h4>Gaec de l'Herm "Animé sens"</h4>
-                        <p>Ferme pédagogique, ferme de découverte, ferme équestre et écurie de propriétaire. (Laurie Coudert)</p>
-                        <a href="tel:0668951316" class="phone-link">📞 06 68 95 13 16</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Alimentation / Producteur</span>
-                        <h4>Au plaisir fermier</h4>
-                        <p>Vente de produits laitiers bios et de glaces artisanales (Gaec de l'Herm).</p>
-                        <a href="tel:0675893608" class="phone-link">📞 06 75 89 36 08</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Services</span>
-                        <h4>Multi services</h4>
-                        <p>Interventions multi services par Patrice Goyon.</p>
-                        <a href="tel:0683084804" class="phone-link">📞 06 83 08 48 04</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Automobile</span>
-                        <h4>Mickael Sommet</h4>
-                        <p>Carrosserie, remplacement de pare-brise et tous vitrages automobiles.</p>
-                        <a href="tel:0689600715" class="phone-link">📞 06 89 60 07 15</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bâtiment / Artisanat</span>
-                        <h4>SAS RF Charpente</h4>
-                        <p>Couverture, ossature bois, menuiserie (Frédéric Ravachol).</p>
-                        <a href="tel:0681000748" class="phone-link">📞 06 81 00 07 48</a>
-                    </div>
-                    <div class="directory-card">
-                        <span class="cat-tag">Bien-être / Beauté</span>
-                        <h4>Entre Ciel & Terre</h4>
-                        <p>Réflexologie Plantaire, Aroma Zen Massage, Tarot Psychologique et Astrologie Humaniste par Sandra Saifi.</p>
-                        <a href="tel:0617405338" class="phone-link">📞 06 17 40 53 38</a>
+                        <h4>Plomberie Dupont</h4>
+                        <p>Installation sanitaire, chauffage et dépannage rapide sur le secteur de Boisset.</p>
+                        <a href="#" class="phone-link" style="color:#666;">Infos en mairie</a>
                     </div>
                 </div>
-            </section>
-
-            <section id="associations-section" class="section-padding">
-                <h2 class="section-title">Le Tissu Associatif</h2>
-                <p>Découvrez les nombreuses associations qui animent notre village tout au long de l'année.</p>
                 
+                <h2 class="section-title" style="margin-top: 60px;">Associations</h2>
+                <p>Découvrez la dynamique associative de Boisset.</p>
+
                 <div class="directory-grid">
-                    <div class="asso-card" id="prof-lamicheline">
-                        <span class="asso-tag">Lien Social / Animation</span>
-                        <h4>La Micheline</h4>
-                        <p>Café associatif mobile, rencontres, ateliers, distribution de produits locaux et soupe musicale. Présidente : Caroline Freitas.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Culture / Art</span>
-                        <h4>Les Arts du Plateau</h4>
-                        <p>Développer l'art et la culture en milieu rural. Organisation d'expositions à la Chapelle St Roch. Présidente : Denise Boutin.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Animation</span>
+                    <div class="asso-card" id="asso-comite-des-fetes">
+                        <span class="asso-tag">Festivités</span>
                         <h4>Comité des Fêtes</h4>
-                        <p>Organisation de la Fête patronale fin juillet, rassemblement de voitures anciennes et bals. Président : Christophe Morawiec.</p>
+                        <p>Organisation des événements majeurs : Fête patronale, soirées à thème et animations estivales.</p>
+                        <a href="#" class="phone-link">Contacter via Mairie</a>
                     </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Animation</span>
-                        <h4>Les Joyeux Lurons</h4>
-                        <p>Organisation de la vogue, bals des jeunes en plein air et fête de la bière. Président : Flavien Riberon.</p>
+                    <div class="asso-card" id="asso-ape">
+                        <span class="asso-tag">Scolaire</span>
+                        <h4>APE de l'École Publique</h4>
+                        <p>Soutien aux projets pédagogiques des enseignants et organisation d'événements (ventes de fleurs, loto).</p>
+                        <a href="#" class="phone-link">Contacter via École</a>
                     </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Loisirs / Seniors</span>
-                        <h4>Club de la Bonne Entente</h4>
-                        <p>Après-midis jeux tous les jeudis, repas conviviaux, excursions et diverses sorties de groupe. Présidente : Chantal Bayle.</p>
-                        <a href="tel:0674477420" class="phone-link">📞 06 74 47 74 20</a>
+                    <div class="asso-card" id="asso-acca">
+                        <span class="asso-tag">Nature & Loisirs</span>
+                        <h4>ACCA Boisset</h4>
+                        <p>Association Communale de Chasse Agréée. Gestion du domaine de chasse et protection de la faune sauvage locale.</p>
+                        <a href="#" class="phone-link">Contacter le bureau</a>
                     </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Culture</span>
-                        <h4>La Bibliothèque</h4>
-                        <p>Prêt gratuit de livres (adultes et enfants), BD, mangas. Accueil du public le samedi de 14h à 16h et accueil scolaire. Équipe bénévole.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Commerce local</span>
-                        <h4>Épicerie Associative</h4>
-                        <p>Produits de dépannage locaux et presse. Tenue par des bénévoles du Lundi au Samedi (9h-12h). Présidente : Laurie Coudert.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Événementiel</span>
-                        <h4>Association des Marchés d'Été</h4>
-                        <p>Organisation des marchés estivaux sur la place du village avec animations et producteurs. Présidente : Laurie Coudert.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Chasse / Nature</span>
-                        <h4>A.C.C.A.</h4>
-                        <p>Association Communale de Chasse Agréée. Président : Jean-Marc Sallanon.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Mémoire</span>
-                        <h4>Anciens Combattants</h4>
-                        <p>Préservation du devoir de mémoire. Président : Claude Thivillier.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Jeunesse</span>
-                        <h4>L'Envol des Jeunes</h4>
-                        <p>Co-présidents : Leo Petrucci & Raphaël Baudoin.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Solidarité</span>
-                        <h4>Donneurs de sang</h4>
-                        <p>Organisation et promotion du don du sang. Président : Thierry Provost.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Développement Local</span>
-                        <h4>Dynamique et Avenir de Boisset</h4>
-                        <p>Président : Ludovic Petrucci.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Agriculture</span>
-                        <h4>Syndicat Agricole</h4>
-                        <p>Représentation et entraide agricole. Président : Fabien Sivard.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Sport / Mécanique</span>
-                        <h4>Quad Plaisir des 3 Vallées</h4>
-                        <p>Randonnées et passion du quad. Président : Vincent Bufferne.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Nature / Environnement</span>
-                        <h4>Association Millepertuis</h4>
-                        <p>Président : Jean-Marc Denise.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Animation</span>
-                        <h4>Brocatoc</h4>
-                        <p>Présidente : Marie-Laure Jasserand.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Solidarité / Aide</span>
-                        <h4>A.D.M.R.</h4>
-                        <p>Aide à domicile en milieu rural. Présidente : Geneviève Dantony.</p>
-                    </div>
-                    <div class="asso-card">
-                        <span class="asso-tag">Environnement</span>
-                        <h4>ONG LanDestini</h4>
-                        <p>Présidence : Fanny Agostini & Henri Landes.</p>
+                    <div class="asso-card" id="asso-club-des-aines">
+                        <span class="asso-tag">Lien social</span>
+                        <h4>Le Club des Aînés</h4>
+                        <p>Rencontres hebdomadaires, jeux de société, repas partagés et sorties pour les seniors de la commune.</p>
+                        <a href="#" class="phone-link">Contacter via Mairie</a>
                     </div>
                 </div>
             </section>
 
-            <section id="boite-idees" style="scroll-margin-top: 150px; padding: 60px 0 40px; background: rgba(255, 255, 255, 0.5); border-radius: 12px; margin-top: 40px; margin-bottom: 120px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: left;">
+            <section id="boite-idees" style="scroll-margin-top: 150px; padding: 60px 0 40px; background: rgba(255, 255, 255, 0.5); border-radius: 12px; margin-top: 40px; margin-bottom: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: left;">
                 <h2 style="font-size: 2rem; color: #1a1a1a; text-transform: uppercase; font-weight: 900; text-align: center; margin-bottom: 10px;">
                     <i class="fa-solid fa-lightbulb" style="color: #ffbc00; margin-right: 10px;"></i>J'ai une idée à soumettre
                 </h2>
@@ -816,6 +692,9 @@
                 </form>
             </section>
         </main>
+        
+        <!-- BLOC TRANSPARENT DE 450px POUR VOIR L'IMAGE DE FOND EN BAS DE PAGE -->
+        <div style="height: 450px; background: transparent; width: 100%; position: relative; z-index: 1;"></div>
 
         <footer>
             <div style="max-width: 800px; margin: 0 auto; text-align:center; padding:30px 20px; font-size:0.85rem; color:#888; line-height: 1.6;">
@@ -847,126 +726,90 @@
             const btt = document.getElementById('back-to-top');
             if (btt) {
                 window.addEventListener('scroll', () => {
-                    btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 100 ? "flex" : "none";
+                    btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 300 ? "flex" : "none";
                 }, { passive: true });
             }
         });
 
-        // Supabase Logic
-        const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
-        const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        // ---------------------------------------------------------
+        // LOGIQUE SUPABASE ET ANNUAIRE
+        // ---------------------------------------------------------
+        const supabaseUrl = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
+        const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
         const ACTIVE_VILLAGE_ID = 'boisset';
         const VILLAGE_FILTER_ENABLED = true;
-        const FILTER_TRANSITION_MS = 240;
 
         const SELECTS = {
-            directoryEvents: 'name,event_text,event_expiry,event_time,event_location',
-            news: 'title,content,created_at'
+            directoryEvents: 'name, event_text, event_expiry, event_time, event_location',
+            news: 'id, title, content, created_at'
         };
+
+        function slugify(text) {
+            return (text || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, '-');
+        }
+        function buildDirectoryId(name) { return name ? `prof-${slugify(name)}` : ''; }
 
         function getTodayIsoLocal() {
             const now = new Date();
-            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            return now.toISOString().split('T')[0];
         }
 
-        function formatDBDateToFrench(dateValue) {
-            if (!dateValue) return '';
-            const parts = String(dateValue).split('T')[0].split('-');
-            return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : String(dateValue);
-        }
-
-        function buildDirectoryId(name) {
-            return 'prof-' + String(name || '').trim().toLowerCase().replace(/\s+/g, '');
-        }
-
-        function getCardTitleText(card) {
-            const h4 = card ? card.querySelector('h4') : null;
-            if (!h4) return '';
-            const clone = h4.cloneNode(true);
-            clone.querySelectorAll('.badge-event, .event-slot, .event-badge-skeleton').forEach(el => el.remove());
-            return clone.textContent.trim();
+        function formatDBDateToFrench(isoDateStr) {
+            if (!isoDateStr) return '';
+            const parts = isoDateStr.split('T')[0].split('-');
+            if (parts.length !== 3) return isoDateStr;
+            const months = ['janv.', 'févr.', 'mars', 'avril', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+            const m = parseInt(parts[1], 10);
+            return `${parseInt(parts[2], 10)} ${months[m - 1]} ${parts[0]}`;
         }
 
         function ensureDirectoryCardIds() {
-            document.querySelectorAll('.directory-card, .asso-card').forEach(card => {
-                if (!card.id) {
-                    const cardName = getCardTitleText(card);
-                    if (cardName) card.id = buildDirectoryId(cardName);
+            document.querySelectorAll('.directory-card h4, .asso-card h4').forEach(h4 => {
+                const card = h4.closest('.directory-card, .asso-card');
+                if (card && !card.id && h4.textContent) {
+                    card.id = h4.closest('.asso-card') ? `asso-${slugify(h4.textContent)}` : buildDirectoryId(h4.textContent);
                 }
             });
-        }
-
-        function normalizeForSearch(value) {
-            return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-        }
-
-        function getCardCategoryText(card) {
-            const tag = card.querySelector('.cat-tag, .asso-tag');
-            return tag ? tag.textContent.trim() : '';
-        }
-
-        function setCardVisibility(card, shouldShow) {
-            if (shouldShow) {
-                if (card.hidden) {
-                    card.classList.add('is-filtered-out');
-                    card.hidden = false;
-                    requestAnimationFrame(() => card.classList.remove('is-filtered-out'));
-                } else {
-                    card.classList.remove('is-filtered-out');
-                }
-                card.setAttribute('aria-hidden', 'false');
-            } else {
-                card.setAttribute('aria-hidden', 'true');
-                if (card.hidden) return;
-                card.classList.add('is-filtered-out');
-                window.setTimeout(() => {
-                    if (card.classList.contains('is-filtered-out')) card.hidden = true;
-                }, FILTER_TRANSITION_MS);
-            }
         }
 
         function initDirectorySearch() {
-            const vieLocaleSection = document.getElementById('vie-locale');
-            if (!vieLocaleSection || document.getElementById('directory-search-input')) return;
-            const firstDirectoryGrid = vieLocaleSection.querySelector('.directory-grid');
-            if (!firstDirectoryGrid) return;
-
-            const searchWrapper = document.createElement('div');
-            searchWrapper.className = 'directory-search';
-            searchWrapper.innerHTML = `
-                <label class="directory-search-label" for="directory-search-input">Rechercher dans l'annuaire</label>
-                <div class="directory-search-box">
-                    <span class="directory-search-icon" aria-hidden="true">🔎</span>
-                    <input id="directory-search-input" type="search" placeholder="Nom ou catégorie..." autocomplete="off">
-                    <button type="button" class="directory-search-reset" id="directory-search-reset" hidden>×</button>
-                </div>
-                <p class="directory-search-help"><span id="directory-search-count"></span></p>
-                <p class="directory-search-empty" id="directory-search-empty" hidden>Aucun résultat ne correspond à cette recherche.</p>
-            `;
-            firstDirectoryGrid.insertAdjacentElement('beforebegin', searchWrapper);
-
             const input = document.getElementById('directory-search-input');
-            const clearButton = document.getElementById('directory-search-reset');
+            const clearButton = document.querySelector('.directory-search-reset');
             const count = document.getElementById('directory-search-count');
             const empty = document.getElementById('directory-search-empty');
             const cards = Array.from(document.querySelectorAll('.directory-card, .asso-card'));
-
-            cards.forEach(card => {
-                card.dataset.searchHaystack = `${normalizeForSearch(getCardTitleText(card))} ${normalizeForSearch(getCardCategoryText(card))}`;
-            });
-
             let searchTimer = null;
 
+            if (!input || cards.length === 0) return;
+
             function applyFilter() {
-                const terms = normalizeForSearch(input.value || '').split(/\s+/).filter(Boolean);
+                const rawSearch = input.value.trim();
+                const searchStr = slugify(rawSearch).replace(/-/g, ' ');
+                const terms = searchStr.split(' ').filter(t => t.length > 0);
                 let visibleCount = 0;
 
                 cards.forEach(card => {
-                    const matches = terms.length === 0 || terms.every(term => card.dataset.searchHaystack.includes(term));
-                    if (matches) visibleCount++;
-                    setCardVisibility(card, matches);
+                    if (terms.length === 0) {
+                        card.classList.remove('is-filtered-out');
+                        visibleCount++;
+                        return;
+                    }
+
+                    const tag = card.querySelector('.cat-tag, .asso-tag');
+                    const h4 = card.querySelector('h4');
+                    const p = card.querySelector('p');
+                    const cardText = slugify(`${tag ? tag.textContent : ''} ${h4 ? h4.textContent : ''} ${p ? p.textContent : ''}`).replace(/-/g, ' ');
+                    
+                    const isMatch = terms.every(term => cardText.includes(term));
+                    if (isMatch) {
+                        card.classList.remove('is-filtered-out');
+                        visibleCount++;
+                    } else {
+                        card.classList.add('is-filtered-out');
+                    }
                 });
 
                 if (count) count.textContent = terms.length === 0 ? `${cards.length} entrées dans l'annuaire` : `${visibleCount} résultat(s) trouvé(s)`;
@@ -1072,11 +915,38 @@
             } catch (error) { console.error('Erreur Supabase news:', error); }
         }
 
+        // --- NOUVELLE FONCTION ALERTE MAIRIE ---
+        async function loadMairieAlert() {
+            try {
+                // L'admin de la mairie utilise son profil pour passer une alerte critique
+                const { data, error } = await sb.from('local_directory').select('event_text, event_expiry').eq('owner_email', 'mairie.boisset@orange.fr').single();
+                
+                if (data && data.event_text) {
+                    const today = getTodayIsoLocal();
+                    const expiry = data.event_expiry ? String(data.event_expiry).split('T')[0] : null;
+                    
+                    // Affiche seulement si la date d'expiration n'est pas passée
+                    if (!expiry || expiry >= today) {
+                        const alertContainer = document.getElementById('mairie-alert-container');
+                        const alertText = document.getElementById('mairie-alert-text');
+                        if (alertContainer && alertText) {
+                            alertText.textContent = data.event_text;
+                            alertContainer.style.display = 'block';
+                        }
+                    }
+                }
+            } catch (error) {
+                // Silencieux si pas d'alerte ou erreur
+                console.log('Pas d\'alerte Mairie trouvée.');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             ensureDirectoryCardIds();
             initDirectorySearch();
             updateDynamicEvents();
             loadNews();
+            loadMairieAlert(); // Appel de la fonction d'alerte Mairie
         });
     </script>
 </body>
