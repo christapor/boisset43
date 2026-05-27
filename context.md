@@ -28,3 +28,46 @@
 * *Fait :* Structuration globale et mise en conformité du nom de domaine.
 * *En cours :* Optimisation du responsive et liaison propre des tables Supabase pour les actus municipales.
 * *À faire :* Finaliser le module d'affichage du calendrier des événements et valider l'accès admin pour la mairie.
+
+********** EDIT DU 27 MAI 2026 **********
+
+# CONTEXTE PROJET : BOISSET43
+
+## 1. VISION & INFOS CLÉS
+* **Projet :** Site officiel de la commune de Boisset (Haute-Loire).
+* **URL actuelle :** boisset43.vercel.app (future : boisset43.fr)
+* **Cibles :** Habitants (dont séniors), touristes, nouveaux arrivants.
+* **Stack :** Full Vanilla (HTML5, CSS3, JS natif), GitHub, Vercel (déploiement continu), Supabase (Auth, DB pour actus et alertes).
+* **Design :** Responsive, clair, forts contrastes. Menu "hamburger" cliquable sur mobile. Grand espace (450px) en haut et en bas de page pour laisser respirer l'image de fond (`fond.jpeg`).
+
+## 2. STRUCTURE DES PAGES (Récemment mises à jour)
+Toutes les pages partagent la même structure globale (header, sub-header, footer, espaces parallax).
+
+* **index.html :** 
+  - Accueil. 
+  - Intègre une section dynamique Supabase pour les actus.
+  - Alerte Mairie (rouge) gérée en JS (`mairie.boisset@orange.fr`).
+* **mairie.html :** 
+  - Horaires (Lundi, Mardi, Jeudi, Samedi. Fermé Mercredi et Vendredi).
+  - Trombinoscope équipe municipale (Florian Capdevielle, Eric Gagnère, Denise Boutin, Murielle Bouillon, Cédric Dérail, Thierry Petit).
+  - Alerte Mairie (rouge) en double avec l'accueil.
+* **services.html :** 
+  - Infos CCAS, École, Santé (Dr Rodriguez, Pharmacie Pérez-Desbrun).
+  - Intégration Syndicat des eaux (SGEV) avec logo cliquable.
+* **territoire.html :** 
+  - Histoire, patrimoine, tourisme (structure prête, contenu en attente).
+* **vie-locale.html :** 
+  - Annuaire complet (39 cartes : 19 Assos, 6 Commerces, 14 Entreprises).
+  - Barre de recherche dynamique (JS) placée *avant* les associations avec un texte explicatif adapté aux séniors. Le JS filtre sur le `.textContent` global sans tenir compte de la casse ou des accents.
+* **login.html / edit.html :** 
+  - Espace pro (Magic Link Supabase). 
+
+## 3. PROCHAINES ÉTAPES (To-Do)
+* Mettre en place l'édition des fiches (login/edit) directement depuis la page `vie-locale.html` pour que les 39 artisans/assos puissent modifier leurs infos eux-mêmes (en attente de leurs adresses email).
+* Nettoyer `index.html` pour supprimer les cartes en double (qui sont maintenant proprement classées dans `vie-locale.html`).
+* Intégrer les photos manquantes (agents, élus).
+
+## 4. DIRECTIVES POUR L'ASSISTANT (CHRIS DEV)
+* Ton direct, technique, pas de politesses inutiles. Tutoiement.
+* Si modification de code, donner le nom du fichier et utiliser des "snippets" (morceaux de code) avec indication claire de "couper entre la ligne X et Y" pour économiser des tokens, SAUF si le fichier est court ou demande une refonte complète.
+
