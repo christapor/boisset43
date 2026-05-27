@@ -19,8 +19,8 @@
             --sinople: #228B22;   
             --argent: #F8F8F8;    
             --dark: #1a1a1a;
-            --header-h: 80px;
-            --menu-h: 50px;
+            --header-h: 90px;
+            --menu-h: 55px;
             --accent-red: #ff4757; 
         }
 
@@ -53,7 +53,7 @@
         }
         
         .top-header { 
-            background: rgba(26, 26, 26, 0.50) !important; 
+            background: rgba(26, 26, 26, 0.55) !important; 
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             height: var(--header-h); 
@@ -80,8 +80,9 @@
             text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8);
         }
         
+        /* BARRE SOUS-MENU : LE MUR ANTI-CHEVAUCHEMENT */
         .sub-header { 
-            background: rgba(26, 26, 26, 0.50) !important; 
+            background: rgba(42, 42, 42, 0.55) !important; 
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             height: var(--menu-h); 
@@ -98,21 +99,44 @@
             transition: background 0.3s ease;
         }
 
+        /* NOUVELLE LOGIQUE FLEXBOX POUR LE MENU */
         .nav-menu { 
             display: flex; 
             align-items: center; 
-            gap: 15px; 
+            width: 100%;
+            padding-left: 250px; /* Espace réservé exclusivement au logo, impossible de mordre ! */
+            padding-right: 30px;
+            box-sizing: border-box;
         }
 
+        .center-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .side-container-left {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .side-container-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* TEXTE EN 15PX ET GRAS COMME SUR MAIRIE.HTML */
         .nav-link { 
             color: white; 
             text-decoration: none; 
-            font-weight: 700; 
+            font-weight: 800; 
             text-transform: uppercase; 
-            font-size: 13px; 
+            font-size: 15px; 
             letter-spacing: 0.5px; 
             transition: 0.3s; 
-            padding: 5px 6px;
+            padding: 5px 8px;
             text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8);
             display: inline-flex;
             align-items: center;
@@ -126,18 +150,23 @@
         .nav-link-idea:hover { color: #ffbc00 !important; border-bottom-color: #ffbc00 !important; }
         .nav-link-allo:hover { color: #55b4d4 !important; border-bottom-color: #55b4d4 !important; }
 
+        /* BLASON */
         .logo-box { 
             position: fixed; 
-            top: 5px; 
-            left: 20px; 
+            top: 10px; 
+            left: 30px; 
             z-index: 3000; 
-            width: 180px; 
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); 
+            width: 210px; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); 
             transition: 0.3s;
         }
 
-        .logo-box img { width: 100%; height: auto; }
+        .logo-box img { 
+            width: 100%; 
+            height: auto; 
+        }
 
+        /* ICÔNE HAMBURGER */
         .burger-icon {
             display: none; 
             flex-direction: column;
@@ -147,13 +176,18 @@
             cursor: pointer;
             position: absolute;
             right: 25px;
-            top: 27px;
+            top: 32px;
             z-index: 3100;
         }
 
         .burger-icon span {
-            display: block; height: 4px; width: 100%; background-color: white;
-            border-radius: 4px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            display: block;
+            height: 4px;
+            width: 100%;
+            background-color: white;
+            border-radius: 4px;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .burger-icon.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
@@ -161,13 +195,13 @@
         .burger-icon.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
 
         .main-content { 
-            margin-top: 130px; 
+            margin-top: calc(var(--header-h) + var(--menu-h)); 
             position: relative; 
             z-index: 10; 
         }
 
         .hero-spacer { 
-            height: 40px; 
+            height: 250px; /* Augmenté car les cartes quick-links sont supprimées */
             display: flex; 
             align-items: flex-end; 
             justify-content: center; 
@@ -182,27 +216,60 @@
             border-radius: 20px 20px 0 0; 
         }
 
-        .section-padding { padding: 50px 0; border-bottom: 1px solid #eee; }
-        .section-title { font-size: 2rem; color: var(--dark); margin-bottom: 30px; text-transform: uppercase; font-weight: 900; }
+        .section-padding { 
+            padding: 50px 0; 
+            border-bottom: 1px solid #eee; 
+        }
 
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left; }
-        .service-item { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid var(--azur); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .section-title { 
+            font-size: 2rem; 
+            color: var(--dark); 
+            margin-bottom: 30px; 
+            text-transform: uppercase; 
+            font-weight: 900; 
+        }
 
-        .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: left; margin-top: 30px; }
-        .directory-card, .asso-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
-        .directory-card { border-top: 5px solid var(--sinople); }
-        .asso-card { border-top: 5px solid var(--azur); }
-        .directory-card:hover, .asso-card:hover { transform: translateY(-5px); }
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            text-align: left; 
+        }
 
-        .cat-tag, .asso-tag { font-size: 0.65rem; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
-        .cat-tag { background: #f0f0f0; color: #666; }
-        .asso-tag { background: #e8f0fe; color: var(--azur); }
+        .service-item { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            border-left: 5px solid var(--azur); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+        }
+        
+        .price-list { list-style: none; padding: 0; font-size: 0.85rem; }
+        .price-list li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed #ccc; }
+
+        .directory-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 20px; 
+            text-align: left; 
+            margin-top: 30px; 
+        }
+
+        .directory-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid var(--sinople); box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
+        .directory-card:hover { transform: translateY(-5px); }
+
+        .asso-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid var(--azur); box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
+        .asso-card:hover { transform: translateY(-5px); }
+
+        .cat-tag { font-size: 0.65rem; background: #f0f0f0; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; color: #666; margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
+        .asso-tag { font-size: 0.65rem; background: #e8f0fe; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; color: var(--azur); margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
 
         .directory-card h4, .asso-card h4 { margin: 10px 0; font-size: 1.1rem; font-weight: 900; color: #1a1a1a; display: flex; align-items: center; justify-content: space-between; }
         .directory-card p, .asso-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+
         .phone-link { color: var(--azur); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
 
-        .badge-event { background-color: var(--accent-red); color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.7rem; font-weight: bold; margin-left: 10px; animation: pulse-red 2s infinite; text-decoration: none; }
+        .badge-event { background-color: var(--accent-red); color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.7rem; font-weight: bold; text-transform: none; margin-left: 10px; animation: pulse-red 2s infinite; text-decoration: none; }
         .event-info-line { display: block; margin-top: 10px; padding: 8px; background: #fff5f5; border-radius: 6px; border-left: 3px solid var(--accent-red); font-size: 0.85rem; color: #b33939; font-weight: bold; }
 
         @keyframes pulse-red {
@@ -214,8 +281,8 @@
         .calendar-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; font-size: 0.9rem; text-align: left; }
         .calendar-table th { background: var(--azur); color: white; padding: 12px; }
         .calendar-table td { padding: 10px; border-bottom: 1px solid #eee; }
-
-        #back-to-top { position: fixed; bottom: 25px; right: 25px; background: var(--sinople); color: white; padding: 12px 20px; border-radius: 30px; display: none; align-items: center; gap: 8px; cursor: pointer; z-index: 5000; border: 2px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; transition: transform 0.2s, background 0.2s; }
+        
+        #back-to-top { position: fixed; bottom: 25px; right: 25px; background: var(--sinople); color: white; padding: 12px 20px; border-radius: 30px; display: none; align-items: center; gap: 8px; cursor: pointer; z-index: 5000; border: 2px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background 0.2s; }
         #back-to-top:hover { transform: translateY(-3px); background: #1a6e1a; }
 
         footer { background: var(--dark); color: #ccc; padding: 50px 0 30px; border-top: 8px solid var(--azur); position: relative; z-index: 10; }
@@ -223,36 +290,101 @@
         /* RECHERCHE LIVE ANNUAIRE */
         .directory-search { max-width: 680px; margin: 28px auto 10px; text-align: left; }
         .directory-search-label { display: block; margin: 0 0 8px 4px; font-size: 0.78rem; font-weight: 800; color: #555; text-transform: uppercase; letter-spacing: 0.7px; }
-        .directory-search-box { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #e6e6e6; border-radius: 999px; padding: 11px 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.06); transition: 0.25s ease; }
+        .directory-search-box { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #e6e6e6; border-radius: 999px; padding: 11px 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.06); transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease; }
         .directory-search-box:focus-within { border-color: rgba(0, 85, 164, 0.35); box-shadow: 0 10px 28px rgba(0, 85, 164, 0.12); transform: translateY(-1px); }
         .directory-search-icon { font-size: 1rem; opacity: 0.65; flex: 0 0 auto; }
-        #directory-search-input { width: 100%; border: none; outline: none; background: transparent; color: #222; font: inherit; font-size: 0.95rem; }
-        .directory-search-reset { width: 28px; height: 28px; border: none; border-radius: 50%; background: #f1f1f1; color: #666; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+        #directory-search-input { width: 100%; min-width: 0; border: none; outline: none; background: transparent; color: #222; font: inherit; font-size: 0.95rem; }
+        #directory-search-input::placeholder { color: #9a9a9a; }
+        #directory-search-input::-webkit-search-cancel-button { display: none; }
+        
+        .directory-search-reset { width: 28px; height: 28px; border: none; border-radius: 50%; background: #f1f1f1; color: #666; cursor: pointer; font-size: 1.15rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
         .directory-search-reset:hover { background: var(--azur); color: #fff; transform: rotate(90deg); }
+        .directory-search-reset[hidden] { display: none !important; }
         .directory-search-help { margin: 8px 4px 0; text-align: center; font-size: 0.82rem; color: #666; }
-        .directory-search-empty { margin: 14px auto 0; padding: 12px 16px; background: #fff; border-radius: 12px; border-left: 4px solid var(--azur); text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+        .directory-search-empty { margin: 14px auto 0; padding: 12px 16px; max-width: 520px; background: #fff; border-radius: 12px; border-left: 4px solid var(--azur); color: #555; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
 
-        .directory-card, .asso-card { max-height: 900px; overflow: hidden; transition: 0.24s ease; }
-        .directory-card.is-filtered-out, .asso-card.is-filtered-out { opacity: 0; transform: translateY(10px) scale(0.98); max-height: 0 !important; padding: 0 !important; margin: 0 !important; border: 0 !important; pointer-events: none; }
+        .directory-card, .asso-card { max-height: 900px; overflow: hidden; will-change: opacity, transform; transition: opacity 0.24s ease, transform 0.24s ease, max-height 0.24s ease, padding 0.24s ease, margin 0.24s ease, border-width 0.24s ease, box-shadow 0.3s ease; }
+        .directory-card.is-filtered-out, .asso-card.is-filtered-out { opacity: 0; transform: translateY(10px) scale(0.98); max-height: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important; border-width: 0 !important; pointer-events: none; }
         .directory-card[hidden], .asso-card[hidden] { display: none !important; }
 
-        .event-slot { display: inline-flex; align-items: center; justify-content: flex-end; min-width: 78px; margin-left: 10px; }
-        .event-badge-skeleton { width: 76px; height: 20px; border-radius: 999px; background: linear-gradient(90deg, #ececec 25%, #f8f8f8 37%, #ececec 63%); background-size: 400% 100%; animation: skeleton-loading 1.15s infinite; }
+        .event-slot { display: inline-flex; align-items: center; justify-content: flex-end; flex: 0 0 auto; min-width: 78px; margin-left: 10px; }
+        .event-badge-skeleton { width: 76px; height: 20px; border-radius: 999px; background: linear-gradient(90deg, #ececec 25%, #f8f8f8 37%, #ececec 63%); background-size: 400% 100%; animation: skeleton-loading 1.15s ease-in-out infinite; }
         @keyframes skeleton-loading { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
         .event-info-row { display: flex; align-items: flex-start; gap: 6px; }
+        .event-info-row + .event-info-row { margin-top: 2px; }
         .event-info-row--offset { padding-left: 26px; }
+        .event-info-icon { width: 20px; flex: 0 0 20px; line-height: 1.4; }
+        .event-info-line strong { color: #b33939; }
 
-        /* RESPONSIVE MOBILE (992px) */
-        @media (max-width: 992px) {
+        @media (max-width: 640px) {
+            .directory-search { margin-top: 22px; }
+            .directory-search-box { padding: 10px 12px; border-radius: 16px; }
+            #directory-search-input { font-size: 0.9rem; }
+            .event-slot { min-width: 64px; }
+            .event-badge-skeleton { width: 64px; }
+            .badge-event { font-size: 0.65rem; padding: 3px 8px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .directory-card, .asso-card, .directory-search-box, .directory-search-reset, .event-badge-skeleton, .badge-event { transition: none !important; animation: none !important; }
+        }
+
+        /* ========================================== */
+        /* RESPONSIVE : BASCULE A 1150px POUR LE MENU */
+        /* ========================================== */
+        @media (max-width: 1150px) {
             .burger-icon { display: flex !important; }
-            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; pointer-events: none; }
+
+            .sub-header {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                pointer-events: none; 
+            }
+
             .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
             .welcome-title { font-size: 1.3rem !important; margin-left: 100px !important; margin-right: 50px !important; text-align: left; }
             .top-header { justify-content: flex-start; }
-            .nav-menu { pointer-events: auto; flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; -webkit-backdrop-filter: blur(15px) !important; padding-top: 100px !important; transition: right 0.3s ease-in-out !important; border-left: 3px solid var(--azur) !important; box-shadow: -5px 0 20px rgba(0,0,0,0.5) !important; gap: 0 !important; align-items: flex-start !important; z-index: 2500; }
+
+            .nav-menu {
+                pointer-events: auto; 
+                flex-direction: column !important;
+                position: fixed !important;
+                top: 0 !important;
+                right: -300px; 
+                width: 250px !important;
+                height: 100vh !important;
+                background: rgba(26, 26, 26, 0.95) !important;
+                backdrop-filter: blur(15px) !important;
+                -webkit-backdrop-filter: blur(15px) !important;
+                padding-top: 100px !important; 
+                padding-left: 0 !important; /* On annule la marge du logo */
+                padding-right: 0 !important;
+                transition: right 0.3s ease-in-out !important;
+                border-left: 3px solid var(--azur) !important;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.5) !important;
+                gap: 0 !important;
+                align-items: flex-start !important;
+                z-index: 2500;
+            }
+
             .nav-menu.active { right: 0 !important; }
-            .nav-link { font-size: 1.1rem !important; padding: 20px 30px !important; width: 100% !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; box-sizing: border-box !important; }
-            .hero-spacer { height: 20px !important; }
+
+            /* On passe les conteneurs en colonnes */
+            .center-links { flex-direction: column; width: 100%; gap: 0; }
+            .side-container-left, .side-container-right { display: block; width: 100%; flex: none; }
+
+            .nav-link {
+                font-size: 1.1rem !important; 
+                padding: 20px 30px !important;
+                width: 100% !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+                box-sizing: border-box !important;
+            }
+
+            .hero-spacer { height: 120px !important; }
         }
     </style>
 </head>
@@ -271,13 +403,23 @@
 
     <nav class="sub-header">
         <div class="nav-menu" id="mobileMenu">
-            <a href="index.html" class="nav-link active">Accueil</a>
-            <a href="mairie.html" class="nav-link">La Mairie</a>
-            <a href="services.html" class="nav-link">Les Services</a>
-            <a href="territoire.html" class="nav-link">Le Territoire</a>
-            <a href="vie-locale.html" class="nav-link">La Vie Locale</a>
-            <a href="#boite-idees" class="nav-link nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right: 5px; color: #ffbc00;"></i>Boîte à Idées</a>
-            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo"><i class="fa-solid fa-car" style="margin-right: 5px; color: #55b4d4;"></i>AlloBoisset</a>
+            
+            <div class="side-container-left">
+                <a href="#boite-idees" class="nav-link nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right:8px;"></i>Boîte à Idées</a>
+            </div>
+
+            <div class="center-links">
+                <a href="index.html" class="nav-link active">Accueil</a>
+                <a href="mairie.html" class="nav-link">La Mairie</a>
+                <a href="services.html" class="nav-link">Les Services</a>
+                <a href="territoire.html" class="nav-link">Le Territoire</a>
+                <a href="vie-locale.html" class="nav-link">La Vie Locale</a>
+            </div>
+
+            <div class="side-container-right">
+                <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo"><i class="fa-solid fa-car" style="margin-right:8px;"></i>AlloBoisset</a>
+            </div>
+            
         </div>
     </nav>
 
@@ -359,54 +501,238 @@
             <section id="vie-locale" class="section-padding">
                 <h2 class="section-title">Annuaire des Professionnels</h2>
                 <p>Retrouvez ici les entreprises et artisans qui font vivre notre territoire.</p>
+                
                 <div class="directory-grid">
-                    <div class="directory-card"><span class="cat-tag">Bâtiment / Artisanat</span><h4>Fabrice Beyssac</h4><p>Agencements, menuiserie intérieure et extérieure, cuisines, bains et rangements.</p><a href="tel:0607102820" class="phone-link">📞 06 07 10 28 20</a></div>
-                    <div class="directory-card"><span class="cat-tag">Informatique</span><h4>TaporDigital</h4><p>Expertise en création, développement et maintenance de sites internet. Conseil et assistance informatique.</p><a href="tel:0660419226" class="phone-link">📞 06 60 41 92 26</a></div>
-                    <div class="directory-card"><span class="cat-tag">Alimentation</span><h4>L'éveil des délices</h4><p>Restaurant de village proposant une cuisine de terroir, généreuse et concoctée à partir de produits frais de saison.</p><a href="tel:0471752962" class="phone-link">📞 04 71 75 29 62</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bâtiment / Artisanat</span><h4>Théo électricité</h4><p>Électricité générale. Neuf - Rénovation - Dépannage. (Théo Broussard)</p><a href="tel:0787024055" class="phone-link">📞 07 87 02 40 55</a></div>
-                    <div class="directory-card"><span class="cat-tag">Loisirs / Ferme</span><h4>Forez à cheval</h4><p>Ferme équestre. Cours, pension, débourrage, balades randonnées, séjours, accueil de groupes, anniversaires, élevage.</p><a href="tel:0688016794" class="phone-link">📞 06 88 01 67 94</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bâtiment / Artisanat</span><h4>Christophe Brun</h4><p>Maçonnerie générale, enduit de façade, neuf et rénovation.</p><a href="tel:0670694733" class="phone-link">📞 06 70 69 47 33</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bâtiment / Artisanat</span><h4>Bufferne et fils (Sarl)</h4><p>Menuiserie, charpente, couverture, escaliers.</p><a href="tel:0471613509" class="phone-link">📞 04 71 61 35 09</a></div>
-                    <div class="directory-card"><span class="cat-tag">Alimentation</span><h4>Pizza 500</h4><p>Vente de pizzas sur place ou à emporter.</p><a href="tel:0615242032" class="phone-link">📞 06 15 24 20 32</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bien-être / Beauté</span><h4>Katy Lengrand</h4><p>Sophrologue certifiée. Séances de Sophrologie et Massages.</p><a href="tel:0684681187" class="phone-link">📞 06 84 68 11 87</a></div>
-                    <div class="directory-card"><span class="cat-tag">Alimentation / Producteur</span><h4>Didier et Isabelle Lamartine</h4><p>Produits fermiers, charcuterie campagnarde, boeuf et agneau sur commande.</p><a href="tel:0471613994" class="phone-link">📞 04 71 61 39 94</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bien-être / Beauté</span><h4>Savon et Cosmeto</h4><p>Fabrication et vente de cosmétiques naturels.</p><a href="tel:0642854028" class="phone-link">📞 06 42 85 40 28</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bâtiment / Artisanat</span><h4>Renaud Bayet</h4><p>Entreprise spécialisée en maçonnerie.</p><a href="tel:0626593446" class="phone-link">📞 06 26 59 34 46</a></div>
-                    <div class="directory-card"><span class="cat-tag">Alimentation / Producteur</span><h4>Thierry Petit</h4><p>Producteur d'œufs fermiers. Volailles élevées au grain sans OGM. Céréales produites par nos soins.</p><a href="tel:0674100521" class="phone-link">📞 06 74 10 05 21</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bien-être / Beauté</span><h4>JO Coupe Création</h4><p>Coiffure professionnelle en salon et à domicile.</p><a href="tel:0631295565" class="phone-link">📞 06 31 29 55 65</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bien-être / Beauté</span><h4>Linael Passion Zen</h4><p>Prestations de massage bien-être à domicile.</p><a href="tel:0783098599" class="phone-link">📞 07 83 09 85 99</a></div>
-                    <div class="directory-card"><span class="cat-tag">Loisirs / Ferme</span><h4>Gaec de l'Herm "Animé sens"</h4><p>Ferme pédagogique, ferme de découverte, ferme équestre et écurie de propriétaire. (Laurie Coudert)</p><a href="tel:0668951316" class="phone-link">📞 06 68 95 13 16</a></div>
-                    <div class="directory-card"><span class="cat-tag">Alimentation / Producteur</span><h4>Au plaisir fermier</h4><p>Vente de produits laitiers bios et de glaces artisanales (Gaec de l'Herm).</p><a href="tel:0675893608" class="phone-link">📞 06 75 89 36 08</a></div>
-                    <div class="directory-card"><span class="cat-tag">Services</span><h4>Multi services</h4><p>Interventions multi services par Patrice Goyon.</p><a href="tel:0683084804" class="phone-link">📞 06 83 08 48 04</a></div>
-                    <div class="directory-card"><span class="cat-tag">Automobile</span><h4>Mickael Sommet</h4><p>Carrosserie, remplacement de pare-brise et tous vitrages automobiles.</p><a href="tel:0689600715" class="phone-link">📞 06 89 60 07 15</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bâtiment / Artisanat</span><h4>SAS RF Charpente</h4><p>Couverture, ossature bois, menuiserie (Frédéric Ravachol).</p><a href="tel:0681000748" class="phone-link">📞 06 81 00 07 48</a></div>
-                    <div class="directory-card"><span class="cat-tag">Bien-être / Beauté</span><h4>Entre Ciel & Terre</h4><p>Réflexologie Plantaire, Aroma Zen Massage, Tarot Psychologique et Astrologie Humaniste par Sandra Saifi.</p><a href="tel:0617405338" class="phone-link">📞 06 17 40 53 38</a></div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Fabrice Beyssac</h4>
+                        <p>Agencements, menuiserie intérieure et extérieure, cuisines, bains et rangements.</p>
+                        <a href="tel:0607102820" class="phone-link">📞 06 07 10 28 20</a>
+                    </div>
+                    <div class="directory-card" id="prof-tapordigital">
+                        <span class="cat-tag">Informatique</span>
+                        <h4>TaporDigital</h4>
+                        <p>Expertise en création, développement et maintenance de sites internet. Conseil et assistance informatique.</p>
+                        <a href="tel:0660419226" class="phone-link">📞 06 60 41 92 26</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Alimentation</span>
+                        <h4>L'éveil des délices</h4>
+                        <p>Restaurant de village proposant une cuisine de terroir, généreuse et concoctée à partir de produits frais de saison.</p>
+                        <a href="tel:0471752962" class="phone-link">📞 04 71 75 29 62</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Théo électricité</h4>
+                        <p>Électricité générale. Neuf - Rénovation - Dépannage. (Théo Broussard)</p>
+                        <a href="tel:0787024055" class="phone-link">📞 07 87 02 40 55</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Loisirs / Ferme</span>
+                        <h4>Forez à cheval</h4>
+                        <p>Ferme équestre. Cours, pension, débourrage, balades randonnées, séjours, accueil de groupes, anniversaires, élevage.</p>
+                        <a href="tel:0688016794" class="phone-link">📞 06 88 01 67 94</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Christophe Brun</h4>
+                        <p>Maçonnerie générale, enduit de façade, neuf et rénovation.</p>
+                        <a href="tel:0670694733" class="phone-link">📞 06 70 69 47 33</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Bufferne et fils (Sarl)</h4>
+                        <p>Menuiserie, charpente, couverture, escaliers.</p>
+                        <a href="tel:0471613509" class="phone-link">📞 04 71 61 35 09</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Alimentation</span>
+                        <h4>Pizza 500</h4>
+                        <p>Vente de pizzas sur place ou à emporter.</p>
+                        <a href="tel:0615242032" class="phone-link">📞 06 15 24 20 32</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>Katy Lengrand</h4>
+                        <p>Sophrologue certifiée. Séances de Sophrologie et Massages.</p>
+                        <a href="tel:0684681187" class="phone-link">📞 06 84 68 11 87</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Alimentation / Producteur</span>
+                        <h4>Didier et Isabelle Lamartine</h4>
+                        <p>Produits fermiers, charcuterie campagnarde, boeuf et agneau sur commande.</p>
+                        <a href="tel:0471613994" class="phone-link">📞 04 71 61 39 94</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>Savon et Cosmeto</h4>
+                        <p>Fabrication et vente de cosmétiques naturels.</p>
+                        <a href="tel:0642854028" class="phone-link">📞 06 42 85 40 28</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Renaud Bayet</h4>
+                        <p>Entreprise spécialisée en maçonnerie.</p>
+                        <a href="tel:0626593446" class="phone-link">📞 06 26 59 34 46</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Alimentation / Producteur</span>
+                        <h4>Thierry Petit</h4>
+                        <p>Producteur d'œufs fermiers. Volailles élevées au grain sans OGM. Céréales produites par nos soins.</p>
+                        <a href="tel:0674100521" class="phone-link">📞 06 74 10 05 21</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>JO Coupe Création</h4>
+                        <p>Coiffure professionnelle en salon et à domicile.</p>
+                        <a href="tel:0631295565" class="phone-link">📞 06 31 29 55 65</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>Linael Passion Zen</h4>
+                        <p>Prestations de massage bien-être à domicile.</p>
+                        <a href="tel:0783098599" class="phone-link">📞 07 83 09 85 99</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Loisirs / Ferme</span>
+                        <h4>Gaec de l'Herm "Animé sens"</h4>
+                        <p>Ferme pédagogique, ferme de découverte, ferme équestre et écurie de propriétaire. (Laurie Coudert)</p>
+                        <a href="tel:0668951316" class="phone-link">📞 06 68 95 13 16</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Alimentation / Producteur</span>
+                        <h4>Au plaisir fermier</h4>
+                        <p>Vente de produits laitiers bios et de glaces artisanales (Gaec de l'Herm).</p>
+                        <a href="tel:0675893608" class="phone-link">📞 06 75 89 36 08</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Services</span>
+                        <h4>Multi services</h4>
+                        <p>Interventions multi services par Patrice Goyon.</p>
+                        <a href="tel:0683084804" class="phone-link">📞 06 83 08 48 04</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Automobile</span>
+                        <h4>Mickael Sommet</h4>
+                        <p>Carrosserie, remplacement de pare-brise et tous vitrages automobiles.</p>
+                        <a href="tel:0689600715" class="phone-link">📞 06 89 60 07 15</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>SAS RF Charpente</h4>
+                        <p>Couverture, ossature bois, menuiserie (Frédéric Ravachol).</p>
+                        <a href="tel:0681000748" class="phone-link">📞 06 81 00 07 48</a>
+                    </div>
+                    <div class="directory-card">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>Entre Ciel & Terre</h4>
+                        <p>Réflexologie Plantaire, Aroma Zen Massage, Tarot Psychologique et Astrologie Humaniste par Sandra Saifi.</p>
+                        <a href="tel:0617405338" class="phone-link">📞 06 17 40 53 38</a>
+                    </div>
                 </div>
             </section>
 
             <section id="associations-section" class="section-padding">
                 <h2 class="section-title">Le Tissu Associatif</h2>
                 <p>Découvrez les nombreuses associations qui animent notre village tout au long de l'année.</p>
+                
                 <div class="directory-grid">
-                    <div class="asso-card"><span class="asso-tag">Lien Social / Animation</span><h4>La Micheline</h4><p>Café associatif mobile, rencontres, ateliers, distribution de produits locaux et soupe musicale. Présidente : Caroline Freitas.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Culture / Art</span><h4>Les Arts du Plateau</h4><p>Développer l'art et la culture en milieu rural. Organisation d'expositions à la Chapelle St Roch. Présidente : Denise Boutin.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Animation</span><h4>Comité des Fêtes</h4><p>Organisation de la Fête patronale fin juillet, rassemblement de voitures anciennes et bals. Président : Christophe Morawiec.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Animation</span><h4>Les Joyeux Lurons</h4><p>Organisation de la vogue, bals des jeunes en plein air et fête de la bière. Président : Flavien Riberon.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Loisirs / Seniors</span><h4>Club de la Bonne Entente</h4><p>Après-midis jeux tous les jeudis, repas conviviaux, excursions et diverses sorties de groupe. Présidente : Chantal Bayle.</p><a href="tel:0674477420" class="phone-link">📞 06 74 47 74 20</a></div>
-                    <div class="asso-card"><span class="asso-tag">Culture</span><h4>La Bibliothèque</h4><p>Prêt gratuit de livres (adultes et enfants), BD, mangas. Accueil du public le samedi de 14h à 16h et accueil scolaire. Équipe bénévole.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Commerce local</span><h4>Épicerie Associative</h4><p>Produits de dépannage locaux et presse. Tenue par des bénévoles du Lundi au Samedi (9h-12h). Présidente : Laurie Coudert.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Événementiel</span><h4>Association des Marchés d'Été</h4><p>Organisation des marchés estivaux sur la place du village avec animations et producteurs. Présidente : Laurie Coudert.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Chasse / Nature</span><h4>A.C.C.A.</h4><p>Association Communale de Chasse Agréée. Président : Jean-Marc Sallanon.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Mémoire</span><h4>Anciens Combattants</h4><p>Préservation du devoir de mémoire. Président : Claude Thivillier.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Jeunesse</span><h4>L'Envol des Jeunes</h4><p>Co-présidents : Leo Petrucci & Raphaël Baudoin.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Solidarité</span><h4>Donneurs de sang</h4><p>Organisation et promotion du don du sang. Président : Thierry Provost.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Développement Local</span><h4>Dynamique et Avenir de Boisset</h4><p>Président : Ludovic Petrucci.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Agriculture</span><h4>Syndicat Agricole</h4><p>Représentation et entraide agricole. Président : Fabien Sivard.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Sport / Mécanique</span><h4>Quad Plaisir des 3 Vallées</h4><p>Randonnées et passion du quad. Président : Vincent Bufferne.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Nature / Environnement</span><h4>Association Millepertuis</h4><p>Président : Jean-Marc Denise.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Animation</span><h4>Brocatoc</h4><p>Présidente : Marie-Laure Jasserand.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Solidarité / Aide</span><h4>A.D.M.R.</h4><p>Aide à domicile en milieu rural. Présidente : Geneviève Dantony.</p></div>
-                    <div class="asso-card"><span class="asso-tag">Environnement</span><h4>ONG LanDestini</h4><p>Présidence : Fanny Agostini & Henri Landes.</p></div>
+                    <div class="asso-card" id="prof-lamicheline">
+                        <span class="asso-tag">Lien Social / Animation</span>
+                        <h4>La Micheline</h4>
+                        <p>Café associatif mobile, rencontres, ateliers, distribution de produits locaux et soupe musicale. Présidente : Caroline Freitas.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Culture / Art</span>
+                        <h4>Les Arts du Plateau</h4>
+                        <p>Développer l'art et la culture en milieu rural. Organisation d'expositions à la Chapelle St Roch. Présidente : Denise Boutin.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Comité des Fêtes</h4>
+                        <p>Organisation de la Fête patronale fin juillet, rassemblement de voitures anciennes et bals. Président : Christophe Morawiec.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Les Joyeux Lurons</h4>
+                        <p>Organisation de la vogue, bals des jeunes en plein air et fête de la bière. Président : Flavien Riberon.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Loisirs / Seniors</span>
+                        <h4>Club de la Bonne Entente</h4>
+                        <p>Après-midis jeux tous les jeudis, repas conviviaux, excursions et diverses sorties de groupe. Présidente : Chantal Bayle.</p>
+                        <a href="tel:0674477420" class="phone-link">📞 06 74 47 74 20</a>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Culture</span>
+                        <h4>La Bibliothèque</h4>
+                        <p>Prêt gratuit de livres (adultes et enfants), BD, mangas. Accueil du public le samedi de 14h à 16h et accueil scolaire. Équipe bénévole.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Commerce local</span>
+                        <h4>Épicerie Associative</h4>
+                        <p>Produits de dépannage locaux et presse. Tenue par des bénévoles du Lundi au Samedi (9h-12h). Présidente : Laurie Coudert.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Événementiel</span>
+                        <h4>Association des Marchés d'Été</h4>
+                        <p>Organisation des marchés estivaux sur la place du village avec animations et producteurs. Présidente : Laurie Coudert.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Chasse / Nature</span>
+                        <h4>A.C.C.A.</h4>
+                        <p>Association Communale de Chasse Agréée. Président : Jean-Marc Sallanon.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Mémoire</span>
+                        <h4>Anciens Combattants</h4>
+                        <p>Préservation du devoir de mémoire. Président : Claude Thivillier.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Jeunesse</span>
+                        <h4>L'Envol des Jeunes</h4>
+                        <p>Co-présidents : Leo Petrucci & Raphaël Baudoin.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Solidarité</span>
+                        <h4>Donneurs de sang</h4>
+                        <p>Organisation et promotion du don du sang. Président : Thierry Provost.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Développement Local</span>
+                        <h4>Dynamique et Avenir de Boisset</h4>
+                        <p>Président : Ludovic Petrucci.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Agriculture</span>
+                        <h4>Syndicat Agricole</h4>
+                        <p>Représentation et entraide agricole. Président : Fabien Sivard.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Sport / Mécanique</span>
+                        <h4>Quad Plaisir des 3 Vallées</h4>
+                        <p>Randonnées et passion du quad. Président : Vincent Bufferne.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Nature / Environnement</span>
+                        <h4>Association Millepertuis</h4>
+                        <p>Président : Jean-Marc Denise.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Brocatoc</h4>
+                        <p>Présidente : Marie-Laure Jasserand.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Solidarité / Aide</span>
+                        <h4>A.D.M.R.</h4>
+                        <p>Aide à domicile en milieu rural. Présidente : Geneviève Dantony.</p>
+                    </div>
+                    <div class="asso-card">
+                        <span class="asso-tag">Environnement</span>
+                        <h4>ONG LanDestini</h4>
+                        <p>Présidence : Fanny Agostini & Henri Landes.</p>
+                    </div>
                 </div>
             </section>
 
@@ -466,47 +792,92 @@
             if (menu) menu.classList.toggle('active');
             if (burger) burger.classList.toggle('active');
         }
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        
-        // BTT Button
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const btt = document.getElementById('back-to-top');
-            if (btt) window.addEventListener('scroll', () => { btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 100 ? "flex" : "none"; }, { passive: true });
+            if (btt) {
+                window.addEventListener('scroll', () => {
+                    btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 100 ? "flex" : "none";
+                }, { passive: true });
+            }
         });
 
-        // Supabase Init
+        // Supabase Logic
         const SUPABASE_URL = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
         const ACTIVE_VILLAGE_ID = 'boisset';
         const VILLAGE_FILTER_ENABLED = true;
         const FILTER_TRANSITION_MS = 240;
 
-        const SELECTS = { directoryEvents: 'name,event_text,event_expiry,event_time,event_location', news: 'title,content,created_at' };
+        const SELECTS = {
+            directoryEvents: 'name,event_text,event_expiry,event_time,event_location',
+            news: 'title,content,created_at'
+        };
 
-        function getTodayIsoLocal() { const now = new Date(); return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`; }
-        function formatDBDateToFrench(dateValue) { if (!dateValue) return ''; const parts = String(dateValue).split('T')[0].split('-'); return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : String(dateValue); }
-        function buildDirectoryId(name) { return 'prof-' + String(name || '').trim().toLowerCase().replace(/\s+/g, ''); }
-        function getCardTitleText(card) { const h4 = card ? card.querySelector('h4') : null; if (!h4) return ''; const clone = h4.cloneNode(true); clone.querySelectorAll('.badge-event, .event-slot, .event-badge-skeleton').forEach(el => el.remove()); return clone.textContent.trim(); }
+        function getTodayIsoLocal() {
+            const now = new Date();
+            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+        }
+
+        function formatDBDateToFrench(dateValue) {
+            if (!dateValue) return '';
+            const parts = String(dateValue).split('T')[0].split('-');
+            return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : String(dateValue);
+        }
+
+        function buildDirectoryId(name) {
+            return 'prof-' + String(name || '').trim().toLowerCase().replace(/\s+/g, '');
+        }
+
+        function getCardTitleText(card) {
+            const h4 = card ? card.querySelector('h4') : null;
+            if (!h4) return '';
+            const clone = h4.cloneNode(true);
+            clone.querySelectorAll('.badge-event, .event-slot, .event-badge-skeleton').forEach(el => el.remove());
+            return clone.textContent.trim();
+        }
 
         function ensureDirectoryCardIds() {
             document.querySelectorAll('.directory-card, .asso-card').forEach(card => {
-                if (!card.id) { const cardName = getCardTitleText(card); if (cardName) card.id = buildDirectoryId(cardName); }
+                if (!card.id) {
+                    const cardName = getCardTitleText(card);
+                    if (cardName) card.id = buildDirectoryId(cardName);
+                }
             });
         }
 
-        function normalizeForSearch(value) { return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
-        function getCardCategoryText(card) { const tag = card.querySelector('.cat-tag, .asso-tag'); return tag ? tag.textContent.trim() : ''; }
+        function normalizeForSearch(value) {
+            return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+        }
+
+        function getCardCategoryText(card) {
+            const tag = card.querySelector('.cat-tag, .asso-tag');
+            return tag ? tag.textContent.trim() : '';
+        }
 
         function setCardVisibility(card, shouldShow) {
             if (shouldShow) {
-                if (card.hidden) { card.classList.add('is-filtered-out'); card.hidden = false; requestAnimationFrame(() => card.classList.remove('is-filtered-out')); } else { card.classList.remove('is-filtered-out'); }
+                if (card.hidden) {
+                    card.classList.add('is-filtered-out');
+                    card.hidden = false;
+                    requestAnimationFrame(() => card.classList.remove('is-filtered-out'));
+                } else {
+                    card.classList.remove('is-filtered-out');
+                }
                 card.setAttribute('aria-hidden', 'false');
             } else {
                 card.setAttribute('aria-hidden', 'true');
                 if (card.hidden) return;
                 card.classList.add('is-filtered-out');
-                window.setTimeout(() => { if (card.classList.contains('is-filtered-out')) card.hidden = true; }, FILTER_TRANSITION_MS);
+                window.setTimeout(() => {
+                    if (card.classList.contains('is-filtered-out')) card.hidden = true;
+                }, FILTER_TRANSITION_MS);
             }
         }
 
@@ -536,17 +907,22 @@
             const empty = document.getElementById('directory-search-empty');
             const cards = Array.from(document.querySelectorAll('.directory-card, .asso-card'));
 
-            cards.forEach(card => { card.dataset.searchHaystack = `${normalizeForSearch(getCardTitleText(card))} ${normalizeForSearch(getCardCategoryText(card))}`; });
+            cards.forEach(card => {
+                card.dataset.searchHaystack = `${normalizeForSearch(getCardTitleText(card))} ${normalizeForSearch(getCardCategoryText(card))}`;
+            });
 
             let searchTimer = null;
+
             function applyFilter() {
                 const terms = normalizeForSearch(input.value || '').split(/\s+/).filter(Boolean);
                 let visibleCount = 0;
+
                 cards.forEach(card => {
                     const matches = terms.length === 0 || terms.every(term => card.dataset.searchHaystack.includes(term));
                     if (matches) visibleCount++;
                     setCardVisibility(card, matches);
                 });
+
                 if (count) count.textContent = terms.length === 0 ? `${cards.length} entrées dans l'annuaire` : `${visibleCount} résultat(s) trouvé(s)`;
                 if (empty) empty.hidden = visibleCount !== 0 || terms.length === 0;
                 if (clearButton) clearButton.hidden = input.value.length === 0;
@@ -561,6 +937,7 @@
             let query = sb.from(table).select(columns);
             if (options.villageScoped !== false && VILLAGE_FILTER_ENABLED) query = query.eq('village_id', ACTIVE_VILLAGE_ID);
             if (options.orderBy) query = query.order(options.orderBy, { ascending: options.ascending === true });
+            
             let { data, error } = await query;
             if (error && options.villageScoped !== false && VILLAGE_FILTER_ENABLED) {
                 query = sb.from(table).select(columns);
@@ -582,14 +959,18 @@
         function addEventBadge(card) {
             const slot = ensureEventSlot(card);
             if (slot && !slot.querySelector('.badge-event')) {
-                const badge = document.createElement('span'); badge.className = 'badge-event'; badge.textContent = 'Événement'; slot.appendChild(badge);
+                const badge = document.createElement('span');
+                badge.className = 'badge-event';
+                badge.textContent = 'Événement';
+                slot.appendChild(badge);
             }
         }
 
         function appendEventInfoRow(container, icon, value) {
             const cleanValue = String(value || '').trim();
             if (!cleanValue) return;
-            const row = document.createElement('div'); row.className = 'event-info-row' + (!icon ? ' event-info-row--offset' : '');
+            const row = document.createElement('div');
+            row.className = 'event-info-row' + (!icon ? ' event-info-row--offset' : '');
             if (icon) { const iconSpan = document.createElement('span'); iconSpan.className = 'event-info-icon'; iconSpan.textContent = icon; row.appendChild(iconSpan); }
             const strong = document.createElement('strong'); strong.textContent = `• ${cleanValue}`; row.appendChild(strong);
             container.appendChild(row);
@@ -597,7 +978,8 @@
 
         function addEventInfoLine(card, row) {
             if (card.querySelector('.event-info-line')) return;
-            const infoLine = document.createElement('div'); infoLine.className = 'event-info-line';
+            const infoLine = document.createElement('div');
+            infoLine.className = 'event-info-line';
             appendEventInfoRow(infoLine, '📅', row.event_text);
             appendEventInfoRow(infoLine, '', formatDBDateToFrench(row.event_expiry));
             appendEventInfoRow(infoLine, '🕒', row.event_time);
@@ -614,7 +996,8 @@
                     const card = document.getElementById(buildDirectoryId(row.name));
                     const expiry = row.event_expiry ? String(row.event_expiry).split('T')[0] : null;
                     if (card && String(row.event_text || '').trim() && (!expiry || expiry >= today)) {
-                        addEventBadge(card); addEventInfoLine(card, row);
+                        addEventBadge(card);
+                        addEventInfoLine(card, row);
                     }
                 });
             } catch (error) { console.error('Erreur Supabase local_directory:', error); }
@@ -628,10 +1011,16 @@
                 newsCont.textContent = '';
                 const fragment = document.createDocumentFragment();
                 news.forEach(n => {
-                    const item = document.createElement('div'); item.className = 'service-item'; item.style.borderLeftColor = 'var(--sinople)';
-                    const title = document.createElement('h3'); title.textContent = n.title || '';
-                    const content = document.createElement('p'); content.textContent = n.content || '';
-                    item.appendChild(title); item.appendChild(content); fragment.appendChild(item);
+                    const item = document.createElement('div');
+                    item.className = 'service-item';
+                    item.style.borderLeftColor = 'var(--sinople)';
+                    const title = document.createElement('h3');
+                    title.textContent = n.title || '';
+                    const content = document.createElement('p');
+                    content.textContent = n.content || '';
+                    item.appendChild(title);
+                    item.appendChild(content);
+                    fragment.appendChild(item);
                 });
                 newsCont.appendChild(fragment);
             } catch (error) { console.error('Erreur Supabase news:', error); }
