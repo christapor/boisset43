@@ -11,14 +11,18 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <!-- Ajout Supabase pour l'alerte Mairie -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
         :root {
             --azur: #0055A4;      
             --sinople: #228B22;   
             --argent: #F8F8F8;    
             --dark: #1a1a1a;
-            --header-h: 90px;
-            --menu-h: 55px;
+            --header-h: 80px;
+            --menu-h: 50px;
+            --accent-red: #ff4757;
         }
 
         body { 
@@ -30,6 +34,7 @@
             scroll-behavior: smooth;
         }
 
+        /* Fond Parallax */
         #bg-parallax { 
             position: fixed; 
             top: 0; 
@@ -45,38 +50,34 @@
             background-color: #333; 
         }
         
+        /* BANDEAU SUPÉRIEUR */
         .top-header { 
             background: rgba(26, 26, 26, 0.55) !important; 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            height: var(--header-h); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            z-index: 2000; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            backdrop-filter: blur(10px); height: var(--header-h); 
+            display: flex; align-items: center; 
+            padding-left: 240px; 
+            padding-right: 30px;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 2000; border-bottom: 1px solid rgba(255,255,255,0.1); 
             transition: background 0.3s ease;
         }
 
         .welcome-title { 
-            color: #f8f8f8; 
-            font-size: 2.2rem; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            margin: 0; 
-            text-align: center;
+            color: #f8f8f8; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin: 0; 
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; 
         }
+
+        /* LIENS DU TOP HEADER */
+        .top-right-link { margin-left: auto; }
+        .nav-link-top { color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; transition: 0.3s; text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8); }
+        .nav-link-idea { color: #ffbc00 !important; }
+        .nav-link-allo { color: #55b4d4 !important; }
+        .nav-link-idea:hover, .nav-link-allo:hover { filter: brightness(1.2); }
         
+        /* BARRE MENU PRINCIPAL */
         .sub-header { 
             background: rgba(42, 42, 42, 0.55) !important; 
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             height: var(--menu-h); 
             display: flex; 
             justify-content: center; 
@@ -88,28 +89,16 @@
             z-index: 1900; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
             border-bottom: 3px solid var(--azur); 
-            transition: background 0.3s ease;
         }
 
         .nav-menu { 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
+            display: flex; align-items: center; gap: 25px; justify-content: center; width: 100%; 
+            padding-left: 230px; 
+            padding-right: 30px; box-sizing: border-box; 
         }
 
-        /* TEXTE AGRANDI ET PLUS GRAS POUR LA LISIBILITÉ */
         .nav-link { 
-            color: white; 
-            text-decoration: none; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            font-size: 15px; 
-            letter-spacing: 0px; 
-            transition: 0.3s; 
-            padding: 5px 8px;
-            text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0,0,0,0.8);
-            display: inline-flex;
-            align-items: center;
+            color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 15px; padding: 5px 8px; transition: 0.3s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: inline-flex; align-items: center; 
         }
 
         .nav-link:hover, .nav-link.active { 
@@ -117,37 +106,21 @@
             border-bottom: 3px solid var(--sinople);
         }
 
-        .nav-link-idea:hover { color: #ffbc00 !important; border-bottom-color: #ffbc00 !important; }
-        .nav-link-allo:hover { color: #55b4d4 !important; border-bottom-color: #55b4d4 !important; }
+        .mobile-only-link { display: none !important; }
 
         .logo-box { 
-            position: fixed; 
-            top: 10px; 
-            left: 30px; 
-            z-index: 3000; 
-            width: 210px;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6)); 
-            transition: 0.3s;
+            position: fixed; top: 5px; left: 20px; z-index: 3000; width: 180px; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); transition: 0.3s;
         }
 
         .logo-box img { width: 100%; height: auto; }
 
         .burger-icon {
-            display: none; 
-            flex-direction: column;
-            justify-content: space-between;
-            width: 35px;
-            height: 25px;
-            cursor: pointer;
-            position: absolute;
-            right: 25px;
-            top: 32px;
-            z-index: 3100;
+            display: none; flex-direction: column; justify-content: space-between; width: 35px; height: 25px; cursor: pointer; position: absolute; right: 25px; top: 27px; z-index: 3100;
         }
 
         .burger-icon span {
-            display: block; height: 4px; width: 100%; background-color: white;
-            border-radius: 4px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            display: block; height: 4px; width: 100%; background-color: white; border-radius: 4px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .burger-icon.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
@@ -155,41 +128,19 @@
         .burger-icon.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
 
         .main-content { 
-            margin-top: calc(var(--header-h) + var(--menu-h)); 
+            margin-top: 450px; 
             position: relative; 
             z-index: 10; 
         }
 
-        .hero-spacer { height: 180px; display: flex; align-items: flex-end; justify-content: center; }
+        .hero-spacer { height: 40px; display: flex; align-items: flex-end; justify-content: center; }
 
         .quick-links { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-            gap: 15px; 
-            max-width: 1100px; 
-            margin: -50px auto 40px; 
-            padding: 0 20px; 
-            position: relative; 
-            z-index: 60; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; max-width: 1100px; margin: -50px auto 40px; padding: 0 20px; position: relative; z-index: 60; 
         }
 
         .link-card { 
-            background: white; 
-            padding: 20px 10px; 
-            border-radius: 10px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-            text-decoration: none; 
-            color: var(--dark); 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            font-size: 0.8rem; 
-            text-align: center; 
-            border-bottom: 4px solid var(--azur); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 8px; 
-            transition: 0.3s; 
+            background: white; padding: 20px 10px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-decoration: none; color: var(--dark); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; text-align: center; border-bottom: 4px solid var(--azur); display: flex; flex-direction: column; align-items: center; gap: 8px; transition: 0.3s; 
         }
 
         .link-card:hover { transform: translateY(-5px); border-color: var(--sinople); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
@@ -197,12 +148,7 @@
         .link-card:hover i { color: var(--sinople); }
 
         .container { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            padding: 40px 20px; 
-            background: rgba(248, 248, 248, 0.98); 
-            border-radius: 20px 20px 0 0; 
-            box-sizing: border-box;
+            max-width: 1100px; margin: 0 auto; padding: 40px 20px; background: rgba(248, 248, 248, 0.98); border-radius: 20px; box-sizing: border-box;
         }
 
         .section-padding { padding: 60px 0 40px; border-bottom: 1px solid #eee; scroll-margin-top: 150px; }
@@ -240,16 +186,20 @@
 
         .mairie-placeholder { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border-left: 5px solid #ccc; margin-top: 15px; }
 
-        /* NOUVEAU POINT DE BASCULE À 1150px POUR ÉVITER LE CHEVAUCHEMENT */
+        /* RESPONSIVE MOBILE */
         @media (max-width: 1150px) {
             .burger-icon { display: flex !important; }
-            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; pointer-events: none; }
-            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
-            .welcome-title { font-size: 1.3rem !important; margin-left: 100px !important; margin-right: 50px !important; text-align: left; }
-            .top-header { justify-content: flex-start; }
-            .nav-menu { pointer-events: auto; flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; -webkit-backdrop-filter: blur(15px) !important; padding-top: 100px !important; transition: right 0.3s ease-in-out !important; border-left: 3px solid var(--azur) !important; box-shadow: -5px 0 20px rgba(0,0,0,0.5) !important; gap: 0 !important; align-items: flex-start !important; z-index: 2500; }
+            .top-left-link, .top-right-link { display: none !important; }
+            .mobile-only-link { display: flex !important; margin-top: 15px; }
+            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; pointer-events: none; }
+            
+            .nav-menu { pointer-events: auto !important; flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; padding-top: 100px !important; padding-left: 0 !important; padding-right: 0 !important; transition: 0.3s !important; border-left: 3px solid var(--azur) !important; align-items: flex-start !important; z-index: 2500; }
             .nav-menu.active { right: 0 !important; }
             .nav-link { font-size: 1.1rem !important; padding: 20px 30px !important; width: 100% !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; box-sizing: border-box !important; }
+            
+            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
+            .welcome-title { position: static !important; transform: none !important; font-size: 1.3rem !important; margin-left: 110px !important; text-align: left; white-space: normal; }
+            .top-header { justify-content: flex-start; padding-left: 0; padding-right: 0; }
             .hero-spacer { height: 120px !important; }
             .quick-links { margin-top: 20px !important; }
         }
@@ -265,18 +215,28 @@
             <span></span>
             <span></span>
         </div>
+        
+        <div class="top-left-link">
+            <a href="index.html#boite-idees" class="nav-link-top nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+        </div>
+        
         <h1 class="welcome-title">Bienvenue à Boisset</h1>
+        
+        <div class="top-right-link">
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link-top nav-link-allo"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+        </div>
     </header>
 
     <nav class="sub-header">
         <div class="nav-menu" id="mobileMenu">
-            <a href="index.html" class="nav-link">Accueil</a>
-            <a href="mairie.html" class="nav-link active">La Mairie</a>
-            <a href="services.html" class="nav-link">Les Services</a>
-            <a href="territoire.html" class="nav-link">Le Territoire</a>
-            <a href="vie-locale.html" class="nav-link">La Vie Locale</a>
-            <a href="index.html#boite-idees" class="nav-link nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right: 5px; color: #ffbc00;"></i>Boîte à Idées</a>
-            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo"><i class="fa-solid fa-car" style="margin-right: 5px; color: #55b4d4;"></i>AlloBoisset</a>
+            <a href="index.html" class="nav-link" onclick="toggleMenu()">Accueil</a>
+            <a href="mairie.html" class="nav-link active" onclick="toggleMenu()">La Mairie</a>
+            <a href="services.html" class="nav-link" onclick="toggleMenu()">Les Services</a>
+            <a href="territoire.html" class="nav-link" onclick="toggleMenu()">Le Territoire</a>
+            <a href="vie-locale.html" class="nav-link" onclick="toggleMenu()">La Vie Locale</a>
+            
+            <a href="index.html#boite-idees" class="nav-link nav-link-idea mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
         </div>
     </nav>
 
@@ -300,24 +260,33 @@
 
         <main class="container">
             
-            <section id="secretariat" class="section-padding">
+            <!-- LE "TRUC INVISIBLE" POUR L'ALERTE ROUGE MAIRIE -->
+            <div id="mairie-alert-container" style="display: none; background: #fff5f5; border-left: 5px solid #ff4757; padding: 15px; margin-bottom: 40px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: left;">
+                <div style="color: #ff4757; font-weight: 900; margin-bottom: 5px; font-size: 1.1rem; text-transform: uppercase;">
+                    ⚠️ Alerte Mairie
+                </div>
+                <div id="mairie-alert-text" style="color: #d63031; font-weight: 700; font-size: 0.95rem;"></div>
+            </div>
+
+            <section id="secretariat" class="section-padding" style="padding-top: 20px;">
                 <h2 class="section-title">Secrétariat de Mairie</h2>
                 <div class="grid-2">
                     <div class="mairie-card">
                         <h3><i class="fa-solid fa-clock" style="color:var(--azur);"></i> Horaires d'ouverture</h3>
                         <ul class="horaires-list">
-                            <li><span>Lundi</span> <strong>09h00 - 12h00</strong></li>
-                            <li><span>Mardi</span> <strong>Fermé au public</strong></li>
-                            <li><span>Mercredi</span> <strong>14h00 - 17h00</strong></li>
-                            <li><span>Jeudi</span> <strong>09h00 - 12h00</strong></li>
-                            <li><span>Vendredi</span> <strong>14h00 - 16h30</strong></li>
+                            <li><span>Lundi</span> <strong>08h00 - 12h00</strong></li>
+                            <li><span>Mardi</span> <strong>14h00 - 18h00</strong></li>
+                            <li><span>Mercredi</span> <strong style="color: var(--accent-red);">Fermé au public</strong></li>
+                            <li><span>Jeudi</span> <strong>08h00 - 12h00</strong></li>
+                            <li><span>Vendredi</span> <strong style="color: var(--accent-red);">Fermé au public</strong></li>
+                            <li><span>Samedi</span> <strong>14h00 - 16h00</strong></li>
                         </ul>
                     </div>
                     <div class="mairie-card" style="border-top-color: var(--sinople);">
                         <h3><i class="fa-solid fa-phone" style="color:var(--sinople);"></i> Nous contacter</h3>
                         <p><strong>Adresse :</strong> 1 Place de la Mairie, 43500 Boisset</p>
                         <p><strong>Téléphone :</strong> 04 71 61 31 16</p>
-                        <p><strong>Email :</strong> mairie@boisset43.fr</p>
+                        <p><strong>Email :</strong> <a href="mailto:mairie.boisset@orange.fr" style="color: var(--azur); text-decoration: none; font-weight: bold;">mairie.boisset@orange.fr</a></p>
                         <p style="margin-top:20px; font-size:0.9rem; color:#666; font-style:italic;">
                             Pour toute demande d'état civil ou d'urbanisme, merci de privilégier les heures d'ouverture du secrétariat.
                         </p>
@@ -330,26 +299,31 @@
                 <p style="text-align:center; max-width:700px; margin: 0 auto 30px; color:#555;">
                     Le conseil municipal est à votre écoute pour accompagner le quotidien du village et bâtir ensemble les projets de demain.
                 </p>
+                
                 <div class="grid-trombi">
                     <div class="trombi-card" style="grid-column: 1 / -1; max-width: 260px; margin: 0 auto 20px; border-color: var(--azur);">
                         <div class="trombi-img"><i class="fa-solid fa-user-tie"></i></div>
-                        <div class="trombi-name">Florian ____</div>
+                        <div class="trombi-name">Florian Capdevielle</div>
                         <div class="trombi-role" style="color:var(--azur);">Maire</div>
                     </div>
                 </div>
+                
                 <div class="grid-trombi">
-                    <div class="trombi-card"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">1er Adjoint</div><div class="trombi-role">Adjoint</div></div>
-                    <div class="trombi-card"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">2ème Adjoint</div><div class="trombi-role">Adjoint</div></div>
-                    <div class="trombi-card"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">Conseiller Municipal</div><div class="trombi-role">Conseiller</div></div>
-                    <div class="trombi-card"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">Conseillère Municipale</div><div class="trombi-role">Conseillère</div></div>
+                    <div class="trombi-card"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">Eric Gagnère</div><div class="trombi-role">1er Adjoint</div></div>
+                    <div class="trombi-card"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">Denise Boutin</div><div class="trombi-role">2ème Adjointe</div></div>
+                    
+                    <!-- Placeholders pour les autres, tu pourras ajuster plus tard -->
+                    <div class="trombi-card"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">Prénom Nom</div><div class="trombi-role">Conseiller</div></div>
+                    <div class="trombi-card"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">Prénom Nom</div><div class="trombi-role">Conseiller</div></div>
                 </div>
             </section>
 
             <section id="agents" class="section-padding">
                 <h2 class="section-title">Vos Agents Communaux</h2>
                 <div class="grid-trombi">
-                    <div class="trombi-card"><div class="trombi-img" style="border-color:var(--sinople);"><i class="fa-solid fa-user-gear"></i></div><div class="trombi-name">Secrétaire</div><div class="trombi-role">Secrétariat & Accueil</div></div>
-                    <div class="trombi-card"><div class="trombi-img" style="border-color:var(--sinople);"><i class="fa-solid fa-user-gear"></i></div><div class="trombi-name">Agent Technique</div><div class="trombi-role">Entretien & Technique</div></div>
+                    <div class="trombi-card"><div class="trombi-img" style="border-color:var(--sinople);"><i class="fa-solid fa-user-gear"></i></div><div class="trombi-name">Murielle Bouillon</div><div class="trombi-role">Secrétaire de Mairie</div></div>
+                    <div class="trombi-card"><div class="trombi-img" style="border-color:var(--sinople);"><i class="fa-solid fa-user-gear"></i></div><div class="trombi-name">Cédric Dérail</div><div class="trombi-role">Services Techniques</div></div>
+                    <div class="trombi-card"><div class="trombi-img" style="border-color:var(--sinople);"><i class="fa-solid fa-user-gear"></i></div><div class="trombi-name">Thierry Petit</div><div class="trombi-role">Services Techniques</div></div>
                 </div>
             </section>
 
@@ -388,6 +362,9 @@
 
         </main>
 
+        <!-- BLOC TRANSPARENT DE 450px POUR VOIR L'IMAGE DE FOND EN BAS DE PAGE -->
+        <div style="height: 450px; background: transparent; width: 100%; position: relative; z-index: 1;"></div>
+
         <footer>
             <div style="max-width: 800px; margin: 0 auto; padding:10px 20px; font-size:0.85rem; color:#888;">
                 &copy; 2026 Commune de Boisset (43) - Site Officiel.<br>Modèle développé par <strong>TaporDigital</strong>.
@@ -410,8 +387,50 @@
                     btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 100 ? "flex" : "none";
                 }, { passive: true });
             }
+            
+            // Appel de l'alerte mairie
+            loadMairieAlert();
         });
+        
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+        // ---------------------------------------------------------
+        // LOGIQUE SUPABASE POUR L'ALERTE MAIRIE
+        // ---------------------------------------------------------
+        const supabaseUrl = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
+        const sb = supabase.createClient(supabaseUrl, supabaseKey);
+
+        function getTodayIsoLocal() {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            return now.toISOString().split('T')[0];
+        }
+
+        async function loadMairieAlert() {
+            try {
+                // L'admin de la mairie utilise son profil pour passer une alerte critique
+                const { data, error } = await sb.from('local_directory').select('event_text, event_expiry').eq('owner_email', 'mairie.boisset@orange.fr').single();
+                
+                if (data && data.event_text) {
+                    const today = getTodayIsoLocal();
+                    const expiry = data.event_expiry ? String(data.event_expiry).split('T')[0] : null;
+                    
+                    // Affiche seulement si la date d'expiration n'est pas passée
+                    if (!expiry || expiry >= today) {
+                        const alertContainer = document.getElementById('mairie-alert-container');
+                        const alertText = document.getElementById('mairie-alert-text');
+                        if (alertContainer && alertText) {
+                            alertText.textContent = data.event_text;
+                            alertContainer.style.display = 'block';
+                        }
+                    }
+                }
+            } catch (error) {
+                // Silencieux si pas d'alerte ou erreur
+                console.log('Pas d\'alerte Mairie trouvée.');
+            }
+        }
     </script>
 </body>
 </html>
