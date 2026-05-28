@@ -607,7 +607,7 @@
         </footer>
     </div>
 
-    <script>
+       <script>
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             const burger = document.querySelector('.burger-icon');
@@ -629,7 +629,7 @@
         });
 
         // ---------------------------------------------------------
-        // LOGIQUE SUPABASE ET ANNUAIRE
+        // LOGIQUE SUPABASE (ACTUS & ALERTES)
         // ---------------------------------------------------------
         const supabaseUrl = 'https://nwrjlkmvdgubifvqbdkx.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cmpsa212ZGd1YmlmdnFiZGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4OTQxODMsImV4cCI6MjA5MDQ3MDE4M30.64NvGf11u_BDe6O_kP6trCuxefiAsD9kQyl9LZB9mwU';
@@ -639,84 +639,13 @@
         const VILLAGE_FILTER_ENABLED = true;
 
         const SELECTS = {
-            directoryEvents: 'name, event_text, event_expiry, event_time, event_location',
             news: 'id, title, content, created_at'
         };
-
-        function slugify(text) {
-            return (text || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, '-');
-        }
-        function buildDirectoryId(name) { return name ? `prof-${slugify(name)}` : ''; }
 
         function getTodayIsoLocal() {
             const now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
             return now.toISOString().split('T')[0];
-        }
-
-        function formatDBDateToFrench(isoDateStr) {
-            if (!isoDateStr) return '';
-            const parts = isoDateStr.split('T')[0].split('-');
-            if (parts.length !== 3) return isoDateStr;
-            const months = ['janv.', 'févr.', 'mars', 'avril', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
-            const m = parseInt(parts[1], 10);
-            return `${parseInt(parts[2], 10)} ${months[m - 1]} ${parts[0]}`;
-        }
-
-        function ensureDirectoryCardIds() {
-            document.querySelectorAll('.directory-card h4, .asso-card h4').forEach(h4 => {
-                const card = h4.closest('.directory-card, .asso-card');
-                if (card && !card.id && h4.textContent) {
-                    card.id = h4.closest('.asso-card') ? `asso-${slugify(h4.textContent)}` : buildDirectoryId(h4.textContent);
-                }
-            });
-        }
-
-        function initDirectorySearch() {
-            const input = document.getElementById('directory-search-input');
-            const clearButton = document.querySelector('.directory-search-reset');
-            const count = document.getElementById('directory-search-count');
-            const empty = document.getElementById('directory-search-empty');
-            const cards = Array.from(document.querySelectorAll('.directory-card, .asso-card'));
-            let searchTimer = null;
-
-            if (!input || cards.length === 0) return;
-
-            function applyFilter() {
-                const rawSearch = input.value.trim();
-                const searchStr = slugify(rawSearch).replace(/-/g, ' ');
-                const terms = searchStr.split(' ').filter(t => t.length > 0);
-                let visibleCount = 0;
-
-                cards.forEach(card => {
-                    if (terms.length === 0) {
-                        card.classList.remove('is-filtered-out');
-                        visibleCount++;
-                        return;
-                    }
-
-                    const tag = card.querySelector('.cat-tag, .asso-tag');
-                    const h4 = card.querySelector('h4');
-                    const p = card.querySelector('p');
-                    const cardText = slugify(`${tag ? tag.textContent : ''} ${h4 ? h4.textContent : ''} ${p ? p.textContent : ''}`).replace(/-/g, ' ');
-                    
-                    const isMatch = terms.every(term => cardText.includes(term));
-                    if (isMatch) {
-                        card.classList.remove('is-filtered-out');
-                        visibleCount++;
-                    } else {
-                        card.classList.add('is-filtered-out');
-                    }
-                });
-
-                if (count) count.textContent = terms.length === 0 ? `${cards.length} entrées dans l'annuaire` : `${visibleCount} résultat(s) trouvé(s)`;
-                if (empty) empty.hidden = visibleCount !== 0 || terms.length === 0;
-                if (clearButton) clearButton.hidden = input.value.length === 0;
-            }
-
-            input.addEventListener('input', () => { window.clearTimeout(searchTimer); searchTimer = window.setTimeout(applyFilter, 60); });
-            clearButton.addEventListener('click', () => { input.value = ''; applyFilter(); input.focus(); });
-            applyFilter();
         }
 
         async function selectRows(table, columns, options = {}) {
@@ -732,61 +661,6 @@
             }
             if (error) throw error;
             return data || [];
-        }
-
-        function ensureEventSlot(card) {
-            const h4 = card ? card.querySelector('h4') : null;
-            if (!h4) return null;
-            let slot = h4.querySelector('.event-slot');
-            if (!slot) { slot = document.createElement('span'); slot.className = 'event-slot'; h4.appendChild(slot); }
-            return slot;
-        }
-
-        function addEventBadge(card) {
-            const slot = ensureEventSlot(card);
-            if (slot && !slot.querySelector('.badge-event')) {
-                const badge = document.createElement('span');
-                badge.className = 'badge-event';
-                badge.textContent = 'Événement';
-                slot.appendChild(badge);
-            }
-        }
-
-        function appendEventInfoRow(container, icon, value) {
-            const cleanValue = String(value || '').trim();
-            if (!cleanValue) return;
-            const row = document.createElement('div');
-            row.className = 'event-info-row' + (!icon ? ' event-info-row--offset' : '');
-            if (icon) { const iconSpan = document.createElement('span'); iconSpan.className = 'event-info-icon'; iconSpan.textContent = icon; row.appendChild(iconSpan); }
-            const strong = document.createElement('strong'); strong.textContent = `• ${cleanValue}`; row.appendChild(strong);
-            container.appendChild(row);
-        }
-
-        function addEventInfoLine(card, row) {
-            if (card.querySelector('.event-info-line')) return;
-            const infoLine = document.createElement('div');
-            infoLine.className = 'event-info-line';
-            appendEventInfoRow(infoLine, '📅', row.event_text);
-            appendEventInfoRow(infoLine, '', formatDBDateToFrench(row.event_expiry));
-            appendEventInfoRow(infoLine, '🕒', row.event_time);
-            appendEventInfoRow(infoLine, '📍', row.event_location);
-            card.appendChild(infoLine);
-        }
-
-        async function updateDynamicEvents() {
-            document.querySelectorAll('.badge-event, .event-info-line').forEach(el => el.remove());
-            try {
-                const results = await selectRows('local_directory', SELECTS.directoryEvents, { villageScoped: true });
-                const today = getTodayIsoLocal();
-                results.forEach(row => {
-                    const card = document.getElementById(buildDirectoryId(row.name));
-                    const expiry = row.event_expiry ? String(row.event_expiry).split('T')[0] : null;
-                    if (card && String(row.event_text || '').trim() && (!expiry || expiry >= today)) {
-                        addEventBadge(card);
-                        addEventInfoLine(card, row);
-                    }
-                });
-            } catch (error) { console.error('Erreur Supabase local_directory:', error); }
         }
 
         async function loadNews() {
@@ -839,9 +713,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            ensureDirectoryCardIds();
-            initDirectorySearch();
-            updateDynamicEvents();
             loadNews();
             loadMairieAlert(); // Appel de la fonction d'alerte Mairie
         });
