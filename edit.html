@@ -8,38 +8,68 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f9f9f9; padding: 20px; }
         .container { max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
-        h2 { border-bottom: 2px solid #3ecf8e; padding-bottom: 10px; color: #333; }
+        h2 { border-bottom: 2px solid #3ecf8e; padding-bottom: 10px; color: #333; transition: border-color 0.3s; }
+        .mairie-title { border-bottom: 2px solid #ff4757 !important; }
         label { display: flex; align-items: center; margin-top: 20px; font-weight: 600; color: #555; font-size: 1.1rem; }
-        input { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+        textarea { font-family: inherit; resize: vertical; }
         button { margin-top: 30px; width: 100%; padding: 15px; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; }
         button:hover { background: #000; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
         #status { margin-top: 20px; text-align: center; font-weight: bold; }
         .nav-link { display: block; margin-top: 20px; text-align: center; color: #3ecf8e; text-decoration: none; font-weight: bold; }
+        .btn-group { display: flex; gap: 15px; margin-top: 30px; }
+        .btn-publier { background: #ff4757; margin-top: 0; }
+        .btn-publier:hover { background: #e03d4f; }
+        .btn-effacer { background: #7f8c8d; margin-top: 0; }
+        .btn-effacer:hover { background: #6c7a7b; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Gérer mon événement</h2>
+        <h2 id="page-title">Gérer mon événement</h2>
         <p id="user-info" style="color: #666; font-style: italic;">Vérification de la session...</p>
         
         <div id="form-area" style="display:none;">
-            <label>📅 Nom de l'événement</label>
-            <input type="text" id="event_text" placeholder="Ex: Soupe aux choux">
             
-            <label>📆 Date de l'événement</label>
-            <input type="date" id="event_expiry">
-            
-            <label>🕒 Horaires (Texte libre)</label>
-            <input type="text" id="event_time" placeholder="Ex: de 19h30 à 22h30">
+            <div id="asso-fields">
+                <label>📅 Nom de l'événement</label>
+                <input type="text" id="event_text" placeholder="Ex: Soupe aux choux">
+                
+                <label>📆 Date de l'événement</label>
+                <input type="date" id="event_expiry">
+                
+                <label>🕒 Horaires (Texte libre)</label>
+                <input type="text" id="event_time" placeholder="Ex: de 19h30 à 22h30">
 
-            <label>📍 Lieu de l'événement</label>
-            <input type="text" id="event_location" placeholder="Ex: Salle des fêtes La Jourdane">
-            
-            <button onclick="updateData()" id="updateBtn">Mettre à jour ma fiche</button>
+                <label>📍 Lieu de l'événement</label>
+                <input type="text" id="event_location" placeholder="Ex: Salle des fêtes La Jourdane">
+                
+                <button onclick="updateData()" id="updateBtn">Mettre à jour ma fiche</button>
+            </div>
+
+            <div id="mairie-fields" style="display:none;">
+                <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px;">
+                    Saisissez ici les informations urgentes à relayer aux habitants (travaux, météo, coupure d'eau...). Le message s'affichera directement sous le menu principal.
+                </p>
+
+                <label style="color: #ff4757;">⚠️ Message de l'alerte</label>
+                <textarea id="mairie_text" rows="3" placeholder="Ex: Attention, chute d'arbre importante sur la RD 42. Route actuellement coupée, déviation mise en place."></textarea>
+                
+                <label>📆 Date d'expiration automatique (Optionnelle)</label>
+                <input type="date" id="mairie_expiry">
+                <small style="color: #7f8c8d; display: block; margin-top: 6px;">Le bandeau s'enlèvera tout seul du site une fois cette date passée.</small>
+                
+                <div class="btn-group">
+                    <button onclick="updateMairieAlert(false)" id="mairieBtnPublier" class="btn-publier">Publier l'alerte</button>
+                    <button onclick="updateMairieAlert(true)" id="mairieBtnEffacer" class="btn-effacer">Effacer l'alerte</button>
+                </div>
+            </div>
+
         </div>
         
         <p id="status"></p>
-        <a href="index.html" class="nav-link">← Retour au site</a>
+        <a href="index.html" class="nav-link" id="back-link">← Retour au site</a>
     </div>
 
    <script>
@@ -48,6 +78,7 @@
         const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
         let currentUser = null;
+        const MAIRIE_EMAIL = 'mairie.boisset@orange.fr';
 
         async function checkUser() {
             const { data: { user } } = await sb.auth.getUser();
@@ -55,6 +86,16 @@
                 currentUser = user;
                 document.getElementById('user-info').innerText = "Connecté en tant que : " + user.email;
                 document.getElementById('form-area').style.display = "block";
+                
+                // ROUTAGE : Affichage du bon formulaire selon l'adresse email
+                if (user.email === MAIRIE_EMAIL) {
+                    document.getElementById('page-title').innerText = "🚨 Alerte Communale";
+                    document.getElementById('page-title').classList.add('mairie-title');
+                    document.getElementById('back-link').style.color = "#ff4757";
+                    document.getElementById('asso-fields').style.display = "none";
+                    document.getElementById('mairie-fields').style.display = "block";
+                }
+                
                 loadCurrentData();
             } else {
                 document.getElementById('user-info').innerText = "Non connecté.";
@@ -63,16 +104,23 @@
         }
 
         async function loadCurrentData() {
-            // CORRECTION ICI : On utilise 'owner_email' au lieu de 'email'
             const { data, error } = await sb.from('local_directory').select('*').eq('owner_email', currentUser.email).single();
             if (data) {
-                if(data.event_text) document.getElementById('event_text').value = data.event_text;
-                if(data.event_expiry) document.getElementById('event_expiry').value = data.event_expiry.split('T')[0];
-                if(data.event_time) document.getElementById('event_time').value = data.event_time;
-                if(data.event_location) document.getElementById('event_location').value = data.event_location;
+                if (currentUser.email === MAIRIE_EMAIL) {
+                    // Chargement des données version Mairie
+                    if(data.event_text) document.getElementById('mairie_text').value = data.event_text;
+                    if(data.event_expiry) document.getElementById('mairie_expiry').value = data.event_expiry.split('T')[0];
+                } else {
+                    // Chargement des données version Standard
+                    if(data.event_text) document.getElementById('event_text').value = data.event_text;
+                    if(data.event_expiry) document.getElementById('event_expiry').value = data.event_expiry.split('T')[0];
+                    if(data.event_time) document.getElementById('event_time').value = data.event_time;
+                    if(data.event_location) document.getElementById('event_location').value = data.event_location;
+                }
             }
         }
 
+        // 🛠️ FONCTION DE MISE À JOUR : APPS & COMMERÇANTS
         async function updateData() {
             const btn = document.getElementById('updateBtn');
             const status = document.getElementById('status');
@@ -85,7 +133,6 @@
             const eTime = document.getElementById('event_time').value;
             const eLocation = document.getElementById('event_location').value;
 
-            // CORRECTION ICI AUSSI : On utilise 'owner_email' au lieu de 'email'
             const { error } = await sb.from('local_directory').update({
                 event_text: eText,
                 event_expiry: eExpiry ? eExpiry : null,
@@ -101,6 +148,50 @@
                 status.innerText = "Fiche mise à jour avec succès !";
             }
             btn.disabled = false;
+        }
+
+        // 🛠️ FONCTION DE MISE À JOUR : EXCLUSIF MAIRIE
+        async function updateMairieAlert(isClearAction) {
+            const btnPublier = document.getElementById('mairieBtnPublier');
+            const btnEffacer = document.getElementById('mairieBtnEffacer');
+            const status = document.getElementById('status');
+            
+            btnPublier.disabled = true;
+            btnEffacer.disabled = true;
+            status.style.color = "#333";
+            status.innerText = "Traitement en cours...";
+
+            let updatePayload = {};
+
+            if (isClearAction) {
+                // Si on clique sur effacer : on vide les colonnes
+                updatePayload = { event_text: null, event_expiry: null };
+            } else {
+                // Si on valide : on prend le texte et la date
+                updatePayload = {
+                    event_text: document.getElementById('mairie_text').value,
+                    event_expiry: document.getElementById('mairie_expiry').value || null
+                };
+            }
+
+            const { error } = await sb.from('local_directory').update(updatePayload).eq('owner_email', MAIRIE_EMAIL);
+
+            if (error) {
+                status.style.color = "red";
+                status.innerText = "Erreur: " + error.message;
+            } else {
+                status.style.color = "green";
+                if (isClearAction) {
+                    document.getElementById('mairie_text').value = "";
+                    document.getElementById('mairie_expiry').value = "";
+                    status.innerText = "L'alerte a été retirée du site avec succès !";
+                } else {
+                    status.innerText = "L'alerte a été publiée sur la page d'accueil !";
+                }
+            }
+            
+            btnPublier.disabled = false;
+            btnEffacer.disabled = false;
         }
 
         checkUser();
