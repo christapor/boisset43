@@ -127,7 +127,7 @@
         .burger-icon.active span:nth-child(2) { opacity: 0; }
         .burger-icon.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
 
-        .main-content { 
+      .main-content { 
             margin-top: 175px; 
             position: relative; 
             z-index: 10; 
@@ -136,9 +136,18 @@
         .hero-spacer { height: 40px; display: flex; align-items: flex-end; justify-content: center; }
 
         .quick-links { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; max-width: 1100px; margin: -50px auto 40px; padding: 0 20px; position: relative; z-index: 60; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; max-width: 1100px; margin: -50px auto 450px; padding: 0 20px; position: relative; z-index: 60; 
         }
 
+        /* --- ZONE RESPONSIVE MOBILE (Pour ton Xiaomi) --- */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-top: 90px; /* Espace réduit sous le menu sur mobile */
+            }
+            .quick-links {
+                margin-bottom: 50px; /* On écrase les 450px pour mettre un petit 50px propre sur mobile */
+            }
+        }
         .link-card { 
             background: white; padding: 20px 10px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-decoration: none; color: var(--dark); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; text-align: center; border-bottom: 4px solid var(--azur); display: flex; flex-direction: column; align-items: center; gap: 8px; transition: 0.3s; 
         }
@@ -249,7 +258,7 @@
     <div class="main-content">
         <div class="hero-spacer"></div>
 
-        <section class="quick-links" style="margin-bottom: 450px;">
+        <section class="quick-links">
             <a href="#secretariat" class="link-card"><i class="fa-solid fa-clock"></i>Secrétariat</a>
             <a href="#elus" class="link-card"><i class="fa-solid fa-user-tie"></i>Vos Élus</a>
             <a href="#agents" class="link-card"><i class="fa-solid fa-user-gear"></i>Vos Agents</a>
