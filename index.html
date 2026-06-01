@@ -626,12 +626,12 @@
             }
         }
 
-        async function loadMairieAlert() {
+       async function loadMairieAlert() {
             try {
-                // On récupère les lignes de la table 'cards' filtrées sur la catégorie 'Mairie'
-                const alerts = await selectRows('cards', '*', { villageScoped: true });
+                // CORRECTION ICI : On utilise le vrai nom de ta table 'local_directory'
+                const alerts = await selectRows('local_directory', '*', { villageScoped: true });
                 
-                // On cherche la ligne spécifique de la Mairie
+                // On cherche la ligne spécifique de la Mairie (l'ID 99 que tu as coché !)
                 const data = alerts.find(a => a.category === 'Mairie');
 
                 if (data) {
@@ -645,7 +645,7 @@
                         
                         if (alertContainer && alertText) {
                             alertText.textContent = data.event_text;
-                            alertContainer.style.display = 'block'; // Rend le bloc visible
+                            alertContainer.style.display = 'block'; // Rend le bloc visible sur l'image
                         }
                     }
                 }
