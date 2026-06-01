@@ -600,52 +600,59 @@
         const sbKey = 'sb_publishable_gkrziK1nENbbMMIga86Hlw_zhSKWyPj';
         const supabaseClient = supabase.createClient(sbUrl, sbKey);
 
-        async function injectEventsIntoCards() {
+       async function injectEventsIntoCards() {
             const { data, error } = await supabaseClient
                 .from('local_directory')
-                .select('card_id, event_text, event_expiry, event_time, event_location')
-                .not('event_text', 'is', null);
+                .select('card_id, event_text, event_expiry, event_time, event_location');
 
             if (error) return;
 
             const today = new Date().toISOString().split('T')[0];
 
             data.forEach(fiche => {
-                if (fiche.event_expiry && fiche.event_expiry < today) {
+                const card = document.getElementById(fiche.card_id);
+                if (!card) return;
+
+                // 1. Nettoyage : on supprime les anciens éléments pour repartir sur une base propre
+                const oldText = card.querySelector('.event-text-top');
+                const oldBadge = card.querySelector('.badge-pulsing');
+                if (oldText) oldText.remove();
+                if (oldBadge) oldBadge.remove();
+
+                // 2. Si l'événement est périmé ou vide, on ne fait rien de plus
+                if (!fiche.event_text || (fiche.event_expiry && fiche.event_expiry < today)) {
                     return;
                 }
 
-                const card = document.getElementById(fiche.card_id);
-                
-                if (card) {
-                    // --- A. Injection au niveau du Titre <h4> ---
-                    const title = card.querySelector('h4');
-                    if (title) {
-                       let detailsHtml = '';
-                    
-                    // NOUVEAU : Affichage et formatage de la date
+                // 3. Sinon, on réinjecte tout proprement
+                const title = card.querySelector('h4');
+                if (title) {
+                    let detailsHtml = '';
                     if (fiche.event_expiry) {
-                        // On coupe la date (AAAA-MM-JJ) pour la remettre dans le bon ordre
                         const dateParts = fiche.event_expiry.split('T')[0].split('-');
-                        if (dateParts.length === 3) {
-                            detailsHtml += `📅 ${dateParts[2]}/${dateParts[1]}/${dateParts[0]} <br>`;
-                        }
+                        detailsHtml += `📅 ${dateParts[2]}/${dateParts[1]}/${dateParts[0]} <br>`;
                     }
-                    
-                  if (fiche.event_time) detailsHtml += `🕒 ${fiche.event_time} <br>`;
+                    if (fiche.event_time) detailsHtml += `🕒 ${fiche.event_time} <br>`;
                     if (fiche.event_location) detailsHtml += `📍 ${fiche.event_location}`;
                     
-                    // On assemble le tout avec le style forcé en ligne (INLINE STYLE)
                     const eventTextHtml = `
                         <div class="event-text-top">
                             <span class="event-main-text" style="color: #ff4757 !important;">${fiche.event_text}</span>
                             ${detailsHtml ? `<span class="event-details-text">${detailsHtml}</span>` : ''}
                         </div>
                     `;
-                    
                     title.insertAdjacentHTML('beforebegin', eventTextHtml);
                 }
 
+                const phoneLink = card.querySelector('.phone-link');
+                const badgeHtml = `<span class="badge-pulsing">Événement</span>`;
+                if (phoneLink) {
+                    phoneLink.insertAdjacentHTML('afterend', badgeHtml);
+                } else {
+                    card.insertAdjacentHTML('beforeend', `<div style="text-align: right; margin-top: 10px;">${badgeHtml}</div>`);
+                }
+            });
+        }
                 // --- B. Injection de la pilule ORANGE ---
                 const phoneLink = card.querySelector('.phone-link');
                 const badgeHtml = `<span class="badge-pulsing">Événement</span>`;
