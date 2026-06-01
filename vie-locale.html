@@ -580,8 +580,9 @@
             overflow-wrap: break-word; 
             word-break: break-word; 
             white-space: normal;
-            margin-top: 10px;
+            margin-top: -25px; /* C'est cette ligne qui fait remonter le bloc ! */
             margin-left: 10px;
+        }
         }
 
         .event-main-text {
@@ -628,10 +629,19 @@
                     // --- A. Injection au niveau du Titre <h4> ---
                     const title = card.querySelector('h4');
                     if (title) {
-                        let detailsHtml = '';
-                        if (fiche.event_time) detailsHtml += `🕒 ${fiche.event_time} <br>`;
-                        if (fiche.event_location) detailsHtml += `📍 ${fiche.event_location}`;
-
+                       let detailsHtml = '';
+                    
+                    // NOUVEAU : Affichage et formatage de la date
+                    if (fiche.event_expiry) {
+                        // On coupe la date (AAAA-MM-JJ) pour la remettre dans le bon ordre
+                        const dateParts = fiche.event_expiry.split('T')[0].split('-');
+                        if (dateParts.length === 3) {
+                            detailsHtml += `📅 ${dateParts[2]}/${dateParts[1]}/${dateParts[0]} <br>`;
+                        }
+                    }
+                    
+                    if (fiche.event_time) detailsHtml += `🕒 ${fiche.event_time} <br>`;
+                    if (fiche.event_location) detailsHtml += `📍 ${fiche.event_location}`;
                         const eventTextHtml = `
                             <div class="event-text-top">
                                 <span class="event-main-text">${fiche.event_text}</span>
