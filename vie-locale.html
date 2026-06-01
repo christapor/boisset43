@@ -551,5 +551,97 @@
             }
         });
     </script>
+
+<style>
+    /* Effet de pulsation pour la pilule Événement (Orange) */
+    @keyframes pulse-orange {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(243, 156, 18, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243, 156, 18, 0); }
+    }
+    
+    .badge-pulsing {
+        background-color: #f39c12; /* Orange */
+        color: white;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-left: 15px;
+        animation: pulse-orange 2s infinite;
+        display: inline-block;
+        border: 2px solid #e67e22;
+    }
+
+    /* Le texte rouge en haut à droite */
+    .event-text-top {
+        float: right;
+        color: #ff4757; /* Rouge vif */
+        font-weight: 800;
+        font-size: 0.85rem;
+        max-width: 65%;
+        text-align: right;
+        line-height: 1.2;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    // Initialisation Supabase (avec ta clé publique)
+    const sbUrl = 'https://zlwxzhqqrjddxnzdwoay.supabase.co';
+    const sbKey = 'sb_publishable_gkrziK1nENbbMMIga86Hlw_zhSKWyPj';
+    const supabaseClient = supabase.createClient(sbUrl, sbKey);
+
+    async function injectEventsIntoCards() {
+        // 1. On va chercher les événements dans Supabase
+        const { data, error } = await supabaseClient
+            .from('local_directory')
+            .select('card_id, event_text, event_expiry')
+            .not('event_text', 'is', null);
+
+        if (error) return;
+
+        // Date du jour au format YYYY-MM-DD
+        const today = new Date().toISOString().split('T')[0];
+
+        data.forEach(fiche => {
+            // 2. GESTION DE L'EXPIRATION : Si la date est dépassée, on stop ici pour cette fiche
+            if (fiche.event_expiry && fiche.event_expiry < today) {
+                return; // L'événement ne s'affichera pas
+            }
+
+            // 3. On cherche la fiche HTML (ex: id="prof-tapordigital")
+            const card = document.getElementById(fiche.card_id);
+            
+            if (card) {
+                // --- A. Injection du texte ROUGE en haut ---
+                const tag = card.querySelector('.cat-tag, .asso-tag');
+                if (tag) {
+                    const eventTextHtml = `<span class="event-text-top">${fiche.event_text}</span>`;
+                    // On l'insère juste après le tag "Informatique"
+                    tag.insertAdjacentHTML('afterend', eventTextHtml);
+                }
+
+                // --- B. Injection de la pilule ORANGE en bas ---
+                const phoneLink = card.querySelector('.phone-link');
+                const badgeHtml = `<span class="badge-pulsing">Événement</span>`;
+                
+                if (phoneLink) {
+                    // On passe le tel en inline-flex pour que la pilule reste sur la même ligne
+                    phoneLink.style.display = 'inline-flex'; 
+                    phoneLink.insertAdjacentHTML('afterend', badgeHtml);
+                } else {
+                    // Si la personne n'a pas de numéro, on met la pilule tout en bas
+                    card.insertAdjacentHTML('beforeend', `<div style="text-align: right; margin-top: 10px;">${badgeHtml}</div>`);
+                }
+            }
+        });
+    }
+
+    // On lance la fonction quand la page a fini de charger
+    document.addEventListener('DOMContentLoaded', injectEventsIntoCards);
+</script>
+    
 </body>
 </html>
