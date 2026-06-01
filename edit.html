@@ -34,16 +34,16 @@
             
             <div id="asso-fields">
                 <label>📅 Nom de l'événement</label>
-                <input type="text" id="event_text" placeholder="Ex: Soupe aux choux">
-                
-                <label>📆 Date de l'événement</label>
-                <input type="date" id="event_expiry">
-                
-                <label>🕒 Horaires (Texte libre)</label>
-                <input type="text" id="event_time" placeholder="Ex: de 19h30 à 22h30">
+<input type="text" id="event_text" placeholder="Ex: Soupe aux choux" maxlength="40">
 
-                <label>📍 Lieu de l'événement</label>
-                <input type="text" id="event_location" placeholder="Ex: Salle des fêtes La Jourdane">
+<label>📆 Date de l'événement</label>
+<input type="date" id="event_expiry">
+
+<label>🕒 Horaires (Texte libre)</label>
+<input type="text" id="event_time" placeholder="Ex: de 19h30 à 22h30" maxlength="20">
+
+<label>📍 Lieu de l'événement</label>
+<input type="text" id="event_location" placeholder="Ex: Salle des fêtes La Jourdane" maxlength="25">
                 
                 <button onclick="updateData()" id="updateBtn">Mettre à jour ma fiche</button>
             </div>
