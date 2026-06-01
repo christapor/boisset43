@@ -624,15 +624,18 @@
             } catch (error) { console.error('Erreur Supabase news:', error); }
         }
 
-// Affiche l'alerte seulement si la date d'expiration n'est pas passée
-if (!expiry || expiry >= today) {
-    // CORRECTION ICI : On utilise 'hero-' au lieu de 'mairie-'
+// On force la conversion en millisecondes pour une comparaison infaillible
+const t_expiry = expiry ? new Date(expiry).getTime() : null;
+const t_today = new Date().getTime(); // Heure exacte maintenant
+
+// Affiche l'alerte seulement si elle n'est pas passée
+if (!t_expiry || t_expiry >= t_today) {
     const alertContainer = document.getElementById('hero-alert-container');
     const alertText = document.getElementById('hero-alert-text');
     
     if (alertContainer && alertText) {
         alertText.textContent = data.event_text;
-        alertContainer.style.display = 'block'; // Rend le bloc visible
+        alertContainer.style.display = 'block';
     }
 }
 // ... fin du bloc try / catch ...
