@@ -624,29 +624,31 @@
             } catch (error) { console.error('Erreur Supabase news:', error); }
         }
 
-// On force la conversion en millisecondes pour une comparaison infaillible
-const t_expiry = expiry ? new Date(expiry).getTime() : null;
-const t_today = new Date().getTime(); // Heure exacte maintenant
+// Affiche l'alerte seulement si la date d'expiration n'est pas passée
+            const t_expiry = data.event_expiry ? new Date(data.event_expiry).getTime() : null;
+            const t_today = new Date().getTime();
 
-// Affiche l'alerte seulement si elle n'est pas passée
-// if (!expiry || expiry >= today) {
-    const alertContainer = document.getElementById('hero-alert-container');
-    const alertText = document.getElementById('hero-alert-text');
-    
-    if (alertContainer && alertText) {
-        alertText.textContent = data.event_text;
-        alertContainer.style.display = 'block';
-    }
-// }
-    }
-}
-// ... fin du bloc try / catch ...
+            if (!t_expiry || t_expiry >= t_today) {
+                const alertContainer = document.getElementById('hero-alert-container');
+                const alertText = document.getElementById('hero-alert-text');
+                
+                if (alertContainer && alertText) {
+                    alertText.textContent = data.event_text;
+                    alertContainer.style.display = 'block'; // Rend le bloc visible
+                }
+            }
+        } catch (error) {
+            console.log('Aucune alerte Mairie en cours.', error);
+        }
+    } // Fin de la fonction loadMairieAlert
 
-// ON NETTOIE ICI : Un seul écouteur propre pour tout lancer
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof loadNews === 'function') loadNews();
-    loadMairieAlert(); // Lancement de l'alerte Mairie !
-});
-    </script>
+    // ON NETTOIE ICI : Un seul écouteur propre pour tout lancer au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof loadNews === 'function') {
+            loadNews();
+        }
+        loadMairieAlert(); // Lancement de l'alerte Mairie !
+    });
+</script>
 </body>
 </html>
