@@ -631,32 +631,41 @@
             } catch (error) { console.error('Erreur Supabase news:', error); }
         }
 
-     /*   // --- NOUVELLE FONCTION ALERTE MAIRIE ---
+// --- FONCTION ALERTE MAIRIE ACTIVÉE ---
         async function loadMairieAlert() {
             try {
-                // L'admin de la mairie utilise son profil pour passer une alerte critique
-                const { data, error } = await sb.from('local_directory').select('event_text, event_expiry').eq('owner_email', 'mairie.boisset@orange.fr').single();
+                // On va chercher l'alerte de la mairie dans Supabase
+                const { data, error } = await sb.from('local_directory')
+                    .select('event_text, event_expiry')
+                    .eq('owner_email', 'mairie.boisset@orange.fr')
+                    .single();
                 
                 if (data && data.event_text) {
-                    const today = getTodayIsoLocal();
-                    const expiry = data.event_expiry ? String(data.event_expiry).split('T')[0] : null;
+                    const today = new Date().toISOString().split('T')[0];
+                    const expiry = data.event_expiry ? data.event_expiry.split('T')[0] : null;
                     
-                    // Affiche seulement si la date d'expiration n'est pas passée
+                    // Affiche l'alerte seulement si la date d'expiration n'est pas passée
                     if (!expiry || expiry >= today) {
                         const alertContainer = document.getElementById('mairie-alert-container');
                         const alertText = document.getElementById('mairie-alert-text');
+                        
                         if (alertContainer && alertText) {
                             alertText.textContent = data.event_text;
-                            alertContainer.style.display = 'block';
+                            alertContainer.style.display = 'block'; // Rend le bloc visible
                         }
                     }
                 }
             } catch (error) {
-                // Silencieux si pas d'alerte ou erreur
-                console.log('Pas d\'alerte Mairie trouvée.');
+                // S'il n'y a pas d'alerte en cours, on ne fait rien
+                console.log('Aucune alerte Mairie en cours.');
             }
         }
-*/
+
+        // On lance les fonctions au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // loadNews(); // Si tu as une fonction loadNews, garde-la
+            loadMairieAlert(); // Lancement de l'alerte Mairie !
+        });
         document.addEventListener('DOMContentLoaded', function() {
             loadNews();
             loadMairieAlert(); // Appel de la fonction d'alerte Mairie
