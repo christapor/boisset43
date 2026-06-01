@@ -640,20 +640,23 @@
                         }
                     }
                     
-                    if (fiche.event_time) detailsHtml += `🕒 ${fiche.event_time} <br>`;
+                  if (fiche.event_time) detailsHtml += `🕒 ${fiche.event_time} <br>`;
                     if (fiche.event_location) detailsHtml += `📍 ${fiche.event_location}`;
-                        const eventTextHtml = `
-                            <div class="event-text-top">
-                                <span class="event-main-text">${fiche.event_text}</span>
-                                ${detailsHtml ? `<span class="event-details-text">${detailsHtml}</span>` : ''}
-                            </div>
-                        `;
-                        title.insertAdjacentHTML('beforebegin', eventTextHtml);
-                    }
+                    
+                    // On assemble le tout avec le style forcé en ligne (INLINE STYLE)
+                    const eventTextHtml = `
+                        <div class="event-text-top">
+                            <span class="event-main-text" style="color: #ff4757 !important;">${fiche.event_text}</span>
+                            ${detailsHtml ? `<span class="event-details-text">${detailsHtml}</span>` : ''}
+                        </div>
+                    `;
+                    
+                    title.insertAdjacentHTML('beforebegin', eventTextHtml);
+                }
 
-                    // --- B. Injection de la pilule ORANGE ---
-                    const phoneLink = card.querySelector('.phone-link');
-                    const badgeHtml = `<span class="badge-pulsing">Événement</span>`;
+                // --- B. Injection de la pilule ORANGE ---
+                const phoneLink = card.querySelector('.phone-link');
+                const badgeHtml = `<span class="badge-pulsing">Événement</span>`;
                     
                     if (phoneLink) {
                         phoneLink.style.display = 'inline-flex'; 
