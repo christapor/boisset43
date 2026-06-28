@@ -490,7 +490,32 @@
 
             <section id="tourisme" class="section-padding" style="border-bottom: none;">
     <h2 class="section-title">Tourisme</h2>
-    
+    <style>
+    .tourisme-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+        gap: 20px !important;
+        margin-top: 20px !important;
+    }
+    .tourisme-card {
+        background: white !important;
+        padding: 25px !important;
+        border-radius: 12px !important;
+        border-top: 5px solid #0055A4 !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+        text-align: center !important;
+        transition: 0.3s !important;
+        text-decoration: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        color: #333 !important;
+    }
+    .tourisme-card:hover { transform: translateY(-5px); border-color: #228B22 !important; }
+    .tourisme-card h4 { margin: 15px 0 !important; font-size: 1.2rem !important; font-weight: 900 !important; color: #1a1a1a !important; }
+    .tourisme-card p { font-size: 0.9rem !important; color: #555 !important; }
+    .tourisme-icon { font-size: 2.5rem !important; color: #0055A4 !important; margin-bottom: 10px !important; }
+</style>
     <div class="tourisme-grid">
         <a href="https://www.marchesduvelayrochebaron.fr/a-votre-service/decouvrir/" class="tourisme-card" target="_blank">
             <i class="fa-solid fa-map-location-dot tourisme-icon"></i>
