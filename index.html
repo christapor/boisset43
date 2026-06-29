@@ -11,33 +11,34 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --azur: #0055A4;      
-            --sinople: #228B22;   
-            --argent: #F8F8F8;    
-            --dark: #1a1a1a;
-            --header-h: 80px;
-            --menu-h: 50px;
-            --accent-red: #ff4757;
-        }
-
-     .top-header { 
-    /* ... tes autres propriétés ... */
-    position: fixed; 
-    top: 50px; /* <--- AJOUTE ÇA */
-    /* ... */
+  :root {
+    --azur: #0055A4;      
+    --sinople: #228B22;   
+    --argent: #F8F8F8;    
+    --dark: #1a1a1a;
+    --header-h: 80px;
+    --menu-h: 50px;
+    --accent-red: #ff4757;
+    /* On définit nos deux polices ici */
+    --font-titres: 'Playfair Display', serif;
+    --font-texte: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-        body { 
-            margin: 0; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            color: #333; 
-            overflow-x: hidden; 
-            line-height: 1.6; 
-            scroll-behavior: smooth; 
-        }
+body { 
+    margin: 0; 
+    font-family: var(--font-texte); /* Le texte courant reste classique */
+    color: #333; 
+    overflow-x: hidden; 
+    line-height: 1.6; 
+    scroll-behavior: smooth;
+}
+
+/* On applique la police stylée à tous les titres */
+h1, h2, h3, h4, .section-title {
+    font-family: var(--font-titres) !important;
+}
 
         section { 
             scroll-margin-top: 150px; 
