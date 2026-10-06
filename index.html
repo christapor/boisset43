@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boisset (43) - Site Officiel de la Commune</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0055A4">
+    
+    <!-- FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Librairies externes -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --azur: #0055A4;      
+            --sinople: #228B22;   
+            --argent: #F8F8F8;    
+            --dark: #1a1a1a;
+            --header-h: 80px;
+            --menu-h: 50px;
+            --accent-red: #ff4757;
+            --font-titres: 'Amatic SC', cursive;
+            --font-texte: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: var(--font-texte);
+            color: #333; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .section-title {
+            font-family: var(--font-titres) !important;
+        }
+
+        section { 
+            scroll-margin-top: 150px; 
+        }
+
+        /* Arrière-plan Parallax */
+        #bg-parallax { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            z-index: -1; 
+            background-image: url('fond.jpeg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            background-color: #333; 
+        }
+        
+        /* BANDEAU SUPÉRIEUR (Header) */
+        .top-header { 
+            background: rgba(26, 26, 26, 0.55) !important; 
+            backdrop-filter: blur(10px); 
+            height: var(--header-h); 
+            display: flex; 
+            align-items: center; 
+            padding-left: 240px; 
+            padding-right: 30px;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            z-index: 2000; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            transition: background 0.3s ease;
+        }
+
+        .welcome-title { 
+            color: #f8f8f8; 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            margin: 0; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            position: absolute; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            white-space: nowrap; 
+        }
+
+        /* LIENS DU TOP HEADER */
+        .top-right-link { 
+            margin-left: auto; 
+        }
+        
+        .nav-link-top { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            font-size: 14px; 
+            letter-spacing: 0.5px; 
+            transition: 0.3s; 
+            text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8); 
+        }
+        
+        .nav-link-idea { color: #ffbc00 !important; }
+        .nav-link-allo { color: #55b4d4 !important; }
+        
+        .nav-link-idea:hover, .nav-link-allo:hover { 
+            filter: brightness(1.2); 
+        }
+        
+        /* BARRE DE MENU PRINCIPAL (Menu Desktop) */
+        .sub-header { 
+            background: rgba(42, 42, 42, 0.55) !important; 
+            backdrop-filter: blur(10px); 
+            height: var(--menu-h); 
+            display: flex; 
+            align-items: center; 
+            position: fixed; 
+            top: var(--header-h); 
+            left: 0; 
+            right: 0; 
+            z-index: 1900; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+            border-bottom: 3px solid var(--azur); 
+        }
+        
+        .nav-menu { 
+            display: flex; 
+            align-items: center; 
+            gap: 25px; 
+            justify-content: center; 
+            width: 100%; 
+            padding: 0; 
+            margin: 0; 
+            list-style: none;
+        }
+
+        /* Gestion des sous-menus (Desktop) */
+        .nav-item { 
+            position: relative; 
+        }
+        
+        .nav-link { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            font-size: 15px; 
+            padding: 5px 8px; 
+            transition: 0.3s; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 5px;
+        }
+        
+        .nav-link:hover, .nav-link.active { 
+            color: var(--sinople); 
+            border-bottom: 3px solid var(--sinople); 
+        }
+        
+        /* Style du menu déroulant */
+        .dropdown-menu {
+            display: none; 
+            position: absolute; 
+            top: 100%; 
+            left: 50%; 
+            transform: translateX(-50%);
+            background: rgba(42, 42, 42, 0.95); 
+            backdrop-filter: blur(10px);
+            min-width: 220px; 
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3); 
+            padding: 10px 0;
+            border-radius: 0 0 8px 8px; 
+            border-top: 3px solid var(--azur); 
+            z-index: 1950;
+            list-style: none; 
+            text-align: center;
+        }
+        
+        .nav-item:hover .dropdown-menu { 
+            display: block; 
+        }
+        
+        .dropdown-link {
+            color: white; 
+            padding: 10px 20px; 
+            text-decoration: none; 
+            display: block;
+            font-size: 14px; 
+            font-weight: 600; 
+            transition: background 0.2s, color 0.2s;
+        }
+        
+        .dropdown-link:hover { 
+            background: rgba(255,255,255,0.1); 
+            color: var(--sinople); 
+        }
+
+        .mobile-only-link { 
+            display: none !important; 
+        }
+
+        /* LOGO BLASON */
+        .logo-box { 
+            position: fixed; 
+            top: 5px; 
+            left: 20px; 
+            z-index: 3000; 
+            width: 180px; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); 
+            transition: 0.3s;
+        }
+        
+        .logo-box img { 
+            width: 100%; 
+            height: auto; 
+        }
+
+        /* MENU BURGER (Mobile) */
+        .burger-icon {
+            display: none; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            width: 35px; 
+            height: 25px; 
+            cursor: pointer; 
+            position: absolute; 
+            right: 25px; 
+            top: 27px; 
+            z-index: 3100;
+        }
+        
+        .burger-icon span {
+            display: block; 
+            height: 4px; 
+            width: 100%; 
+            background-color: white; 
+            border-radius: 4px; 
+            transition: 0.3s; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .burger-icon.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+        .burger-icon.active span:nth-child(2) { opacity: 0; }
+        .burger-icon.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+
+        /* CONTENU PRINCIPAL */
+        .main-content { 
+            margin-top: 450px; 
+            position: relative; 
+            z-index: 10; 
+        }
+        
+        .hero-spacer { 
+            height: 40px; 
+            display: flex; 
+            align-items: flex-end; 
+            justify-content: center; 
+        }
+
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            background: rgba(248, 248, 248, 0.65); 
+            backdrop-filter: blur(10px); 
+            border-radius: 20px; 
+            box-sizing: border-box; 
+        }
+
+        .section-padding { 
+            padding: 50px 0; 
+            border-bottom: 1px solid #eee; 
+        }
+        
+        .section-title { 
+            font-size: 4rem; 
+            color: var(--dark); 
+            margin-bottom: 30px; 
+            text-transform: uppercase; 
+            font-weight: 900; 
+        }
+
+        /* GRILLES */
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            text-align: left; 
+        }
+        
+        .service-item { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            border-left: 5px solid var(--azur); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+        }
+        
+        .directory-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 20px; 
+            text-align: left; 
+            margin-top: 30px; 
+        }
+        
+        .directory-card, .asso-card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); 
+            transition: 0.3s; 
+            position: relative; 
+        }
+        
+        .directory-card { border-top: 5px solid var(--sinople); }
+        .asso-card { border-top: 5px solid var(--azur); }
+        .directory-card:hover, .asso-card:hover { transform: translateY(-5px); }
+
+        /* CALENDRIER & TABLEAU */
+        .calendar-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+            background: white; 
+            font-size: 0.9rem; 
+            text-align: left; 
+        }
+        
+        .calendar-table th { 
+            background: var(--azur); 
+            color: white; 
+            padding: 12px; 
+        }
+        
+        .calendar-table td { 
+            padding: 10px; 
+            border-bottom: 1px solid #eee; 
+        }
+        
+        #calendar { 
+            background: white; 
+            padding: 10px; 
+            border-radius: 10px; 
+            height: 550px; 
+            margin-top: 20px; 
+        }
+
+        /* RETOUR EN HAUT PILULE */
+        #back-to-top { 
+            position: fixed; 
+            bottom: 25px; 
+            right: 25px; 
+            background: var(--sinople); 
+            color: white; 
+            padding: 12px 20px; 
+            border-radius: 30px; 
+            display: none; 
+            align-items: center; 
+            gap: 8px;
+            cursor: pointer; 
+            z-index: 5000; 
+            border: 2px solid white; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            font-weight: 800; 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            transition: transform 0.2s, background 0.2s;
+        }
+        
+        #back-to-top:hover { 
+            transform: translateY(-3px); 
+            background: #1a6e1a; 
+        }
+
+        footer { 
+            background: var(--dark); 
+            color: #ccc; 
+            padding: 50px 0 30px; 
+            border-top: 8px solid var(--azur); 
+            position: relative; 
+            z-index: 10; 
+        }
+
+        /* RESPONSIVE MOBILE */
+        @media (max-width: 1150px) {
+            .burger-icon { display: flex !important; }
+            .top-left-link, .top-right-link { display: none !important; }
+            .mobile-only-link { display: flex !important; margin-top: 15px; }
+            
+            .sub-header { 
+                background: transparent !important; 
+                border: none !important; 
+                box-shadow: none !important; 
+                backdrop-filter: none !important; 
+                pointer-events: none; 
+            }
+            
+            .nav-menu { 
+                pointer-events: auto !important; 
+                flex-direction: column !important; 
+                position: fixed !important; 
+                top: 0 !important; 
+                right: -300px; 
+                width: 250px !important; 
+                height: 100vh !important; 
+                background: rgba(26, 26, 26, 0.95) !important; 
+                backdrop-filter: blur(15px) !important; 
+                padding-top: 100px !important; 
+                transition: 0.3s !important; 
+                border-left: 3px solid var(--azur) !important; 
+                align-items: flex-start !important; 
+                z-index: 2500; 
+                overflow-y: auto;
+            }
+            
+            .nav-menu.active { right: 0 !important; }
+            
+            .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .nav-link { 
+                padding: 15px 30px !important; 
+                width: 100% !important; 
+                box-sizing: border-box !important; 
+                font-size: 1.1rem !important; 
+                justify-content: space-between; 
+                border: none !important; 
+            }
+            
+          .dropdown-menu { 
+    position: static; 
+    transform: none; 
+    background: transparent; 
+    box-shadow: none; 
+    border: none; 
+    padding: 0 0 10px 40px; 
+    display: none; 
+    text-align: left; 
+}
+
+.nav-item.mobile-open .dropdown-menu {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.nav-item i { transition: transform 0.3s; }
+.nav-item.mobile-open > a > i { transform: rotate(180deg); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+            
+            .dropdown-link { padding: 8px 15px; font-size: 13px; color: #ccc; }
+            
+            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
+            .welcome-title { position: static !important; transform: none !important; font-size: 1.3rem !important; margin-left: 110px !important; text-align: left; white-space: normal; }
+            .top-header { justify-content: flex-start; padding-left: 0; padding-right: 0; }
+        }
+
+        /* STYLE POUR LA PASTILLE D'ÉVÉNEMENT (utilisée par le script JS) */
+        @keyframes pulse-orange {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(243, 156, 18, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243, 156, 18, 0); }
+        }
+        
+        .badge-pulsing {
+            background-color: #f39c12; 
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-left: 15px;
+            animation: pulse-orange 2s infinite;
+            display: inline-block;
+            border: 2px solid #e67e22;
+        }
+
+        .event-text-top {
+            float: right;
+            width: 55%;
+            text-align: right;
+            line-height: 1.3;
+            overflow-wrap: break-word; 
+            word-break: break-word; 
+            white-space: normal;
+            margin-top: -25px;
+            margin-left: 10px;
+        }
+
+        .event-main-text {
+            color: #ff4757 !important; 
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: block;
+        }
+
+        .event-details-text {
+            color: #8e44ad;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: block;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-parallax"></div>
+
+    <header class="top-header">
+        <div class="burger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="top-left-link">
+            <a href="#boite-idees" class="nav-link-top nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+        </div>
+        
+        <h1 class="welcome-title">Bienvenue à Boisset</h1>
+        
+        <div class="top-right-link">
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link-top nav-link-allo"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+        </div>
+    </header>
+
+    <nav class="sub-header">
+        <ul class="nav-menu" id="mobileMenu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link active" onclick="toggleMenu()">Accueil</a>
+            </li>
+            
+            <li class="nav-item">
+                <a href="mairie.html" class="nav-link">Mairie <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="mairie.html#elus-agents" class="dropdown-link" onclick="toggleMenu()">Élus - Agents</a></li>
+                    <li><a href="mairie.html#conseils" class="dropdown-link" onclick="toggleMenu()">Conseils municipaux</a></li>
+                    <li><a href="mairie.html#urbanisme" class="dropdown-link" onclick="toggleMenu()">Urbanisme</a></li>
+                    <li><a href="mairie.html#etat-civil" class="dropdown-link" onclick="toggleMenu()">État-Civil</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a href="services.html" class="nav-link">Services <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="services.html#ecole-publique" class="dropdown-link" onclick="toggleMenu()">École publique</a></li>
+                    <li><a href="services.html#location-salles" class="dropdown-link" onclick="toggleMenu()">Location de Salles</a></li>
+                    <li><a href="services.html#bibliotheque" class="dropdown-link" onclick="toggleMenu()">Bibliothèque</a></li>
+                    <li><a href="services.html#sante" class="dropdown-link" onclick="toggleMenu()">Santé à proximité</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a href="vie-locale.html" class="nav-link">Vie locale <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="activites.html" class="dropdown-link" onclick="toggleMenu()">Activités</a></li>
+                    <li><a href="vie-locale.html#associations" class="dropdown-link" onclick="toggleMenu()">Associations</a></li>
+                    <li><a href="vie-locale.html#commerces" class="dropdown-link" onclick="toggleMenu()">Commerces</a></li>
+                    <li><a href="vie-locale.html#entreprises" class="dropdown-link" onclick="toggleMenu()">Entreprises</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a href="territoire.html" class="nav-link">Territoire <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="territoire.html#histoire" class="dropdown-link" onclick="toggleMenu()">Histoire</a></li>
+                    <li><a href="territoire.html#patrimoine" class="dropdown-link" onclick="toggleMenu()">Patrimoine</a></li>
+                    <li><a href="territoire.html#geographie" class="dropdown-link" onclick="toggleMenu()">Géographie</a></li>
+                    <li><a href="territoire.html#tourisme" class="dropdown-link" onclick="toggleMenu()">Tourisme</a></li>
+                </ul>
+            </li>
+
+            <!-- Liens exclusifs mobile -->
+            <li class="nav-item mobile-only-link">
+                <a href="#boite-idees" class="nav-link nav-link-idea" onclick="toggleMenu()"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+            </li>
+            <li class="nav-item mobile-only-link">
+                <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo" onclick="toggleMenu()"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="logo-box">
+        <a href="index.html">
+            <img src="blason.png" alt="Blason">
+        </a>
+    </div>
+
+    <button id="back-to-top" onclick="scrollToTop()">⬆️ Retour en haut</button>
+
+    <div class="main-content">
+        <div class="hero-spacer"></div>
+        
+        <!-- ALERTE MAIRIE DYNAMIQUE (Gérée par Supabase) -->
+        <div id="hero-alert-container" style="display: none; max-width: 850px; margin: 20px auto 40px; padding: 20px 30px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-left: 6px solid #ff4757; border-radius: 10px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); text-align: center; position: relative; z-index: 90;">
+            <div style="color: #ff4757; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                ⚠️ Alerte Communale
+            </div>
+            <div id="hero-alert-text" style="color: #2f3542; font-weight: 700; font-size: 1.1rem; line-height: 1.5;"></div>
+        </div>
+
+        <main class="container">
+            <p style="font-size: 1.5rem; color: var(--sinople); margin-bottom: 30px; font-weight: 300; text-align: center;">
+                Le portail officiel de la commune.<br>
+                <strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
+            </p>
+
+            <div style="margin-top: 60px; text-align: center; border-top: 1px solid #eee; padding-top: 40px;">
+                <section style="margin-top: 40px; text-align: center;">
+                    <h2 style="color: var(--dark); font-size: 4rem; margin-bottom: 30px;">Infos & Contact</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 900px; margin: 0 auto; text-align: left;">
+                        <div>
+                            <h3 style="color: var(--azur); margin-top: 0; font-family: var(--font-texte) !important; font-size:1.5rem;">Mairie de Boisset</h3>
+                            <p>2 Rue du Fournil<br>43500 Boisset</p>
+                            <p><strong>Téléphone :</strong> 04 71 61 32 66<br>
+                            <strong>Email :</strong> <a href="mailto:mairie.boisset@orange.fr" style="color: var(--sinople); text-decoration: none; font-weight: bold;">mairie.boisset@orange.fr</a></p>
+                        </div>
+                        
+                        <div>
+                            <h3 style="color: var(--azur); margin-top: 0; font-family: var(--font-texte) !important; font-size:1.5rem;">Jours et horaires d'ouverture</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 5px;"><strong>Lundi :</strong> 08h00 - 12h00</li>
+                                <li style="margin-bottom: 5px;"><strong>Mardi :</strong> 14h00 - 18h00</li>
+                                <li style="margin-bottom: 5px;"><strong>Mercredi :</strong> <span style="color: var(--accent-red);">Fermé au public</span></li>
+                                <li style="margin-bottom: 5px;"><strong>Jeudi :</strong> 08h00 - 12h00</li>
+                                <li style="margin-bottom: 5px;"><strong>Vendredi :</strong> <span style="color: var(--accent-red);">Fermé au public</span></li>
+                                <li style="margin-bottom: 5px;"><strong>Samedi :</strong> 14h00 - 16h00</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <section id="news-section" class="section-padding">
+                <h2 class="section-title">Calendrier & Actualités</h2>
+                <div style="max-height: 400px; overflow-y: auto; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-radius: 10px;">
+                    <table class="calendar-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Organisateur</th>
+                                <th>Événement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background:#f0f0f0; font-weight:bold;">
+                                <td colspan="3">Événements associatifs à venir</td>
+                            </tr>
+                            <tr><td>11 avril</td><td>APE</td><td>Soirée sarasson</td></tr>
+                            <tr><td>8-9 mai</td><td>APE</td><td>Vente de fleurs</td></tr>
+                            <tr><td>30 mai</td><td>ACCA</td><td>Pétanque et soupe aux choux</td></tr>
+                            <tr><td>24-26 juil.</td><td>Comité des fêtes</td><td>Fête patronale</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="news-container" class="services-grid"></div>
+            </section>
+
+            <section id="reseaux" class="section-padding">
+                <div class="actus-container" style="display: flex; flex-direction: column; gap: 25px; margin-bottom: 40px; width: 100%;">
+                    
+                    <!-- BLOC ILLIWAP -->
+                    <div class="actu-card" style="width: 100%; background: #ffffff; border-radius: 8px; border-top: 4px solid #0056b3; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; box-sizing: border-box;">
+                        <h3 style="margin-top: 0; color: #333; font-size: 3rem; border-bottom: 1px solid #eee; padding-bottom: 12px;">📱 Infos Illiwap (Boisset)</h3>
+                        <div class="iframe-wrapper" style="width: 100%; height: 500px; overflow: hidden; margin-top: 10px;">
+                            <iframe src="https://station.illiwap.com/fr/public/43034/actu" width="100%" height="100%" style="border: none;" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <!-- BLOC FACEBOOK -->
+                    <div class="actu-card" style="width: 100%; background: #ffffff; border-radius: 8px; border-top: 4px solid #1877F2; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column; box-sizing: border-box;">
+                        <h3 style="margin-top: 0; color: #333; font-size: 3rem; border-bottom: 1px solid #eee; padding-bottom: 12px; display: flex; align-items: center; justify-content: center; line-height: normal;">
+                            <span style="display: inline-flex; align-items: center; justify-content: center; height: 26px; width: 26px; margin-right: 12px; flex-shrink: 0;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 100%; height: 100%; fill: #1877F2; display: block;">
+                                    <path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.8 90.69 226.4 209.3 245V320.8h-66V256h66v-49.3c0-65.1 38.8-101.1 98.1-101.1 28.4 0 58.1 5.1 58.1 5.1v63.8h-32.7c-32.3 0-42.3 20-42.3 40.5V256h71.9l-11.5 64.8h-60.4V501C413.3 482.4 504 379.8 504 256z"/>
+                                </svg>
+                            </span>
+                            <span style="display: inline-block; vertical-align: middle;">Actualités Facebook</span>
+                        </h3>
+                        <div style="margin-top: 20px; text-align: center; width: 100%;" id="fb-container">
+                            <div id="fb-root"></div>
+                            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0"></script>
+                            <div class="fb-page" 
+                                 data-href="https://www.facebook.com/VillagedeBoisset" 
+                                 data-tabs="timeline" 
+                                 data-width="500" 
+                                 data-height="600" 
+                                 data-small-header="false" 
+                                 data-adapt-container-width="true" 
+                                 data-hide-cover="false" 
+                                 data-show-facepile="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section style="margin: 60px auto; max-width: 1100px; padding: 0 20px;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">
+                    <i class="fa-solid fa-location-dot" style="color: var(--azur); margin-right: 10px;"></i>Où sommes-nous ?
+                </h2>
+                <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); line-height: 0;">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Mairie+Boisset+43500+Haute-Loire&t=&z=12&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </section>
+            
+            <section id="boite-idees" style="scroll-margin-top: 150px; padding: 60px 0 40px; background: rgba(255, 255, 255, 0.5); border-radius: 12px; margin-top: 40px; margin-bottom: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: left;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 10px;">
+                    <i class="fa-solid fa-lightbulb" style="color: #ffbc00; margin-right: 10px;"></i>J'ai une idée à soumettre
+                </h2>
+                <p style="text-align: center; color: #666; max-width: 600px; margin: 0 auto 30px; padding: 0 20px;">
+                    Une suggestion pour améliorer la vie au village ? Partagez votre idée (anonymement ou non) directement avec l'équipe municipale de Boisset.
+                </p>
+                <form action="https://formspree.io/f/mvzvvbpd" method="POST" style="max-width: 600px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px;">
+                    <input type="hidden" name="_subject" value="Nouvelle idée soumise - Boisset">
+                    <input type="text" name="_gotcha" style="display:none">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div>
+                            <label style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Nom (Optionnel)</label>
+                            <input type="text" name="nom" placeholder="Anonyme ou Votre nom" style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; margin-top: 5px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Email (Optionnel)</label>
+                            <input type="email" name="_replyto" placeholder="votre@email.com" style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; margin-top: 5px; box-sizing: border-box;">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Idée ou Suggestion</label>
+                        <textarea name="message" rows="5" required placeholder="Décrivez votre idée en détail ici..." style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; resize: vertical; margin-top: 5px; box-sizing: border-box;"></textarea>
+                    </div>
+                    <button type="submit" style="background: var(--sinople); color: white; border: none; padding: 16px; font-weight: 800; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: background 0.2s; font-size: 1rem; letter-spacing: 0.5px;">
+                        Soumettre mon idée au village 💡
+                    </button>
+                </form>
+            </section>
+
+        </main>
+        
+        <!-- BLOC TRANSPARENT DE 450px POUR VOIR L'IMAGE DE FOND EN BAS DE PAGE -->
+        <div style="height: 450px; background: transparent; width: 100%; position: relative; z-index: 1;"></div>
+
+        <footer>
+            <div style="max-width: 800px; margin: 0 auto; text-align:center; padding:30px 20px; font-size:0.85rem; color:#888; line-height: 1.6;">
+                <h4 style="color: #ccc; font-size: 2rem; margin-bottom: 10px;">🔒 Vos données, en toute confiance</h4>
+                <p style="margin-bottom: 20px;">
+                    Nous respectons votre vie privée avec la plus grande exigence. Les données éventuellement collectées sur ce site (via les formulaires de contact) le sont uniquement dans un cadre strictement nécessaire à son fonctionnement et à la gestion de vos demandes.<br>
+                    Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données à tout moment en contactant la mairie.<br>
+                    Aucune information personnelle n’est vendue, ni partagée à des tiers sans votre consentement.
+                </p>
+                <hr style="border: none; border-top: 1px solid #444; margin: 20px auto; width: 50%;">
+                &copy; 2026 Commune de Boisset (43) - Tous droits réservés.<br>Développement par <strong>TaporDigital</strong>. Siret : 390 724 243 00022
+            </div>
+        </footer>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const burger = document.querySelector('.burger-icon');
+            if (menu) menu.classList.toggle('active');
+            if (burger) burger.classList.toggle('active');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btt = document.getElementById('back-to-top');
+            if (btt) {
+                window.addEventListener('scroll', () => {
+                    btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 300 ? "flex" : "none";
+                }, { passive: true });
+            }
+        });
+
+        // ---------------------------------------------------------
+        // LOGIQUE SUPABASE (ACTUS & ALERTES)
+        // ---------------------------------------------------------
+        const supabaseUrl = 'https://zlwxzhqqrjddxnzdwoay.supabase.co';
+        const supabaseKey = 'sb_publishable_gkrziK1nENbbMMIga86Hlw_zhSKWyPj';
+        const sb = supabase.createClient(supabaseUrl, supabaseKey);
+
+        const ACTIVE_VILLAGE_ID = 'boisset';
+        const VILLAGE_FILTER_ENABLED = true;
+
+        async function selectRows(table, columns, options = {}) {
+            let query = sb.from(table).select(columns);
+            if (options.villageScoped !== false && VILLAGE_FILTER_ENABLED) query = query.eq('village_id', ACTIVE_VILLAGE_ID);
+            if (options.orderBy) query = query.order(options.orderBy, { ascending: options.ascending === true });
+            
+            let { data, error } = await query;
+            if (error) throw error;
+            return data || [];
+        }
+
+        async function loadNews() {
+            const newsCont = document.getElementById('news-container');
+            if (!newsCont) return;
+            try {
+                const news = await selectRows('news', 'id, title, content, created_at', { orderBy: 'created_at', ascending: false, villageScoped: true });
+                newsCont.textContent = '';
+                const fragment = document.createDocumentFragment();
+                news.forEach(n => {
+                    const item = document.createElement('div');
+                    item.className = 'service-item';
+                    item.style.borderLeftColor = 'var(--sinople)';
+                    const title = document.createElement('h3');
+                    title.textContent = n.title || '';
+                    const content = document.createElement('p');
+                    content.textContent = n.content || '';
+                    item.appendChild(title);
+                    item.appendChild(content);
+                    fragment.appendChild(item);
+                });
+                newsCont.appendChild(fragment);
+            } catch (error) { 
+                console.error('Erreur Supabase news:', error); 
+            }
+        }
+
+        async function loadMairieAlert() {
+            try {
+                const alerts = await selectRows('local_directory', '*', { villageScoped: true });
+                const data = alerts.find(a => a.category === 'Mairie');
+
+                if (data) {
+                    const t_expiry = data.event_expiry ? new Date(data.event_expiry).getTime() : null;
+                    const t_today = new Date().getTime();
+
+                    if (!t_expiry || t_expiry >= t_today) {
+                        const alertContainer = document.getElementById('hero-alert-container');
+                        const alertText = document.getElementById('hero-alert-text');
+                        
+                        if (alertContainer && alertText) {
+                            alertText.textContent = data.event_text;
+                            alertContainer.style.display = 'block'; 
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('Aucune alerte Mairie en cours.', error);
+            }
+        }
+        
+        // ---------------------------------------------------------
+        // INJECTION DES PASTILLES ÉVÉNEMENTS (RÉPARÉ)
+        // ---------------------------------------------------------
+        async function injectEventsIntoCards() {
+            try {
+                const { data, error } = await sb.from('local_directory').select('card_id, event_text, event_expiry, event_time, event_location');
+                if (error) return;
+
+                const today = new Date().toISOString().split('T')[0];
+
+                data.forEach(fiche => {
+                    const card = document.getElementById(fiche.card_id);
+                    if (!card) return;
+
+                    // 1. Nettoyage : on supprime les anciens éléments pour repartir sur une base propre
+                    const oldText = card.querySelector('.event-text-top');
+                    const oldBadge = card.querySelector('.badge-pulsing');
+                    if (oldText) oldText.remove();
+                    if (oldBadge) oldBadge.remove();
+
+                    // 2. Si l'événement est périmé ou vide, on ne fait rien de plus
+                    if (!fiche.event_text || (fiche.event_expiry && fiche.event_expiry < today)) {
+                        return;
+                    }
+
+                    // 3. Sinon, on réinjecte tout proprement
+                    const title = card.querySelector('h4');
+                    if (title) {
+                        let detailsHtml = '';
+                        if (fiche.event_expiry) {
+                            const dateParts = fiche.event_expiry.split('T')[0].split('-');
+                            detailsHtml += `📅 ${dateParts[2]}/${dateParts[1]}/${dateParts[0]} <br>`;
+                        }
+                        if (fiche.event_time) detailsHtml += `🕒 ${fiche.event_time} <br>`;
+                        if (fiche.event_location) detailsHtml += `📍 ${fiche.event_location}`;
+                        
+                        const eventTextHtml = `
+                            <div class="event-text-top">
+                                <span class="event-main-text" style="color: #ff4757 !important;">${fiche.event_text}</span>
+                                ${detailsHtml ? `<span class="event-details-text">${detailsHtml}</span>` : ''}
+                            </div>
+                        `;
+                        title.insertAdjacentHTML('beforebegin', eventTextHtml);
+                    }
+
+                    const phoneLink = card.querySelector('.phone-link');
+                    const badgeHtml = `<span class="badge-pulsing">Événement</span>`;
+                    
+                    if (phoneLink) {
+                        phoneLink.style.display = 'inline-flex'; 
+                        phoneLink.insertAdjacentHTML('afterend', badgeHtml);
+                    } else {
+                        card.insertAdjacentHTML('beforeend', `<div style="text-align: right; margin-top: 10px;">${badgeHtml}</div>`);
+                    }
+                });
+            } catch (err) {
+                console.error("Erreur lors de l'injection des événements :", err);
+            }
+        }
+
+        // Lancement général au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof loadNews === 'function') loadNews();
+            if (typeof loadMairieAlert === 'function') loadMairieAlert(); 
+            if (typeof injectEventsIntoCards === 'function') injectEventsIntoCards();
+        });
+    </script>
+   <script>
+// --- AJOUTER CE SCRIPT POUR L'ACCORDÉON MOBILE ---
+document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('.nav-item');
+
+    navItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdown = item.querySelector('.dropdown-menu');
+
+        if (dropdown) {
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1150) {
+                    e.preventDefault();
+                    navItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('mobile-open');
+                        }
+                    });
+                    item.classList.toggle('mobile-open');
+                }
+            });
+        }
+    });
+});
+</script>
+</body>
+</html>
