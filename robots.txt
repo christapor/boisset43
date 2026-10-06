@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /jourdane-backoffice-2026-tk42.html
+
+# Autoriser tout le reste
+Allow: /

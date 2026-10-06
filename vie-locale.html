@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Vie Locale - Commune de Boisset</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0055A4">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azur: #0055A4;      
+            --sinople: #228B22;   
+            --argent: #F8F8F8;    
+            --dark: #1a1a1a;
+            --header-h: 80px;
+            --menu-h: 50px;
+            --accent-red: #ff4757;
+            --font-titres: 'Amatic SC', cursive;
+        }
+
+       body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            color: #333; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+            scroll-behavior: smooth;
+        }
+
+        /* AJOUTE CE BLOC JUSTE ICI : */
+        h1, h2, h3, .section-title {
+            font-family: var(--font-titres) !important;
+        }
+        #bg-parallax { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; 
+            background-image: url('marche.png'); background-size: cover; background-position: center; 
+            background-repeat: no-repeat; background-attachment: fixed; background-color: #333; 
+        }
+        
+        .top-header { 
+            background: rgba(26, 26, 26, 0.55) !important; backdrop-filter: blur(10px);
+            height: var(--header-h); display: flex; align-items: center; 
+            padding-left: 240px; padding-right: 30px;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 2000; border-bottom: 1px solid rgba(255,255,255,0.1); 
+            transition: background 0.3s ease;
+        }
+
+        .welcome-title { 
+            color: #f8f8f8; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin: 0; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; 
+        }
+
+        .top-right-link { margin-left: auto; }
+        .nav-link-top { color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px; transition: 0.3s; text-shadow: -1px -1px 0 #1a1a1a, 1px -1px 0 #1a1a1a, -1px 1px 0 #1a1a1a, 1px 1px 0 #1a1a1a, 0px 2px 4px rgba(0, 0, 0, 0.8); }
+        .nav-link-idea { color: #ffbc00 !important; }
+        .nav-link-allo { color: #55b4d4 !important; }
+        .nav-link-idea:hover, .nav-link-allo:hover { filter: brightness(1.2); }
+        
+        .sub-header { 
+            background: rgba(42, 42, 42, 0.55) !important; backdrop-filter: blur(10px);
+            height: var(--menu-h); display: flex; justify-content: center; align-items: center; 
+            position: fixed; top: var(--header-h); left: 0; right: 0; 
+            z-index: 1900; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-bottom: 3px solid var(--azur); 
+        }
+
+       .nav-menu { 
+    display: flex; 
+    align-items: center; 
+    gap: 25px; 
+    justify-content: center; 
+    width: 100%; 
+    padding-left: 0; 
+    padding-right: 0; 
+    box-sizing: border-box; 
+}
+
+        .nav-link { 
+            color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 15px; padding: 5px 8px; transition: 0.3s; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: inline-flex; align-items: center; 
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--sinople); border-bottom: 3px solid var(--sinople); }
+        .mobile-only-link { display: none !important; }
+
+        .logo-box { 
+            position: fixed; top: 5px; left: 20px; z-index: 3000; width: 180px; 
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); transition: 0.3s;
+        }
+
+        .logo-box img { width: 100%; height: auto; }
+
+        .burger-icon {
+            display: none; flex-direction: column; justify-content: space-between; width: 35px; height: 25px; cursor: pointer; position: absolute; right: 25px; top: 27px; z-index: 3100;
+        }
+
+        .burger-icon span { display: block; height: 4px; width: 100%; background-color: white; border-radius: 4px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .burger-icon.active span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+        .burger-icon.active span:nth-child(2) { opacity: 0; }
+        .burger-icon.active span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+
+        .main-content { margin-top: 175px; position: relative; z-index: 10; }
+        .hero-spacer { height: 40px; display: flex; align-items: flex-end; justify-content: center; }
+
+        .quick-links { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; max-width: 1100px; margin: -50px auto 450px; padding: 0 20px; position: relative; z-index: 60; 
+        }
+
+        .link-card { 
+            background: white; padding: 20px 10px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-decoration: none; color: var(--dark); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; text-align: center; border-bottom: 4px solid var(--azur); display: flex; flex-direction: column; align-items: center; gap: 8px; transition: 0.3s; 
+        }
+
+        .link-card:hover { transform: translateY(-5px); border-color: var(--sinople); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .link-card i { font-size: 1.6rem; color: var(--azur); }
+        .link-card:hover i { color: var(--sinople); }
+
+       .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; background: rgba(248, 248, 248, 0.50); backdrop-filter: blur(10px); border-radius: 20px; box-sizing: border-box; }
+        .section-padding { padding: 60px 0 40px; border-bottom: 1px solid #eee; scroll-margin-top: 150px; }
+        .section-title { font-size: 4rem; color: var(--dark); margin-bottom: 20px; text-transform: uppercase; font-weight: 900; text-align: center; }
+        .local-life-placeholder { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border-left: 5px solid #ccc; text-align: left; margin-top: 15px; }
+
+        /* --- RECHERCHE ANNUAIRE --- */
+        .search-container { max-width: 600px; margin: 0 auto 40px; text-align: center; }
+        .search-input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 2px solid var(--azur); border-radius: 30px; box-sizing: border-box; outline: none; transition: box-shadow 0.3s; }
+        .search-input:focus { box-shadow: 0 4px 15px rgba(0, 85, 164, 0.2); }
+        .hidden-card { display: none !important; }
+
+        /* --- STYLES DES CARTES ANNUAIRE ET ASSOS --- */
+        .directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: left; margin-top: 30px; }
+        .directory-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid var(--sinople); box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
+        .directory-card:hover { transform: translateY(-5px); }
+        .cat-tag { font-size: 0.65rem; background: #f0f0f0; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; color: #666; margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
+        .directory-card h4 { margin: 10px 0; font-size: 1.1rem; font-weight: 900; color: #1a1a1a; display: flex; align-items: center; justify-content: space-between; }
+        .directory-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+        
+        .asso-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid var(--azur); box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: 0.3s; position: relative; }
+        .asso-card:hover { transform: translateY(-5px); }
+        .asso-tag { font-size: 0.65rem; background: #e8f0fe; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; font-weight: 800; color: var(--azur); margin-bottom: 15px; display: inline-block; letter-spacing: 0.5px; }
+        .asso-card h4 { margin: 10px 0; font-size: 1.1rem; font-weight: 900; color: #1a1a1a; display: flex; align-items: center; justify-content: space-between; }
+        .asso-card p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+        
+        .phone-link { color: var(--azur); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+
+        /* --- BOUTON RETOUR EN HAUT --- */
+        #back-to-top { 
+            position: fixed; bottom: 25px; right: 25px; background: var(--sinople); color: white; padding: 12px 20px; border-radius: 30px; display: none; align-items: center; gap: 8px; cursor: pointer; z-index: 5000; border: 2px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; transition: transform 0.2s, background 0.2s;
+        }
+        #back-to-top:hover { transform: translateY(-3px); background: #1a6e1a; }
+
+        footer { background: var(--dark); color: #ccc; padding: 40px 0 30px; border-top: 8px solid var(--azur); text-align: center; position: relative; z-index: 10;}
+
+        /* RESPONSIVE MOBILE */
+        @media (max-width: 1150px) {
+            .burger-icon { display: flex !important; }
+            .top-left-link, .top-right-link { display: none !important; }
+            .mobile-only-link { display: flex !important; margin-top: 15px; }
+            .sub-header { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; pointer-events: none; }
+            
+            .nav-menu { pointer-events: auto !important; flex-direction: column !important; position: fixed !important; top: 0 !important; right: -300px; width: 250px !important; height: 100vh !important; background: rgba(26, 26, 26, 0.95) !important; backdrop-filter: blur(15px) !important; padding-top: 100px !important; padding-left: 0 !important; padding-right: 0 !important; transition: 0.3s !important; border-left: 3px solid var(--azur) !important; align-items: flex-start !important; z-index: 2500; }
+            .nav-menu.active { right: 0 !important; }
+            .nav-link { font-size: 1.1rem !important; padding: 20px 30px !important; width: 100% !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; box-sizing: border-box !important; }
+            
+            .logo-box { width: 100px !important; top: 10px !important; left: 10px !important; }
+            .welcome-title { position: static !important; transform: none !important; font-size: 1.3rem !important; margin-left: 110px !important; text-align: left; white-space: normal; }
+            .top-header { justify-content: flex-start; padding-left: 0; padding-right: 0; }
+            .hero-spacer { height: 120px !important; }
+            .quick-links { margin-top: 20px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-parallax"></div>
+
+    <header class="top-header">
+        <div class="burger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="top-left-link">
+            <a href="index.html#boite-idees" class="nav-link-top nav-link-idea"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+        </div>
+        
+        <h1 class="welcome-title">Bienvenue à Boisset</h1>
+        
+        <div class="top-right-link">
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link-top nav-link-allo"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+        </div>
+    </header>
+
+    <nav class="sub-header">
+        <div class="nav-menu" id="mobileMenu">
+           <a href="index.html" class="nav-link" onclick="toggleMenu()">Accueil</a>
+<a href="mairie.html" class="nav-link" onclick="toggleMenu()">Mairie</a>
+<a href="services.html" class="nav-link" onclick="toggleMenu()">Services</a>
+<a href="activites.html" class="nav-link" onclick="toggleMenu()">Activités</a>
+<a href="vie-locale.html" class="nav-link active" onclick="toggleMenu()">Vie locale</a>
+            
+            <a href="index.html#boite-idees" class="nav-link nav-link-idea mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+            <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+        </div>
+    </nav>
+
+    <div class="logo-box">
+        <img src="blason.png" alt="Blason de Boisset">
+    </div>
+
+    <button id="back-to-top" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i> Retour en haut</button>
+
+    <div class="main-content">
+        
+        <div class="hero-spacer"></div>
+
+        <section class="quick-links">
+            <a href="#album-photo" class="link-card"><i class="fa-solid fa-images"></i>Album photo</a>
+            <a href="#animations" class="link-card"><i class="fa-solid fa-calendar-check"></i>Animations</a>
+            <a href="#associations" class="link-card"><i class="fa-solid fa-people-group"></i>Associations</a>
+            <a href="#commerces" class="link-card"><i class="fa-solid fa-shop"></i>Commerces</a>
+            <a href="#entreprises" class="link-card"><i class="fa-solid fa-briefcase"></i>Entreprises</a>
+            <a href="#tourisme" class="link-card"><i class="fa-solid fa-camera-retro"></i>Tourisme</a>
+        </section>
+
+        <main class="container">
+
+          
+            
+            <section id="album-photo" class="section-padding" style="padding-top:0;">
+                <h2 class="section-title">Album photo</h2>
+                <div class="local-life-placeholder" style="border-left-color: var(--sinople);">
+                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
+                        [Section en attente : Galerie d'images des festivités locales, de la vie associative et des moments partagés au village.]
+                    </p>
+                </div>
+            </section>
+
+            <section id="animations" class="section-padding">
+                <h2 class="section-title">Animations</h2>
+                <div class="local-life-placeholder">
+                    <p style="text-align: center; color: #777; font-style: italic; margin: 0;">
+                        [Section en attente : Agenda des fêtes villageoises, événements culturels, feux d'artifice et manifestations.]
+                    </p>
+                </div>
+            </section>
+                        <div class="search-container" style="margin-top: 20px; margin-bottom: 10px;">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Tapez votre recherche ici...">
+                <p style="color: var(--sinople); font-size: 0.95rem; font-weight: bold; margin-top: 12px; font-style: italic;">
+                    💡 Écrivez un mot (ex: pain, bois, coiffure...) : l'annuaire ci-dessous se mettra à jour automatiquement pour ne garder que les bonnes fiches !
+                </p>
+            </div>
+
+            <section id="associations" class="section-padding">
+                <h2 class="section-title">Associations (19)</h2>
+                <div class="directory-grid">
+                    <div class="asso-card" id="prof-lamicheline">
+                        <span class="asso-tag">Lien Social / Animation</span>
+                        <h4>La Micheline</h4>
+                        <p>Café associatif mobile, rencontres, ateliers, distribution de produits locaux et soupe musicale. Présidente : Caroline Freitas.</p>
+                    </div>
+                    <div class="asso-card" id="prof-les-arts-du-plateau">
+                        <span class="asso-tag">Culture / Art</span>
+                        <h4>Les Arts du Plateau</h4>
+                        <p>Développer l'art et la culture en milieu rural. Organisation d'expositions à la Chapelle St Roch. Présidente : Denise Boutin.</p>
+                    </div>
+                    <div class="asso-card" id="prof-comite-des-fetes">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Comité des Fêtes</h4>
+                        <p>Organisation de la Fête patronale fin juillet, rassemblement de voitures anciennes et bals. Président : Christophe Morawiec.</p>
+                    </div>
+                    <div class="asso-card" id="prof-les-joyeux-lurons">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Les Joyeux Lurons</h4>
+                        <p>Organisation de la vogue, bals des jeunes en plein air et fête de la bière. Président : Flavien Riberon.</p>
+                    </div>
+                    <div class="asso-card" id="prof-club-de-la-bonne-entente">
+                        <span class="asso-tag">Loisirs / Seniors</span>
+                        <h4>Club de la Bonne Entente</h4>
+                        <p>Après-midis jeux tous les jeudis, repas conviviaux, excursions et diverses sorties de groupe. Présidente : Chantal Bayle.</p>
+                        <a href="tel:0674477420" class="phone-link">📞 06 74 47 74 20</a>
+                    </div>
+                    <div class="asso-card" id="prof-la-bibliotheque">
+                        <span class="asso-tag">Culture</span>
+                        <h4>La Bibliothèque</h4>
+                        <p>Prêt gratuit de livres (adultes et enfants), BD, mangas. Accueil du public le samedi de 14h à 16h et accueil scolaire. Équipe bénévole.</p>
+                    </div>
+                    <div class="asso-card" id="prof-epicerie-associative">
+                        <span class="asso-tag">Commerce local</span>
+                        <h4>Épicerie Associative</h4>
+                        <p>Produits de dépannage locaux et presse. Tenue par des bénévoles du Lundi au Samedi (9h-12h). Présidente : Laurie Coudert.</p>
+                    </div>
+                    <div class="asso-card" id="prof-association-des-marches-d-ete">
+                        <span class="asso-tag">Événementiel</span>
+                        <h4>Association des Marchés d'Été</h4>
+                        <p>Organisation des marchés estivaux sur la place du village avec animations et producteurs. Présidente : Laurie Coudert.</p>
+                    </div>
+                    <div class="asso-card" id="prof-a-c-c-a-">
+                        <span class="asso-tag">Chasse / Nature</span>
+                        <h4>A.C.C.A.</h4>
+                        <p>Association Communale de Chasse Agréée. Président : Jean-Marc Sallanon.</p>
+                    </div>
+                    <div class="asso-card" id="prof-anciens-combattants">
+                        <span class="asso-tag">Mémoire</span>
+                        <h4>Anciens Combattants</h4>
+                        <p>Préservation du devoir de mémoire. Président : Claude Thivillier.</p>
+                    </div>
+                    <div class="asso-card" id="prof-l-envol-des-jeunes">
+                        <span class="asso-tag">Jeunesse</span>
+                        <h4>L'Envol des Jeunes</h4>
+                        <p>Co-présidents : Leo Petrucci & Raphaël Baudoin.</p>
+                    </div>
+                    <div class="asso-card" id="prof-donneurs-de-sang">
+                        <span class="asso-tag">Solidarité</span>
+                        <h4>Donneurs de sang</h4>
+                        <p>Organisation et promotion du don du sang. Président : Thierry Provost.</p>
+                    </div>
+                    <div class="asso-card" id="prof-dynamique-et-avenir-de-boisset">
+                        <span class="asso-tag">Développement Local</span>
+                        <h4>Dynamique et Avenir de Boisset</h4>
+                        <p>Président : Ludovic Petrucci.</p>
+                    </div>
+                    <div class="asso-card" id="prof-syndicat-agricole">
+                        <span class="asso-tag">Agriculture</span>
+                        <h4>Syndicat Agricole</h4>
+                        <p>Représentation et entraide agricole. Président : Fabien Sivard.</p>
+                    </div>
+                    <div class="asso-card" id="prof-quad-plaisir-des-3-vallees">
+                        <span class="asso-tag">Sport / Mécanique</span>
+                        <h4>Quad Plaisir des 3 Vallées</h4>
+                        <p>Randonnées et passion du quad. Président : Vincent Bufferne.</p>
+                    </div>
+                    <div class="asso-card" id="prof-association-millepertuis">
+                        <span class="asso-tag">Nature / Environnement</span>
+                        <h4>Association Millepertuis</h4>
+                        <p>Président : Jean-Marc Denise.</p>
+                    </div>
+                    <div class="asso-card" id="prof-brocatoc">
+                        <span class="asso-tag">Animation</span>
+                        <h4>Brocatoc</h4>
+                        <p>Présidente : Marie-Laure Jasserand.</p>
+                    </div>
+                    <div class="asso-card" id="prof-a-d-m-r-">
+                        <span class="asso-tag">Solidarité / Aide</span>
+                        <h4>A.D.M.R.</h4>
+                        <p>Aide à domicile en milieu rural. Présidente : Geneviève Dantony.</p>
+                    </div>
+                    <div class="asso-card" id="prof-ong-landestini">
+                        <span class="asso-tag">Environnement</span>
+                        <h4>ONG LanDestini</h4>
+                        <p>Présidence : Fanny Agostini & Henri Landes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="commerces" class="section-padding">
+                <h2 class="section-title">Commerces & Alimentation (6)</h2>
+                <div class="directory-grid">
+                    <div class="directory-card" id="prof-l-eveil-des-delices">
+                        <span class="cat-tag">Alimentation</span>
+                        <h4>L'éveil des délices</h4>
+                        <p>Restaurant de village proposant une cuisine de terroir, généreuse et concoctée à partir de produits frais de saison.</p>
+                        <a href="tel:0471752962" class="phone-link">📞 04 71 75 29 62</a>
+                    </div>
+                    <div class="directory-card" id="prof-vival-boisset">
+                        <span class="cat-tag">Alimentation</span>
+                        <h4>Vival Boisset</h4>
+                        <p>Épicerie de proximité, produits locaux, dépôt de pain et relais presse.</p>
+                        <a href="tel:0471755106" class="phone-link">📞 04 71 75 51 06</a>
+                    </div>
+                    <div class="directory-card" id="prof-pizza-500">
+                        <span class="cat-tag">Alimentation</span>
+                        <h4>Pizza 500</h4>
+                        <p>Vente de pizzas sur place ou à emporter.</p>
+                        <a href="tel:0615242032" class="phone-link">📞 06 15 24 20 32</a>
+                    </div>
+                    <div class="directory-card" id="prof-didier-et-isabelle-lamartine">
+                        <span class="cat-tag">Alimentation / Producteur</span>
+                        <h4>Didier et Isabelle Lamartine</h4>
+                        <p>Produits fermiers, charcuterie campagnarde, boeuf et agneau sur commande.</p>
+                        <a href="tel:0471613994" class="phone-link">📞 04 71 61 39 94</a>
+                    </div>
+                    <div class="directory-card" id="prof-thierry-petit">
+                        <span class="cat-tag">Alimentation / Producteur</span>
+                        <h4>Thierry Petit</h4>
+                        <p>Producteur d'œufs fermiers. Volailles élevées au grain sans OGM. Céréales produites par nos soins.</p>
+                        <a href="tel:0674100521" class="phone-link">📞 06 74 10 05 21</a>
+                    </div>
+                    <div class="directory-card" id="prof-au-plaisir-fermier">
+                        <span class="cat-tag">Alimentation / Producteur</span>
+                        <h4>Au plaisir fermier</h4>
+                        <p>Vente de produits laitiers bios et de glaces artisanales (Gaec de l'Herm).</p>
+                        <a href="tel:0675893608" class="phone-link">📞 06 75 89 36 08</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="entreprises" class="section-padding">
+                <h2 class="section-title">Entreprises, Artisans, Bien-être (14)</h2>
+                <div class="directory-grid">
+                    <div class="directory-card" id="prof-fabrice-beyssac">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Fabrice Beyssac</h4>
+                        <p>Agencements, menuiserie intérieure et extérieure, cuisines, bains et rangements.</p>
+                        <a href="tel:0607102820" class="phone-link">📞 06 07 10 28 20</a>
+                    </div>
+                    <div class="directory-card" id="prof-tapordigital">
+                        <span class="cat-tag">Informatique</span>
+                        <h4>TaporDigital</h4>
+                        <p>Expertise en création, développement et maintenance de sites internet. Conseil et assistance informatique.</p>
+                        <a href="tel:0660419226" class="phone-link">📞 06 60 41 92 26</a>
+                    </div>
+                    <div class="directory-card" id="prof-theo-electricite">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Théo électricité</h4>
+                        <p>Électricité générale. Neuf - Rénovation - Dépannage. (Théo Broussard)</p>
+                        <a href="tel:0787024055" class="phone-link">📞 07 87 02 40 55</a>
+                    </div>
+                    <div class="directory-card" id="prof-forez-a-cheval">
+                        <span class="cat-tag">Loisirs / Ferme</span>
+                        <h4>Forez à cheval</h4>
+                        <p>Ferme équestre. Cours, pension, débourrage, balades randonnées, séjours, accueil de groupes, anniversaires, élevage.</p>
+                        <a href="tel:0688016794" class="phone-link">📞 06 88 01 67 94</a>
+                    </div>
+                    <div class="directory-card" id="prof-christophe-brun">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Christophe Brun</h4>
+                        <p>Maçonnerie générale, enduit de façade, neuf et rénovation.</p>
+                        <a href="tel:0670694733" class="phone-link">📞 06 70 69 47 33</a>
+                    </div>
+                    <div class="directory-card" id="prof-bufferne-et-fils--sarl-">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Bufferne et fils (Sarl)</h4>
+                        <p>Menuiserie, charpente, couverture, escaliers.</p>
+                        <a href="tel:0471613509" class="phone-link">📞 04 71 61 35 09</a>
+                    </div>
+                    <div class="directory-card" id="prof-katy-lengrand">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>Katy Lengrand</h4>
+                        <p>Sophrologue certifiée. Séances de Sophrologie et Massages.</p>
+                        <a href="tel:0684681187" class="phone-link">📞 06 84 68 11 87</a>
+                    </div>
+                    <div class="directory-card" id="prof-savon-et-cosmeto">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>Savon et Cosmeto</h4>
+                        <p>Fabrication et vente de cosmétiques naturels.</p>
+                        <a href="tel:0642854028" class="phone-link">📞 06 42 85 40 28</a>
+                    </div>
+                    <div class="directory-card" id="prof-renaud-bayet">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>Renaud Bayet</h4>
+                        <p>Entreprise spécialisée en maçonnerie.</p>
+                        <a href="tel:0626593446" class="phone-link">📞 06 26 59 34 46</a>
+                    </div>
+                    <div class="directory-card" id="prof-jo-coupe-creation">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>JO Coupe Création</h4>
+                        <p>Coiffure professionnelle en salon et à domicile.</p>
+                        <a href="tel:0631295565" class="phone-link">📞 06 31 29 55 65</a>
+                    </div>
+                    <div class="directory-card" id="prof-linael-passion-zen">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>Linael Passion Zen</h4>
+                        <p>Prestations de massage bien-être à domicile.</p>
+                        <a href="tel:0783098599" class="phone-link">📞 07 83 09 85 99</a>
+                    </div>
+                    <div class="directory-card" id="prof-gaec-de-l-herm--anime-sens-">
+                        <span class="cat-tag">Loisirs / Ferme</span>
+                        <h4>Gaec de l'Herm "Animé sens"</h4>
+                        <p>Ferme pédagogique, ferme de découverte, ferme équestre et écurie de propriétaire. (Laurie Coudert)</p>
+                        <a href="tel:0668951316" class="phone-link">📞 06 68 95 13 16</a>
+                    </div>
+                    <div class="directory-card" id="prof-multi-services">
+                        <span class="cat-tag">Services</span>
+                        <h4>Multi services</h4>
+                        <p>Interventions multi services par Patrice Goyon.</p>
+                        <a href="tel:0683084804" class="phone-link">📞 06 83 08 48 04</a>
+                    </div>
+                    <div class="directory-card" id="prof-mickael-sommet">
+                        <span class="cat-tag">Automobile</span>
+                        <h4>Mickael Sommet</h4>
+                        <p>Carrosserie, remplacement de pare-brise et tous vitrages automobiles.</p>
+                        <a href="tel:0689600715" class="phone-link">📞 06 89 60 07 15</a>
+                    </div>
+                    <div class="directory-card" id="prof-sas-rf-charpente">
+                        <span class="cat-tag">Bâtiment / Artisanat</span>
+                        <h4>SAS RF Charpente</h4>
+                        <p>Couverture, ossature bois, menuiserie (Frédéric Ravachol).</p>
+                        <a href="tel:0681000748" class="phone-link">📞 06 81 00 07 48</a>
+                    </div>
+                    <div class="directory-card" id="prof-entre-ciel---terre">
+                        <span class="cat-tag">Bien-être / Beauté</span>
+                        <h4>Entre Ciel & Terre</h4>
+                        <p>Réflexologie Plantaire, Aroma Zen Massage, Tarot Psychologique et Astrologie Humaniste par Sandra Saifi.</p>
+                        <a href="tel:0617405338" class="phone-link">📞 06 17 40 53 38</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tourisme" class="section-padding" style="border-bottom: none;">
+    <h2 class="section-title">Tourisme</h2>
+    <style>
+    .tourisme-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+        gap: 20px !important;
+        margin-top: 20px !important;
+    }
+    .tourisme-card {
+        background: white !important;
+        padding: 25px !important;
+        border-radius: 12px !important;
+        border-top: 5px solid #0055A4 !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+        text-align: center !important;
+        transition: 0.3s !important;
+        text-decoration: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        color: #333 !important;
+    }
+    .tourisme-card:hover { transform: translateY(-5px); border-color: #228B22 !important; }
+    .tourisme-card h4 { margin: 15px 0 !important; font-size: 1.2rem !important; font-weight: 900 !important; color: #1a1a1a !important; }
+    .tourisme-card p { font-size: 0.9rem !important; color: #555 !important; }
+    .tourisme-icon { font-size: 2.5rem !important; color: #0055A4 !important; margin-bottom: 10px !important; }
+</style>
+    <div class="tourisme-grid">
+        <a href="https://www.marchesduvelayrochebaron.fr/a-votre-service/decouvrir/" class="tourisme-card" target="_blank">
+            <i class="fa-solid fa-map-location-dot tourisme-icon"></i>
+            <h4>Marches du Velay Rochebaron</h4>
+            <p>Découvrez notre territoire, son patrimoine, ses chemins de randonnée et toutes les richesses de notre intercommunalité.</p>
+        </a>
+        
+        <a href="https://www.gorgesdelaloire.fr/" class="tourisme-card" target="_blank">
+            <i class="fa-solid fa-water tourisme-icon"></i>
+            <h4>Gorges de la Loire</h4>
+            <p>Explorez les paysages grandioses des Gorges de la Loire, un site naturel exceptionnel pour vos sorties et activités.</p>
+        </a>
+    </div>
+</section>
+
+        </main>
+        
+       <div style="height: 450px; background: transparent; width: 100%; position: relative; z-index: 1;"></div>
+
+        <footer>
+            <div style="max-width: 800px; margin: 0 auto; text-align:center; padding:30px 20px; font-size:0.85rem; color:#888; line-height: 1.6;">
+                <h4 style="color: #ccc; font-size: 2rem; margin-bottom: 10px;">🔒 Vos données, en toute confiance</h4>
+                <p style="margin-bottom: 20px;">
+                    Nous respectons votre vie privée avec la plus grande exigence. Les données éventuellement collectées sur ce site (via les formulaires de contact) le sont uniquement dans un cadre strictement nécessaire à son fonctionnement et à la gestion de vos demandes.<br>
+                    Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données à tout moment en contactant la mairie.<br>
+                    Aucune information personnelle n’est vendue, ni partagée à des tiers sans votre consentement.
+                </p>
+                <hr style="border: none; border-top: 1px solid #444; margin: 20px auto; width: 50%;">
+                &copy; 2026 Commune de Boisset (43) - Tous droits réservés.<br>Développement par <strong>TaporDigital</strong>. Siret : 390 724 243 00022
+            </div>
+        </footer>
+    </div> <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const burger = document.querySelector('.burger-icon');
+            if (menu) menu.classList.toggle('active');
+            if (burger) burger.classList.toggle('active');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const btt = document.getElementById('back-to-top');
+            if (btt) {
+                window.addEventListener('scroll', () => {
+                    btt.style.display = (document.documentElement.scrollTop || document.body.scrollTop) > 100 ? "flex" : "none";
+                }, { passive: true });
+            }
+
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const term = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+                    const cards = document.querySelectorAll('.asso-card, .directory-card');
+                    
+                    cards.forEach(card => {
+                        const textContent = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        if (textContent.includes(term)) {
+                            card.classList.remove('hidden-card');
+                        } else {
+                            card.classList.add('hidden-card');
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+
+    <style>
+        @keyframes pulse-orange {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(243, 156, 18, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(243, 156, 18, 0); }
+        }
+        
+        .badge-pulsing {
+            background-color: #f39c12; 
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-left: 15px;
+            animation: pulse-orange 2s infinite;
+            display: inline-block;
+            border: 2px solid #e67e22;
+        }
+
+        .event-text-top {
+            float: right;
+            width: 55%;
+            text-align: right;
+            line-height: 1.3;
+            overflow-wrap: break-word; 
+            word-break: break-word; 
+            white-space: normal;
+            margin-top: -25px; /* C'est cette ligne qui fait remonter le bloc ! */
+            margin-left: 10px;
+        }
+
+        .event-main-text {
+            color: #ff4757 !important; 
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: block;
+        }
+
+        .event-details-text {
+            color: #8e44ad;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: block;
+            margin-top: 3px;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const sbUrl = 'https://zlwxzhqqrjddxnzdwoay.supabase.co';
+        const sbKey = 'sb_publishable_gkrziK1nENbbMMIga86Hlw_zhSKWyPj';
+        const supabaseClient = supabase.createClient(sbUrl, sbKey);
+
+       async function injectEventsIntoCards() {
+            const { data, error } = await supabaseClient
+                .from('local_directory')
+                .select('card_id, event_text, event_expiry, event_time, event_location');
+
+            if (error) return;
+
+            const today = new Date().toISOString().split('T')[0];
+
+            data.forEach(fiche => {
+                const card = document.getElementById(fiche.card_id);
+                if (!card) return;
+
+                // 1. Nettoyage : on supprime les anciens éléments pour repartir sur une base propre
+                const oldText = card.querySelector('.event-text-top');
+                const oldBadge = card.querySelector('.badge-pulsing');
+                if (oldText) oldText.remove();
+                if (oldBadge) oldBadge.remove();
+
+                // 2. Si l'événement est périmé ou vide, on ne fait rien de plus
+                if (!fiche.event_text || (fiche.event_expiry && fiche.event_expiry < today)) {
+                    return;
+                }
+
+                // 3. Sinon, on réinjecte tout proprement
+                const title = card.querySelector('h4');
+                if (title) {
+                    let detailsHtml = '';
+                    if (fiche.event_expiry) {
+                        const dateParts = fiche.event_expiry.split('T')[0].split('-');
+                        detailsHtml += `📅 ${dateParts[2]}/${dateParts[1]}/${dateParts[0]} <br>`;
+                    }
+                    if (fiche.event_time) detailsHtml += `🕒 ${fiche.event_time} <br>`;
+                    if (fiche.event_location) detailsHtml += `📍 ${fiche.event_location}`;
+                    
+                    const eventTextHtml = `
+                        <div class="event-text-top">
+                            <span class="event-main-text" style="color: #ff4757 !important;">${fiche.event_text}</span>
+                            ${detailsHtml ? `<span class="event-details-text">${detailsHtml}</span>` : ''}
+                        </div>
+                    `;
+                    title.insertAdjacentHTML('beforebegin', eventTextHtml);
+                }
+
+                const phoneLink = card.querySelector('.phone-link');
+                const badgeHtml = `<span class="badge-pulsing">Événement</span>`;
+                if (phoneLink) {
+                    phoneLink.insertAdjacentHTML('afterend', badgeHtml);
+                } else {
+                    card.insertAdjacentHTML('beforeend', `<div style="text-align: right; margin-top: 10px;">${badgeHtml}</div>`);
+                }
+            });
+        }
+                // --- B. Injection de la pilule ORANGE ---
+                const phoneLink = card.querySelector('.phone-link');
+                const badgeHtml = `<span class="badge-pulsing">Événement</span>`;
+                    
+                    if (phoneLink) {
+                        phoneLink.style.display = 'inline-flex'; 
+                        phoneLink.insertAdjacentHTML('afterend', badgeHtml);
+                    } else {
+                        card.insertAdjacentHTML('beforeend', `<div style="text-align: right; margin-top: 10px;">${badgeHtml}</div>`);
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', injectEventsIntoCards);
+    </script>
+</body>
+</html>
