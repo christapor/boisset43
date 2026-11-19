@@ -1,73 +1,41 @@
 # CONTEXTE PROJET : BOISSET43.FR
 
 ## 1. VISION & OBJECTIFS
-* **Quoi :** Site officiel de la commune de Boisset (Haute-Loire).
-* **Objectif :** Offrir une vitrine moderne, claire et accessible pour la municipalité.
-* **Cibles :** * Les habitants (actus locales, démarches administratives, calendrier des événements, comptes-rendus du conseil).
-    * Les touristes et nouveaux arrivants (patrimoine, hébergements, vie associative).
-* **Partenaire clé :** Florian, le Maire de Boisset (collaboration directe sur les outils numériques communaux).
+* **Quoi :** Site officiel de la commune de Boisset (43500, Haute-Loire).
+* **URL actuelle :** `boisset43.vercel.app` (bascule finale prévue sur `boisset43.fr` via hébergement souverain français LWS).
+* **Objectif :** Offrir une vitrine moderne, sobre numériquement, accessible et 100 % conforme au RGPD pour la municipalité.
+* **Cibles :**
+  * Les habitants (actus locales, démarches administratives, calendrier des événements, comptes-rendus du conseil, alertes mairie, boîte à idées).
+  * Les touristes et nouveaux arrivants (histoire, patrimoine, randonnées, hébergements, bonnes tables, vie associative).
+* **Partenaires clés :** Florian Capdevielle (Maire de Boisset) et Éric (Premier Adjoint), en collaboration avec TaporDigital (Chris TAPOR).
 
-## 2. STACK TECHNIQUE
-* **Philosophie :** Pas de frameworks lourds, du solide, du léger, du maîtrisable.
-* **Front-end :** HTML5, CSS3 (Responsive Design), JavaScript natif (Vanilla JS).
-* **Hébergement & Versioning :** GitHub + Vercel (déploiement continu).
-* **Back-end / Base de données :** Supabase (authentification, stockage des actus, logs, données dynamiques).
-* **Environnement de dev :** MX Linux / Windows Ghost.
+## 2. STACK TECHNIQUE & SOUVERAINETÉ RGPD
+* **Philosophie :** Full Vanilla — zéro framework lourd, zéro cookie traceur publicitaire, zéro dépendance GAFAM.
+* **Front-end :** HTML5, CSS3 (Responsive Design, variables `--azur`, `--sinople`, `--argent`, `--dark`), JavaScript natif (Vanilla JS), Font Awesome 6.5.1, Google Fonts (`Amatic SC`).
+* **Hébergement & Versioning :** GitHub (`christapor/boisset43`) + Vercel (préproduction/CI) → cible finale LWS (France).
+* **Back-end / Base de données :** Supabase (authentification Magic Link, stockage des actus, alertes mairie, données dynamiques).
+* **Formulaires (Boîte à idées) :** Formward (infrastructure 100 % UE : Hostup AB Suède + Mailjet France), hachage IP HMAC-SHA-256, rétention automatique 30 jours, honeypot `_gotcha`, validation serveur `_consent` et DPA Article 28 RGPD v1.2 signé le 19/11/2026.
+* **Cartographie & Réseaux sociaux :**
+  * Google Maps remplacé par **OpenStreetMap** centré sur la Mairie (`45.323649, 3.982670`), sans traceurs.
+  * SDK Facebook/Meta supprimé et remplacé par un lien direct protégé par une modale **sas de sortie RGPD** (`#fb-rgpd-modal` / `openFbModal()`).
+* **Environnement de dev :** MX Linux / Windows 11.
 
-## 3. ÉTAT ACTUEL & STABILITÉ
-* Le site vitrine de base est fonctionnel et en ligne.
-* La structure responsive est en place pour s'adapter aux smartphones (priorité aux téléphones des administrés).
-* La connexion avec Supabase est opérationnelle pour la récupération des contenus dynamiques majeurs.
+## 3. STRUCTURE DES PAGES (État au 19 novembre 2026)
+Toutes les pages partagent la même architecture harmonisée (header fixe, sub-header épuré à 5 entrées sans menus déroulants : `Accueil | Mairie | Services | Activités | Vie locale`, logo blason fixe, espaces parallax de 450px, bouton retour en haut, footer RGPD).
 
-## 4. POINTS SENSIBLES & VIGILANCES
-* **Accessibilité (RGAA) :** Le site d'une mairie doit être lisible par tous (contrastes, tailles de police, navigation clavier).
-* **Performance :** Chargement rapide même avec une connexion mobile instable dans la Haute-Loire.
-* **Gestion du Calendrier / Actus :** Interface simple pour la mise à jour des événements de la commune et des alertes de la mairie.
-
-## 5. DERNIÈRES MODIFS & PROCHAINES ÉTAPES
-* *Fait :* Structuration globale et mise en conformité du nom de domaine.
-* *En cours :* Optimisation du responsive et liaison propre des tables Supabase pour les actus municipales.
-* *À faire :* Finaliser le module d'affichage du calendrier des événements et valider l'accès admin pour la mairie.
-
-********** EDIT DU 27 MAI 2026 **********
-
-# CONTEXTE PROJET : BOISSET43
-
-## 1. VISION & INFOS CLÉS
-* **Projet :** Site officiel de la commune de Boisset (Haute-Loire).
-* **URL actuelle :** boisset43.vercel.app (future : boisset43.fr)
-* **Cibles :** Habitants (dont séniors), touristes, nouveaux arrivants.
-* **Stack :** Full Vanilla (HTML5, CSS3, JS natif), GitHub, Vercel (déploiement continu), Supabase (Auth, DB pour actus et alertes).
-* **Design :** Responsive, clair, forts contrastes. Menu "hamburger" cliquable sur mobile. Grand espace (450px) en haut et en bas de page pour laisser respirer l'image de fond (`fond.jpeg`).
-
-## 2. STRUCTURE DES PAGES (Récemment mises à jour)
-Toutes les pages partagent la même structure globale (header, sub-header, footer, espaces parallax).
-
-* **index.html :** 
-  - Accueil. 
-  - Intègre une section dynamique Supabase pour les actus.
-  - Alerte Mairie (rouge) gérée en JS (`mairie.boisset@orange.fr`).
-* **mairie.html :** 
-  - Horaires (Lundi, Mardi, Jeudi, Samedi. Fermé Mercredi et Vendredi).
-  - Trombinoscope équipe municipale (Florian Capdevielle, Eric Gagnère, Denise Boutin, Murielle Bouillon, Cédric Dérail, Thierry Petit).
-  - Alerte Mairie (rouge) en double avec l'accueil.
-* **services.html :** 
-  - Infos CCAS, École, Santé (Dr Rodriguez, Pharmacie Pérez-Desbrun).
-  - Intégration Syndicat des eaux (SGEV) avec logo cliquable.
-* **territoire.html :** 
-  - Histoire, patrimoine, tourisme (structure prête, contenu en attente).
-* **vie-locale.html :** 
-  - Annuaire complet (39 cartes : 19 Assos, 6 Commerces, 14 Entreprises).
-  - Barre de recherche dynamique (JS) placée *avant* les associations avec un texte explicatif adapté aux séniors. Le JS filtre sur le `.textContent` global sans tenir compte de la casse ou des accents.
-* **login.html / edit.html :** 
-  - Espace pro (Magic Link Supabase). 
-
-## 3. PROCHAINES ÉTAPES (To-Do)
-* Mettre en place l'édition des fiches (login/edit) directement depuis la page `vie-locale.html` pour que les 39 artisans/assos puissent modifier leurs infos eux-mêmes (en attente de leurs adresses email).
-* Nettoyer `index.html` pour supprimer les cartes en double (qui sont maintenant proprement classées dans `vie-locale.html`).
-* Intégrer les photos manquantes (agents, élus).
-
-## 4. DIRECTIVES POUR L'ASSISTANT (CHRIS DEV)
-* Ton direct, technique, pas de politesses inutiles. Tutoiement.
-* Si modification de code, donner le nom du fichier et utiliser des "snippets" (morceaux de code) avec indication claire de "couper entre la ligne X et Y" pour économiser des tokens, SAUF si le fichier est court ou demande une refonte complète.
-
+* **`index.html` :**
+  * Page d'accueil avec flux dynamique Supabase pour les actualités et alerte mairie rouge (`mairie.boisset@orange.fr`).
+  * Intégration Illiwap, bloc Facebook avec sas de sortie RGPD (`openFbModal()`), carte OpenStreetMap de la mairie et formulaire Boîte à Idées connecté à Formward.
+  * Navigation sub-header harmonisée (suppression des anciens menus déroulants).
+* **`mairie.html` :**
+  * Horaires d'ouverture (Lundi, Mardi, Jeudi, Samedi ; fermé Mercredi et Vendredi).
+  * Trombinoscope de l'équipe municipale (Florian Capdevielle, Eric Gagnère, Denise Boutin, Murielle Bouillon, Cédric Dérail, Thierry Petit).
+  * Alerte mairie synchronisée avec l'accueil.
+* **`services.html` :**
+  * Écoles (Mélanie Perbet, Thiphaine Jalabert, Arnaud Beurion).
+  * **CCAS :** présentation + bouton vers la fiche officielle `service-public.gouv.fr`.
+  * **Santé & Numéros utiles :** Dr Anaïs Rodriguez, Pharmacie Pérez-Desbrun, Urgences (`15 / 112 / 18`).
+  * **Eau & Assainissement :** Syndicat de Gestion des Eaux du Velay (`sgev.fr`).
+  * **Déchets :** collecte CC Marches du Velay Rochebaron (`04 71 61 74 34`), traitement SYMPTTOM (`04 71 75 57 57`), horaires hiver/été de la déchetterie de Saint-Pal-de-Chalencon (Trespeyres) et liens officiels.
+* **`activites.html` (remplace l'ancien `territoire.html`) :**
+  * **Histoire :** toponymie (*Boschetum*
