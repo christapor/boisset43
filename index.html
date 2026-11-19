@@ -541,60 +541,17 @@
         </div>
     </header>
 
-    <nav class="sub-header">
-        <ul class="nav-menu" id="mobileMenu">
-            <li class="nav-item">
-                <a href="index.html" class="nav-link active" onclick="toggleMenu()">Accueil</a>
-            </li>
+<nav class="sub-header">
+        <div class="nav-menu" id="mobileMenu">
+            <a href="index.html" class="nav-link active" onclick="toggleMenu()">Accueil</a>
+            <a href="mairie.html" class="nav-link" onclick="toggleMenu()">Mairie</a>
+            <a href="services.html" class="nav-link" onclick="toggleMenu()">Services</a>
+            <a href="activites.html" class="nav-link" onclick="toggleMenu()">Activités</a>
+            <a href="vie-locale.html" class="nav-link" onclick="toggleMenu()">Vie locale</a>
             
-            <li class="nav-item">
-                <a href="mairie.html" class="nav-link">Mairie <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="mairie.html#elus-agents" class="dropdown-link" onclick="toggleMenu()">Élus - Agents</a></li>
-                    <li><a href="mairie.html#conseils" class="dropdown-link" onclick="toggleMenu()">Conseils municipaux</a></li>
-                    <li><a href="mairie.html#urbanisme" class="dropdown-link" onclick="toggleMenu()">Urbanisme</a></li>
-                    <li><a href="mairie.html#etat-civil" class="dropdown-link" onclick="toggleMenu()">État-Civil</a></li>
-                </ul>
-            </li>
-            
-            <li class="nav-item">
-                <a href="services.html" class="nav-link">Services <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="services.html#ecole-publique" class="dropdown-link" onclick="toggleMenu()">École publique</a></li>
-                    <li><a href="services.html#location-salles" class="dropdown-link" onclick="toggleMenu()">Location de Salles</a></li>
-                    <li><a href="services.html#bibliotheque" class="dropdown-link" onclick="toggleMenu()">Bibliothèque</a></li>
-                    <li><a href="services.html#sante" class="dropdown-link" onclick="toggleMenu()">Santé à proximité</a></li>
-                </ul>
-            </li>
-            
-            <li class="nav-item">
-                <a href="vie-locale.html" class="nav-link">Vie locale <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="activites.html" class="dropdown-link" onclick="toggleMenu()">Activités</a></li>
-                    <li><a href="vie-locale.html#associations" class="dropdown-link" onclick="toggleMenu()">Associations</a></li>
-                    <li><a href="vie-locale.html#commerces" class="dropdown-link" onclick="toggleMenu()">Commerces</a></li>
-                    <li><a href="vie-locale.html#entreprises" class="dropdown-link" onclick="toggleMenu()">Entreprises</a></li>
-                </ul>
-            </li>
-            
-            <li class="nav-item">
-                <a href="territoire.html" class="nav-link">Territoire <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="territoire.html#histoire" class="dropdown-link" onclick="toggleMenu()">Histoire</a></li>
-                    <li><a href="territoire.html#patrimoine" class="dropdown-link" onclick="toggleMenu()">Patrimoine</a></li>
-                    <li><a href="territoire.html#geographie" class="dropdown-link" onclick="toggleMenu()">Géographie</a></li>
-                    <li><a href="territoire.html#tourisme" class="dropdown-link" onclick="toggleMenu()">Tourisme</a></li>
-                </ul>
-            </li>
-
-            <!-- Liens exclusifs mobile -->
-            <li class="nav-item mobile-only-link">
-                <a href="#boite-idees" class="nav-link nav-link-idea" onclick="toggleMenu()"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
-            </li>
-            <li class="nav-item mobile-only-link">
-                <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo" onclick="toggleMenu()"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
-            </li>
-        </ul>
+            <a href="#boite-idees" class="nav-link nav-link-idea mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
+            <a href="https://www.alloboisset.fr" target="_blank" rel="noopener noreferrer" class="nav-link nav-link-allo mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
+        </div>
     </nav>
 
     <div class="logo-box">
