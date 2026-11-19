@@ -737,23 +737,28 @@
                 <p style="text-align: center; color: #666; max-width: 600px; margin: 0 auto 30px; padding: 0 20px;">
                     Une suggestion pour améliorer la vie au village ? Partagez votre idée (anonymement ou non) directement avec l'équipe municipale de Boisset.
                 </p>
-                <form action="https://formspree.io/f/mvzvvbpd" method="POST" style="max-width: 600px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px;">
+               <form action="https://forms.formward.eu/f/b0c968e3-3b00-4c83-928f-19b510270493" method="POST" style="max-width: 600px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px;">
                     <input type="hidden" name="_subject" value="Nouvelle idée soumise - Boisset">
-                    <input type="text" name="_gotcha" style="display:none">
+                    <input type="hidden" name="_redirect" value="/merci.html">
+                    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                         <div>
-                            <label style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Nom (Optionnel)</label>
-                            <input type="text" name="nom" placeholder="Anonyme ou Votre nom" style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; margin-top: 5px; box-sizing: border-box;">
+                            <label for="name" style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Nom (Optionnel)</label>
+                            <input type="text" id="name" name="name" placeholder="Anonyme ou Votre nom" style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; margin-top: 5px; box-sizing: border-box;">
                         </div>
                         <div>
-                            <label style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Email (Optionnel)</label>
-                            <input type="email" name="_replyto" placeholder="votre@email.com" style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; margin-top: 5px; box-sizing: border-box;">
+                            <label for="email" style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Email (Optionnel)</label>
+                            <input type="email" id="email" name="email" placeholder="votre@email.com" style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; margin-top: 5px; box-sizing: border-box;">
                         </div>
                     </div>
                     <div>
-                        <label style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Idée ou Suggestion</label>
-                        <textarea name="message" rows="5" required placeholder="Décrivez votre idée en détail ici..." style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; resize: vertical; margin-top: 5px; box-sizing: border-box;"></textarea>
+                        <label for="message" style="font-size: 0.8rem; font-weight: bold; color: var(--dark); text-transform: uppercase;">Votre Idée ou Suggestion</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Décrivez votre idée en détail ici..." style="width:100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; resize: vertical; margin-top: 5px; box-sizing: border-box;"></textarea>
                     </div>
+                    <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: #555; cursor: pointer;">
+                        <input type="checkbox" name="_consent" value="true" required style="margin-top: 4px; flex-shrink: 0;">
+                        <span>J'accepte que ma suggestion (et mes coordonnées si renseignées) soit transmise à la mairie de Boisset pour traitement, conformément à la politique de confidentialité ci-dessous.</span>
+                    </label>
                     <button type="submit" style="background: var(--sinople); color: white; border: none; padding: 16px; font-weight: 800; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: background 0.2s; font-size: 1rem; letter-spacing: 0.5px;">
                         Soumettre mon idée au village 💡
                     </button>
@@ -769,7 +774,7 @@
             <div style="max-width: 800px; margin: 0 auto; text-align:center; padding:30px 20px; font-size:0.85rem; color:#888; line-height: 1.6;">
                 <h4 style="color: #ccc; font-size: 2rem; margin-bottom: 10px;">🔒 Vos données, en toute confiance</h4>
                 <p style="margin-bottom: 20px;">
-                    Nous respectons votre vie privée avec la plus grande exigence. Les données éventuellement collectées sur ce site (via les formulaires de contact) le sont uniquement dans un cadre strictement nécessaire à son fonctionnement et à la gestion de vos demandes.<br>
+                    Nous respectons votre vie privée avec la plus grande exigence. Les données collectées via la boîte à idées sont transmises exclusivement à la mairie de Boisset via un prestataire hébergé dans l’Union européenne (Formward, Suède / routage e-mail France) et conservées le temps strictement nécessaire au traitement de votre demande (purge technique sous 30 jours).<br>
                     Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données à tout moment en contactant la mairie.<br>
                     Aucune information personnelle n’est vendue, ni partagée à des tiers sans votre consentement.
                 </p>
