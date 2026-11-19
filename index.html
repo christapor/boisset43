@@ -694,9 +694,9 @@
                         <p style="color: #555; max-width: 550px; margin: 15px auto 25px; line-height: 1.6;">
                             Retrouvez également les albums photos des manifestations, la vie associative et les partages des habitants sur la page officielle du village.
                         </p>
-                        <a href="https://www.facebook.com/VillagedeBoisset" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; background: #1877F2; color: white; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding: 14px 28px; border-radius: 30px; box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3); transition: transform 0.2s;">
+                       <button type="button" onclick="openFbModal()" style="display: inline-flex; align-items: center; gap: 10px; background: #1877F2; color: white; border: none; cursor: pointer; font-family: inherit; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding: 14px 28px; border-radius: 30px; box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3); transition: transform 0.2s;">
                             <i class="fa-brands fa-facebook-f"></i> Consulter la page Facebook
-                        </a>
+                        </button>
                     </div>
                     </div>
                 </div>
@@ -955,5 +955,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+    <!-- MODALE SAS DE SORTIE RGPD (FACEBOOK) -->
+    <div id="fb-rgpd-modal" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); z-index: 6000; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: white; max-width: 480px; width: 100%; border-radius: 14px; padding: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-top: 5px solid #1877F2; text-align: center;">
+            <div style="font-size: 2.2rem; color: #1877F2; margin-bottom: 10px;">
+                <i class="fa-brands fa-facebook"></i>
+            </div>
+            <h3 style="margin: 0 0 12px; color: var(--dark); font-family: var(--font-texte) !important; font-size: 1.3rem;">
+                Vous quittez le site de la Mairie
+            </h3>
+            <p style="color: #555; font-size: 0.92rem; line-height: 1.6; margin-bottom: 24px;">
+                Pour protéger votre vie privée, le site de la commune de Boisset n'intègre aucun traceur publicitaire.<br><br>
+                En continuant vers <strong>Facebook</strong>, vous accédez à une plateforme externe soumise à ses propres conditions d'utilisation et de gestion des cookies.
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <button type="button" onclick="closeFbModal()" style="padding: 12px 20px; border-radius: 8px; border: 1px solid #ccc; background: #f5f5f5; color: #333; font-weight: 700; cursor: pointer;">
+                    Rester sur le site
+                </button>
+                <a href="https://www.facebook.com/VillagedeBoisset" target="_blank" rel="noopener noreferrer" onclick="closeFbModal()" style="padding: 12px 22px; border-radius: 8px; background: #1877F2; color: white; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                    Continuer vers Facebook <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem;"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openFbModal() {
+            const modal = document.getElementById('fb-rgpd-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+        function closeFbModal() {
+            const modal = document.getElementById('fb-rgpd-modal');
+            if (modal) modal.style.display = 'none';
+        }
+        document.getElementById('fb-rgpd-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) closeFbModal();
+        });
+    </script>
 </body>
 </html>
