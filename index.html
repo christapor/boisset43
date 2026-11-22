@@ -47,7 +47,7 @@
             scroll-margin-top: 150px; 
         }
 
-       /* Arrière-plan Parallax (compatible iOS Safari) */
+        /* Arrière-plan Parallax (compatible iOS Safari) */
         #bg-parallax { 
             position: fixed; 
             top: 0; 
@@ -278,6 +278,20 @@
             box-sizing: border-box; 
         }
 
+        /* Texte d'accroche accueil : gris foncé progressif selon l'épaisseur */
+        .accueil-intro {
+            font-size: 1.5rem;
+            color: #4b5563; /* gris foncé pour police fine (300) */
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .accueil-intro strong {
+            color: #111827; /* gris très foncé / anthracite pour police épaisse (800) */
+            font-weight: 800;
+        }
+
         .section-padding { 
             padding: 50px 0; 
             border-bottom: 1px solid #eee; 
@@ -438,29 +452,29 @@
                 border: none !important; 
             }
             
-          .dropdown-menu { 
-    position: static; 
-    transform: none; 
-    background: transparent; 
-    box-shadow: none; 
-    border: none; 
-    padding: 0 0 10px 40px; 
-    display: none; 
-    text-align: left; 
-}
+            .dropdown-menu { 
+                position: static; 
+                transform: none; 
+                background: transparent; 
+                box-shadow: none; 
+                border: none; 
+                padding: 0 0 10px 40px; 
+                display: none; 
+                text-align: left; 
+            }
 
-.nav-item.mobile-open .dropdown-menu {
-    display: block;
-    animation: fadeIn 0.3s ease;
-}
+            .nav-item.mobile-open .dropdown-menu {
+                display: block;
+                animation: fadeIn 0.3s ease;
+            }
 
-.nav-item i { transition: transform 0.3s; }
-.nav-item.mobile-open > a > i { transform: rotate(180deg); }
+            .nav-item i { transition: transform 0.3s; }
+            .nav-item.mobile-open > a > i { transform: rotate(180deg); }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
             
             .dropdown-link { padding: 8px 15px; font-size: 13px; color: #ccc; }
             
@@ -540,7 +554,7 @@
         </div>
     </header>
 
-<nav class="sub-header">
+    <nav class="sub-header">
         <div class="nav-menu" id="mobileMenu">
             <a href="index.html" class="nav-link active" onclick="toggleMenu()">Accueil</a>
             <a href="mairie.html" class="nav-link" onclick="toggleMenu()">Mairie</a>
@@ -573,9 +587,9 @@
         </div>
 
         <main class="container">
-            <p style="font-size: 1.5rem; color: var(--sinople); margin-bottom: 30px; font-weight: 300; text-align: center;">
+            <p class="accueil-intro">
                 Le portail officiel de la commune.<br>
-                <strong style="font-weight: 800;">Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
+                <strong>Nature, Patrimoine et Proximité au cœur de la Haute-Loire.</strong>
             </p>
 
             <div style="margin-top: 60px; text-align: center; border-top: 1px solid #eee; padding-top: 40px;">
@@ -587,7 +601,7 @@
                             <h3 style="color: var(--azur); margin-top: 0; font-family: var(--font-texte) !important; font-size:1.5rem;">Mairie de Boisset</h3>
                             <p>2 Rue du Fournil<br>43500 Boisset</p>
                             <p><strong>Téléphone :</strong> 04 71 61 32 66<br>
-                            <strong>Email :</strong> <a href="mailto:mairie.boisset@orange.fr" style="color: var(--sinople); text-decoration: none; font-weight: bold;">mairie.boisset@orange.fr</a></p>
+                            <strong>Email :</strong> <a href="mailto:mairie.boisset@orange.fr" style="color: #374151; text-decoration: none; font-weight: bold;">mairie.boisset@orange.fr</a></p>
                         </div>
                         
                         <div>
@@ -641,7 +655,7 @@
                         </div>
                     </div>
 
-                   <!-- BLOC FACEBOOK (Lien souverain sans traceur) -->
+                    <!-- BLOC FACEBOOK (Lien souverain sans traceur) -->
                     <div class="actu-card" style="width: 100%; background: #ffffff; border-radius: 8px; border-top: 4px solid #1877F2; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 25px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box;">
                         <h3 style="margin-top: 0; width: 100%; color: #333; font-size: 3rem; border-bottom: 1px solid #eee; padding-bottom: 12px; display: flex; align-items: center; justify-content: center;">
                             <i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 2rem; margin-right: 12px;"></i>
@@ -650,10 +664,9 @@
                         <p style="color: #555; max-width: 550px; margin: 15px auto 25px; line-height: 1.6;">
                             Retrouvez également les albums photos des manifestations, la vie associative et les partages des habitants sur la page officielle du village.
                         </p>
-                       <button type="button" onclick="openFbModal()" style="display: inline-flex; align-items: center; gap: 10px; background: #1877F2; color: white; border: none; cursor: pointer; font-family: inherit; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding: 14px 28px; border-radius: 30px; box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3); transition: transform 0.2s;">
+                        <button type="button" onclick="openFbModal()" style="display: inline-flex; align-items: center; gap: 10px; background: #1877F2; color: white; border: none; cursor: pointer; font-family: inherit; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; padding: 14px 28px; border-radius: 30px; box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3); transition: transform 0.2s;">
                             <i class="fa-brands fa-facebook-f"></i> Consulter la page Facebook
                         </button>
-                    </div>
                     </div>
                 </div>
             </section>
@@ -663,7 +676,7 @@
                     <i class="fa-solid fa-location-dot" style="color: var(--azur); margin-right: 10px;"></i>Où sommes-nous ?
                 </h2>
                 <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); line-height: 0;">
-                 <iframe 
+                    <iframe 
                         src="https://www.openstreetmap.org/export/embed.html?bbox=3.9785%2C45.3215%2C3.9868%2C45.3258&amp;layer=mapnik&amp;marker=45.323649%2C3.982670" 
                         width="100%" 
                         height="450" 
@@ -681,7 +694,7 @@
                 <p style="text-align: center; color: #666; max-width: 600px; margin: 0 auto 30px; padding: 0 20px;">
                     Une suggestion pour améliorer la vie au village ? Partagez votre idée (anonymement ou non) directement avec l'équipe municipale de Boisset.
                 </p>
-               <form action="https://forms.formward.eu/f/b0c968e3-3b00-4c83-928f-19b510270493" method="POST" style="max-width: 600px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px;">
+                <form action="https://forms.formward.eu/f/b0c968e3-3b00-4c83-928f-19b510270493" method="POST" style="max-width: 600px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px;">
                     <input type="hidden" name="_subject" value="Nouvelle idée soumise - Boisset">
                     <input type="hidden" name="_redirect" value="/merci.html">
                     <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
@@ -886,7 +899,7 @@
             if (typeof injectEventsIntoCards === 'function') injectEventsIntoCards();
         });
     </script>
-   <script>
+    <script>
 // --- AJOUTER CE SCRIPT POUR L'ACCORDÉON MOBILE ---
 document.addEventListener('DOMContentLoaded', function() {
     const navItems = document.querySelectorAll('.nav-item');
