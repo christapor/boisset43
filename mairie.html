@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#0055A4">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
@@ -24,7 +24,7 @@
             --menu-h: 50px;
             --accent-red: #ff4757;
             /* Nos deux polices */
-           --font-titres: 'Amatic SC', cursive;
+            --font-titres: 'Amatic SC', cursive;
             --font-texte: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -42,7 +42,17 @@
             font-family: var(--font-titres) !important;
         }
 
-       /* Fond Parallax (compatible iOS Safari) */
+        /* Taille adaptée à Amatic SC pour les sous-titres (notamment Urbanisme & Travaux) */
+        #urbanisme h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--dark);
+            margin-top: 1.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        /* Fond Parallax (compatible iOS Safari) */
         #bg-parallax {
             position: fixed;
             top: 0;
@@ -168,8 +178,7 @@
         .link-card i { font-size: 1.6rem; color: var(--azur); }
         .link-card:hover i { color: var(--sinople); }
 
-         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; background: rgba(248, 248, 248, 0.65); backdrop-filter: blur(10px); border-radius: 20px; box-sizing: border-box; 
-                    }
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; background: rgba(248, 248, 248, 0.65); backdrop-filter: blur(10px); border-radius: 20px; box-sizing: border-box; }
 
         .section-padding { padding: 60px 0 40px; border-bottom: 1px solid #eee; scroll-margin-top: 150px; }
         .section-title { font-size: 4rem; color: var(--dark); margin-bottom: 30px; text-transform: uppercase; font-weight: 900; text-align: center; }
@@ -249,11 +258,11 @@
 
     <nav class="sub-header">
         <div class="nav-menu" id="mobileMenu">
-           <a href="index.html" class="nav-link" onclick="toggleMenu()">Accueil</a>
-<a href="mairie.html" class="nav-link active" onclick="toggleMenu()">Mairie</a>
-<a href="services.html" class="nav-link" onclick="toggleMenu()">Services</a>
-<a href="activites.html" class="nav-link" onclick="toggleMenu()">Activités</a>
-<a href="vie-locale.html" class="nav-link" onclick="toggleMenu()">Vie locale</a>
+            <a href="index.html" class="nav-link" onclick="toggleMenu()">Accueil</a>
+            <a href="mairie.html" class="nav-link active" onclick="toggleMenu()">Mairie</a>
+            <a href="services.html" class="nav-link" onclick="toggleMenu()">Services</a>
+            <a href="activites.html" class="nav-link" onclick="toggleMenu()">Activités</a>
+            <a href="vie-locale.html" class="nav-link" onclick="toggleMenu()">Vie locale</a>
             
             <a href="index.html#boite-idees" class="nav-link nav-link-idea mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-lightbulb" style="margin-right: 5px;"></i>Boîte à Idées</a>
             <a href="https://www.alloboisset.fr" target="_blank" class="nav-link nav-link-allo mobile-only-link" onclick="toggleMenu()"><i class="fa-solid fa-car" style="margin-right: 5px;"></i>AlloBoisset</a>
@@ -270,7 +279,7 @@
         <div class="hero-spacer"></div>
 
         <section class="quick-links">
-           <a href="#elus-agents" class="link-card"><i class="fa-solid fa-users"></i>Élus - Agents</a>
+            <a href="#elus-agents" class="link-card"><i class="fa-solid fa-users"></i>Élus - Agents</a>
             <a href="#conseils" class="link-card"><i class="fa-solid fa-file-signature"></i>Conseils Municipaux</a>
             <a href="#urbanisme" class="link-card"><i class="fa-solid fa-map-location-dot"></i>Urbanisme</a>
             <a href="#etat-civil" class="link-card"><i class="fa-solid fa-id-card"></i>État-Civil</a>
@@ -312,19 +321,18 @@
                 </div>
             </section>
 
-                      <section id="elus" class="section-padding">
-                
+            <section id="elus" class="section-padding">
                 <h2 class="section-title">Vos Élus</h2>
                 <p style="text-align:center; max-width:700px; margin: 0 auto 30px; color:#555;">
                     Le conseil municipal est à votre écoute pour accompagner le quotidien du village et bâtir ensemble les projets de demain.
                 </p>
 
-                               <!-- Photo du Conseil Municipal -->
+                <!-- Photo du Conseil Municipal -->
                 <div class="conseil-photo-container" style="text-align: center; margin: 0 auto 3rem auto; max-width: 900px;">
                     <img src="conseil.webp" alt="L'équipe du conseil municipal de Boisset" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                 </div>
                 
-                                     <!-- 1. Le Maire (Isolé et centré en haut) -->
+                <!-- 1. Le Maire (Isolé et centré en haut) -->
                 <div style="display: flex; justify-content: center; margin-bottom: 30px;">
                     <div class="trombi-card" style="width: 190px; border-color: var(--azur);">
                         <div class="trombi-img"><i class="fa-solid fa-user-tie"></i></div>
@@ -355,8 +363,6 @@
                     <div class="trombi-card" style="width: 190px;"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">Prénom Nom</div><div class="trombi-role">Conseiller</div></div>
                     <div class="trombi-card" style="width: 190px;"><div class="trombi-img"><i class="fa-solid fa-user"></i></div><div class="trombi-name">Prénom Nom</div><div class="trombi-role">Conseiller</div></div>
                 </div>
-
-
             </section>
 
             <section id="agents" class="section-padding">
@@ -384,46 +390,46 @@
             </section>
 
             <!-- Section Urbanisme & Travaux -->
-<section id="urbanisme" class="py-5">
-    <div class="container">
-        <h2 class="text-center mb-4" style="font-family: 'Amatic SC', cursive; font-size: 3rem; font-weight: 700;">Urbanisme & Travaux</h2>
-        <p class="text-center mb-5">Sur cette page, vous trouverez tous les documents et liens afin de consulter ou d'effectuer vos démarches d'urbanisme.</p>
+            <section id="urbanisme" class="py-5">
+                <div class="container">
+                    <h2 class="text-center mb-4" style="font-family: 'Amatic SC', cursive; font-size: 3rem; font-weight: 700;">Urbanisme & Travaux</h2>
+                    <p class="text-center mb-5">Sur cette page, vous trouverez tous les documents et liens afin de consulter ou d'effectuer vos démarches d'urbanisme.</p>
 
-        <!-- Les formulaires et démarches -->
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm p-3">
-                    <h3>Certificat d'urbanisme</h3>
-                    <p>Permet de connaître les règles applicables à un terrain et de vérifier la faisabilité d'un projet.</p>
-                    <a href="https://drive.google.com/uc?id=1hWVyyNOSACWUgUIfUez3TxW3nLZoeJOs&export=download" class="btn btn-primary mt-auto" target="_blank">Télécharger le CERFA (CU)</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm p-3">
-                    <h3>Déclaration préalable</h3>
-                    <p>Concerne les travaux de faible importance (clôtures, abris de jardin, extensions limitées...).</p>
-                    <a href="https://drive.google.com/uc?id=13lk6LfUGj83KS9KR27b5laLXOUwLQ_Ne&export=download" class="btn btn-primary mt-auto" target="_blank">Télécharger le CERFA (DP)</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm p-3">
-                    <h3>Permis de construire</h3>
-                    <p>Obligatoire pour la plupart des constructions nouvelles et grands travaux d'agrandissement.</p>
-                    <a href="https://drive.google.com/uc?id=1NVz9h2GSA-R71botyNPn2xKB6q9D93c4&export=download" class="btn btn-primary mt-auto" target="_blank">Télécharger le CERFA (PC)</a>
-                </div>
-            </div>
-        </div>
+                    <!-- Les formulaires et démarches -->
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm p-3">
+                                <h3>Certificat d'urbanisme</h3>
+                                <p>Permet de connaître les règles applicables à un terrain et de vérifier la faisabilité d'un projet.</p>
+                                <a href="https://drive.google.com/uc?id=1hWVyyNOSACWUgUIfUez3TxW3nLZoeJOs&export=download" class="btn btn-primary mt-auto" target="_blank">Télécharger le CERFA (CU)</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm p-3">
+                                <h3>Déclaration préalable</h3>
+                                <p>Concerne les travaux de faible importance (clôtures, abris de jardin, extensions limitées...).</p>
+                                <a href="https://drive.google.com/uc?id=13lk6LfUGj83KS9KR27b5laLXOUwLQ_Ne&export=download" class="btn btn-primary mt-auto" target="_blank">Télécharger le CERFA (DP)</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm p-3">
+                                <h3>Permis de construire</h3>
+                                <p>Obligatoire pour la plupart des constructions nouvelles et grands travaux d'agrandissement.</p>
+                                <a href="https://drive.google.com/uc?id=1NVz9h2GSA-R71botyNPn2xKB6q9D93c4&export=download" class="btn btn-primary mt-auto" target="_blank">Télécharger le CERFA (PC)</a>
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- Instructions et SGEV -->
-        <div class="mt-5 p-4 bg-light rounded">
-            <h3>Instruction des dossiers</h3>
-            <p>Le <strong>PETR de la Jeune Loire</strong> assure l'instruction des demandes d'urbanisme pour le compte de la commune. Les dossiers sont déposés en mairie puis examinés par le service instructeur.</p>
-            
-            <h3 class="mt-4">L'Eau & l'Assainissement</h3>
-            <p>Le <strong>SGEV</strong> assure la gestion des services d'eau potable et d'assainissement. Pour toute question concernant votre abonnement ou votre facture, contactez directement le SGEV (<a href="https://www.sgev.fr" target="_blank">www.sgev.fr</a>).</p>
-        </div>
-    </div>
-</section>
+                    <!-- Instructions et SGEV -->
+                    <div class="mt-5 p-4 bg-light rounded">
+                        <h3>Instruction des dossiers</h3>
+                        <p>Le <strong>PETR de la Jeune Loire</strong> assure l'instruction des demandes d'urbanisme pour le compte de la commune. Les dossiers sont déposés en mairie puis examinés par le service instructeur.</p>
+                        
+                        <h3 class="mt-4">L'Eau & l'Assainissement</h3>
+                        <p>Le <strong>SGEV</strong> assure la gestion des services d'eau potable et d'assainissement. Pour toute question concernant votre abonnement ou votre facture, contactez directement le SGEV (<a href="https://www.sgev.fr" target="_blank">www.sgev.fr</a>).</p>
+                    </div>
+                </div>
+            </section>
 
         </main>
 
